@@ -1,0 +1,66 @@
+@charset "UTF-8";
+	#article1{
+		float: left;
+		text-align: center;
+	}
+	#article2{
+		padding-top:15px;
+		margin-top: 50px;
+		text-align: center;
+	}
+	#article3{
+		margin : 30px 0;
+		text-align: center;
+	}
+	#notice{
+		margin: 10px 0px;
+		display: grid;
+		
+	}
+	#notice tr{
+		height: 30px;
+	}
+
+	#noticeDate{
+		text-align: center;
+	}
+	#noticeTitle{
+		padding-left: 10px;
+	}
+	
+	/*  */
+	
+	.filebox label {
+  display: inline-block;
+  padding: .5em .75em;
+  color: #fff;
+  font-size: inherit;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: #5cb85c;
+  cursor: pointer;
+  border: 1px solid #4cae4c;
+  border-radius: .25em;
+  -webkit-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+}
+
+.filebox label:hover {
+  background-color: #6ed36e;
+}
+
+.filebox label:active {
+  background-color: #367c36;
+}
+
+.filebox input[type="file"] {
+  position: absolute;
+   width: 100px;
+  height:  20px;
+  padding: 0;
+  /* margin: -1px; */
+  overflow: hidden; 
+  clip: rect(0, 0, 0, 0);
+  border: 0; 
+}
+	
