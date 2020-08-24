@@ -11,7 +11,7 @@ import member.model.service.MemberService;
 import member.model.vo.Member;
 
 
-@WebServlet("/login.me")
+@WebServlet("/testLogin.me")
 public class TestLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
