@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-순서는 패치하고 풀
+순서는 커밋하고 패치하고 풀
 </body>
 </html>
