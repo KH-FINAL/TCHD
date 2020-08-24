@@ -177,6 +177,7 @@ public class MemberDAO {
 			if(rset.next()) {
 				member = new Member(
 							rset.getInt("MEM_NO"),
+							rset.getString("MEM_PW"),
 							rset.getString("MEM_NAME"),
 							rset.getString("MEM_PHONE"),
 							rset.getString("MEM_ADDR"),
@@ -232,6 +233,25 @@ public class MemberDAO {
 		}
 		return result;
 		
+		
+	}
+
+	public int updateMemberGm(Connection conn, Member member) {
+		PreparedStatement pstmt= null;
+		int result = 0;
+		
+		try {
+			pstmt=conn.prepareStatement(prop.getProperty("updateMemberGm"));
+			pstmt.setString(1, member.getGm_regno());
+			pstmt.setString(2, member.getGm_name());
+			pstmt.setInt(3, member.getMem_no());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
 		
 	}
 

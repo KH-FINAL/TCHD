@@ -76,10 +76,11 @@ public class Member {
 
 
 
-	public Member(int mem_no, String mem_name, String mem_phone, String mem_addr, String mem_email, String gm_regno,
+	public Member(int mem_no,String mem_pw ,String mem_name, String mem_phone, String mem_addr, String mem_email, String gm_regno,
 			String gm_name) {
 		super();
 		this.mem_no = mem_no;
+		this.mem_pw= mem_pw;
 		this.mem_name = mem_name;
 		this.mem_phone = mem_phone;
 		this.mem_addr = mem_addr;
@@ -90,9 +91,10 @@ public class Member {
 
 
 
-	public Member(String mem_type, String mem_id, String mem_pw, String mem_name, String mem_phone, String mem_addr,
+	public Member(int mem_no, String mem_type, String mem_id, String mem_pw, String mem_name, String mem_phone, String mem_addr,
 			String mem_email, String gm_regno, String gm_name) {
 		super();
+		this.mem_no = mem_no;
 		this.mem_type = mem_type;
 		this.mem_id = mem_id;
 		this.mem_pw = mem_pw;

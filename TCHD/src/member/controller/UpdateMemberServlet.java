@@ -43,14 +43,18 @@ public class UpdateMemberServlet extends HttpServlet {
 		String emailTotal = email+"@"+email2;
 		
 		String birth = request.getParameter("userBirth");  // 개인회원
-		String[] birthArr= birth.split("-");
-		int year =Integer.parseInt(birthArr[0]);
-		int month=Integer.parseInt(birthArr[1])-1;
-		int day= Integer.parseInt(birthArr[2]);
-		Date birth2 = new Date(new GregorianCalendar(year,month,day).getTimeInMillis());
+		String[] birthArr = null;
+		Date birth2 = null;
+		if(birth!=null) {
+			birthArr= birth.split("-");			
+			int year =Integer.parseInt(birthArr[0]);
+			int month=Integer.parseInt(birthArr[1])-1;
+			int day= Integer.parseInt(birthArr[2]);
+			birth2 = new Date(new GregorianCalendar(year,month,day).getTimeInMillis());
+		}
 		
-		String gmname = request.getParameter("joinGmName");  // 단체회원
-		String regno = request.getParameter("joinRegNo");
+		String gmname = request.getParameter("userGmName");  // 단체회원
+		String regno = request.getParameter("userRegNo");
 		
 		String id = ((Member)request.getSession().getAttribute("loginUser")).getMem_id();
 		String memberType = ((Member)request.getSession().getAttribute("loginUser")).getMem_type();
@@ -72,7 +76,21 @@ public class UpdateMemberServlet extends HttpServlet {
 				request.getRequestDispatcher("index.jsp").forward(request, response);
 			}
 			
-		}else {
+		}else {  //단체회원일 경우
+			if(!pwd.equals("")) {   // 비밀번호까지 수정할 경우
+				member = new Member(no,memberType,id,pwd,name,phone,addressTotal,emailTotal,regno,gmname);		
+			}else {   // 비밀번호는 수정하지 않을 경우
+				member = new Member(no,memberType,id,pwd_ori,name,phone,addressTotal,emailTotal,regno,gmname);		
+			}
+			int result  = new MemberService().updateMemberGm(member);
+			
+			if(result>0) {
+				response.sendRedirect("myPage.me");
+			}else {
+				request.setAttribute("errorMsg", "회원정보 수정 중 에러가 발생하였습니다.");
+				request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
+				request.getRequestDispatcher("index.jsp").forward(request, response);
+			}
 			
 		}
 		

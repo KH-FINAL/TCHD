@@ -82,9 +82,34 @@ public class MemberService {
 		int result = mDAO.updateMember(conn, member);		
 		
 		if(result>0) {
-			commit(conn);
-			mDAO.updateMemberPm(conn, member);
+			
+			int result2 = mDAO.updateMemberPm(conn, member);
+			if(result2>0) {				
+				commit(conn);
+			}
 		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int updateMemberGm(Member member) {
+		Connection conn = getConnection();
+		
+		MemberDAO mDAO = new MemberDAO();
+		
+		int result = mDAO.updateMember(conn, member);
+		
+		if(result>0) {
+			int result2 = mDAO.updateMemberGm(conn,member);
+			if(result2>0) {
+				commit(conn);
+			}
+		}else {
+			
 			rollback(conn);
 		}
 		

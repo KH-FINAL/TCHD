@@ -58,7 +58,7 @@ public class JoinMemberServlet extends HttpServlet {
 		if(memberType.equals("PM")) {
 			member = new Member(0,memberType,id,pwd,name,tel,addressTotal,emailTotal,birth2);
 		}else {
-			member = new Member(memberType,id,pwd,name,tel,addressTotal,emailTotal,gmname,regno);
+			member = new Member(0,memberType,id,pwd,name,tel,addressTotal,emailTotal,gmname,regno);
 		}
 		
 		int result=new MemberService().insertMember(member);

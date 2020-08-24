@@ -178,6 +178,12 @@
 			var name= $('.inputName');	
 			var joinEmail2 = $(".joinEmail2").val();
 			
+			if(pwd.val().trim().length<8 && pwd.val().trim().length>1){
+				alert("비밀번호는 8자리 이상 입력해주세요.");
+				pwd.focus();
+				return false;
+			}
+			
 			if(pwd.val().trim()!=pwd2.val().trim()){
 				alert("비밀번호가 일치하지 않습니다.");
 				pwd2.focus();
