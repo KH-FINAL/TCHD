@@ -34,11 +34,12 @@
 #joinCompleteDiv{
 	background-color: rgb(224, 224, 224);
 	padding: 70px 100px 70px 100px;
-	margin: 70px auto 192px;
+	margin: 70px auto 185px;
 	font-size: 20px;
 	width: 500px;
 	text-align: center;
 	border-top: 3px solid rgb(41, 128, 185);
+	border-radius: 10px;
 }
 #joinCompleteDiv p{
 	margin: 30px 0;

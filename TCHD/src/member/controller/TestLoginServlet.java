@@ -12,10 +12,10 @@ import member.model.vo.Member;
 
 
 @WebServlet("/login.me")
-public class LoginServlet extends HttpServlet {
+public class TestLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public LoginServlet() {
+    public TestLoginServlet() {
         super();
     }
 

@@ -17,7 +17,7 @@ public class LoginFormServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("section", "WEB-INF/views/member/login.jsp");
+		request.setAttribute("section", "WEB-INF/views/test/login.jsp");
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 

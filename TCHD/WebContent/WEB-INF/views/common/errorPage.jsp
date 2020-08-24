@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="css/myPage_confirmPw.css" type="text/css">
 </head>
 <body>
 <section>
