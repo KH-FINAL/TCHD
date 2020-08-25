@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet {
 			// Session이 기본적으로 갖는 유효 시간은 30분!
 			request.setAttribute("section", "WEB-INF/views/common/main.jsp");
 			response.sendRedirect(request.getContextPath());
-		}else {
+		} else {
 			request.setAttribute("errorMsg", "로그인에 실패하였습니다.");
 			request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
 			request.getRequestDispatcher("index.jsp").forward(request, response);

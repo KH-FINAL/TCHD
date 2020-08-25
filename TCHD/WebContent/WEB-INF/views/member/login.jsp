@@ -8,7 +8,7 @@
 <body>
 	<section>
 		<div id="login_div">
-			<form method="post" action="testLogin.me">
+			<form method="post" action="login.me" onsubmit="return validate();">
 				<div id="login_title">Login</div>
 				
 				<br><br>
@@ -36,17 +36,40 @@
 				<br><br>
 				
 				<div id="login_button_div">
-					<button id="login_button" onclick="login();">로그인</button>
+					<button id="login_button"">로그인</button>
 				</div>
 				
 				<br><br>
 				
 				<div id="login_signUp_div">
-					<label>아직 회원이 아니신가요?&nbsp;&nbsp;</label> <a href="#">회원가입</a>
+					<label>아직 회원이 아니신가요?&nbsp;&nbsp;</label> <a href="joinForm.me">회원가입</a>
 					<!-- !!!!!회원가입 링크 설정해야 함!!!!! -->
 				</div>
 			</form>
 		</div>
+		
+		<script>
+			function validate(){
+				var id = $("#input_id");
+				var pwd = $("#input_pw");
+				
+				if(id.val().trim().length == 0){
+					alert("아이디를 입력해주세요.");
+					id.focus();
+					
+					return false;
+				}
+				
+				if(pwd.val().trim().length == 0){
+					alert("비밀번호를 입력해주세요.");
+					pwd.focus();
+					
+					return false;
+				}
+				
+				return true;
+			}
+		</script>
 	</section>
 </body>
 </html>

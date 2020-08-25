@@ -73,14 +73,17 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Member loginUser = null;
+		
+		String query = prop.getProperty("loginMember");
+		
 		try {
-			pstmt=conn.prepareStatement(prop.getProperty("loginMember"));
+			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, member.getMem_id());
 			pstmt.setString(2, member.getMem_pw());
-			rset=pstmt.executeQuery();
+			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				loginUser=new Member(
+				loginUser = new Member(
 						rset.getString("MEM_TYPE"),
 						rset.getString("MEM_ID"),
 						rset.getString("MEM_NAME")
