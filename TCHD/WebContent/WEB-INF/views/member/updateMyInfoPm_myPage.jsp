@@ -3,7 +3,10 @@
     pageEncoding="UTF-8"%>
 <%
 	Member member = (Member)request.getAttribute("member");
-
+	String updateCheck = (String)request.getAttribute("updateCheck");
+	if(updateCheck==null){
+		updateCheck="false";
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -11,6 +14,8 @@
 <link rel="stylesheet" href="css/join.css" type="text/css">
 <link rel="stylesheet" href="css/nav.css" type="text/css">
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 </head>
 <body>
 <section>
@@ -95,12 +100,17 @@
 	$(function(){
 		var emailSelect_Ori = '<%=emailArr[1]%>';
 		$('#email2').val(emailSelect_Ori);
+		
+		var updateCheck = '<%=updateCheck %>';
+		if(updateCheck!="false"){
+			swal("","회원정보가 수정되었습니다.","success");
+		}
 
 		///////////////////////////////////////////////////////////////////
 		$(".inputPwd").on("keyup",function(){  // 비밀번호는 영어소문자와 숫자만 입력가능
 		
 			var inputPwd = $('.inputPwd').val();
-			inputPwd = inputPwd.replace(/[^a-z0-9]/g,'');
+			inputPwd = inputPwd.replace(/[^a-z0-9~!@#$%^&*()_+|<>?:{}]/g,'');
 			$('.inputPwd').val(inputPwd);
 			
 		});
@@ -108,7 +118,7 @@
 		$(".inputPwd2").on("keyup",function(){  // 비밀번호 확인은 영어소문자와 숫자만 입력가능
 			
 			var inputPwd2 = $('.inputPwd2').val();
-			inputPwd2 = inputPwd2.replace(/[^a-z0-9]/g,'');
+			inputPwd2 = inputPwd2.replace(/[^a-z0-9~!@#$%^&*()_+|<>?:{}]/g,'');
 			$('.inputPwd2').val(inputPwd2);
 			
 		});

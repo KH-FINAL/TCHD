@@ -33,7 +33,7 @@ $(function(){
 	$(".inputId").on("keyup",function(){  // 아이디는 영어소문자와 숫자만 입력가능
 		if(checkForm=="PM"){
 			var inputId = $("#joinForm_private").find('.inputId').val();
-			inputId = inputId.replace(/[^a-z0-9]/g,'');
+			inputId = inputId.replace(/[^a-z0-9~!@#$%^&*()_+|<>?:{}]/g,'');
 			$("#joinForm_private").find('.inputId').val(inputId);
 		}else{
 			var inputId = $("#joinForm_group").find('.inputId').val();
@@ -45,11 +45,11 @@ $(function(){
 	$(".inputPwd").on("keyup",function(){  // 비밀번호는 영어소문자와 숫자만 입력가능
 		if(checkForm=="PM"){
 			var inputPwd = $("#joinForm_private").find('.inputPwd').val();
-			inputPwd = inputPwd.replace(/[^a-z0-9]/g,'');
+			inputPwd = inputPwd.replace(/[^a-z0-9~!@#$%^&*()_+|<>?:{}]/g,'');
 			$("#joinForm_private").find('.inputPwd').val(inputPwd);
 		}else{
 			var inputPwd = $("#joinForm_group").find('.inputPwd').val();
-			inputPwd = inputPwd.replace(/[^a-z0-9]/g,'');
+			inputPwd = inputPwd.replace(/[^a-z0-9~!@#$%^&*()_+|<>?:{}]/g,'');
 			$("#joinForm_group").find('.inputPwd').val(inputPwd);
 		}
 	});
@@ -58,11 +58,11 @@ $(function(){
 	$(".inputPwd2").on("keyup",function(){  // 비밀번호 확인은 영어소문자와 숫자만 입력가능
 		if(checkForm=="PM"){
 			var inputPwd2 = $("#joinForm_private").find('.inputPwd2').val();
-			inputPwd2 = inputPwd2.replace(/[^a-z0-9]/g,'');
+			inputPwd2 = inputPwd2.replace(/[^a-z0-9~!@#$%^&*()_+|<>?:{}]/g,'');
 			$("#joinForm_private").find('.inputPwd2').val(inputPwd2);
 		}else{
 			var inputPwd2 = $("#joinForm_group").find('.inputPwd2').val();
-			inputPwd2 = inputPwd2.replace(/[^a-z0-9]/g,'');
+			inputPwd2 = inputPwd2.replace(/[^a-z0-9~!@#$%^&*()_+|<>?:{}]/g,'');
 			$("#joinForm_group").find('.inputPwd2').val(inputPwd2);
 		}
 	});

@@ -69,7 +69,10 @@ public class UpdateMemberServlet extends HttpServlet {
 			int result  = new MemberService().updateMemberPm(member);
 			
 			if(result>0) {
-				response.sendRedirect("myPage.me");
+				request.setAttribute("member",member);
+				request.setAttribute("updateCheck", "true");
+				request.setAttribute("section", "WEB-INF/views/member/updateMyInfoPm_myPage.jsp");
+				request.getRequestDispatcher("index.jsp").forward(request, response);	
 			}else {
 				request.setAttribute("errorMsg", "회원정보 수정 중 에러가 발생하였습니다.");
 				request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
@@ -85,7 +88,10 @@ public class UpdateMemberServlet extends HttpServlet {
 			int result  = new MemberService().updateMemberGm(member);
 			
 			if(result>0) {
-				response.sendRedirect("myPage.me");
+				request.setAttribute("member",member);
+				request.setAttribute("updateCheck", "true");
+				request.setAttribute("section", "WEB-INF/views/member/updateMyInfoGm_myPage.jsp");
+				request.getRequestDispatcher("index.jsp").forward(request, response);
 			}else {
 				request.setAttribute("errorMsg", "회원정보 수정 중 에러가 발생하였습니다.");
 				request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");

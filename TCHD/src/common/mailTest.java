@@ -67,7 +67,7 @@ public class mailTest extends HttpServlet {
 	          session.setDebug(true); // for debug
 	          Message mimeMessage = new MimeMessage(session);
 	          mimeMessage.setFrom(new InternetAddress(sendEmailAddress));
-	          mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress("oporingo@naver.com"));
+	          mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress("oporingo@naver.com"));  // 받는 사람 메일주소 입력
 	          mimeMessage.setSubject(subject);
 	          mimeMessage.setText(content);
 	          Transport.send(mimeMessage);

@@ -13,8 +13,8 @@
 			<ul id="pageNavi"> 
 				<li id="pageNaviTitle"><a href="myPage.me">마이페이지</a></li>
 				<li><a href="myPage.me">회원정보수정</a></li>
-				<li><a href="#">내가 작성한 글</a></li>
-				<li><a href="#">참여 봉사 내역</a></li>
+				<li><a href="listMyBoard.bo">내가 작성한 글</a></li>
+				<li><a href="listMyVoluteer.vo">참여 봉사 내역</a></li>
 				<li><a href="#">회원 탈퇴</a></li>
 			</ul>
 		</nav>

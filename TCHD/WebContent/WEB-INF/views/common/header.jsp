@@ -37,9 +37,9 @@
      });
      
      $('.naviDetail_li').hover(function(){
-    	 $(this).children().css("visibility",'visible');
+    	 $(this).find('.menuBar').css("visibility",'visible');
      }, function(){
-    	 $(this).children().css("visibility",'hidden');
+    	 $(this).find('.menuBar').css("visibility",'hidden');
      })
  });
 </script>
@@ -58,23 +58,22 @@
 			<div id="title"><a href="<%=request.getContextPath() %>"><img alt="로고" src="images/pets(1).png"> 함께하묘 행복하개</a></div>
 			<div id="navi">
 				<ul class="naviDetail_ul" >
-						<li class="naviDetail_li">사이트소개</li>
-						<li class="naviDetail_li">참여하기<ul id="menuBar1" class="menuBar">
+						<li class="naviDetail_li"><a href="#">사이트소개</a></li>
+						<li class="naviDetail_li"><a href="#">참여하기</a><ul id="menuBar1" class="menuBar">
 								<li><a href="#">입양</a></li>
 								<li><a href="#">봉사</a></li>
 							</ul>
 						</li>
-						<li class="naviDetail_li" >후원하기<ul id="menuBar2" class="menuBar">
+						<li class="naviDetail_li"><a href="#">후원하기</a><ul id="menuBar2" class="menuBar">
 								<li><a href="#">후원</a></li>
 								<li><a href="#">후원내역 확인</a></li>
 							</ul>
 						</li>
-						<li class="naviDetail_li">정보마당<ul id="menuBar3" class="menuBar">
+						<li class="naviDetail_li"><a href="#">정보마당</a><ul id="menuBar3" class="menuBar">
 							<li><a href="#">공지사항</a></li>
 							<li><a href="#">동물병원</a></li>
 						</ul ></li>
-						<li class="naviDetail_li">고객센터
-							<ul id="menuBar4" class="menuBar">
+						<li class="naviDetail_li"><a href="#">고객센터</a><ul id="menuBar4" class="menuBar">
 								<li><a href="#">문의게시판</a></li>
 							</ul>
 							</li>
