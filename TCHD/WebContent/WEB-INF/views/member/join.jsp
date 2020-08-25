@@ -37,7 +37,7 @@ $(function(){
 			$("#joinForm_private").find('.inputId').val(inputId);
 		}else{
 			var inputId = $("#joinForm_group").find('.inputId').val();
-			inputId = inputId.replace(/[^a-zA-Z0-9]/g,'');
+			inputId = inputId.replace(/[^a-z0-9]/g,'');
 			$("#joinForm_group").find('.inputId').val(inputId);
 		}
 	});
@@ -49,7 +49,7 @@ $(function(){
 			$("#joinForm_private").find('.inputPwd').val(inputPwd);
 		}else{
 			var inputPwd = $("#joinForm_group").find('.inputPwd').val();
-			inputPwd = inputPwd.replace(/[^a-zA-Z0-9]/g,'');
+			inputPwd = inputPwd.replace(/[^a-z0-9]/g,'');
 			$("#joinForm_group").find('.inputPwd').val(inputPwd);
 		}
 	});
@@ -62,7 +62,7 @@ $(function(){
 			$("#joinForm_private").find('.inputPwd2').val(inputPwd2);
 		}else{
 			var inputPwd2 = $("#joinForm_group").find('.inputPwd2').val();
-			inputPwd2 = inputPwd2.replace(/[^a-zA-Z0-9]/g,'');
+			inputPwd2 = inputPwd2.replace(/[^a-z0-9]/g,'');
 			$("#joinForm_group").find('.inputPwd2').val(inputPwd2);
 		}
 	});
@@ -205,7 +205,8 @@ $(function(){
 		if(checkForm=="PM"){
 			var inputId=$('#joinForm_private').find('.inputId').val();
 			if(inputId.trim()==""){
-				alert("아이디를 입력해주세요.");
+				swal("","아이디를 입력해주세요","info")
+				//alert("아이디를 입력해주세요.");
 				$('#joinForm_private').find('.inputId').focus();
 			}else{
 				$.ajax({
@@ -231,7 +232,8 @@ $(function(){
 			var inputId=$('#joinForm_group').find('.inputId').val();
 			console.log(inputId);
 			if(inputId==""){
-				alert("아이디를 입력해주세요.");
+				swal("","아이디를 입력해주세요","info")
+				//alert("아이디를 입력해주세요.");
 				$('#joinForm_group').find('.inputId').focus();
 			}else{
 				$.ajax({
@@ -239,10 +241,12 @@ $(function(){
 					data: {inputId:inputId},
 					success: function(data){
 						if(data==1){
-							alert("중복되는 아이디가 있습니다.")
+							swal("아이디 중복 확인", "중복되는 아이디가 있습니다.", "warning");
+							//alert("중복되는 아이디가 있습니다.")
 							$('#joinForm_group').find('#checkId_hidden').val("false");
 						}else{
-							alert("이 아이디는 사용가능합니다.")
+							swal("아이디 중복 확인", "이 아이디는 사용가능합니다.", "success");
+							//alert("이 아이디는 사용가능합니다.")
 							$('#joinForm_group').find('#checkId_hidden').val("true");
 						}	
 					},
@@ -485,7 +489,7 @@ QR코드 등록 정보:삭제 시점으로부터6개월 보관
 				</tr>
 			</table>
 		</form>
-		
+		<!-----------------------------------------------------------------------------------------------  -->
 		<form id="joinForm_group" class="joinForm" method="post" action="join.me" onsubmit="return checkSubmit();">
 	      	<table>
 				<tr id="top_tr">

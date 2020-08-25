@@ -24,7 +24,7 @@ public class UpdateMemberServlet extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+
 		int no = Integer.parseInt(request.getParameter("userNo"));
 		String name = request.getParameter("userName");
 		String pwd_ori = request.getParameter("originalPwd");		

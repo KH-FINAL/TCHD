@@ -31,7 +31,6 @@ public class CheckIdServlet extends HttpServlet {
 		String inputId = request.getParameter("inputId");
 		
 		int result = new MemberService().checkId(inputId);
-		response.setCharacterEncoding("UTF-8");
 		if(result>0) {  // 중복되는 아이디가 있을 경우
 			response.getWriter().println("1");
 		}else {

@@ -35,6 +35,12 @@
              scrollTop : 0
          }, 400);
      });
+     
+     $('.naviDetail_li').hover(function(){
+    	 $(this).children().css("visibility",'visible');
+     }, function(){
+    	 $(this).children().css("visibility",'hidden');
+     })
  });
 </script>
 </head>
@@ -51,17 +57,31 @@
 		<div id="topDiv">
 			<div id="title"><a href="<%=request.getContextPath() %>"><img alt="로고" src="images/pets(1).png"> 함께하묘 행복하개</a></div>
 			<div id="navi">
-				<ul>
-						<li>사이트소개</li>
-						<li>참여하기</li>
-						<li>후원하기</li>
-						<li>정보마당</li>
-						<li>고객센터</li>
+				<ul class="naviDetail_ul" >
+						<li class="naviDetail_li">사이트소개</li>
+						<li class="naviDetail_li">참여하기<ul id="menuBar1" class="menuBar">
+								<li><a href="#">입양</a></li>
+								<li><a href="#">봉사</a></li>
+							</ul>
+						</li>
+						<li class="naviDetail_li" >후원하기<ul id="menuBar2" class="menuBar">
+								<li><a href="#">후원</a></li>
+								<li><a href="#">후원내역 확인</a></li>
+							</ul>
+						</li>
+						<li class="naviDetail_li">정보마당<ul id="menuBar3" class="menuBar">
+							<li><a href="#">공지사항</a></li>
+							<li><a href="#">동물병원</a></li>
+						</ul ></li>
+						<li class="naviDetail_li">고객센터
+							<ul id="menuBar4" class="menuBar">
+								<li><a href="#">문의게시판</a></li>
+							</ul>
+							</li>
 				</ul>
 			</div>
 		</div>
 	</div>
-	
 	<div id="remoteDiv">   <!-- 리모컨 -->
 		<img src="images/pets(1).png" >
 		<img src="images/pets(1).png" >
