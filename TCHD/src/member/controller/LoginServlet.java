@@ -11,26 +11,26 @@ import member.model.service.MemberService;
 import member.model.vo.Member;
 
 
-@WebServlet("/testLogin.me")
-public class TestLoginServlet extends HttpServlet {
+@WebServlet("/login.me")
+public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public TestLoginServlet() {
+    public LoginServlet() {
         super();
     }
 
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String id = request.getParameter("id");
-		String pwd = request.getParameter("pwd");
+		String userId = request.getParameter("userId");
+		String userPwd = request.getParameter("userPwd");
 		
-		Member member = new Member(id,pwd);
+		Member member = new Member(userId,userPwd);
 		
 		Member loginUser = new MemberService().login(member);
 		
 		if(loginUser!=null) {
 			request.getSession().setAttribute("loginUser", loginUser);
+			// Session이 기본적으로 갖는 유효 시간은 30분!
 			request.setAttribute("section", "WEB-INF/views/common/main.jsp");
 			response.sendRedirect(request.getContextPath());
 		}else {
@@ -40,9 +40,7 @@ public class TestLoginServlet extends HttpServlet {
 		}
 	}
 
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
-
 }
