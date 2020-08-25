@@ -2,22 +2,24 @@ package board.model.vo;
 
 import java.util.Date;
 
-public class Adopt {
-	private int boNo;
-	private String petKinds;
-	private String petCategory;
-	private String petGender;
-	private String petName;
-	private String petAge;
-	private Date petRescueDate;
-	private String petUnigender;
-	private float petWeight;
-	private String petColor;
-	private String petSize;
-	private String petComment;
+public class Adopt {	// 입양게시판
+	private int boNo;				// 게시판 번호
+	private String petKinds;		// 동물 구분(개, 고양이)
+	private String petCategory;		// 동물 품종
+	private String petGender;		// 성별
+	private String petUnigender;	// 중성화여부
+	private String petName;			// 이름
+	private String petAge;			// 나이
+	private Date petRescueDate;		// 구조일시	-> adopt_detail에 추가
+	private float petWeight;		// 몸무게
+	private String petColor;		// 색깔
+	private String petSize;			// 크기
+	private String petComment;		// 하고 싶은 말
+	private String adoptYn;			// 입양 여부	-> N : 미입양상태(default),  Y : 입양상태(게시판에서 안보임)
 	
+	// 입양게시판 목록
 	public Adopt(int boNo, String petKinds, String petCategory, String petGender, String petName, String petAge,
-			Date petRescueDate, float petWeight, String petColor, String petSize) {
+			float petWeight, String petColor, String petSize, String adoptYn) {
 		super();
 		this.boNo = boNo;
 		this.petKinds = petKinds;
@@ -25,28 +27,29 @@ public class Adopt {
 		this.petGender = petGender;
 		this.petName = petName;
 		this.petAge = petAge;
-		this.petRescueDate = petRescueDate;
 		this.petWeight = petWeight;
 		this.petColor = petColor;
 		this.petSize = petSize;
+		this.adoptYn = adoptYn;
 	}
 
-	public Adopt(int boNo, String petKinds, String petCategory, String petGender, String petName, String petAge,
-			Date petRescueDate, String petUnigender, float petWeight, String petColor, String petSize,
-			String petComment) {
+	public Adopt(int boNo, String petKinds, String petCategory, String petGender, String petUnigender, String petName,
+			String petAge, Date petRescueDate, float petWeight, String petColor, String petSize, String petComment,
+			String adoptYn) {
 		super();
 		this.boNo = boNo;
 		this.petKinds = petKinds;
 		this.petCategory = petCategory;
 		this.petGender = petGender;
+		this.petUnigender = petUnigender;
 		this.petName = petName;
 		this.petAge = petAge;
 		this.petRescueDate = petRescueDate;
-		this.petUnigender = petUnigender;
 		this.petWeight = petWeight;
 		this.petColor = petColor;
 		this.petSize = petSize;
 		this.petComment = petComment;
+		this.adoptYn = adoptYn;
 	}
 
 	public int getBoNo() {
@@ -81,6 +84,14 @@ public class Adopt {
 		this.petGender = petGender;
 	}
 
+	public String getPetUnigender() {
+		return petUnigender;
+	}
+
+	public void setPetUnigender(String petUnigender) {
+		this.petUnigender = petUnigender;
+	}
+
 	public String getPetName() {
 		return petName;
 	}
@@ -103,14 +114,6 @@ public class Adopt {
 
 	public void setPetRescueDate(Date petRescueDate) {
 		this.petRescueDate = petRescueDate;
-	}
-
-	public String getPetUnigender() {
-		return petUnigender;
-	}
-
-	public void setPetUnigender(String petUnigender) {
-		this.petUnigender = petUnigender;
 	}
 
 	public float getPetWeight() {
@@ -145,12 +148,20 @@ public class Adopt {
 		this.petComment = petComment;
 	}
 
+	public String getAdoptYn() {
+		return adoptYn;
+	}
+
+	public void setAdoptYn(String adoptYn) {
+		this.adoptYn = adoptYn;
+	}
+
 	@Override
 	public String toString() {
 		return "Adopt [boNo=" + boNo + ", petKinds=" + petKinds + ", petCategory=" + petCategory + ", petGender="
-				+ petGender + ", petName=" + petName + ", petAge=" + petAge + ", petRescueDate=" + petRescueDate
-				+ ", petUnigender=" + petUnigender + ", petWeight=" + petWeight + ", petColor=" + petColor
-				+ ", petSize=" + petSize + ", petComment=" + petComment + "]";
+				+ petGender + ", petUnigender=" + petUnigender + ", petName=" + petName + ", petAge=" + petAge
+				+ ", petRescueDate=" + petRescueDate + ", petWeight=" + petWeight + ", petColor=" + petColor
+				+ ", petSize=" + petSize + ", petComment=" + petComment + ", adoptYn=" + adoptYn + "]";
 	}
 	
 } // class end

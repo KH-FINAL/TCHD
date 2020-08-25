@@ -3,6 +3,9 @@ package board.model.dao;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
 public class BoardDAO {
@@ -20,6 +23,19 @@ public class BoardDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public ArrayList selectBList(Connection conn) {
+		Statement stmt = null;
+		
+		
+		
+		return null;
+	}
+
+	public ArrayList selectFList(Connection conn) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
