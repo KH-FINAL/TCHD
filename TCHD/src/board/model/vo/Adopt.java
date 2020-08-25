@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class Adopt {	// 입양게시판
 	private int boNo;				// 게시판 번호
+	private int boType;				// 게시판 분류번호
 	private String petKinds;		// 동물 구분(개, 고양이)
 	private String petCategory;		// 동물 품종
 	private String petGender;		// 성별
@@ -18,10 +19,11 @@ public class Adopt {	// 입양게시판
 	private String adoptYn;			// 입양 여부	-> N : 미입양상태(default),  Y : 입양상태(게시판에서 안보임)
 	
 	// 입양게시판 목록
-	public Adopt(int boNo, String petKinds, String petCategory, String petGender, String petName, String petAge,
+	public Adopt(int boNo, int boType, String petKinds, String petCategory, String petGender, String petName, String petAge,
 			float petWeight, String petColor, String petSize, String adoptYn) {
 		super();
 		this.boNo = boNo;
+		this.boType = boType;
 		this.petKinds = petKinds;
 		this.petCategory = petCategory;
 		this.petGender = petGender;
@@ -33,11 +35,12 @@ public class Adopt {	// 입양게시판
 		this.adoptYn = adoptYn;
 	}
 
-	public Adopt(int boNo, String petKinds, String petCategory, String petGender, String petUnigender, String petName,
+	public Adopt(int boNo, int boType, String petKinds, String petCategory, String petGender, String petUnigender, String petName,
 			String petAge, Date petRescueDate, float petWeight, String petColor, String petSize, String petComment,
 			String adoptYn) {
 		super();
 		this.boNo = boNo;
+		this.boType = boType;
 		this.petKinds = petKinds;
 		this.petCategory = petCategory;
 		this.petGender = petGender;
@@ -58,6 +61,14 @@ public class Adopt {	// 입양게시판
 
 	public void setBoNo(int boNo) {
 		this.boNo = boNo;
+	}
+	
+	public int getBoType() {
+		return boType;
+	}
+
+	public void setBoType(int boType) {
+		this.boType = boType;
 	}
 
 	public String getPetKinds() {
@@ -158,9 +169,9 @@ public class Adopt {	// 입양게시판
 
 	@Override
 	public String toString() {
-		return "Adopt [boNo=" + boNo + ", petKinds=" + petKinds + ", petCategory=" + petCategory + ", petGender="
-				+ petGender + ", petUnigender=" + petUnigender + ", petName=" + petName + ", petAge=" + petAge
-				+ ", petRescueDate=" + petRescueDate + ", petWeight=" + petWeight + ", petColor=" + petColor
+		return "Adopt [boNo=" + boNo + ", boType=" + boType + ", petKinds=" + petKinds + ", petCategory=" + petCategory
+				+ ", petGender=" + petGender + ", petUnigender=" + petUnigender + ", petName=" + petName + ", petAge="
+				+ petAge + ", petRescueDate=" + petRescueDate + ", petWeight=" + petWeight + ", petColor=" + petColor
 				+ ", petSize=" + petSize + ", petComment=" + petComment + ", adoptYn=" + adoptYn + "]";
 	}
 	
