@@ -8,10 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/testLogout.me")
-public class TestLogoutServlet extends HttpServlet {
+public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public TestLogoutServlet() {
+    public LogoutServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

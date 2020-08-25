@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-@WebServlet("/testLoginForm.me")
+@WebServlet("/loginForm.me")
 public class LoginFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -17,7 +17,7 @@ public class LoginFormServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("section", "WEB-INF/views/test/login.jsp");
+		request.setAttribute("section", "WEB-INF/views/member/login.jsp");
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
