@@ -1,10 +1,10 @@
 package board.model.vo;
 
-public class AdoptApply {
-	private int applyNo;
-	private String applyContent;
-	private int memNo;
-	private int boNo;
+public class AdoptApply {			// 입양신청서 작성 폼
+	private int applyNo;			// 신청서 번호
+	private String applyContent;	// 신청서 내용
+	private int memNo;				// 회원번호
+	private int boNo;				// 게시판번호  --> 입양상태 된 게시글은 안보여야 해서 가져옴
 	
 	public AdoptApply(int applyNo, String applyContent, int memNo, int boNo) {
 		super();
