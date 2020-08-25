@@ -1,6 +1,6 @@
 package board.model.vo;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Adopt {	// 입양게시판
 	private int boNo;				// 게시판 번호

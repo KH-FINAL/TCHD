@@ -1,6 +1,6 @@
 package board.model.vo;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Files {
 	private int fileNo;
