@@ -117,7 +117,10 @@ public class MemberService {
 		
 		return result;
 	}
-	
-	
-	
+
+	public void findId(Member member) {
+		Connection conn = getConnection();
+		
+		new MemberDAO().findId(conn, member);
+	}
 }

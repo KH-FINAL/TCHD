@@ -28,9 +28,9 @@
 				<br>
 				
 				<div id="login_find_div">
-					<a href="id_find.html">아이디 찾기</a>&nbsp;&nbsp;
+					<a href="findIdForm.me">아이디 찾기</a>&nbsp;&nbsp;
 					<a>|</a>&nbsp;&nbsp;
-					<a href="password_find.html">비밀번호 찾기</a>
+					<a href="#">비밀번호 찾기</a>
 				</div>
 				
 				<br><br>

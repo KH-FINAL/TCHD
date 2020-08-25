@@ -258,7 +258,27 @@ public class MemberDAO {
 		
 	}
 
-
-
-
+	public void findId(Connection conn, Member member) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("findId");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, member.getMem_name());
+			pstmt.setString(2, member.getMem_email());
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				// 가입된 회원 정보에 입력받은 name과 email이 있으면 해당 email로 아이디의 일부를 보내줘야 함
+				// 어떻게 보내줘...?? 보내는 계정이 뭐야!
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+	}
 }
