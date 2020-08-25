@@ -46,7 +46,7 @@
 			</table>
 		</div>
 		<p class="clear"></p>
-		<div id="article3"><img src="images/picture3.png"></div>
+		<div id="article3"><a href="mailTest.mail"><img src="images/picture3.png"></a></div>
 	</section>
 </body>
 </html>
