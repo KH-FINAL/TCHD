@@ -4,37 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>함께하묘 행복하개</title>
-     <link rel="stylesheet" href="css/question_detail.css">
-      <link rel="stylesheet" href="css/common.css">
-</head>
-<script>
-</script>
 </head>
 <body>
-  <header>
-	<div id="headDiv">
-		<div id="topBar"><a href="">로그인  </a><span> | </span><a href="">회원가입</a></div>
-		<div id="topDiv">
-			  <div id="title"><a href="index.html"><img alt="로고" src="images/pets(1).PNG"> 함께하묘 행복하개</a></div>
-			  <!-- 왼쪽margin 150,   로고 45 , 메뉴바 25 , 게시판 30 -->
-			<div id="navi">
-				<ul>
-						<li>사이트소개</li>
-						<li>참여하기</li>
-						<li>후원하기</li>
-						<li>정보마당</li>
-						<li>고객센터</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<div id="headBorder"> </div>
-	</header>
-	<hr class="clear">
-	<section>
-
-	
+ 	<section>
 		<div id = "ment" class="board_list_wrap">문의게시판</div>
 		
      	<div class = "board_list_design">
@@ -82,13 +54,6 @@
 					<input type="button" class="btn_list" value="수정하기">
 				</div>
 			</div>
-			</section>
-           <footer>
-			<div id="footDiv"><br>
-			행복하묘 함께하개&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;서울시 강남구 역삼동 어쩌구 123 (우)12345 &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;대표자: 김대표<br><br><br>
-			TEL : 02-123-4567 &nbsp;&nbsp;|&nbsp;&nbsp; FAX : 02-345-6789 &nbsp;&nbsp;|&nbsp;&nbsp;EMAIL:abcd@naver.com&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;사업자 등록번호 : 1234-12345<br>
-			</div>
-		</footer>
-		
+		</section>
 </body>
 </html>		
