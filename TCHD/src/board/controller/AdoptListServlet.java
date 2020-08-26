@@ -37,8 +37,16 @@ public class AdoptListServlet extends HttpServlet {
 		ArrayList<Adopt> aList = service.selectTList(1);
 		ArrayList<Files> fList = service.selectTList(2);
 		
-//		request.setAttribute("section", "WEB-INF/views/adopt/adoptList.jsp");
-//		request.getRequestDispatcher("index.jsp").forward(request, response);
+		if(aList != null && fList != null) {
+			request.setAttribute("aList", aList);
+			request.setAttribute("fList", fList);
+			request.setAttribute("section", "WEB-INF/views/adopt/adoptList.jsp");
+			request.getRequestDispatcher("index.jsp").forward(request, response);
+		} else {
+			request.setAttribute("msg", "입양 게시판 조회에 실패하였습니다.");
+			request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
+			request.getRequestDispatcher("index.jsp").forward(request, response);
+		}
 	}
 
 	/**
