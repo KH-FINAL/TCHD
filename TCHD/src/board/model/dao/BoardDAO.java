@@ -32,7 +32,7 @@ public class BoardDAO {
 		}
 	}
 
-	public ArrayList selectBList(Connection conn) {
+	public ArrayList selectAList(Connection conn) {
 		Statement stmt = null;
 		ResultSet rset = null;
 		ArrayList<Adopt> list = null;
