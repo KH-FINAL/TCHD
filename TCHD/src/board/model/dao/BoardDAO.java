@@ -14,7 +14,10 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import board.model.vo.Adopt;
+import board.model.vo.Board;
 import board.model.vo.Files;
+import board.model.vo.PageInfo;
+import board.model.vo.Questions;
 
 public class BoardDAO {
 	private Properties prop = new Properties();
@@ -125,6 +128,52 @@ public class BoardDAO {
 		}
 		return result;
 	}
+
+	public ArrayList<Questions> selectQList(Connection conn, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Questions> Qlist = null;
+		
+		String query = prop.getProperty("selectQList");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			pstmt.setInt(3, 1);
+			rset = pstmt.executeQuery();
+			
+			Qlist = new ArrayList<Questions>(); //db의 resultSet결과보고만들기
+			while(rset.next()) {
+				Questions q = new Questions(rset.getInt("bo_no"),
+									rset.getInt("bo_type"),
+									rset.getString("cate_name"),
+									rset.getString("bo_title"),
+									rset.getString("bo_content"),
+									rset.getInt("bo_count"),
+									rset.getDate("bo_date"),
+									rset.getInt("mem_no"),
+									rset.getString("mem_id"),
+									rset.getString("bo_delete_yn"),
+									rset.getString("mem_leave"));
+				
+				Qlist.add(q);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return Qlist;
+	}
+
+
 	
 	
 	

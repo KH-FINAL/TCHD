@@ -25,6 +25,7 @@ public class Board {
 		this.memNo = memNo;
 	}
 
+
 	public int getBoNo() {
 		return boNo;
 	}

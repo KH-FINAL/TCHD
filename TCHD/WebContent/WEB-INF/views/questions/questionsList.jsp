@@ -3,12 +3,10 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+<link rel="stylesheet" href="css/questions_list.css" type="text/css">
 <meta charset="UTF-8">
 <body>
-  
 	<section>
-
-
 		<div id = "ment" class="board_list_wrap">문의게시판</div>
 		<table class="board_list">
                 <caption>게시판 목록</caption>

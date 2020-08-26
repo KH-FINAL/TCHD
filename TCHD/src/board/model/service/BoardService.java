@@ -9,6 +9,9 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import board.model.dao.BoardDAO;
+import board.model.vo.Board;
+import board.model.vo.PageInfo;
+import board.model.vo.Questions;
 
 public class BoardService {
 
@@ -38,7 +41,21 @@ public class BoardService {
 		
 		return result;
 	}
-	
+
+
+
+	public ArrayList<Questions> selectQList(PageInfo pi) {
+		Connection conn = getConnection();
+		
+		ArrayList<Questions> Qlist = new BoardDAO().selectQList(conn, pi);
+		
+		close(conn);
+		return Qlist;
+	}
+
+
+
+
 	
 	
 
