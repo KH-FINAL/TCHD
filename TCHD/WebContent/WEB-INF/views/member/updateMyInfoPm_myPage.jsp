@@ -23,8 +23,8 @@
 			<ul id="pageNavi"> 
 				<li id="pageNaviTitle"><a href="myPage.me">마이페이지</a></li>
 				<li><a href="myPage.me">회원정보수정</a></li>
-				<li><a href="#">내가 작성한 글</a></li>
-				<li><a href="#">참여 봉사 내역</a></li>
+				<li><a href="listMyBoard.bo">내가 작성한 글</a></li>
+				<li><a href="listMyVolunteer.vo">참여 봉사 내역</a></li>
 				<li><a href="#">회원 탈퇴</a></li>
 			</ul>
 		</nav>
@@ -66,16 +66,26 @@
 				</tr>
 				<tr>
 				<%
-					String[] addressArr = member.getMem_addr().split(",");
+					String[] addressArr = null;
+					if(member.getMem_addr()!=null){
+						addressArr = member.getMem_addr().split(",");	
+						
+					}else{
+						addressArr = new String[]{"","",""};
+					}
+				
 				%>
 					<td class="form_title" rowspan="2">주소</td>
 					<td><input type="text" placeholder="우편번호" name="zoneCode" id="zoneCode" value="<%= addressArr[0]%>" readonly></td>
 					<td><button type="button" class="searchAddress">주소 검색</button></td>
 				</tr>
 				<tr id="address_tr">
-					
-					<td id="address_td"><input type="text" name="mainAddress" id="mainAddress" placeholder="주소"  value="<%=addressArr[1] %>" readonly></td>
-					<td id="address_td"><input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소" value="<%= addressArr[2]%>"></td>
+					<td id="address_td"><input type="text" name="mainAddress" id="mainAddress" value="<%=addressArr[1]%>" placeholder="주소"></td>
+					<%if(addressArr.length>2){ %>
+					<td id="address_td"><input type="text" name="detailAddress" id="detailAddress" value="<%=addressArr[2]%>" placeholder="상세주소"></td>
+					<%}else{ %>
+				   <td id="address_td"><input type="text" name="detailAddress" id="detailAddress" value="" placeholder="상세주소"></td>
+					<%} %>
 				</tr>
 				<tr>
 				<%
@@ -180,6 +190,7 @@
 	})
 			
 	function checkSubmit(){
+		
 	
 		///////////////// 비밀번호 일치한지 체크, 이메일 뒷주소 선택여부 확인
 		
@@ -189,22 +200,20 @@
 			var joinEmail2 = $(".joinEmail2").val();
 			
 			if(pwd.val().trim().length<8 && pwd.val().trim().length>1){
-				alert("비밀번호는 8자리 이상 입력해주세요.");
+				swal("","비밀번호는 8자리 이상 입력해주세요.","info");
 				pwd.focus();
 				return false;
-			}
-			
-			if(pwd.val().trim()!=pwd2.val().trim()){
-				alert("비밀번호가 일치하지 않습니다.");
+			}else if(pwd.val().trim()!=pwd2.val().trim()){
+				swal("","비밀번호가 일치하지 않습니다.","error");
 				pwd2.focus();
 				return false;
 			}
 			if(joinEmail2=="default"){
-				alert("사이트를 선택해주세요.");
+				swal("","사이트를 선택해주세요.","info");
 				return false;
 			}
 			if(name.trim()==""){
-				alert("이름을 입력해주세요.");
+				swal("","이름을 입력해주세요.","info");
 				name.focus();
 				return false;
 			}

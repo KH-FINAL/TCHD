@@ -3,6 +3,7 @@
 #listMyBoardDiv{
 	
 	width: 800px;
+    height: 562px;
 	text-align: center;
 	margin-left: 350px;
 }
@@ -40,6 +41,7 @@
 	margin-top: 30px;
 	font-size: 14px;
 	text-align: center;
+
 }
 
 #tableMyBoard  td, th{
@@ -51,12 +53,15 @@
 #tableMyBoard  th{
 	background: #eaeaea;
 	border-top: 3px solid rgb(41, 128, 185);
+
 }
 #tableMyBoard  td{
 	text-align:center;	
 	overflow: hidden;
 	
 }
+
+
 #tableMyBoard th:first-child{
 	width:80px;
 
@@ -70,11 +75,16 @@
 	text-align: left;
 }
 
+.boardTr .board2ndTd:hover{		
+	cursor: pointer;
+	text-decoration: underline;
+}
+
 #popUpDiv {
 	border:1px solid black;
 	width:320px;
 	height: 300px;
-	display: block;
+	display: none;
 	background-color: #f0f0f5;
 	top: 40%;
     left: 40%;

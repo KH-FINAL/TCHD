@@ -12,6 +12,7 @@ import board.model.dao.BoardDAO;
 import board.model.vo.Board;
 import board.model.vo.PageInfo;
 import board.model.vo.Questions;
+import board.model.vo.Volunteer;
 
 public class BoardService {
 
@@ -54,7 +55,26 @@ public class BoardService {
 	}
 
 
+	public ArrayList<Board> selectMyBoard(int mem_no) {
+		Connection conn = getConnection();
+		
+		ArrayList<Board> boardList = new BoardDAO().selectMyBoard(conn,mem_no);
+		
+		close(conn);
+		
+		return boardList;
+	}
 
+	public ArrayList<Volunteer> selectMyVolunteer(int mem_no) {
+		Connection conn = getConnection();
+		
+		ArrayList<Volunteer> volunteerList = new BoardDAO().selectMyVolunteer(conn,mem_no);
+		
+		close(conn);
+		
+		return volunteerList;
+		
+	}
 
 	
 	

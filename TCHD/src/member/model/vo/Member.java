@@ -35,12 +35,6 @@ public class Member {
 
 
 
-	public Member(String mem_type, String mem_id, String mem_name) {
-		super();
-		this.mem_type = mem_type;
-		this.mem_id = mem_id;
-		this.mem_name = mem_name;
-	}
 
 
 
@@ -107,7 +101,6 @@ public class Member {
 	}
 	
 	
-	
 	public Member(int mem_no, String mem_id, String mem_name, String mem_email) {
 		super();
 		this.mem_no = mem_no;
@@ -115,7 +108,6 @@ public class Member {
 		this.mem_name = mem_name;
 		this.mem_email = mem_email;
 	}
-	
 	
 
 	public int getMem_no() {
@@ -256,11 +248,16 @@ public class Member {
 	public void setGm_ok_ny(char gm_ok_ny) {
 		this.gm_ok_ny = gm_ok_ny;
 	}
-		
 
-	
-	
-	
-	
+
+
+	@Override
+	public String toString() {
+		return "Member [mem_no=" + mem_no + ", mem_type=" + mem_type + ", mem_id=" + mem_id + ", mem_pw=" + mem_pw
+				+ ", mem_name=" + mem_name + ", mem_phone=" + mem_phone + ", mem_addr=" + mem_addr + ", mem_email="
+				+ mem_email + ", mem_leave=" + mem_leave + ", pm_birth=" + pm_birth + ", pm_volist=" + pm_volist
+				+ ", gm_regno=" + gm_regno + ", gm_name=" + gm_name + ", gm_ok_ny=" + gm_ok_ny + "]";
+	}
+		
 	
 }

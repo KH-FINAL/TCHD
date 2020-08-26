@@ -24,10 +24,11 @@ public class FindIdServlet extends HttpServlet {
 		String email = request.getParameter("input_email");
 		String text = "";
 		
-		Member member = new Member(0, "", name, email); // 생성자가 겹쳐서 mem_no, mem_id, mem_name, mem_email로 사용
+
+		Member member = new Member(0, "",name, email); // 생성자가 겹쳐서 mem_no, mem_id, mem_name, mem_email로 사용
 		
 		Member findUser = new MemberService().findId(member);
-		
+		System.out.println(findUser);
 		if(findUser != null) {
 			// 이메일 전송
 			try {
@@ -36,7 +37,7 @@ public class FindIdServlet extends HttpServlet {
 				String htmlCss = 
 						"<div style=\"border: 3px solid #2980b9; width: 800px; text-align: center; padding-top: 15px;\">\r\n" + 
 						"		<div style=\"padding: 15px; line-height:600%;\">\r\n" + 
-						"			<img src=\"images/logo.PNG\">\r\n" + 
+						"			<img src=\"https://docs.google.com/drawings/u/0/d/sytGzgCQNFh-6-SoDUlhdfQ/image?w=565&h=99&rev=3&ac=1&invite&parent=15LgYQdQFbkv1-vWBxBquFV0jA7Ire5vxVXXHF_-c56A\">\r\n" + 
 						"			<hr style=\"border:5px dashed lightgray;\">\r\n" + 
 						"			<b style=\"font-size: 17px;\"><< 아이디/비밀번호 안내 메일 >></b>\r\n" + 
 						"			<div style=\"font-size: 19px; font-weight: 800;\">\r\n" + 

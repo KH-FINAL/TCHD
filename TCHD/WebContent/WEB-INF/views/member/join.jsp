@@ -208,6 +208,10 @@ $(function(){
 				swal("","아이디를 입력해주세요","info")
 				//alert("아이디를 입력해주세요.");
 				$('#joinForm_private').find('.inputId').focus();
+			}else if(inputId.trim().length<6){
+				swal("","아이디는 6글자 이상 입력해주세요.","info");
+				id.focus();
+				return false;
 			}else{
 				$.ajax({
 					url: "checkId.me",
@@ -241,7 +245,7 @@ $(function(){
 					data: {inputId:inputId},
 					success: function(data){
 						if(data==1){
-							swal("아이디 중복 확인", "중복되는 아이디가 있습니다.", "warning");
+							swal("아이디 중복 확인", "중복되는 아이디가 있습니다.", "error");
 							//alert("중복되는 아이디가 있습니다.")
 							$('#joinForm_group').find('#checkId_hidden').val("false");
 						}else{
@@ -276,31 +280,31 @@ function checkSubmit(){
 		var joinEmail2 = $("#joinForm_private").find(".joinEmail2").val();
 		
 		if(id.val().trim().length<6){
-			alert("아이디는 6글자 이상 입력해주세요.");
+			swal("","아이디는 6글자 이상 입력해주세요.","info");
 			id.focus();
 			return false;
 		}
 		if(pwd.val().trim().length<8){
-			alert("비밀번호는 8글자 이상 입력해주세요.");
+			swal("","비밀번호는 8글자 이상 입력해주세요.","info");
 			pwd.focus();
 			return false;
 		}
 		if($("#joinForm_private").find("#checkId_hidden").val()=="false"){
-			alert("아이디 중복확인을 해주세요.");
+			swal("","아이디 중복확인을 해주세요.","info");
 			return false;
 		}
 		
 		if(pwd.val().trim()!=pwd2.val().trim()){
-			alert("비밀번호가 일치하지 않습니다.");
+			swal("","비밀번호가 일치하지 않습니다.","error");
 			pwd2.focus();
 			return false;
 		}
 		if(joinEmail2=="default"){
-			alert("사이트를 선택해주세요.");
+			swal("","사이트를 선택해주세요.","info");
 			return false;
 		}
 		if(name.trim()==""){
-			alert("이름을 입력해주세요.");
+			swal("","이름을 입력해주세요.","info");
 			name.focus();
 			return false;
 		}
@@ -314,26 +318,26 @@ function checkSubmit(){
 		var joinEmail2 = $("#joinForm_group").find(".joinEmail2").val();
 	
 		if(id.val().trim().length<6){
-			alert("아이디는 6글자 이상 입력해주세요.");
+			swal("","아이디는 6글자 이상 입력해주세요.","info");
 			id.focus();
 			return false;
 		}
 		if(pwd.val().trim().length<8){
-			alert("비밀번호는 8글자 이상 입력해주세요.");
+			swal("","비밀번호는 8글자 이상 입력해주세요.","info");
 			pwd.focus();
 			return false;
 		}
 		if($("#joinForm_group").find("#checkId_hidden").val()=="false"){
-			alert("아이디 중복확인을 해주세요.");
+			swal("","아이디 중복확인을 해주세요.","info");
 			return false;
 		}
 		if(pwd.val().trim()!=pwd2.val().trim()){
-			alert("비밀번호가 일치하지 않습니다.");
+			swal("","비밀번호가 일치하지 않습니다.","error");
 			pwd2.focus();
 			return false;
 		}
 		if(joinEmail2=="default"){
-			alert("사이트를 선택해주세요.");
+			swal("","사이트를 선택해주세요.","info");
 			return false;
 		}
 		if(name.trim()==""){
@@ -341,7 +345,7 @@ function checkSubmit(){
 			name.focus();
 		}
 		if(gmname.trim==""){
-			alert("대표자명을 입력해주세요.");
+			swal("","단체명을 입력해주세요.","info");
 			gmname.focus();
 			return false;
 		}

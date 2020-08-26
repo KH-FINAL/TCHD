@@ -23,8 +23,8 @@
 			<ul id="pageNavi"> 
 				<li id="pageNaviTitle"><a href="myPage.me">마이페이지</a></li>
 				<li><a href="myPage.me">회원정보수정</a></li>
-				<li><a href="#">내가 작성한 글</a></li>
-				<li><a href="#">참여 봉사 내역</a></li>
+				<li><a href="listMyBoard.bo">내가 작성한 글</a></li>
+				<li><a href="listMyVolunteer.vo">참여 봉사 내역</a></li>
 				<li><a href="#">회원 탈퇴</a></li>
 			</ul>
 		</nav>
@@ -222,22 +222,20 @@
 			var joinEmail2 = $(".joinEmail2").val();
 			
 			if(pwd.val().trim().length<8 && pwd.val().trim().length>1){
-				alert("비밀번호는 8자리 이상 입력해주세요.");
+				swal("","비밀번호는 8자리 이상 입력해주세요.","info");
 				pwd.focus();
 				return false;
-			}
-			
-			if(pwd.val().trim()!=pwd2.val().trim()){
-				alert("비밀번호가 일치하지 않습니다.");
+			}else if(pwd.val().trim()!=pwd2.val().trim()){
+				swal("","비밀번호가 일치하지 않습니다.","error");
 				pwd2.focus();
 				return false;
 			}
 			if(joinEmail2=="default"){
-				alert("사이트를 선택해주세요.");
+				swal("","사이트를 선택해주세요.","info");
 				return false;
 			}
 			if(name.trim()==""){
-				alert("이름을 입력해주세요.");
+				swal("","이름을 입력해주세요.","info");
 				name.focus();
 				return false;
 			}

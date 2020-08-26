@@ -18,6 +18,7 @@ import board.model.vo.Board;
 import board.model.vo.Files;
 import board.model.vo.PageInfo;
 import board.model.vo.Questions;
+import board.model.vo.Volunteer;
 
 public class BoardDAO {
 	private Properties prop = new Properties();
@@ -128,7 +129,7 @@ public class BoardDAO {
 		}
 		return result;
 	}
-
+	
 	public ArrayList<Questions> selectQList(Connection conn, PageInfo pi) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -172,9 +173,74 @@ public class BoardDAO {
 		
 		return Qlist;
 	}
-
-
 	
+	
+	public ArrayList<Board> selectMyBoard(Connection conn,int mem_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> boardList = new ArrayList<Board>();
+		
+		try {
+			pstmt=conn.prepareStatement(prop.getProperty("selectMyBoard"));
+			pstmt.setInt(1, mem_no);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Board board=null;
+				int currBo_no = 0;
+				if(currBo_no!=rset.getInt("BO_NO")) {
+					currBo_no=rset.getInt("BO_NO");
+				}
+				board = new Board(
+						rset.getInt("BO_NO"),
+						rset.getString("CATE_NAME"),
+						rset.getString("BO_TITLE"),
+						rset.getDate("BO_DATE")
+					);
+				boardList.add(board);
+				if(rset.getInt("COM_NO")!=0) {
+					board= new Board(
+							rset.getInt("COM_NO"),
+							null,
+							rset.getString("COM_CONTENT"),
+							rset.getDate("COM_DATE")
+						);
+					boardList.add(board);
+				}
+		
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return  boardList;
+	}
+
+	public ArrayList<Volunteer> selectMyVolunteer(Connection conn, int mem_no) {
+		PreparedStatement pstmt = null;
+		ResultSet  rset =null;
+		ArrayList<Volunteer> volunteerList = new ArrayList<Volunteer>();
+		
+		try {
+			pstmt=conn.prepareStatement(prop.getProperty("selectMyVolunteer"));
+			
+			rset=pstmt.executeQuery();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return volunteerList;
+	}
+
 	
 	
 	

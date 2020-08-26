@@ -31,8 +31,9 @@ public class UpdateMemberFormServlet extends HttpServlet {
 			request.setAttribute("section", "WEB-INF/views/member/confirmPw_myPage.jsp");
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}else {  // 비밀번호 확인시 
+
 			String memberType= loginUser.getMem_type();
-			
+
 			
 			if(memberType.equals("PM")) {
 				String memberId = loginUser.getMem_id();
@@ -42,6 +43,7 @@ public class UpdateMemberFormServlet extends HttpServlet {
 					request.setAttribute("section", "WEB-INF/views/member/updateMyInfoPm_myPage.jsp");
 					request.getRequestDispatcher("index.jsp").forward(request, response);	
 				}else {
+					request.getSession().setAttribute("confirmPw", null);
 					request.setAttribute("errorMsg", "회원정보 수정페이지로 이동 중 에러가 발생하였습니다.");
 					request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
 					request.getRequestDispatcher("index.jsp").forward(request, response);	
@@ -56,6 +58,7 @@ public class UpdateMemberFormServlet extends HttpServlet {
 					request.setAttribute("section", "WEB-INF/views/member/updateMyInfoGm_myPage.jsp");
 					request.getRequestDispatcher("index.jsp").forward(request, response);
 				}else {
+					request.getSession().setAttribute("confirmPw", null);
 					request.setAttribute("errorMsg", "회원정보 수정페이지로 이동 중 에러가 발생하였습니다.");
 					request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
 					request.getRequestDispatcher("index.jsp").forward(request, response);

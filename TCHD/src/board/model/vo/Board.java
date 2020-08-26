@@ -12,6 +12,13 @@ public class Board {
 	private String boDeleteYn;
 	private int memNo;
 	
+	public Board(int boNo, String boType, String boTitle,  Date boDate) {
+		super();
+		this.boNo = boNo;
+		this.boType = boType;
+		this.boTitle = boTitle;
+		this.boDate = boDate;
+	}
 	public Board(int boNo, String boType, String boTitle, String boContent, Date boDate, int boCount, String boDeleteYn,
 			int memNo) {
 		super();

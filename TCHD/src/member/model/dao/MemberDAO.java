@@ -83,9 +83,17 @@ public class MemberDAO {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				loginUser = new Member(rset.getString("MEM_TYPE"), 
-									   rset.getString("MEM_ID"), 
-									   rset.getString("MEM_NAME"));
+				loginUser = new Member(
+						rset.getInt("MEM_NO"),
+						rset.getString("MEM_TYPE"), 
+					   rset.getString("MEM_ID"),
+					   null, 	
+					   rset.getString("MEM_NAME"),
+					   null,
+					   null,
+					   null,
+					   null
+						);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -262,6 +270,8 @@ public class MemberDAO {
 		Member findUser = null;
 		
 		String query = prop.getProperty("findId");
+		System.out.println(member.getMem_name());
+		System.out.println(member.getMem_email());
 		
 		try {
 			pstmt = conn.prepareStatement(query);
