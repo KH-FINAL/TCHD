@@ -19,7 +19,7 @@ public class BoardService {
 		BoardDAO dao = new BoardDAO();
 		
 		if(i == 1) {
-			list = dao.selectBList(conn);
+			list = dao.selectAList(conn);
 		} else { 
 			list = dao.selectFList(conn);
 		}
