@@ -45,6 +45,11 @@
      $('#menuBar1').children().eq(0).click(function(){
     	 location.href="<%= request.getContextPath() %>/adopt.bo";
      });
+     
+     
+     $('#menuBar4').children().eq(0).click(function(){
+    	 location.href="<%= request.getContextPath() %>/list.qu";
+     });
  });
 </script>
 </head>
