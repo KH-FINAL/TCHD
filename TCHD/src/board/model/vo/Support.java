@@ -3,26 +3,28 @@ package board.model.vo;
 import java.sql.Date;
 
 public class Support {
-	private int supNo;
-	private int supPrice;
-	private Date supDate;
-	private int memNO;
+	private int memNo;			// 회원번호
+	private int memId;			// 아이디
+	private int supNo;			// 후원번호
+	private int supPrice;		// 후원금액
+	private Date supDate;		// 후원날짜
 	
 	public Support() {}
 
-	public Support(int supNo, int supPrice, Date supDate, int memNO) {
+	public Support(int memNo, int memId, int supNo, int supPrice, Date supDate) {
+		super();
+		this.memNo = memNo;
+		this.memId = memId;
+		this.supNo = supNo;
+		this.supPrice = supPrice;
+		this.supDate = supDate;
+	}
+
+	public Support(int supNo, int supPrice, Date supDate) {
 		super();
 		this.supNo = supNo;
 		this.supPrice = supPrice;
 		this.supDate = supDate;
-		this.memNO = memNO;
-	}
-
-	public Support(int supPrice, Date supDate, int memNO) {
-		super();
-		this.supPrice = supPrice;
-		this.supDate = supDate;
-		this.memNO = memNO;
 	}
 
 	public Support(int supPrice, Date supDate) {
@@ -31,40 +33,9 @@ public class Support {
 		this.supDate = supDate;
 	}
 
-	public int getSupNo() {
-		return supNo;
-	}
-
-	public void setSupNo(int supNo) {
-		this.supNo = supNo;
-	}
-
-	public int getSupPrice() {
-		return supPrice;
-	}
-
-	public void setSupPrice(int supPrice) {
-		this.supPrice = supPrice;
-	}
-
-	public Date getSupDate() {
-		return supDate;
-	}
-
-	public void setSupDate(Date supDate) {
-		this.supDate = supDate;
-	}
-
-	public int getMemNO() {
-		return memNO;
-	}
-
-	public void setMemNO(int memNO) {
-		this.memNO = memNO;
-	}
-
 	@Override
 	public String toString() {
-		return "Support [supNo=" + supNo + ", supPrice=" + supPrice + ", supDate=" + supDate + ", memNO=" + memNO + "]";
+		return "Support [memNo=" + memNo + ", memId=" + memId + ", supNo=" + supNo + ", supPrice=" + supPrice
+				+ ", supDate=" + supDate + "]";
 	}
 }
