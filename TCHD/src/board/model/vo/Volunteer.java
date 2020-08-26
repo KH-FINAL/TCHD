@@ -3,20 +3,24 @@ package board.model.vo;
 import java.sql.Date;
 
 public class Volunteer {
-	private int boNo;
-	private int voMaxmember;
-	private int voApplymember;
-	private String voDeadline;
-	private Date voDate;
-	private String voArea;
-	private String voPlace;
-	private String voComment;
+	private int memNo;				// 회원번호
+	private int memId;				// 아이디
+	private int boNo;				// 게시글번호
+	private int voMaxmember;		// 정원
+	private int voApplymember;		// 신청인원
+	private String voDeadline;		// 마감유무
+	private Date voDate;			// 봉사일시
+	private String voArea;			// 지역선택
+	private String voPlace;			// 봉사지
+	private String voComment;		// 내용
 	
 	public Volunteer() {}
 
-	public Volunteer(int boNo, int voMaxmember, int voApplymember, String voDeadline, Date voDate, String voArea,
+	public Volunteer(int memNo, int memId, int boNo, int voMaxmember, int voApplymember, String voDeadline, Date voDate, String voArea,
 			String voPlace, String voComment) {
 		super();
+		this.memNo = memNo;
+		this.memId = memId;
 		this.boNo = boNo;
 		this.voMaxmember = voMaxmember;
 		this.voApplymember = voApplymember;
@@ -27,16 +31,20 @@ public class Volunteer {
 		this.voComment = voComment;
 	}
 
-	public Volunteer(int boNo, String voDeadline, String voArea) {
+	public Volunteer(int memNo, int memId, int boNo, String voDeadline, String voArea) {
 		super();
+		this.memNo = memNo;
+		this.memId = memId;
 		this.boNo = boNo;
 		this.voDeadline = voDeadline;
 		this.voArea = voArea;
 	}
 
-	public Volunteer(int voMaxmember, int voApplymember, String voDeadline, Date voDate, String voArea, String voPlace,
+	public Volunteer(int memNo, int memId, int voMaxmember, int voApplymember, String voDeadline, Date voDate, String voArea, String voPlace,
 			String voComment) {
 		super();
+		this.memNo = memNo;
+		this.memId = memId;
 		this.voMaxmember = voMaxmember;
 		this.voApplymember = voApplymember;
 		this.voDeadline = voDeadline;
@@ -44,6 +52,22 @@ public class Volunteer {
 		this.voArea = voArea;
 		this.voPlace = voPlace;
 		this.voComment = voComment;
+	}
+	 
+	public int getMemNo() {
+		return memNo;
+	}
+
+	public void setMemNo(int memNo) {
+		this.memNo = memNo;
+	}
+
+	public int getMemId() {
+		return memId;
+	}
+
+	public void setMemId(int memId) {
+		this.memId = memId;
 	}
 
 	public int getBoNo() {
@@ -112,8 +136,8 @@ public class Volunteer {
 
 	@Override
 	public String toString() {
-		return "Volunteer [boNo=" + boNo + ", voMaxmember=" + voMaxmember + ", voApplymember=" + voApplymember
-				+ ", voDeadline=" + voDeadline + ", voDate=" + voDate + ", voArea=" + voArea + ", voPlace=" + voPlace
-				+ ", voComment=" + voComment + "]";
+		return "Volunteer [memNo=" + memNo + ", memId=" + memId + ", boNo=" + boNo + ", voMaxmember=" + voMaxmember
+				+ ", voApplymember=" + voApplymember + ", voDeadline=" + voDeadline + ", voDate=" + voDate + ", voArea="
+				+ voArea + ", voPlace=" + voPlace + ", voComment=" + voComment + "]";
 	}
 }
