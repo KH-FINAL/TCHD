@@ -16,7 +16,7 @@ import board.model.vo.Files;
 /**
  * Servlet implementation class AdoptListFormServlet
  */
-@WebServlet(urlPatterns="/adopt.bo", name="AdoptListFormServlet")
+@WebServlet(urlPatterns="/adopt.bo", name="AdoptListServlet")
 public class AdoptListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
