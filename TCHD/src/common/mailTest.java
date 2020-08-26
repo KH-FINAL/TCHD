@@ -43,10 +43,9 @@ public class mailTest extends HttpServlet {
 
 	      // 보내는 사람
 	      String smtpServer = "smtp.gmail.com";
-	      final String sendId = ""; // ---네이버 아이디
-	      final String sendPass = "rlgus0929!"; // ---네이버 비밀번호
-	      String sendEmailAddress = "izevolf@gmail.com"; // ---보내는 사람
-	                                             // 이메일주소(네이버)
+//	      final String sendId = ""; // 네이버 아이디의 경우 필요
+	      final String sendPass = "rlgus0929!"; // 비밀번호
+	      String sendEmailAddress = "izevolf@gmail.com"; // 이메일주소(네이버)
 	      int smtpPort = 587;
 	      
 	      String subject = "안녕하세요. '함께하묘 행복하개'입니다."; // ---제목
@@ -67,7 +66,8 @@ public class mailTest extends HttpServlet {
 	          session.setDebug(true); // for debug
 	          Message mimeMessage = new MimeMessage(session);
 	          mimeMessage.setFrom(new InternetAddress(sendEmailAddress));
-	          mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress("oporingo@naver.com"));  // 받는 사람 메일주소 입력
+	          // 받는 사람 메일주소 입력
+	          mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress("oporingo@naver.com"));
 	          mimeMessage.setSubject(subject);
 	          mimeMessage.setText(content);
 	          Transport.send(mimeMessage);

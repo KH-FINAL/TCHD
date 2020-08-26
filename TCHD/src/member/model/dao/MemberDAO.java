@@ -83,11 +83,9 @@ public class MemberDAO {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				loginUser = new Member(
-						rset.getString("MEM_TYPE"),
-						rset.getString("MEM_ID"),
-						rset.getString("MEM_NAME")
-						);
+				loginUser = new Member(rset.getString("MEM_TYPE"), 
+									   rset.getString("MEM_ID"), 
+									   rset.getString("MEM_NAME"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -258,9 +256,10 @@ public class MemberDAO {
 		
 	}
 
-	public void findId(Connection conn, Member member) {
+	public Member findId(Connection conn, Member member) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
+		Member findUser = null;
 		
 		String query = prop.getProperty("findId");
 		
@@ -271,8 +270,10 @@ public class MemberDAO {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				// 가입된 회원 정보에 입력받은 name과 email이 있으면 해당 email로 아이디의 일부를 보내줘야 함
-				// 어떻게 보내줘...?? 보내는 계정이 뭐야!
+				findUser = new Member(0, 
+									  rset.getString("mem_id"), 
+									  rset.getString("mem_name"), 
+									  rset.getString("mem_email"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -280,5 +281,7 @@ public class MemberDAO {
 			close(rset);
 			close(pstmt);
 		}
+		
+		return findUser;
 	}
 }

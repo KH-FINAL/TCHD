@@ -108,9 +108,10 @@ public class Member {
 	
 	
 	
-	public Member(int mem_no, String mem_name, String mem_email) {
+	public Member(int mem_no, String mem_id, String mem_name, String mem_email) {
 		super();
 		this.mem_no = mem_no;
+		this.mem_id = mem_id;
 		this.mem_name = mem_name;
 		this.mem_email = mem_email;
 	}

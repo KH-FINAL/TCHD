@@ -28,9 +28,9 @@
 			
 			<form method="post" action="findId.me" onsubmit="return validate();">
 				<div id="input_div">
-					<input type="text" id="input_name" class="input" name="name" placeholder=" 이름">
+					<input type="text" id="input_name" class="input" name="input_name" placeholder=" 이름">
 					<br><br>
-					<input type="email" id="input_email" class="input" name="email" placeholder=" 이메일">
+					<input type="email" id="input_email" class="input" name="input_email" placeholder=" 이메일">
 				</div>
 				<br>
 				<div id="input_button_div">

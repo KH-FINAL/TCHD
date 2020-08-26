@@ -118,9 +118,13 @@ public class MemberService {
 		return result;
 	}
 
-	public void findId(Member member) {
+	public Member findId(Member member) {
 		Connection conn = getConnection();
 		
-		new MemberDAO().findId(conn, member);
+		Member findUser = new MemberDAO().findId(conn, member);
+		
+		close(conn);
+		
+		return findUser;
 	}
 }
