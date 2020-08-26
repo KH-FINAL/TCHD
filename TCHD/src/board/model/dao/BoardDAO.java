@@ -1,5 +1,7 @@
 package board.model.dao;
 
+import static common.JDBCTemplate.close;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import board.model.vo.Adopt;
+import board.model.vo.Files;
 
 public class BoardDAO {
 	private Properties prop = new Properties();
@@ -43,20 +46,59 @@ public class BoardDAO {
 			list = new ArrayList<Adopt>();
 			
 			// Adopt vo가 이상한거 같아서 막혔슈,, 내일 하겠습니다,,
-//			while(rset.next()) {
-//				list.add(new Adopt(rset.))
-//			}
+			while(rset.next()) {
+				list.add(new Adopt(rset.getInt("bo_no"),
+									rset.getInt("bo_type"),
+									rset.getString("cate_name"),
+									rset.getString("mem_id"),
+									rset.getString("pet_kinds"),
+									rset.getString("pet_category"),
+									rset.getString("pet_gender"),
+									rset.getString("pet_uigender"),
+									rset.getString("pet_name"),
+									rset.getString("pet_age"),
+									rset.getDate("pet_rescue_date"),
+									rset.getFloat("pet_weight"),
+									rset.getString("pet_color"),
+									rset.getString("pet_size"),
+									rset.getString("adopt_yn")));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
 		}
 		
-		
-		return null;
+		return list;
 	}
 
 	public ArrayList selectFList(Connection conn) {
-		// TODO Auto-generated method stub
-		return null;
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Files> list = null;
+		
+		String query = prop.getProperty("selectFList");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<Files>();
+			while(rset.next()) {
+				list.add(new Files(rset.getInt("bo_no"),
+									rset.getString("change_name")));
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return list;
 	}
 	
 	

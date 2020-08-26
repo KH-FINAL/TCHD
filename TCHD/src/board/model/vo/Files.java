@@ -13,6 +13,11 @@ public class Files {
 	private int downloadCount;
 	private String status;
 	
+	public Files(int boNo, String changeName) {
+		this.boNo = boNo;
+		this.changeName = changeName;
+	}
+	
 	public Files(int fileNo, int boNo, String orignName, String changeName, String filePath, Date uploadDate,
 			int fileLevel, int downloadCount, String status) {
 		super();
@@ -26,6 +31,7 @@ public class Files {
 		this.downloadCount = downloadCount;
 		this.status = status;
 	}
+
 
 	public int getFileNo() {
 		return fileNo;
