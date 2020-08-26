@@ -41,6 +41,10 @@
      }, function(){
     	 $(this).find('.menuBar').css("visibility",'hidden');
      })
+     
+     $('#menuBar1').children().eq(0).click(function(){
+    	 location.href="<%= request.getContextPath() %>/adopt.bo";
+     });
  });
 </script>
 </head>
@@ -65,7 +69,7 @@
 							</ul>
 						</li>
 						<li class="naviDetail_li"><a href="#">후원하기</a><ul id="menuBar2" class="menuBar">
-								<li><a href="<%= request.getContextPath() %>/adopt.bo">후원</a></li>
+								<li><a href="#">후원</a></li>
 								<li><a href="#">후원내역 확인</a></li>
 							</ul>
 						</li>

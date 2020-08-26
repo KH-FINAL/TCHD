@@ -9,8 +9,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="adopt_list.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="common.css" type="text/css">
+<link href="css/adopt_list.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="css/common.css" type="text/css">
 </head>
 <body>
 	<section>
