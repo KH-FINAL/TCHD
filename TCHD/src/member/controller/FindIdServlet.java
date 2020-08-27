@@ -23,18 +23,17 @@ public class FindIdServlet extends HttpServlet {
 		String name = request.getParameter("input_name");
 		String email = request.getParameter("input_email");
 		String text = "";
-		
 
 		Member member = new Member(0, "",name, email); // 생성자가 겹쳐서 mem_no, mem_id, mem_name, mem_email로 사용
 		
 		Member findUser = new MemberService().findId(member);
-		System.out.println(findUser);
+		
 		if(findUser != null) {
 			// 이메일 전송
 			try {
 				String id =findUser.getMem_id();
 				String cut_id = id.substring(0, 3);
-				String htmlCss = 
+				text = 
 						"<div style=\"border: 3px solid #2980b9; width: 800px; text-align: center; padding-top: 15px;\">\r\n" + 
 						"		<div style=\"padding: 15px; line-height:600%;\">\r\n" + 
 						"			<img src=\"https://docs.google.com/drawings/u/0/d/sytGzgCQNFh-6-SoDUlhdfQ/image?w=565&h=99&rev=3&ac=1&invite&parent=15LgYQdQFbkv1-vWBxBquFV0jA7Ire5vxVXXHF_-c56A\">\r\n" + 
@@ -42,7 +41,7 @@ public class FindIdServlet extends HttpServlet {
 						"			<b style=\"font-size: 17px;\"><< 아이디/비밀번호 안내 메일 >></b>\r\n" + 
 						"			<div style=\"font-size: 19px; font-weight: 800;\">\r\n" + 
 						"				<span>회원님의 아이디는 </span>\r\n" + 
-						"				<span style=\"color: #008eeb;\">zoo***</span>\r\n" + 
+						"				<span style=\"color: #008eeb;\">" + cut_id + "***</span>\r\n" + 
 						"				<span>입니다.</span>\r\n" + 
 						"			</div>\r\n" + 
 						"			<hr style=\"border:1.5px solid lightgray; width:60%;\">\r\n" + 
@@ -58,17 +57,22 @@ public class FindIdServlet extends HttpServlet {
 						"			TEL : 02-123-4567&nbsp;&nbsp;|&nbsp;&nbsp;FAX : 02-345-6789&nbsp;&nbsp;|&nbsp;&nbsp;EMAIL : abcd@naver.com&nbsp;&nbsp;|&nbsp;&nbsp;사업자등록번호 : 123-45-67890\r\n" + 
 						"		</div>\r\n" + 
 						"	</div>\n";
-				text = htmlCss + cut_id + "***";
 				
 				new TestMail().sendEmail(email, text);
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			System.out.println("메일 전송 완료");
+			
+			request.setAttribute("section", "WEB-INF/views/common/main.jsp");
+			response.sendRedirect(request.getContextPath());
+			
 		} else {
 			request.setAttribute("errorMsg", "아이디 찾기에 실패하였습니다.");
 			request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
 			request.getRequestDispatcher("index.jsp").forward(request, response);
+			
 		}
 	}
 

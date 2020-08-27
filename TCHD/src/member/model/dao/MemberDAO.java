@@ -270,8 +270,6 @@ public class MemberDAO {
 		Member findUser = null;
 		
 		String query = prop.getProperty("findId");
-		System.out.println(member.getMem_name());
-		System.out.println(member.getMem_email());
 		
 		try {
 			pstmt = conn.prepareStatement(query);
