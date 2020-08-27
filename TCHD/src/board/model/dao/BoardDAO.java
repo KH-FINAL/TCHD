@@ -144,7 +144,7 @@ public class BoardDAO {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
-			pstmt.setInt(3, 1);
+			pstmt.setInt(3, 2); //bo_type 2 문의게시판
 			rset = pstmt.executeQuery();
 			
 			Qlist = new ArrayList<Questions>(); //db의 resultSet결과보고만들기
