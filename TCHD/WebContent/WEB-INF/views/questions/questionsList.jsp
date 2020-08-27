@@ -1,5 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, board.model.vo.*" %>    
+<%
+	@SuppressWarnings("unchecked")
+	ArrayList<Questions> Qlist = (ArrayList<Questions>)request.getAttribute("Qlist");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	String userId = (String)request.getAttribute("userId");
+	
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+%>    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -9,7 +22,7 @@
 	<section>
 		<div id = "ment" class="board_list_wrap">문의게시판</div>
 		<table class="board_list">
-                <caption>게시판 목록</caption>
+            <caption>게시판 목록</caption>
                 <thead>
                     <tr>
                         <th>번호</th>
@@ -20,38 +33,78 @@
                         <th>날짜</th>
                     </tr>
                 </thead>
-                <tbody>
-                
-                	<% for(int i=0; i<10; i++){ %>
-                
-                	<tr>
-                        <td><%=i+1%></td>
-                        <td>회원정보</td>
-                        <td class="tit">
-                            <a href="./questionsDetail.jsp">휴게실에서라면먹게해주세요</a>
-                        </td>
-                        <td>수지니즈</td>
-                        <td>50</td>
-                        <td>2020-08-03</td>
-                    </tr>
-                    
-                    <% } %>
-				
-                </tbody>
+				 <% if(Qlist.isEmpty()){ %>
+		            <tr>
+		               <td colspan="6">조회된 리스트가 없습니다.</td>
+		            </tr>
+		            <% } else{ %>
+		         	   <% for(Questions q : Qlist){ %>
+		         	   <tr>
+			         	   <td>
+			         	   	<input type="hidden" value="<%= q.getBoNo()%>">
+			         	   <%= q.getBoNo() %>
+			         	   </td>
+			         	   <td><%= q.getCateName() %></td>
+			         	   <td><%= q.getBoTitle() %></td>
+			         	   <td><%= q.getMemId() %></td>
+			         	   <td><%= q.getBoCount() %></td>
+			         	   <td><%= q.getBoDate() %></td>
+			         	</tr>   
+				        <% } %>
+				   <% } %>
             </table>
             
   			<div id="wrtie_button_div">
-         		<button id="write_button" onClick="location.href='./questionsWrite.jsp'">글쓰기</button>
+  				<% if(userId != null){ %>
+         		<button id="write_button" onClick="goWrite()">글쓰기</button>
+      			<% } else {%> 
+      			<button id="write_button" onClick="goLogin()">글쓰기</button>
+      			<% } %>
       		</div>
-                
+            
+            
+            <!-- 페이징 -->    
 			<div class="paging">
-         	<a href="#" class="bt">이전 페이지</a>
-      	    <a href="#" class="num on">1</a>
-     	    <a href="#" class="num">2</a>
-    	     <a href="#" class="num">3</a>
-    	     <a href="#" class="bt">다음 페이지</a>
-    		  </div>
-        	
+			
+				<!-- 이전 페이지 -->
+	         	<a href="<%= request.getContextPath() %>/list.qu?currentPage=<%= currentPage - 1 %>" class="bt" id="beforeBtn">이전 페이지</a>
+		         	<script>
+		        	if(<%= currentPage %> <= 1){
+		        		var before = $('#beforeBtn');
+		        		before.attr('disabled', 'true');
+		        	}
+		       		</script>
+
+		   	    <!-- 페이지 목록 -->
+        		<% for(int p = startPage; p <= endPage; p++){ %>
+	        		<% if(p == currentPage){ %>  
+	        			<a href="#" class="num on"><%= p %></a>
+	        		<% } else { %>
+	        			<a href="<%= request.getContextPath() %>/list.qu?currentPage=<%= p %>" class="num"><%= p %></a>
+	        		<% } %>
+       			 <% } %>
+		   	    
+		   	    
+		   	    <!-- 다음 페이지 -->
+		   	    <a href="<%= request.getContextPath() %>/list.qu?currentPage=<%=currentPage + 1%>" class="bt" id="afterBtn">다음 페이지</a>
+				 <script>
+		        	if(<%= currentPage %> >= <%= maxPage %>){
+		        		var after = $('#afterBtn');
+		        		after.attr('disabled', 'true');
+		        	}
+		        </script>    		  
+    		</div>
+    	
+    	<script>	
+        function goWrite(){
+			location.href="<%= request.getContextPath() %>/writeForm.qu";
+		}
+		
+		function goLogin(){
+			window.alert("로그인 후 이용해주시기 바랍니다.");
+			location.href="<%= request.getContextPath() %>/loginForm.me";
+		}
+		</script>
         </section>
 
  </body>

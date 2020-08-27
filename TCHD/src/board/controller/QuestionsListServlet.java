@@ -52,7 +52,7 @@ public class QuestionsListServlet extends HttpServlet {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		pageLimit = 10; //한번에 페이지 수 10개 보이게 한다.
+		pageLimit = 3; //한번에 페이지 수 10개 보이게 한다.
 		boardLimit = 10; //한번에 게시글 수 10개 보이게 한다.
 		
 		maxPage = (int)Math.ceil((double)listCount/boardLimit); //나머지값(소숫점)이 필요하므로 listCount만 double로 형변환.
