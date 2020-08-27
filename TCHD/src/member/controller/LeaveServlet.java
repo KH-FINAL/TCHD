@@ -23,7 +23,6 @@ public class LeaveServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String pwd = request.getParameter("input_pwd");
-		System.out.println("servlet_pw : " + pwd);
 		
 		// 현재 로그인 되어있는 아이디 가져오기
 		HttpSession session = request.getSession();

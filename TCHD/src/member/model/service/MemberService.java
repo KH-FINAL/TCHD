@@ -154,9 +154,6 @@ public class MemberService {
 		
 		int result = new MemberDAO().confirmPw(conn, member);
 		
-		System.out.println("service_id : " + member.getMem_id());
-		System.out.println("service_pwd : " + member.getMem_pw());
-		
 		close(conn);
 		
 		return result;

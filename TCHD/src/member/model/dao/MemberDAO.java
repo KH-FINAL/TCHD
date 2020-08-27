@@ -333,9 +333,6 @@ public class MemberDAO {
 			pstmt.setString(2, id);
 			result = pstmt.executeUpdate();
 			
-			System.out.println("dao_ mem_id : " + id);
-			System.out.println("dao_result : " + result);
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -358,8 +355,6 @@ public class MemberDAO {
 			pstmt.setString(2, member.getMem_id());
 			result = pstmt.executeUpdate();
 			
-			System.out.println("dao_pw : " + member.getMem_pw());
-			System.out.println("dao_id : " + member.getMem_id());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
