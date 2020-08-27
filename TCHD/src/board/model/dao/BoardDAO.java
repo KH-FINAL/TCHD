@@ -241,6 +241,45 @@ public class BoardDAO {
 		return volunteerList;
 	}
 
+	public ArrayList<Volunteer> selectVList(Connection conn, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Volunteer> VList = null;
+		
+		String query = prop.getProperty("selectVList");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+//		try {
+//			pstmt = conn.prepareStatement(query);
+//			pstmt.setInt(1, startRow);	// 첫번째 자리에 startRow
+//			pstmt.setInt(2, endRow);	// 두번째 자리에 endRow
+//			pstmt.setInt(3, 1);
+//			rset = pstmt.executeQuery();
+//			
+//			VList = new ArrayList<Volunteer>();
+//			while(rset.next()) {
+//				Volunteer v = new Volunteer(rset.getInt("bo_no"),
+//											rset.getInt("bo_type"),
+//											rset.getString("cate_name"),
+//											rset.getString("bo_title"));
+//				
+//				VList.add(v);
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} finally {
+//			close(rset);
+//			close(pstmt);
+//		}
+		
+		// DB에 VLIST 뷰 짜고 다시 재도전 예정 ㅎ..
+		
+		return VList;
+	}
+
 	
 	
 	

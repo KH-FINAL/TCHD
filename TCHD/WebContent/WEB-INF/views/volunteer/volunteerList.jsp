@@ -45,35 +45,15 @@
 						<tr>
 							<td><%= v.getBoNo() %></td>					<!-- 게시글번호 -->
 							<td><%= v.getVoArea() %></td>				<!-- 봉사지역 -->
-							<%-- <td class="tit"><%= b.getVoTitle() %></td> --%>	<!-- 게시글제목 -->
+							<td class="tit">게시글제목</td>				<!-- 게시글제목 -->
 							<td>관리자</td>								<!-- 작성자 : 회원번호로 불러오는 거면 Member VO에서 가져오면 되는 건가? -->
-							<%-- <td><%= b.getBoDate() %></td> --%>				<!-- 작성일자 -->
-							<td><%= v.getVoMaxmember() %></td>			<!-- 모집인원 -->
+							<td>작성일자</td> 								<!-- 작성일자 -->
+							<td>모집인원</td>								<!-- 모집인원 -->
 							<td>N</td>									<!-- 마감유무 -->
-							<%-- <td><%= b.getBoCount() %></td> --%>				<!-- 조회수 -->
+							<td>조회수</td>  								<!-- 조회수 -->
 						</tr>
 						<%		} %>
 						<% } %>
-						<!-- <tr>
-							<td>2</td>
-							<td>경기</td>
-							<td class="tit">제목 왼쪽 정렬 생각보다 이상하네</td>
-							<td>단체회원</td>
-							<td>20/01/22</td>
-							<td>10명</td>
-							<td>N</td>
-							<td>252</td>
-						</tr>
-						<tr>
-							<td id="deadline_Y">3</td>
-							<td id="deadline_Y">경기</td>
-							<td class="tit" id="deadline_Y">어쩌지?</td>
-							<td id="deadline_Y">단체회원</td>
-							<td id="deadline_Y">20/01/02</td>
-							<td id="deadline_Y">20명</td>
-							<td id="deadline_Y">Y</td>
-							<td id="deadline_Y">242</td>
-						</tr> -->
 					</table>
 				</div>
 			</div>

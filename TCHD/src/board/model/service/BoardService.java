@@ -76,6 +76,16 @@ public class BoardService {
 		
 	}
 
+	public ArrayList<Volunteer> selectVList(PageInfo pi) {
+		Connection conn = getConnection();
+		
+		ArrayList<Volunteer> VList = new BoardDAO().selectVList(conn, pi);
+		
+		close(conn);
+		
+		return VList;
+	}
+
 	
 	
 
