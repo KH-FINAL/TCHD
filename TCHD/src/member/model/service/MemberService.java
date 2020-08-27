@@ -127,4 +127,14 @@ public class MemberService {
 		
 		return findUser;
 	}
+
+	public Member findPwd(Member member) {
+		Connection conn = getConnection();
+		
+		Member findUser = new MemberDAO().findPwd(conn, member);
+		
+		close(conn);
+		
+		return findUser;
+	}
 }

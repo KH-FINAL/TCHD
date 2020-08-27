@@ -7,16 +7,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/findIdForm.me")
-public class FindIdFormServlet extends HttpServlet {
+@WebServlet("/findPwdForm.me")
+public class FindPwdFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public FindIdFormServlet() {
+    public FindPwdFormServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("section", "WEB-INF/views/member/findId.jsp");
+		request.setAttribute("section", "WEB-INF/views/member/findPwd.jsp");
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 

@@ -9,8 +9,8 @@
 	<section>
 		<div id="id_find_div">
 			<div id="find_button_div">
-				<input type="button" id="id_find" class="find_button" value="아이디 찾기" disabled></button>
-				<input type="button" id="pw_find" class="find_button" value="비밀번호 찾기" onclick="location.href='findPwdForm.me'"></button>
+				<input type="button" class="find_button" value="아이디 찾기" disabled>
+				<input type="button" class="find_button" value="비밀번호 찾기" onclick="location.href='findPwdForm.me'" style="cursor: pointer">
 			</div>
 			
 			<br>

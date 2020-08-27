@@ -292,4 +292,31 @@ public class MemberDAO {
 		
 		return findUser;
 	}
+
+	public Member findPwd(Connection conn, Member member) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member findUser = null;
+		
+		String query = prop.getProperty("findPwd");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, member.getMem_id());
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				findUser = new Member(0, 
+									  rset.getString("mem_id"), 
+									  rset.getString("mem_email"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return findUser;
+	}
 }

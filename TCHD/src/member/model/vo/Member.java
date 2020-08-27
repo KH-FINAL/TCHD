@@ -109,6 +109,13 @@ public class Member {
 		this.mem_email = mem_email;
 	}
 	
+	public Member(int mem_no, String mem_id, String mem_email) {
+		super();
+		this.mem_no = mem_no;
+		this.mem_id = mem_id;
+		this.mem_email = mem_email;
+	}
+	
 
 	public int getMem_no() {
 		return mem_no;
