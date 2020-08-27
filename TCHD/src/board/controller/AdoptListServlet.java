@@ -37,28 +37,40 @@ public class AdoptListServlet extends HttpServlet {
 		BoardService service = new BoardService();
 		HttpSession session = request.getSession();
 		
-		String userId = ((Member)session.getAttribute("loginUser")).getMem_id();
-		if(userId != null) {
-			request.setAttribute("userId", userId);
+		if((Member)session.getAttribute("loginUser") == null) {
+			ArrayList<Adopt> aList = service.selectTList(1);
+			ArrayList<Files> fList = service.selectTList(2);
+			
+			if(aList != null && fList != null) {
+				request.setAttribute("aList", aList);
+				request.setAttribute("fList", fList);
+				request.setAttribute("section", "WEB-INF/views/adopt/adoptList.jsp");
+				request.getRequestDispatcher("index.jsp").forward(request, response);
+			} else {
+				request.setAttribute("msg", "입양 게시판 조회에 실패하였습니다.");
+				request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
+				request.getRequestDispatcher("index.jsp").forward(request, response);
+			}
 		} else {
-			request.setAttribute("userId", null);
+			String userId = ((Member)session.getAttribute("loginUser")).getMem_id();
+			
+			ArrayList<Adopt> aList = service.selectTList(1);
+			ArrayList<Files> fList = service.selectTList(2);
+			
+			if(aList != null && fList != null) {
+				request.setAttribute("userId", userId);
+				request.setAttribute("aList", aList);
+				request.setAttribute("fList", fList);
+				request.setAttribute("section", "WEB-INF/views/adopt/adoptList.jsp");
+				request.getRequestDispatcher("index.jsp").forward(request, response);
+			} else {
+				request.setAttribute("msg", "입양 게시판 조회에 실패하였습니다.");
+				request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
+				request.getRequestDispatcher("index.jsp").forward(request, response);
+			}
 		}
-		System.out.println("입양게시판 userId : " + userId);
 		
 		
-		ArrayList<Adopt> aList = service.selectTList(1);
-		ArrayList<Files> fList = service.selectTList(2);
-		
-		if(aList != null && fList != null) {
-			request.setAttribute("aList", aList);
-			request.setAttribute("fList", fList);
-			request.setAttribute("section", "WEB-INF/views/adopt/adoptList.jsp");
-			request.getRequestDispatcher("index.jsp").forward(request, response);
-		} else {
-			request.setAttribute("msg", "입양 게시판 조회에 실패하였습니다.");
-			request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
-			request.getRequestDispatcher("index.jsp").forward(request, response);
-		}
 	}
 
 	/**

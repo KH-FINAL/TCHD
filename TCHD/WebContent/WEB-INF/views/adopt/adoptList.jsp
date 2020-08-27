@@ -38,7 +38,7 @@
 						<% if(userId != null){ %>
 							<button type="button" class="petButton" name="petUpDate" onClick="writeFrom();">등록</button>				
 						<% } else {%> 
-							<button type="button" class="petButton" name="petUpDate" disabled>등록</button>	
+							<button type="button" class="petButton" name="petUpDate" onClick="loginFrom();">등록</button>	
 						<% } %>
 					</li>
 				</ul>
@@ -120,6 +120,11 @@
 		<script>
 		function writeFrom(){
 			location.href="<%= request.getContextPath() %>/adoptWriteForm.bo";
+		}
+		
+		function loginFrom(){
+			window.alert("로그인 후 이용해주시기 바랍니다.");
+			location.href="<%= request.getContextPath() %>/loginForm.me";
 		}
 		</script>
 	</section>
