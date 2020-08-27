@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Board {
 	private int boNo;
-	private String boType;
+	private int boType;
 	private String boTitle;
 	private String boContent;
 	private Date boDate;
@@ -12,14 +12,16 @@ public class Board {
 	private String boDeleteYn;
 	private int memNo;
 	
-	public Board(int boNo, String boType, String boTitle,  Date boDate) {
+	public Board() {}
+	
+	public Board(int boNo, int boType, String boTitle,  Date boDate) {
 		super();
 		this.boNo = boNo;
 		this.boType = boType;
 		this.boTitle = boTitle;
 		this.boDate = boDate;
 	}
-	public Board(int boNo, String boType, String boTitle, String boContent, Date boDate, int boCount, String boDeleteYn,
+	public Board(int boNo, int boType, String boTitle, String boContent, Date boDate, int boCount, String boDeleteYn,
 			int memNo) {
 		super();
 		this.boNo = boNo;
@@ -41,11 +43,11 @@ public class Board {
 		this.boNo = boNo;
 	}
 
-	public String getBoType() {
+	public int getBoType() {
 		return boType;
 	}
 
-	public void setBoType(String boType) {
+	public void setBoType(int boType) {
 		this.boType = boType;
 	}
 

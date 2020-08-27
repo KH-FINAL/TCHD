@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
@@ -19,8 +20,11 @@ import com.oreilly.servlet.MultipartRequest;
 
 import board.model.service.BoardService;
 import board.model.vo.Adopt;
+import board.model.vo.Board;
 import board.model.vo.Files;
 import common.MyFileRenamePolicy;
+import member.model.service.MemberService;
+import member.model.vo.Member;
 
 /**
  * Servlet implementation class AdoptInsertServlet
@@ -41,6 +45,10 @@ public class AdoptInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		BoardService service = new BoardService();
+		HttpSession session = request.getSession();
+		Member member = (Member)session.getAttribute("loginUser");
+		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 1024 * 1024* 10;
 			String root = request.getSession().getServletContext().getRealPath("/"); // C:\5_JSPServlet_workspace\TCHD\WebContent\
@@ -71,9 +79,9 @@ public class AdoptInsertServlet extends HttpServlet {
 			if(kirr != null) {
 				for(int i = 0; i < kirr.length; i++) {
 					if(i == kirr.length - 1) {
-						petKind += kirr[i];
+						petKind = kirr[i];
 					} else {
-						petKind += kirr[i] + ",";
+						petKind = kirr[i];
 					}
 				}
 			}
@@ -82,9 +90,9 @@ public class AdoptInsertServlet extends HttpServlet {
 			if(girr != null) {
 				for(int i = 0; i < girr.length; i++) {
 					if(i == girr.length - 1) {
-						petGender += girr[i];
+						petGender = girr[i];
 					} else {
-						petGender += girr[i] +",";
+						petGender = girr[i];
 					}
 				}
 			}
@@ -124,12 +132,22 @@ public class AdoptInsertServlet extends HttpServlet {
 				rescueDate = new Date(new GregorianCalendar().getTimeInMillis());
 			}
 			
+			// DB에 저장할 객체 - Board 테이블
+			Board b = new Board();
+			b.setBoTitle(petName);
+			b.setBoContent(petKind + ", " + petGender + ", " + petSize + ", " + petAge + ", " + 
+						petName + ", " + petCategory + ", " + petWeight + ", " + petColor + ", " + 
+						rescueDate + ", " + lastMent);
+			b.setMemNo(member.getMem_no());															//// nullPoint 에러가 뜨네~~~~
 			
-			// DB에 저장할 객체
+			
+			// DB에 저장할 객체 - Adopt 테이블
 			Adopt a = new Adopt();
 			
+			a.setBoNo(b.getBoNo());
 			a.setPetKinds(petKind);
 			a.setPetGender(petGender);
+			a.setPetUnigender(unigender);
 			a.setPetSize(petSize);
 			a.setPetAge(petAge);
 			a.setPetName(petName);
@@ -139,6 +157,10 @@ public class AdoptInsertServlet extends HttpServlet {
 			a.setPetRescueDate(rescueDate);
 			a.setPetComment(lastMent);
 			
+			System.out.println("글쓰기  크기 : " + a.getPetSize());
+			System.out.println("글쓰기  나이 : " + a.getPetAge());
+			
+			int reslut1 = new BoardService().insertBoard(b);
 			
 			ArrayList<Files> fileList = new ArrayList<Files>();
 			for(int i = originFiles.size() - 1; i >= 0; i--) {	// originFiles.size() : 원본파일 개수
@@ -156,9 +178,9 @@ public class AdoptInsertServlet extends HttpServlet {
 				fileList.add(ft);		// 파일 저장순서 순차적으로 적용
 			}
 			
-			int result = new BoardService().insertAdopt(a, fileList);
+			int result2 = new BoardService().insertAdopt(a, fileList);
 			
-			if(result > 0) {
+			if(reslut1 > 0 && result2 > 0) {
 				response.sendRedirect("adopt.bo");
 //				request.setAttribute("section","adopt.bo");
 //				request.getRequestDispatcher("index.jsp").forward(request, response);

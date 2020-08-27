@@ -50,7 +50,7 @@ public class BoardDAO {
 			
 			list = new ArrayList<Adopt>();
 			
-			// Adopt vo가 이상한거 같아서 막혔슈,, 내일 하겠습니다,,
+			// 
 			while(rset.next()) {
 				list.add(new Adopt(rset.getInt("bo_no"),
 									rset.getInt("bo_type"),
@@ -59,7 +59,7 @@ public class BoardDAO {
 									rset.getString("pet_kinds"),
 									rset.getString("pet_category"),
 									rset.getString("pet_gender"),
-									rset.getString("pet_uigender"),
+									rset.getString("pet_unigender"),
 									rset.getString("pet_name"),
 									rset.getString("pet_age"),
 									rset.getDate("pet_rescue_date"),
@@ -175,50 +175,49 @@ public class BoardDAO {
 	}
 	
 	
-	public ArrayList<Board> selectMyBoard(Connection conn,int mem_no) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<Board> boardList = new ArrayList<Board>();
-		
-		try {
-			pstmt=conn.prepareStatement(prop.getProperty("selectMyBoard"));
-			pstmt.setInt(1, mem_no);
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				Board board=null;
-				int currBo_no = 0;
-				if(currBo_no!=rset.getInt("BO_NO")) {
-					currBo_no=rset.getInt("BO_NO");
-				}
-				board = new Board(
-						rset.getInt("BO_NO"),
-						rset.getString("CATE_NAME"),
-						rset.getString("BO_TITLE"),
-						rset.getDate("BO_DATE")
-					);
-				boardList.add(board);
-				if(rset.getInt("COM_NO")!=0) {
-					board= new Board(
-							rset.getInt("COM_NO"),
-							null,
-							rset.getString("COM_CONTENT"),
-							rset.getDate("COM_DATE")
-						);
-					boardList.add(board);
-				}
-		
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return  boardList;
-	}
+//	public ArrayList<Board> selectMyBoard(Connection conn,int mem_no) {
+//		PreparedStatement pstmt = null;
+//		ResultSet rset = null;
+//		ArrayList<Board> boardList = new ArrayList<Board>();
+//		
+//		try {
+//			pstmt=conn.prepareStatement(prop.getProperty("selectMyBoard"));
+//			pstmt.setInt(1, mem_no);
+//			rset = pstmt.executeQuery();
+//			
+//			while(rset.next()) {
+//				Board board=null;
+//				int currBo_no = 0;
+//				if(currBo_no!=rset.getInt("BO_NO")) {
+//					currBo_no=rset.getInt("BO_NO");
+//				}
+//				board = new Board(
+//						rset.getInt("BO_NO"),
+//						rset.getString("CATE_NAME"),
+//						rset.getString("BO_TITLE"),
+//						rset.getDate("BO_DATE")
+//					);
+//				boardList.add(board);
+//				if(rset.getInt("COM_NO")!=0) {
+//					board= new Board(
+//							rset.getInt("COM_NO"),
+//							null,
+//							rset.getString("COM_CONTENT"),
+//							rset.getDate("COM_DATE")
+//						);
+//					boardList.add(board);				}
+//		
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}finally {
+//			close(rset);
+//			close(pstmt);
+//		}
+//		
+//		return  boardList;
+//	}
 
 	public ArrayList<Volunteer> selectMyVolunteer(Connection conn, int mem_no) {
 		PreparedStatement pstmt = null;
@@ -280,17 +279,58 @@ public class BoardDAO {
 		return VList;
 	}
 
+	public int insertBoard(Connection conn, Board b) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, b.getBoTitle());
+			pstmt.setString(2, b.getBoContent());
+			pstmt.setInt(3, b.getMemNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { 
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 	public int insertAdopt(Connection conn, Adopt a) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
 		String query = prop.getProperty("insertAdopt");
 		
+		// VALUES(?, 1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DEFAULT)
 		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, a.getBoNo());
+			pstmt.setString(2, a.getPetKinds());
+			pstmt.setString(3, a.getPetCategory());
+			pstmt.setString(4, a.getPetGender());
+			pstmt.setString(5, a.getPetUnigender());
+			pstmt.setString(6, a.getPetName());
+			pstmt.setString(7, a.getPetAge());
+			pstmt.setFloat(8, a.getPetWeight());
+			pstmt.setString(9, a.getPetColor());
+			pstmt.setString(10, a.getPetSize());
+			pstmt.setString(11, a.getPetComment());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { 
+			close(pstmt);
+		}
 		
-		
-		
-		return 0;
+		return result;
 	}
 
 	public int insertAdopt(Connection conn, ArrayList<Files> fileList) {
@@ -305,6 +345,7 @@ public class BoardDAO {
 		
 		return 0;
 	}
+
 
 	
 	

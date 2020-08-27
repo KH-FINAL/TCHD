@@ -58,16 +58,16 @@
 						<td id="sizeTd" class="secondTd">
 							<select name="petSize">	<!-- ---------- 이 상태면 등록 안되게 기능 걸기 -->
 								<option value="dash"> ------------</option>
-								<option value="small">소형</option>
-								<option value="middle">중형</option>
-								<option value="large">대형</option>
+								<option value="S">소형</option>
+								<option value="M">중형</option>
+								<option value="L">대형</option>
 							</select>
 						</td>
 						<td class="firstTd"><span>*</span> 연령 </td>
 						<td id="ageTd" class="secondTd">
 							<select size="petAge">	<!-- ---------- 이 상태면 등록 안되게 기능 걸기 -->
 								<option value="dash"> ---------------------</option>
-								<option value="puppy">Puppy(~ 6개월)</option>
+								<option value="Puppy">Puppy(~ 6개월)</option>
 								<option value="Junior">Junior(7개월 ~ 2살)</option>
 								<option value="Adult">Adult(3살 ~ 8살)</option>
 								<option value="Senior">Senior(9살 ~)</option>

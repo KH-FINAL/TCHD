@@ -1,8 +1,8 @@
 package board.model.service;
 
-import static common.JDBCTemplate.getConnection;
 import static common.JDBCTemplate.close;
 import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.getConnection;
 import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
@@ -57,15 +57,15 @@ public class BoardService {
 	}
 
 
-	public ArrayList<Board> selectMyBoard(int mem_no) {
-		Connection conn = getConnection();
-		
-		ArrayList<Board> boardList = new BoardDAO().selectMyBoard(conn,mem_no);
-		
-		close(conn);
-		
-		return boardList;
-	}
+//	public ArrayList<Board> selectMyBoard(int mem_no) {
+//		Connection conn = getConnection();
+//		
+//		ArrayList<Board> boardList = new BoardDAO().selectMyBoard(conn,mem_no);
+//		
+//		close(conn);
+//		
+//		return boardList;
+//	}
 
 	public ArrayList<Volunteer> selectMyVolunteer(int mem_no) {
 		Connection conn = getConnection();
@@ -87,6 +87,14 @@ public class BoardService {
 		
 		return VList;
 	}
+	
+	public int insertBoard(Board b) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDAO().insertBoard(conn, b);
+		
+		return result;
+	}
 
 	public int insertAdopt(Adopt a, ArrayList<Files> fileList) {
 		Connection conn = getConnection();
@@ -106,6 +114,7 @@ public class BoardService {
 		
 		return result1;
 	}
+
 
 	
 	
