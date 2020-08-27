@@ -45,7 +45,7 @@ public class QuestionsListServlet extends HttpServlet {
 		int endPage;		//페이징 된 페이지 중 마지막페이지
 		
 		listCount = qService.getListCount();
-		System.out.println(listCount);
+		
 		
 		currentPage = 1;
 		if(request.getParameter("currentPage") != null) { //페이지를 누른 상태면  (2페이지,3페이지 등 클릭하지않으면 currentPage가 null임)
@@ -60,7 +60,7 @@ public class QuestionsListServlet extends HttpServlet {
 		
 		startPage = (currentPage - 1) / pageLimit * pageLimit + 1; 
 		
-		endPage = startPage + pageLimit - 1;
+		endPage = startPage + pageLimit - 1; //시작번호+출력개수-1
 		if(maxPage < endPage) {
 			endPage = maxPage;   //맥스페이지 뒷자리가 0으로 안끝날수도있다. 이 경우엔 맥스페이지수로 맞춰주는 if문을 작성함.
 		}
@@ -73,20 +73,19 @@ public class QuestionsListServlet extends HttpServlet {
 		
 		
 		if(Qlist != null) {
-			
-			request.setAttribute("section", "WEB-INF/views/questions/questionsList.jsp");
+			 request.setAttribute("section", "WEB-INF/views/questions/questionsList.jsp");
 			request.setAttribute("Qlist", Qlist);
 			 request.setAttribute("pi", pi);
 			 
 			
 		}else {
-			
-			request.setAttribute("section","WEB-INF/views/common/errorPage.jsp");
+			request.setAttribute("section","WEB-INF/views/common/errorPage.jsp"); 
 			request.setAttribute("msg", "게시판 조회에 실패하였습니다.");
 		}
 		
 		
 		request.getRequestDispatcher("index.jsp").forward(request, response);
+		/* request.getRequestDispatcher(page).forward(request, response); */
 	}
 	
 
