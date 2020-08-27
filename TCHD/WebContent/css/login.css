@@ -21,6 +21,7 @@
 .login_input {
 	width: 400px;
 	height: 50px;
+	padding-left: 10px;
 }
 /* 아이디 찾기, 비밀번호 찾기 */
 #login_find_div {

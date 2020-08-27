@@ -319,4 +319,53 @@ public class MemberDAO {
 		
 		return findUser;
 	}
+
+	public int changePwd(Connection conn, String id, String temporaryPwd) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		Member member = new Member();
+		
+		String query = prop.getProperty("changPwd");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, temporaryPwd);
+			pstmt.setString(2, id);
+			result = pstmt.executeUpdate();
+			
+			System.out.println("dao_ mem_id : " + id);
+			System.out.println("dao_result : " + result);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int confirmPw(Connection conn, Member member) {
+		// 오버로딩?
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("leaveUser");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, member.getMem_pw());
+			pstmt.setString(2, member.getMem_id());
+			result = pstmt.executeUpdate();
+			
+			System.out.println("dao_pw : " + member.getMem_pw());
+			System.out.println("dao_id : " + member.getMem_id());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }

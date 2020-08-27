@@ -47,14 +47,22 @@ public class FindPwdServlet extends HttpServlet {
 					
 					temporaryPwd += pwArr[selectRandomPwd];
 				}
-				System.out.println(temporaryPwd);
 				
-				new sendMail().sendEmail("pwd", email, temporaryPwd);
+				// DB에 저장된 비밀번호 -> 임시 비밀번호로 변경
+				int result = new MemberService().changePwd(id, temporaryPwd);
 				
+				if(result != 0) {
+					new sendMail().sendEmail("pwd", email, temporaryPwd);
+					
+					System.out.println("메일 전송 완료_pwd");
+				} else {
+					request.setAttribute("errorMsg", "비밀번호 찾기에 실패하였습니다.");
+					request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
+					request.getRequestDispatcher("index.jsp").forward(request, response);
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			System.out.println("메일 전송 완료_pwd");
 
 			response.sendRedirect(request.getContextPath());
 			request.setAttribute("section", "WEB-INF/views/common/main.jsp");

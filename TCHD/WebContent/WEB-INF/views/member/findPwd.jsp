@@ -28,7 +28,7 @@
 			
 			<form method="post" action="findPwd.me" onsubmit="return validate();">
 				<div id="input_div">
-					<input type="text" id="input_id" class="input" name="input_id" placeholder=" 아이디">
+					<input type="text" id="input_id" class="input" name="input_id" placeholder="아이디">
 				</div>
 				<br>
 				<div id="input_button_div">
