@@ -13,6 +13,8 @@ public class Files {
 	private int downloadCount;
 	private String status;
 	
+	public Files() {}
+	
 	public Files(int boNo, String changeName) {
 		this.boNo = boNo;
 		this.changeName = changeName;
@@ -31,6 +33,7 @@ public class Files {
 		this.downloadCount = downloadCount;
 		this.status = status;
 	}
+
 
 
 	public int getFileNo() {

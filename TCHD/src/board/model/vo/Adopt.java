@@ -20,6 +20,7 @@ public class Adopt {	// 입양게시판
 	private String petComment;		// 하고 싶은 말	 --> 게시판 상세보기에서 보이게 하자
 	private String adoptYn;			// 입양 여부	-> N : 미입양상태(default),  Y : 입양상태(게시판에서 안보임)
 	
+	public Adopt() {}
 	
 	// 입양게시판 목록
 	public Adopt(int boNo, int boType, String cateName, String id, String petKinds, String petCategory, String petGender,
@@ -64,6 +65,7 @@ public class Adopt {	// 입양게시판
 		this.petComment = petComment;
 		this.adoptYn = adoptYn;
 	}
+
 
 	public int getBoNo() {
 		return boNo;

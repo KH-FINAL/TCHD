@@ -9,7 +9,9 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import board.model.dao.BoardDAO;
+import board.model.vo.Adopt;
 import board.model.vo.Board;
+import board.model.vo.Files;
 import board.model.vo.PageInfo;
 import board.model.vo.Questions;
 import board.model.vo.Volunteer;
@@ -84,6 +86,25 @@ public class BoardService {
 		close(conn);
 		
 		return VList;
+	}
+
+	public int insertAdopt(Adopt a, ArrayList<Files> fileList) {
+		Connection conn = getConnection();
+		
+		BoardDAO dao = new BoardDAO();
+		
+		int result1 = dao.insertAdopt(conn, a);			// 내용 저장 객체
+		int result2 = dao.insertAdopt(conn, fileList);	// 파일 객체
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result1;
 	}
 
 	

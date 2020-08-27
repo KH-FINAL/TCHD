@@ -280,6 +280,32 @@ public class BoardDAO {
 		return VList;
 	}
 
+	public int insertAdopt(Connection conn, Adopt a) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertAdopt");
+		
+		
+		
+		
+		
+		return 0;
+	}
+
+	public int insertAdopt(Connection conn, ArrayList<Files> fileList) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertFiles");
+		
+		
+		
+		
+		
+		return 0;
+	}
+
 	
 	
 	
