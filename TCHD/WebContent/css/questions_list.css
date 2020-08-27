@@ -68,11 +68,15 @@ a {
     text-align: center;
 }
 
-.board_list .tit {
+.td_cate{
+	width: 400px;
+}
+
+.tit {
     text-align: left;
 }
 
-.board_list .tit:hover {
+.tit:hover {
     text-decoration: underline;
 }
 

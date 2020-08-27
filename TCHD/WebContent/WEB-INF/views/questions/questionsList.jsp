@@ -25,12 +25,12 @@
             <caption>게시판 목록</caption>
                 <thead>
                     <tr>
-                        <th>번호</th>
-                        <th>분류</th>
-                        <th>제목</th>
-                        <th>작성자</th>
-                        <th>조회수</th>
-                        <th>날짜</th>
+                        <th width="100px">번호</th>
+                        <th width="150px">분류</th>
+                        <th width="450px">제목</th>
+                        <th width="100px">작성자</th>
+                        <th width="100px">조회수</th>
+                        <th width="100px">날짜</th>
                     </tr>
                 </thead>
 				 <% if(Qlist.isEmpty()){ %>
@@ -40,12 +40,14 @@
 		            <% } else{ %>
 		         	   <% for(Questions q : Qlist){ %>
 		         	   <tr>
-			         	   <td>
+			         	   <td class="td_boNo">
 			         	   	<input type="hidden" value="<%= q.getBoNo()%>">
 			         	   <%= q.getBoNo() %>
 			         	   </td>
 			         	   <td><%= q.getCateName() %></td>
-			         	   <td><%= q.getBoTitle() %></td>
+			         	   <td class="tet">
+			         	   	<a href="<%= q.getBoTitle() %>/detail.qu"><%= q.getBoTitle() %></a>
+			         	   </td>
 			         	   <td><%= q.getMemId() %></td>
 			         	   <td><%= q.getBoCount() %></td>
 			         	   <td><%= q.getBoDate() %></td>
@@ -101,11 +103,25 @@
 		}
 		
 		function goLogin(){
+			if("loginUser" != null){
+				
+			}
 			window.alert("로그인 후 이용해주시기 바랍니다.");
 			location.href="<%= request.getContextPath() %>/loginForm.me";
 		}
 		</script>
         </section>
-
+	<script>
+  	$(function(){
+  		$('td').mouseenter(function(){
+   			$(this).parent().css({'background':'#eee', 'cursor':'pointer', 'text-decoration':'underline'});
+   		}).mouseout(function(){
+   			$(this).parent().css({'background': 'none', 'text-decoration':'none'});
+   		}).click(function(){
+   			var bId = $(this).parent().children().children('input').val();
+   			
+   		});
+   	});
+   </script>
  </body>
 </html>
