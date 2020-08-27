@@ -69,30 +69,30 @@
 			<div class="paging">
 			
 				<!-- 이전 페이지 -->
-	         	<a href="<%= request.getContextPath() %>/list.qu?currentPage=<%= currentPage - 1 %>" class="bt" id="beforeBtn">이전 페이지</a>
+	         	<a href="list.qu?currentPage=<%= currentPage - 1 %>" class="bt" id="beforeBtn">이전 페이지</a>
 		         	<script>
 		        	if(<%= currentPage %> <= 1){
 		        		var before = $('#beforeBtn');
-		        		before.attr('disabled', 'true');
+		        		before.css("visibility","hidden");
 		        	}
 		       		</script>
 
 		   	    <!-- 페이지 목록 -->
         		<% for(int p = startPage; p <= endPage; p++){ %>
 	        		<% if(p == currentPage){ %>  
-	        			<a href="#" class="num on"><%= p %></a>
+	        			<a href="list.qu?currentPage=<%= p %>" class="num on"><%= p %></a>
 	        		<% } else { %>
-	        			<a href="<%= request.getContextPath() %>/list.qu?currentPage=<%= p %>" class="num"><%= p %></a>
+	        			<a href="list.qu?currentPage=<%= p %>" class="num"><%= p %></a>
 	        		<% } %>
        			 <% } %>
 		   	    
 		   	    
 		   	    <!-- 다음 페이지 -->
-		   	    <a href="<%= request.getContextPath() %>/list.qu?currentPage=<%=currentPage + 1%>" class="bt" id="afterBtn">다음 페이지</a>
+		   	    <a href="list.qu?currentPage=<%=currentPage + 1%>" class="bt" id="afterBtn">다음 페이지</a>
 				 <script>
 		        	if(<%= currentPage %> >= <%= maxPage %>){
 		        		var after = $('#afterBtn');
-		        		after.attr('disabled', 'true');
+		        		after.css("visibility", "hidden");
 		        	}
 		        </script>    		  
     		</div>

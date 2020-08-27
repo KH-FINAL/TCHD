@@ -58,7 +58,7 @@ public class QuestionsListServlet extends HttpServlet {
 		maxPage = (int)Math.ceil((double)listCount/boardLimit); //나머지값(소숫점)이 필요하므로 listCount만 double로 형변환.
 						//반올림 함수
 		
-		startPage = (currentPage - 1) * pageLimit + 1; //(현재페이지-1)*출력개수+1
+		startPage = (currentPage - 1) / pageLimit * pageLimit + 1; 
 		
 		endPage = startPage + pageLimit - 1; //시작번호+출력개수-1
 		if(maxPage < endPage) {
@@ -73,16 +73,13 @@ public class QuestionsListServlet extends HttpServlet {
 		
 		
 		if(Qlist != null) {
-			
-			
-			  request.setAttribute("section", "WEB-INF/views/questions/questionsList.jsp");
+			 request.setAttribute("section", "WEB-INF/views/questions/questionsList.jsp");
 			request.setAttribute("Qlist", Qlist);
 			 request.setAttribute("pi", pi);
 			 
 			
 		}else {
-		 
-			 request.setAttribute("section","WEB-INF/views/common/errorPage.jsp"); 
+			request.setAttribute("section","WEB-INF/views/common/errorPage.jsp"); 
 			request.setAttribute("msg", "게시판 조회에 실패하였습니다.");
 		}
 		
