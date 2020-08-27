@@ -6,7 +6,9 @@ import static common.JDBCTemplate.rollback;
 
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
+import board.model.vo.PageInfo;
 import member.model.dao.MemberDAO;
 import member.model.vo.Member;
 
@@ -158,4 +160,39 @@ public class MemberService {
 		
 		return result;
 	}
+	
+	public ArrayList<Member> selectNotOkGroupMembers(PageInfo pi) {
+		Connection conn= getConnection();
+		
+		ArrayList<Member> memberList = new MemberDAO().selectNotOkGroupMembers(conn,pi);
+		
+		close(conn);
+		
+		return memberList;
+	}
+
+	public int approveMember(int memNo) {
+		Connection conn= getConnection();
+		
+		int result = new MemberDAO().approveMember(conn,memNo);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public int selectNotOkGroupMembersCount() {
+		Connection conn = getConnection();
+		
+		int count = new MemberDAO().selectNotOkGroupMembersCount(conn);
+		
+		close(conn);
+		
+		return count;
+	}
+
 }

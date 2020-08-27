@@ -1,3 +1,4 @@
+<%@page import="board.model.vo.PageInfo"%>
 <%@page import="board.model.vo.Board"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -26,6 +27,15 @@
 	
 	}
 	
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	
+	System.out.println(listCount+"/"+currentPage+"/"+maxPage+"/"+startPage+"/"+endPage);
 %>
 <!DOCTYPE html>
 <html>
@@ -44,6 +54,17 @@ $(function(){
 	$('#popUpCloseBtn').click(function(){
 		$('#popUpDiv').css("display","none");
 	});
+	
+	if(<%=currentPage %> <=1){
+			var before = $('#beforBtn');
+			//before.attr("href","");
+			before.css("visibility","hidden");
+	}
+	if(<%=currentPage %>== <%=maxPage%>){
+		var before = $('#nextBtn');
+		//before.attr("href","");
+		before.css("visibility","hidden");
+	}
 })
 
 </script>
@@ -63,7 +84,7 @@ $(function(){
 			<div id="listMyBoardTitle">내가 작성한 글</div>
 			<div id="listMyBoardContent">
 				<div id="selectMyBoard">
-					<a href="#">전체(<%=total %>)</a> |
+					<a href="#">전체(<%=listCount %>)</a> |
 					<a href="#">입양(<%=adopt %>)</a> |
 					<a href="#">봉사(<%=volunteer %>)</a> |
 					<a href="#">댓글(<%=comment %>)</a> |
@@ -96,13 +117,20 @@ $(function(){
 						</tr>
 					<%} %>
 					</table>
-			<div  class="paging">
-                <a href="#" class="bt">이전 페이지</a>
-                <a href="#" class="num on">1</a>
-                <a href="#" class="num">2</a>
-                <a href="#" class="num">3</a>
-                <a href="#" class="bt">다음 페이지</a>
-            </div>
+					
+					
+			<div  class="paging">			
+			<a href="listMyBoard.bo?currentPage=<%=currentPage-1 %>" class="bt" id="beforBtn">이전 페이지</a>			
+			<%for(int p=startPage; p<=maxPage; p++){ %>
+	   					<% if(p==currentPage){ %>
+	   					 <a href="listMyBoard.bo?currentPage=<%=p %>" class="num on"><%=p %></a>
+	   					<%}else{ %>
+	   					 <a href="listMyBoard.bo?currentPage=<%=p %>" class="num"><%=p %></a>
+	   					<%} %>
+	   		<%} %>	
+   		  <a href="listMyBoard.bo?currentPage=<%=currentPage+1 %>" class="bt" id="nextBtn">다음 페이지</a>
+            </div>					
+			
 				</div>
 			</div>
 		</div>

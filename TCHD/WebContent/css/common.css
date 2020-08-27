@@ -140,17 +140,17 @@
 }
 
 #topBtn img{
-	width:56px;
+	width:45px;
 }
 #remoteDiv{
 	width: 56px;
 	position: fixed;
-    right: 24px;
-    top: 220px;
+	right: 61px;
+	top: 220px;
 }
 
 #remoteDiv img{
-	width: 56px;
+	width: 100px;
 }
 
 /*   */

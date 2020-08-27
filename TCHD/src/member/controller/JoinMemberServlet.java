@@ -43,10 +43,18 @@ public class JoinMemberServlet extends HttpServlet {
 		String emailTotal = email+"@"+email2;
 	
 		String birth = request.getParameter("joinBirth");
-		String[] birthArr =  birth.split("-");
-		int year =Integer.parseInt(birthArr[0]);
-		int month=Integer.parseInt(birthArr[1])-1;
-		int day= Integer.parseInt(birthArr[2]);
+		int year=0;
+		int month=0;
+		int day=0;
+		
+		
+		if(birth!=null) {
+			
+			String[] birthArr =  birth.split("-");
+			year =Integer.parseInt(birthArr[0]);
+			month=Integer.parseInt(birthArr[1])-1;
+			day= Integer.parseInt(birthArr[2]);
+		}
 		Date birth2 = new Date(new GregorianCalendar(year,month,day).getTimeInMillis());
 		
 	
@@ -57,7 +65,7 @@ public class JoinMemberServlet extends HttpServlet {
 		if(memberType.equals("PM")) {
 			member = new Member(0,memberType,id,pwd,name,tel,addressTotal,emailTotal,birth2);
 		}else {
-			member = new Member(0,memberType,id,pwd,name,tel,addressTotal,emailTotal,gmname,regno);
+			member = new Member(0,memberType,id,pwd,name,tel,addressTotal,emailTotal,regno,gmname);
 		}
 		
 		int result=new MemberService().insertMember(member);

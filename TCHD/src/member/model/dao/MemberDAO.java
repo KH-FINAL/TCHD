@@ -6,8 +6,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
+import board.model.vo.PageInfo;
 import member.model.vo.Member;
 
 public class MemberDAO {
@@ -362,5 +365,88 @@ public class MemberDAO {
 		}
 		
 		return result;
+	}
+	
+	public ArrayList<Member> selectNotOkGroupMembers(Connection conn, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset= null;
+		ArrayList<Member> memberList = new ArrayList<Member>();
+		
+		int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() +1;
+		int endRow = startRow + pi.getBoardLimit() -1;
+		
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("selectNotOkGroupMembers"));
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				 Member member = new Member(
+						 rset.getInt("MEM_NO"), 
+						 null,
+						 rset.getString("MEM_ID"), 
+						 null, 
+						 rset.getString("MEM_NAME"),
+						 rset.getString("MEM_PHONE"), 
+						 rset.getString("MEM_ADDR"), 
+						 rset.getString("MEM_EMAIL"), 
+						 rset.getString("GM_REGNO"), 
+						 rset.getString("GM_NAME"));
+				 
+				 memberList.add(member);
+				 
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
+		return memberList;
+		
+	}
+
+	public int approveMember(Connection conn, int memNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt= conn.prepareStatement(prop.getProperty("approveMember"));
+			pstmt.setInt(1, memNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int selectNotOkGroupMembersCount(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		
+		try {
+			stmt= conn.createStatement();
+			rset= stmt.executeQuery(prop.getProperty("selectNotOkGroupMembersCount"));
+			
+			if(rset.next()) {
+				count= rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		return count;
 	}
 }

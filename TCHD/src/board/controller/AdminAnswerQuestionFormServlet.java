@@ -1,4 +1,4 @@
-package member.controller;
+package board.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,20 +11,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
 import board.model.vo.PageInfo;
-import member.model.service.MemberService;
+import board.model.vo.Questions;
 import member.model.vo.Member;
 
 /**
- * Servlet implementation class ApproveGroupMemberServlet
+ * Servlet implementation class answerQuestionFormServlet
  */
-@WebServlet("/approveGroupMember.me")
-public class ApproveGroupMemberServlet extends HttpServlet {
+@WebServlet("/answerQuestionForm.bo")
+public class AdminAnswerQuestionFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ApproveGroupMemberServlet() {
+    public AdminAnswerQuestionFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,7 +38,7 @@ public class ApproveGroupMemberServlet extends HttpServlet {
 			request.setAttribute("errorMsg", "세션이 만료되었습니다. 다시 로그인해주세요.");
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
-		
+		BoardService bService = new BoardService();
 		
 		int listCount;   // 총 게시글 개수
 		int currentPage;  // 현재 페이지
@@ -48,14 +48,14 @@ public class ApproveGroupMemberServlet extends HttpServlet {
 		int startPage;  // 페이징 된 페이지 중 시작 페이지
 		int endPage;   // 페이징 된 페이 중 마지막 페이지
 		
-		listCount = new MemberService().selectNotOkGroupMembersCount();
+		listCount = bService.selectAnswerQuestionsCount();
 		
-
 		currentPage =1;
 		if(request.getParameter("currentPage")!=null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
+
 		pageLimit = 3;
 		boardLimit = 10;
 		
@@ -69,15 +69,17 @@ public class ApproveGroupMemberServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(currentPage,listCount,pageLimit,boardLimit,maxPage,startPage, endPage);
 		
-		ArrayList<Member> memberList = new MemberService().selectNotOkGroupMembers(pi);
-
-		if(memberList!=null) {
+		
+		ArrayList<Questions> questionsList = new BoardService().selectAnswerQuestions(pi);
+		
+		if(questionsList!=null) {
 			request.setAttribute("pi", pi);
-			
 		}
-		request.setAttribute("memberList", memberList);
-		request.setAttribute("section", "WEB-INF/views/admin/approveGroupMember_admin.jsp");
+		
+		request.setAttribute("questionsList", questionsList);
+		request.setAttribute("section", "WEB-INF/views/admin/answerQuestion_admin.jsp");
 		request.getRequestDispatcher("index.jsp").forward(request, response);
+		
 	}
 
 	/**

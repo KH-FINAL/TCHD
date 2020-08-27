@@ -21,7 +21,7 @@
  */
  $(function(){
  	 $(window).resize(function(){
-		if($(window).width()<=1400){
+		if($(window).width()<=1516){
 			$("#remoteDiv").hide();
 			$('#topBtn').hide();
 		}else{
@@ -91,12 +91,13 @@
 		</div>
 	</div>
 	<div id="remoteDiv">   <!-- 리모컨 -->
-		<img src="images/pets(1).png" >
-		<img src="images/pets(1).png" >
-		<img src="images/pets(1).png" >
-		<img src="images/pets(1).png">
+		<a href="adopt.bo"><img src="images/aside1.png" ></a>
+		<a href="#"><img src="images/aside2.png" ></a>
+		<a href="#"><img src="images/aside3.png" ></a>
+		<a href="list.qu"><img src="images/aside4.png" ></a>
+		
 	</div>
-	<a id="topBtn" href="#"><img src="images/pets(1).png" ></a>
+	<a id="topBtn" href="#"><img src="images/topBtn.png" ></a>
 </header>
 </body>
 </html>

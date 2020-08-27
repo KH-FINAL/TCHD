@@ -267,7 +267,7 @@ $(function(){
 
 function checkSubmit(){
 	if($("#checkInfo").is(":checked")==false){
-		alert("개인정보 수집 및 이용에 동의해주세요.");
+		swal("","개인정보 수집 및 이용에 동의해주세요.","info");
 		$("#checkInfo").focus();
 		return false;
 	}
@@ -310,7 +310,7 @@ function checkSubmit(){
 		}
 		
 	}else{
-		var id= $('#joinForm_private').find('.inputId');
+		var id= $('#joinForm_group').find('.inputId');
 		var pwd=$("#joinForm_group").find('#joinPwd').val();
 		var pwd2=$("#joinForm_group").find('#joinPwd2').val();
 		var name= $('#joinForm_group').find('.inputName');

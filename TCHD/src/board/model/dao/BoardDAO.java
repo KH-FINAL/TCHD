@@ -175,49 +175,55 @@ public class BoardDAO {
 	}
 	
 	
-//	public ArrayList<Board> selectMyBoard(Connection conn,int mem_no) {
-//		PreparedStatement pstmt = null;
-//		ResultSet rset = null;
-//		ArrayList<Board> boardList = new ArrayList<Board>();
-//		
-//		try {
-//			pstmt=conn.prepareStatement(prop.getProperty("selectMyBoard"));
-//			pstmt.setInt(1, mem_no);
-//			rset = pstmt.executeQuery();
-//			
-//			while(rset.next()) {
-//				Board board=null;
-//				int currBo_no = 0;
-//				if(currBo_no!=rset.getInt("BO_NO")) {
-//					currBo_no=rset.getInt("BO_NO");
-//				}
-//				board = new Board(
-//						rset.getInt("BO_NO"),
-//						rset.getString("CATE_NAME"),
-//						rset.getString("BO_TITLE"),
-//						rset.getDate("BO_DATE")
-//					);
-//				boardList.add(board);
-//				if(rset.getInt("COM_NO")!=0) {
-//					board= new Board(
-//							rset.getInt("COM_NO"),
-//							null,
-//							rset.getString("COM_CONTENT"),
-//							rset.getDate("COM_DATE")
-//						);
-//					boardList.add(board);				}
-//		
-//			}
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}finally {
-//			close(rset);
-//			close(pstmt);
-//		}
-//		
-//		return  boardList;
-//	}
+	public ArrayList<Board> selectMyBoard(Connection conn,int mem_no,PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> boardList = new ArrayList<Board>();
+		
+		int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() +1;
+		int endRow = startRow + pi.getBoardLimit() -1;
+		
+		try {
+			pstmt=conn.prepareStatement(prop.getProperty("selectMyBoard"));
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			pstmt.setInt(3, mem_no);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Board board=null;
+				int currBo_no = 0;
+				if(currBo_no!=rset.getInt("BO_NO")) {
+					currBo_no=rset.getInt("BO_NO");
+				}
+				board = new Board(
+						rset.getInt("BO_NO"),
+						rset.getString("CATE_NAME"),
+						rset.getString("BO_TITLE"),
+						rset.getDate("BO_DATE")
+					);
+				boardList.add(board);
+				if(rset.getInt("COM_NO")!=0) {
+					board= new Board(
+							rset.getInt("COM_NO"),
+							null,
+							rset.getString("COM_CONTENT"),
+							rset.getDate("COM_DATE")
+						);
+					boardList.add(board);
+				}
+		
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return  boardList;
+	}
 
 	public ArrayList<Volunteer> selectMyVolunteer(Connection conn, int mem_no) {
 		PreparedStatement pstmt = null;
@@ -346,9 +352,116 @@ public class BoardDAO {
 		return 0;
 	}
 
+	public ArrayList<Questions> selectAnswerQuestions(Connection conn,PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset =null;
+		ArrayList<Questions> questionsList = new ArrayList<Questions>();
+		
+		int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() +1;
+		int endRow = startRow + pi.getBoardLimit() -1;
+		
+		try {
+			pstmt= conn.prepareStatement(prop.getProperty("selectAnswerQuestions"));
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Questions q = new Questions(
+						rset.getInt("BO_NO"),
+						0,
+						rset.getString("CATE_NAME"),
+						rset.getString("BO_TITLE"),
+						rset.getString("BO_CONTENT"),
+						0,
+						rset.getDate("BO_DATE"),
+						rset.getInt("MEM_NO"),
+						rset.getString("MEM_ID"),
+						null,
+						null
+						);
+						questionsList.add(q);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return questionsList;
+	}
+
+	public int answerQuestion(Connection conn, int qNo, String answer) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt =conn.prepareStatement(prop.getProperty("answerQuestion"));
+			pstmt.setInt(1, qNo);
+			pstmt.setString(2, answer);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
+
+	public int selectMyBoardCount(Connection conn, int mem_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int count =0;
+		
+		try {
+			pstmt =conn.prepareStatement(prop.getProperty("selectMyBoardCount"));
+			pstmt.setInt(1, mem_no);
+			rset=pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count= rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return count;
+	}
+
+	public int selectAnswerQuestionsCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int count =0;
+		
+		try {
+			pstmt =conn.prepareStatement(prop.getProperty("selectAnswerQuestionsCount"));
+			rset=pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count= rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return count;
+	}
+	
 
 	
 	
 	
-	
-} // class end
+}
