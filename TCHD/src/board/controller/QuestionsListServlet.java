@@ -71,25 +71,24 @@ public class QuestionsListServlet extends HttpServlet {
 		ArrayList<Questions> Qlist = qService.selectQList(pi);
 		
 		
-		String page = null;
+		
 		if(Qlist != null) {
-			page="WEB-INF/views/questions/questionsList.jsp";
-			/*
-			 * request.setAttribute("section", "WEB-INF/views/questions/questionsList.jsp");
-			 */
+			
+			
+			  request.setAttribute("section", "WEB-INF/views/questions/questionsList.jsp");
 			request.setAttribute("Qlist", Qlist);
 			 request.setAttribute("pi", pi);
 			 
 			
 		}else {
-			page = "WEB-INF/views/common/errorPage.jsp";
-			/* request.setAttribute("section","WEB-INF/views/common/errorPage.jsp"); */
+		 
+			 request.setAttribute("section","WEB-INF/views/common/errorPage.jsp"); 
 			request.setAttribute("msg", "게시판 조회에 실패하였습니다.");
 		}
 		
 		
-		/* request.getRequestDispatcher("index.jsp").forward(request, response); */
-		request.getRequestDispatcher(page).forward(request, response);
+		request.getRequestDispatcher("index.jsp").forward(request, response);
+		/* request.getRequestDispatcher(page).forward(request, response); */
 	}
 	
 
