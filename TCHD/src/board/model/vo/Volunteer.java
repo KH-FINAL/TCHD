@@ -3,9 +3,11 @@ package board.model.vo;
 import java.sql.Date;
 
 public class Volunteer {
+	private int boNo;				// 게시글 번호
+	private int boType;				// 게시판 분류번호
+	private String cateName;		// 게시판 분류명
 	private int memNo;				// 회원번호
 	private int memId;				// 아이디
-	private int boNo;				// 게시글번호
 	private int voMaxmember;		// 정원
 	private int voApplymember;		// 신청인원
 	private String voDeadline;		// 마감유무
