@@ -4,6 +4,7 @@
 <%
 	ArrayList<Adopt> aList = (ArrayList<Adopt>)request.getAttribute("aList");
 	ArrayList<Files> fList = (ArrayList<Files>)request.getAttribute("fList");
+	String userId = (String)request.getAttribute("userId");
 %>
 <!DOCTYPE html>
 <html>
@@ -34,7 +35,11 @@
 						<button type="reset" class="petButton" name="petReset">초기화</button>
 					</li>
 					<li>	
-						<button type="button" class="petButton" name="petUpDate" onClick="location.href='./04_입양게시글_등록.html'">등록</button></a>				
+						<% if(userId != null){ %>
+							<button type="button" class="petButton" name="petUpDate" onClick="writeFrom();">등록</button>				
+						<% } else {%> 
+							<button type="button" class="petButton" name="petUpDate" disabled>등록</button>	
+						<% } %>
 					</li>
 				</ul>
 				<table class="petlSelectInfo">
@@ -112,6 +117,11 @@
                 <a href="#" class="bt">다음 페이지</a>
 			</div>
 		</div>
+		<script>
+		function writeFrom(){
+			location.href="<%= request.getContextPath() %>/adoptWriteForm.bo";
+		}
+		</script>
 	</section>
 </body>
 </html>

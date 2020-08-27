@@ -10,16 +10,54 @@
 	}
 	
 	/* 전체 영역 */
-	#area{
+		#area{
 		width: 80%;
-		height: 400px;
+		height: 600px;
 		background-color: #eee;
 		margin: 0px auto;
-		padding: 40px 80px 80px 80px;
+		padding: 40px 40px 80px 70px;
 		border-radius: 10px;
 		border-top: 3px solid rgb(41, 128, 185);
 	}
+
+	/* 사진 첨부하는 영역 */
+	#pictureTable{
+		font-size: 18px;
+	}
 	
+	/* 첨부파일 테두리 */
+	.pictureArea{			
+		border: 2px dashed darkgray;
+	}
+	
+	/* 첨부파일 위에서 마우스 커서 바꾸기 */
+	#titleImgArea:hover, 
+	#contentImgArea1:hover, 
+	#contentImgArea2:hover, 
+	#contentImgArea3:hover {
+		cursor:pointer;
+	}
+	
+	/* 썸네일과 일반 사진 간격 조절칸 */
+	#space1{
+		width: 30px; height: 100px;
+	}
+	
+	#space2{
+		width: 50px; height: 100px;
+	}
+	
+	#space3{
+		width: 30px; height: 100px;
+	}
+	
+	#titleImg{
+		width: 350px; height: 200px;
+	}
+	
+	#contentImg1, #contentImg2, #contentImg3{
+		width: 120px; height: 100px;
+	}
 	
 	/* 구분 선택하는 영역 */
 	
@@ -28,7 +66,7 @@
 	}
 	
 	#firstTable{
-		margin: 0px;
+		margin: 15px 0px 15px 0px;
 	}
 	
 	#firstTable td{
@@ -111,7 +149,11 @@
 	#thirdTable .secondTd{
 		height: 60px;
 	}
-
+	
+	/* 연락처 */
+	#phone{
+		background: lightgray;
+	}
 	
 	/* 하고 싶은 말 */
 	

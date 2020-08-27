@@ -8,10 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import board.model.service.BoardService;
 import board.model.vo.Adopt;
 import board.model.vo.Files;
+import member.model.vo.Member;
 
 /**
  * Servlet implementation class AdoptListFormServlet
@@ -33,6 +35,16 @@ public class AdoptListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BoardService service = new BoardService();
+		HttpSession session = request.getSession();
+		
+		String userId = ((Member)session.getAttribute("loginUser")).getMem_id();
+		if(userId != null) {
+			request.setAttribute("userId", userId);
+		} else {
+			request.setAttribute("userId", null);
+		}
+		System.out.println("입양게시판 userId : " + userId);
+		
 		
 		ArrayList<Adopt> aList = service.selectTList(1);
 		ArrayList<Files> fList = service.selectTList(2);
