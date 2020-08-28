@@ -285,8 +285,6 @@ public class BoardDAO {
 			close(pstmt);
 		}
 		
-		// DB에 VLIST 뷰 짜고 다시 재도전 예정 ㅎ..
-		
 		return VList;
 	}
 

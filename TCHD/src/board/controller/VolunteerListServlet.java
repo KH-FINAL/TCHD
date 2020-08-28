@@ -65,19 +65,19 @@ public class VolunteerListServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		ArrayList<Volunteer> list = vService.selectVList(pi);
+		ArrayList<Volunteer> VList = vService.selectVList(pi);
 		
-		String page = null;
-		if(list != null) {
-			page = "WEB-INF/views/volunteer/volunteerList.jsp";
-			request.setAttribute("list", list);
+		
+		if(VList != null) {
+			request.setAttribute("section", "WEB-INF/views/volunteer/volunteerList.jsp");
+			request.setAttribute("list", VList);
 			request.setAttribute("pi", pi);
 		} else {
-			page = "WEB-INF/views/common/errorPage.jsp";
+			request.setAttribute("section","WEB-INF/views/common/errorPage.jsp"); 
 			request.setAttribute("msg", "게시판 조회에 실패하였습니다.");
 		}
 		
-		request.getRequestDispatcher(page).forward(request, response);
+		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
 	/**

@@ -46,7 +46,7 @@
     	 location.href="<%= request.getContextPath() %>/adopt.bo";
      });
      
-     $('#menuBar3').children().eq(0).click(function(){
+     $('#menuBar1').children().eq(1).click(function(){
     	 location.href="<%= request.getContextPath() %>/volunteerList.bo";
      });
      
