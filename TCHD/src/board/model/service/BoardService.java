@@ -88,31 +88,17 @@ public class BoardService {
 		return VList;
 	}
 	
-	public int insertBoard(Board b) {
+	public int insertBoard(Board b, Adopt a, ArrayList<Files> fileList) {
 		Connection conn = getConnection();
 		
 		int result = new BoardDAO().insertBoard(conn, b);
+		int result1 = 0;
+		int result2 = 0;
+		
 		
 		if(result > 0) {
-			commit(conn);
-		} else {
-			rollback(conn);
-		}
-		
-		close(conn);
-		
-		return result;
-	}
-	
-	public int insertAdopt(Adopt a, ArrayList<Files> fileList) {
-		Connection conn = getConnection();
-		
-		BoardDAO dao = new BoardDAO();
-		
-		int result1 = dao.insertAdoptBoard(conn, a);	// 내용 저장 객체
-		int result2 = dao.insertAdoptFiles(conn, fileList);	// 파일 객체
-		
-		if(result1 > 0 && result2 > 0) {
+			result1 = new BoardDAO().insertAdoptBoard(conn, a);	// 내용 저장 객체
+			result2 = new BoardDAO().insertAdoptFiles(conn, fileList);	// 파일 객체
 			commit(conn);
 		} else {
 			rollback(conn);

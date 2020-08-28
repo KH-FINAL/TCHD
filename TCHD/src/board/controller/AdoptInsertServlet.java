@@ -158,7 +158,6 @@ public class AdoptInsertServlet extends HttpServlet {
 			a.setPetComment(lastMent);
 			
 			
-			int reslut1 = new BoardService().insertBoard(b);
 			
 			ArrayList<Files> fileList = new ArrayList<Files>();
 			for(int i = originFiles.size() - 1; i >= 0; i--) {	// originFiles.size() : 원본파일 개수
@@ -176,9 +175,9 @@ public class AdoptInsertServlet extends HttpServlet {
 				fileList.add(ft);		// 파일 저장순서 순차적으로 적용
 			}
 			
-			int result2 = new BoardService().insertAdopt(a, fileList);
+			int reslut1 = new BoardService().insertBoard(b, a, fileList);
 			
-			if(reslut1 > 0 && result2 > 0) {
+			if(reslut1 > 0) {
 				response.sendRedirect("adopt.bo");
 //				request.setAttribute("section","adopt.bo");
 //				request.getRequestDispatcher("index.jsp").forward(request, response);

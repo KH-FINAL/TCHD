@@ -46,8 +46,8 @@
 				<table id="firstTable">
 					<tr>
 						<td class="firstTd"><span>*</span> 구분 </td>
-						<td id="kindTd" class="secondTd"><input type="checkbox" name="petKind" value="dog"/> 개 
-							<input type="checkbox" name="petKind" value="cat"/> 고양이
+						<td id="kindTd" class="secondTd"><input type="checkbox" name="petKind" value="DOG"/> 개 
+							<input type="checkbox" name="petKind" value="CAT"/> 고양이
 						</td>
 						<td class="firstTd"><span>*</span> 성별 </td>
 						<td id="genderTd" class="secondTd"><input type="checkbox" name="petGender" value="F"/> 암컷 
@@ -67,10 +67,10 @@
 						<td id="ageTd" class="secondTd">
 							<select name="petAge">	<!-- ---------- 이 상태면 등록 안되게 기능 걸기 -->
 								<option value="dash"> ---------------------</option>
-								<option value="Puppy">Puppy(~ 6개월)</option>
-								<option value="Junior">Junior(7개월 ~ 2살)</option>
-								<option value="Adult">Adult(3살 ~ 8살)</option>
-								<option value="Senior">Senior(9살 ~)</option>
+								<option value="PUPPY">Puppy(~ 6개월)</option>
+								<option value="JUNIOR">Junior(7개월 ~ 2살)</option>
+								<option value="ADULT">Adult(3살 ~ 8살)</option>
+								<option value="SENIOR">Senior(9살 ~)</option>
 							</select>
 						</td>
 					</tr>
