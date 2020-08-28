@@ -93,6 +93,14 @@ public class BoardService {
 		
 		int result = new BoardDAO().insertBoard(conn, b);
 		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
 		return result;
 	}
 	
@@ -101,8 +109,8 @@ public class BoardService {
 		
 		BoardDAO dao = new BoardDAO();
 		
-		int result1 = dao.insertAdopt(conn, a);			// 내용 저장 객체
-		int result2 = dao.insertAdopt(conn, fileList);	// 파일 객체
+		int result1 = dao.insertAdoptBoard(conn, a);	// 내용 저장 객체
+		int result2 = dao.insertAdoptFiles(conn, fileList);	// 파일 객체
 		
 		if(result1 > 0 && result2 > 0) {
 			commit(conn);

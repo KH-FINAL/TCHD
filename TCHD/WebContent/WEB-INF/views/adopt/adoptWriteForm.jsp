@@ -65,7 +65,7 @@
 						</td>
 						<td class="firstTd"><span>*</span> 연령 </td>
 						<td id="ageTd" class="secondTd">
-							<select size="petAge">	<!-- ---------- 이 상태면 등록 안되게 기능 걸기 -->
+							<select name="petAge">	<!-- ---------- 이 상태면 등록 안되게 기능 걸기 -->
 								<option value="dash"> ---------------------</option>
 								<option value="Puppy">Puppy(~ 6개월)</option>
 								<option value="Junior">Junior(7개월 ~ 2살)</option>
@@ -192,7 +192,7 @@
 	   	</script>
 		<div id="buttonArea">
 	   		<button id="cancelButton" class="buttons" onclick="location.href='<%= request.getContextPath() %>/adopt.bo'">취소</button>
-	   		<button id="okButton" class="buttons" onclick="okayButton();">확인</button>
+	   		<button id="okButton" class="buttons" onclick="location.href='<%= request.getContextPath() %>/adoptInsert.bo';">확인</button>
 	   	</div>
    	</form>
 	</section>

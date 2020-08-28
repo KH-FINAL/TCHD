@@ -23,8 +23,8 @@ import board.model.vo.Adopt;
 import board.model.vo.Board;
 import board.model.vo.Files;
 import common.MyFileRenamePolicy;
-import member.model.service.MemberService;
 import member.model.vo.Member;
+import oracle.net.aso.q;
 
 /**
  * Servlet implementation class AdoptInsertServlet
@@ -134,17 +134,17 @@ public class AdoptInsertServlet extends HttpServlet {
 			
 			// DB에 저장할 객체 - Board 테이블
 			Board b = new Board();
+			
 			b.setBoTitle(petName);
 			b.setBoContent(petKind + ", " + petGender + ", " + petSize + ", " + petAge + ", " + 
 						petName + ", " + petCategory + ", " + petWeight + ", " + petColor + ", " + 
 						rescueDate + ", " + lastMent);
-			b.setMemNo(member.getMem_no());															//// nullPoint 에러가 뜨네~~~~
+			b.setMemNo(member.getMem_no());														
 			
-			
+		
 			// DB에 저장할 객체 - Adopt 테이블
 			Adopt a = new Adopt();
 			
-			a.setBoNo(b.getBoNo());
 			a.setPetKinds(petKind);
 			a.setPetGender(petGender);
 			a.setPetUnigender(unigender);
@@ -157,8 +157,6 @@ public class AdoptInsertServlet extends HttpServlet {
 			a.setPetRescueDate(rescueDate);
 			a.setPetComment(lastMent);
 			
-			System.out.println("글쓰기  크기 : " + a.getPetSize());
-			System.out.println("글쓰기  나이 : " + a.getPetAge());
 			
 			int reslut1 = new BoardService().insertBoard(b);
 			

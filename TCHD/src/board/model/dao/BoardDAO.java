@@ -53,21 +53,22 @@ public class BoardDAO {
 			// 
 			while(rset.next()) {
 				list.add(new Adopt(rset.getInt("bo_no"),
-									rset.getInt("bo_type"),
-									rset.getString("cate_name"),
-									rset.getString("mem_id"),
-									rset.getString("pet_kinds"),
-									rset.getString("pet_category"),
-									rset.getString("pet_gender"),
-									rset.getString("pet_unigender"),
-									rset.getString("pet_name"),
-									rset.getString("pet_age"),
-									rset.getDate("pet_rescue_date"),
-									rset.getFloat("pet_weight"),
-									rset.getString("pet_color"),
-									rset.getString("pet_size"),
-									rset.getString("adopt_yn")));
-			}
+						rset.getInt("bo_type"),
+						rset.getString("cate_name"),
+						rset.getString("mem_id"),
+						rset.getString("pet_kinds"),
+						rset.getString("pet_category"),
+						rset.getString("pet_gender"),
+						rset.getString("pet_unigender"),
+						rset.getString("pet_name"),
+						rset.getString("pet_age"),
+						rset.getDate("pet_rescue_date"),
+						rset.getFloat("pet_weight"),
+						rset.getString("pet_color"),
+						rset.getString("pet_size"),
+						rset.getString("pet_comment"),
+						rset.getString("adopt_yn")));
+				}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -307,7 +308,7 @@ public class BoardDAO {
 		return result;
 	}
 
-	public int insertAdopt(Connection conn, Adopt a) {
+	public int insertAdoptBoard(Connection conn, Adopt a) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -317,17 +318,16 @@ public class BoardDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, a.getBoNo());
-			pstmt.setString(2, a.getPetKinds());
-			pstmt.setString(3, a.getPetCategory());
-			pstmt.setString(4, a.getPetGender());
-			pstmt.setString(5, a.getPetUnigender());
-			pstmt.setString(6, a.getPetName());
-			pstmt.setString(7, a.getPetAge());
-			pstmt.setFloat(8, a.getPetWeight());
-			pstmt.setString(9, a.getPetColor());
-			pstmt.setString(10, a.getPetSize());
-			pstmt.setString(11, a.getPetComment());
+			pstmt.setString(1, a.getPetKinds());
+			pstmt.setString(2, a.getPetCategory());
+			pstmt.setString(3, a.getPetGender());
+			pstmt.setString(4, a.getPetUnigender());
+			pstmt.setString(5, a.getPetName());
+			pstmt.setString(6, a.getPetAge());
+			pstmt.setFloat(7, a.getPetWeight());
+			pstmt.setString(8, a.getPetColor());
+			pstmt.setString(9, a.getPetSize());
+			pstmt.setString(10, a.getPetComment());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -339,17 +339,31 @@ public class BoardDAO {
 		return result;
 	}
 
-	public int insertAdopt(Connection conn, ArrayList<Files> fileList) {
+	public int insertAdoptFiles(Connection conn, ArrayList<Files> fileList) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
 		String query = prop.getProperty("insertFiles");
 		
+		try {
+			for(int i = 0; i < fileList.size(); i++) {
+				Files f = fileList.get(i);
+				
+					pstmt = conn.prepareStatement(query);
+					pstmt.setString(1, f.getOrignName());
+					pstmt.setString(2, f.getChangeName());
+					pstmt.setString(3, f.getFilePath());
+					pstmt.setInt(4, f.getFileLevel());
+					
+					result += pstmt.executeUpdate();	// 파일이 여러개일 수 있어서 +=
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
 		
-		
-		
-		
-		return 0;
+		return result;
 	}
 
 	public ArrayList<Questions> selectAnswerQuestions(Connection conn,PageInfo pi) {

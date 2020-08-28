@@ -25,27 +25,6 @@ public class Adopt {	// 입양게시판
 	// 입양게시판 목록
 	public Adopt(int boNo, int boType, String cateName, String id, String petKinds, String petCategory, String petGender,
 			String petUnigender, String petName, String petAge, Date petRescueDate, float petWeight, String petColor,
-			String petSize, String adoptYn) {
-		super();
-		this.boNo = boNo;
-		this.boType = boType;
-		this.cateName = cateName;
-		this.id = id;
-		this.petKinds = petKinds;
-		this.petCategory = petCategory;
-		this.petGender = petGender;
-		this.petUnigender = petUnigender;
-		this.petName = petName;
-		this.petAge = petAge;
-		this.petRescueDate = petRescueDate;
-		this.petWeight = petWeight;
-		this.petColor = petColor;
-		this.petSize = petSize;
-		this.adoptYn = adoptYn;
-	}
-
-	public Adopt(int boNo, int boType, String cateName, String id, String petKinds, String petCategory, String petGender,
-			String petUnigender, String petName, String petAge, Date petRescueDate, float petWeight, String petColor,
 			String petSize, String petComment, String adoptYn) {
 		super();
 		this.boNo = boNo;
