@@ -299,9 +299,9 @@ public class BoardDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, b.getBoTitle());
-			pstmt.setString(2, b.getBoContent());
-			pstmt.setInt(3, b.getMemNo());
+			pstmt.setInt(1, b.getMemNo());
+			pstmt.setString(2, b.getBoTitle());
+			pstmt.setString(3, b.getBoContent());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -318,8 +318,6 @@ public class BoardDAO {
 		int result = 0;
 		
 		String query = prop.getProperty("insertAdopt");
-		
-		// VALUES(?, 1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DEFAULT)
 		
 		try {
 			pstmt = conn.prepareStatement(query);
