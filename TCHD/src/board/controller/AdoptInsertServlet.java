@@ -131,6 +131,9 @@ public class AdoptInsertServlet extends HttpServlet {
 			} else {
 				rescueDate = new Date(new GregorianCalendar().getTimeInMillis());
 			}
+
+			ArrayList<Board> bList = new ArrayList<Board>();
+			ArrayList<Adopt> aList = new ArrayList<Adopt>();
 			
 			// DB에 저장할 객체 - Board 테이블
 			Board b = new Board();
@@ -139,7 +142,8 @@ public class AdoptInsertServlet extends HttpServlet {
 			b.setBoContent(petKind + ", " + petGender + ", " + petSize + ", " + petAge + ", " + 
 						petName + ", " + petCategory + ", " + petWeight + ", " + petColor + ", " + 
 						rescueDate + ", " + lastMent);
-			b.setMemNo(member.getMem_no());														
+			b.setMemNo(member.getMem_no());		
+			System.out.println("로그인 유저아이디 : " + member.getMem_no());
 			
 		
 			// DB에 저장할 객체 - Adopt 테이블
@@ -156,7 +160,6 @@ public class AdoptInsertServlet extends HttpServlet {
 			a.setPetColor(petColor);
 			a.setPetRescueDate(rescueDate);
 			a.setPetComment(lastMent);
-			
 			
 			
 			ArrayList<Files> fileList = new ArrayList<Files>();
@@ -178,9 +181,8 @@ public class AdoptInsertServlet extends HttpServlet {
 			int reslut1 = new BoardService().insertBoard(b, a, fileList);
 			
 			if(reslut1 > 0) {
-				response.sendRedirect("adopt.bo");
-//				request.setAttribute("section","adopt.bo");
-//				request.getRequestDispatcher("index.jsp").forward(request, response);
+				request.setAttribute("section", "WEB-INF/views/adopt/adoptList.jsp");
+				request.getRequestDispatcher("index.jsp").forward(request, response);
 			} else {
 				for(int i = 0; i < saveFiles.size(); i++) {
 					File failedFile = new File(savePath + saveFiles.get(i));

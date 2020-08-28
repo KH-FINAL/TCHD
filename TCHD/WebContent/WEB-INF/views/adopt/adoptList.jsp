@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, board.model.vo.Adopt, board.model.vo.Files" %>
+<%@ page import="java.util.ArrayList, board.model.vo.*" %>
 <%
 	ArrayList<Adopt> aList = (ArrayList<Adopt>)request.getAttribute("aList");
 	ArrayList<Files> fList = (ArrayList<Files>)request.getAttribute("fList");
@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="css/adopt_list.css" rel="stylesheet" type="text/css">
+<link href="css/adopt_list.css?after" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="css/common.css" type="text/css">
 </head>
 <body>
@@ -29,10 +29,10 @@
 			<div id="petSelect">
 				<ul>
 					<li>
-						<button class="petButton" name="petSearch">검색</button>
+						<button class="petButton" name="petSearch" onClick="petSearch();">검색</button>
 					</li>
 					<li>
-						<button type="reset" class="petButton" name="petReset">초기화</button>
+						<button type="reset" class="petButton" name="petReset" onClick="petReset();">초기화</button>
 					</li>
 					<li>	
 						<% if(userId != null){ %>
@@ -89,22 +89,24 @@
 			<% } else { %>
 				<% for(int i = 0; i < aList.size(); i++){ %>
 					<% Adopt a = aList.get(i); %>
-						<div class="pictureInfo">
-							<div class="petPictureInfo">
+					<div class="pictureInfo">
+						<div class="petPictureInfo">
 							<input type="hidden" value="<%= a.getBoNo() %>"/>
 								<% for(int j = 0; j < fList.size(); j++){ %>
 									<% Files f = fList.get(j); %>
 									<% if(a.getBoNo() == f.getBoNo()){ %>
-										<img class="pictureForm" src="<%= request.getContextPath() %>/thumbnail_uploadFiles/<%= f.getChangeName() %>"/>
+									<img class="pictureForm" src="<%= request.getContextPath() %>/upload_imageFiles/<%= f.getChangeName() %>"/>
+									<div class="petInfos"> 
+										<div id="petName" class="petInfo">이름 / <%= a.getPetName() %></div><br>
+										<div id="petKind" class="petInfo">종류(품종) / <%= a.getPetCategory() %></div><br>
+										<div id="petGender" class="petInfo">성별(중성화유무) / <%= a.getPetGender() %> (중성화 <%= a.getPetUnigender() %>)</div><br>
+										<span id="petAge" class="petInfo">나이 / <%= a.getPetAge() %></span><br>
+										<span id="petWeight" class="petInfo">몸무게(kg) / <%= a.getPetWeight() %></span> <br>
+										<span id="petColor" class="petInfo">색깔 / <%= a.getPetColor() %></span> 
+									</div>
 									<% } %>
 								<% } %>
 							</div>
-							<div id="petName" class="petInfo">이름</div>
-							<div id="petKind" class="petInfo">종류(품종)</div>
-							<div id="petGender" class="petInfo">성별(중성화유무)</div>
-							<span id="petAge" class="petInfo">나이/</span>
-							<span id="petWeight">몸무게(kg)/</span> 
-							<span id="petColor">색깔</span> 
 						</div>
 					<% } %>
 				<% } %>
@@ -126,6 +128,19 @@
 			window.alert("로그인 후 이용해주시기 바랍니다.");
 			location.href="<%= request.getContextPath() %>/loginForm.me";
 		}
+		
+		$(function(){
+			$('.pictureInfo').hover(function(){
+				$(this).css('cursor', 'pointer');
+			});
+		});
+		
+		$(function(){
+			$('.pictureInfo').click(function(){
+				var boNo = $(this).children('input').eq(0).val();
+				location.href="<%= request.getContextPath() %>/adoptDetail.bo?boNo=" + boNo;
+			});
+		});
 		</script>
 	</section>
 </body>
