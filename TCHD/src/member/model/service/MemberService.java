@@ -151,12 +151,16 @@ public class MemberService {
 	}
 	
 	public int confirmPw(Member member) {
-		// 오버로딩?
+		// 오버로딩 ==> 회원탈퇴할 떄 사용
 		Connection conn = getConnection();
 		
 		int result = new MemberDAO().confirmPw(conn, member);
 		
-		close(conn);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
 		
 		return result;
 	}
