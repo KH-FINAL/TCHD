@@ -70,7 +70,7 @@
 			<div id="title"><a href="<%=request.getContextPath() %>"><img alt="로고" src="images/pets(1).png"> 함께하묘 행복하개</a></div>
 			<div id="navi">
 				<ul class="naviDetail_ul" >
-						<li class="naviDetail_li"><a href="#">사이트소개</a></li>
+						<li class="naviDetail_li"><a href="introduction.co">사이트소개</a></li>
 						<li class="naviDetail_li"><a href="#">참여하기</a><ul id="menuBar1" class="menuBar">
 								<li><a href="#">입양</a></li>
 								<li><a href="#">봉사</a></li>
