@@ -496,9 +496,41 @@ public class BoardDAO {
 	}
 
 	public Questions selectBoard(Connection conn, int bId) {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Questions board = null;
+		
+		String query = prop.getProperty("selectBoard");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bId);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				board  = new Questions(rset.getInt("bo_no"),
+									rset.getInt("bo_type"),
+									rset.getString("cate_name"),
+									rset.getString("bo_title"),
+									rset.getString("bo_content"),
+									rset.getInt("bo_count"),
+									rset.getDate("bo_date"),
+									rset.getString("mem_id"),
+									rset.getString("bo_delete_yn"));
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return board;
 	}
+	
 
 
 	
