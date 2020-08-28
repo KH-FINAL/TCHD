@@ -21,8 +21,6 @@
 	  		}else{
 	  			 total+=1; comment+=1;
 	  		}
-		
-	  		System.out.println(board.getBoType());
 		}
 	
 	}

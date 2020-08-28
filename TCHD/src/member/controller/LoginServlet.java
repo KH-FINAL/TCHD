@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
 		
-		
+		System.out.println(userId+"/"+userPwd);
 		
 		Member member = new Member(userId,userPwd);
 		
@@ -33,12 +33,14 @@ public class LoginServlet extends HttpServlet {
 		if(loginUser!=null) {
 			request.getSession().setAttribute("loginUser", loginUser);
 			// Session이 기본적으로 갖는 유효 시간은 30분!
-			request.setAttribute("section", "WEB-INF/views/common/main.jsp");
-			response.sendRedirect(request.getContextPath());
+			//request.setAttribute("section", "WEB-INF/views/common/main.jsp");
+			//response.sendRedirect(request.getContextPath());
+			response.getWriter().println("1");
 		} else {
-			request.setAttribute("errorMsg", "로그인에 실패하였습니다.");
-			request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+//			request.setAttribute("errorMsg", "로그인에 실패하였습니다.");
+//			request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
+//			request.getRequestDispatcher("index.jsp").forward(request, response);
+			response.getWriter().println("0");
 		}
 	}
 

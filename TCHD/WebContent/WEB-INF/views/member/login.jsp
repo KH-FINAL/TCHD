@@ -8,7 +8,7 @@
 <body>
 	<section>
 		<div id="login_div">
-			<form method="post" action="login.me" onsubmit="return validate();">
+		<!-- 	<form method="post" action="login.me" onsubmit="return validate();"> -->
 				<div id="login_title">Login</div>
 				
 				<br><br>
@@ -36,7 +36,7 @@
 				<br><br>
 				
 				<div id="login_button_div">
-					<button id="login_button"">로그인</button>
+					<button id="login_button" onclick="validate();">로그인</button>
 				</div>
 				
 				<br><br>
@@ -45,7 +45,7 @@
 					<label>아직 회원이 아니신가요?&nbsp;&nbsp;</label> <a href="joinForm.me">회원가입</a>
 					<!-- !!!!!회원가입 링크 설정해야 함!!!!! -->
 				</div>
-			</form>
+	<!-- 		</form> -->
 		</div>
 		
 		<script>
@@ -54,20 +54,39 @@
 				var pwd = $("#input_pw");
 				
 				if(id.val().trim().length == 0){
-					alert("아이디를 입력해주세요.");
+					swal("","아이디를 입력해주세요.","info");
 					id.focus();
 					
-					return false;
+					//return false;
+					return;
 				}
 				
 				if(pwd.val().trim().length == 0){
-					alert("비밀번호를 입력해주세요.");
+					swal("","비밀번호를 입력해주세요.","info");
 					pwd.focus();
 					
-					return false;
+					//return false;
+					return;
 				}
-				
-				return true;
+					
+				$.ajax({
+					url: "login.me",
+					type: "post",
+					data: {userId:id.val(), userPwd:pwd.val()},
+					success: function(data){
+						console.log(data);
+						if(data==1){
+							location.href="<%= request.getContextPath()%>";
+						}else{
+							swal("로그인 실패","입력한 정보를 가진 회원이 없습니다.","error");
+							id.val("");
+							pwd.val("");
+						}
+					},
+					error: function(data){
+						alert("ajax에러 발생");
+					}
+				});
 			}
 		</script>
 	</section>
