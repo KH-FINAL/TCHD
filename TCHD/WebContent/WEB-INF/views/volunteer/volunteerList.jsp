@@ -1,7 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, board.model.vo.Board, board.model.vo.Volunteer" %>
-<% ArrayList<Volunteer> list = (ArrayList<Volunteer>)request.getAttribute("list"); %>
+<%@ page import="java.util.ArrayList, board.model.vo.Board, board.model.vo.Volunteer, board.model.vo.PageInfo" %>
+<%
+	ArrayList<Volunteer> volunteerList = (ArrayList<Volunteer>)request.getAttribute("volunteerList");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int StartPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,21 +47,21 @@
 							<th>마감</th>
 							<th>조회수</th>
 						</tr>
-						<% if(list.isEmpty()){ %>
+						<% if(volunteerList.isEmpty()){ %>
 						<tr>
-							<td>존재하는 봉사모집이 없습니다.</td>
+							<td colspan="8">존재하는 봉사 모집이 없습니다.</td>
 						</tr>
 						<% } else { %>
-						<%		for(Volunteer v : list){ %>
+						<%		for(Volunteer v : volunteerList){ %>
 						<tr>
 							<td><%= v.getBoNo() %></td>					<!-- 게시글번호 -->
 							<td><%= v.getVoArea() %></td>				<!-- 봉사지역 -->
-							<td class="tit">게시글제목</td>				<!-- 게시글제목 -->
-							<td>관리자</td>								<!-- 작성자 : 회원번호로 불러오는 거면 Member VO에서 가져오면 되는 건가? -->
-							<td>작성일자</td> 								<!-- 작성일자 -->
-							<td>모집인원</td>								<!-- 모집인원 -->
+							<td class="tit"><%= v.getBoTitle() %></td>	<!-- 게시글제목 -->
+							<td><%= v.getMemId() %></td>				<!-- 작성자 -->
+							<td><%= v.getBoDate() %></td> 				<!-- 작성일자 -->
+							<td><%= v.getVoMaxmember() %></td>			<!-- 모집인원 -->
 							<td>N</td>									<!-- 마감유무 -->
-							<td>조회수</td>  								<!-- 조회수 -->
+							<td><%= v.getBoCount() %></td>  			<!-- 조회수 -->
 						</tr>
 						<%		} %>
 						<% } %>

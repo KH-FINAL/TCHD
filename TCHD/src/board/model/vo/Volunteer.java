@@ -10,7 +10,7 @@ public class Volunteer {
 	private int boCount;
 	private Date boDate;
 	private int memNo;				// 회원번호
-	private String memId;				// 아이디
+	private String memId;			// 아이디
 	private String boDeleteYn;
 	private int voMaxmember;		// 정원
 	private int voApplymember;		// 신청인원

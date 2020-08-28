@@ -251,7 +251,7 @@ public class BoardDAO {
 	public ArrayList<Volunteer> selectVList(Connection conn, PageInfo pi) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<Volunteer> VList = null;
+		ArrayList<Volunteer> volunteerList = null;
 		
 		String query = prop.getProperty("selectVList");
 		
@@ -265,7 +265,7 @@ public class BoardDAO {
 			pstmt.setInt(3, 1);
 			rset = pstmt.executeQuery();
 			
-			VList = new ArrayList<Volunteer>();
+			volunteerList = new ArrayList<Volunteer>();
 			while(rset.next()) {
 				Volunteer v = new Volunteer(rset.getInt("bo_no"),
 											rset.getInt("bo_type"),
@@ -276,7 +276,7 @@ public class BoardDAO {
 											rset.getInt("mem_no"),
 											rset.getString("mem_id"),
 											rset.getString("bo_delete_yn"));
-				VList.add(v);
+				volunteerList.add(v);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -288,7 +288,7 @@ public class BoardDAO {
 		
 		// DB에 VLIST 뷰 짜고 다시 재도전 예정 ㅎ..
 		
-		return VList;
+		return volunteerList;
 	}
 
 	public int insertBoard(Connection conn, Board b) {

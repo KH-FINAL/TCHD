@@ -65,12 +65,12 @@ public class VolunteerListServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		ArrayList<Volunteer> VList = vService.selectVList(pi);
+		ArrayList<Volunteer> volunteerList = vService.selectVList(pi);
 		
 		
-		if(VList != null) {
+		if(volunteerList != null) {
 			request.setAttribute("section", "WEB-INF/views/volunteer/volunteerList.jsp");
-			request.setAttribute("list", VList);
+			request.setAttribute("volunteerList", volunteerList);
 			request.setAttribute("pi", pi);
 		} else {
 			request.setAttribute("section","WEB-INF/views/common/errorPage.jsp"); 

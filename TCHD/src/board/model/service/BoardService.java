@@ -81,11 +81,11 @@ public class BoardService {
 	public ArrayList<Volunteer> selectVList(PageInfo pi) {
 		Connection conn = getConnection();
 		
-		ArrayList<Volunteer> VList = new BoardDAO().selectVList(conn, pi);
+		ArrayList<Volunteer> volunteerList = new BoardDAO().selectVList(conn, pi);
 		
 		close(conn);
 		
-		return VList;
+		return volunteerList;
 	}
 	
 	public int insertBoard(Board b, Adopt a, ArrayList<Files> fileList) {
