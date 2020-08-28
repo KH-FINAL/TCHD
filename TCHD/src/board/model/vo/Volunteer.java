@@ -6,8 +6,12 @@ public class Volunteer {
 	private int boNo;				// 게시글 번호
 	private int boType;				// 게시판 분류번호
 	private String cateName;		// 게시판 분류명
+	private String boTitle;
+	private int boCount;
+	private Date boDate;
 	private int memNo;				// 회원번호
-	private int memId;				// 아이디
+	private String memId;				// 아이디
+	private String boDeleteYn;
 	private int voMaxmember;		// 정원
 	private int voApplymember;		// 신청인원
 	private String voDeadline;		// 마감유무
@@ -18,12 +22,19 @@ public class Volunteer {
 	
 	public Volunteer() {}
 
-	public Volunteer(int memNo, int memId, int boNo, int voMaxmember, int voApplymember, String voDeadline, Date voDate, String voArea,
-			String voPlace, String voComment) {
+	public Volunteer(int boNo, int boType, String cateName, String boTitle, int boCount, Date boDate, int memNo,
+			String memId, String boDeleteYn, int voMaxmember, int voApplymember, String voDeadline, Date voDate,
+			String voArea, String voPlace, String voComment) {
 		super();
+		this.boNo = boNo;
+		this.boType = boType;
+		this.cateName = cateName;
+		this.boTitle = boTitle;
+		this.boCount = boCount;
+		this.boDate = boDate;
 		this.memNo = memNo;
 		this.memId = memId;
-		this.boNo = boNo;
+		this.boDeleteYn = boDeleteYn;
 		this.voMaxmember = voMaxmember;
 		this.voApplymember = voApplymember;
 		this.voDeadline = voDeadline;
@@ -33,43 +44,18 @@ public class Volunteer {
 		this.voComment = voComment;
 	}
 
-	public Volunteer(int memNo, int memId, int boNo, String voDeadline, String voArea) {
+	public Volunteer(int boNo, int boType, String cateName, String boTitle, int boCount, Date boDate, int memNo,
+			String memId, String boDeleteYn) {
 		super();
-		this.memNo = memNo;
-		this.memId = memId;
 		this.boNo = boNo;
-		this.voDeadline = voDeadline;
-		this.voArea = voArea;
-	}
-
-	public Volunteer(int memNo, int memId, int voMaxmember, int voApplymember, String voDeadline, Date voDate, String voArea, String voPlace,
-			String voComment) {
-		super();
+		this.boType = boType;
+		this.cateName = cateName;
+		this.boTitle = boTitle;
+		this.boCount = boCount;
+		this.boDate = boDate;
 		this.memNo = memNo;
 		this.memId = memId;
-		this.voMaxmember = voMaxmember;
-		this.voApplymember = voApplymember;
-		this.voDeadline = voDeadline;
-		this.voDate = voDate;
-		this.voArea = voArea;
-		this.voPlace = voPlace;
-		this.voComment = voComment;
-	}
-	 
-	public int getMemNo() {
-		return memNo;
-	}
-
-	public void setMemNo(int memNo) {
-		this.memNo = memNo;
-	}
-
-	public int getMemId() {
-		return memId;
-	}
-
-	public void setMemId(int memId) {
-		this.memId = memId;
+		this.boDeleteYn = boDeleteYn;
 	}
 
 	public int getBoNo() {
@@ -78,6 +64,70 @@ public class Volunteer {
 
 	public void setBoNo(int boNo) {
 		this.boNo = boNo;
+	}
+
+	public int getBoType() {
+		return boType;
+	}
+
+	public void setBoType(int boType) {
+		this.boType = boType;
+	}
+
+	public String getCateName() {
+		return cateName;
+	}
+
+	public void setCateName(String cateName) {
+		this.cateName = cateName;
+	}
+
+	public String getBoTitle() {
+		return boTitle;
+	}
+
+	public void setBoTitle(String boTitle) {
+		this.boTitle = boTitle;
+	}
+
+	public int getBoCount() {
+		return boCount;
+	}
+
+	public void setBoCount(int boCount) {
+		this.boCount = boCount;
+	}
+
+	public Date getBoDate() {
+		return boDate;
+	}
+
+	public void setBoDate(Date boDate) {
+		this.boDate = boDate;
+	}
+
+	public int getMemNo() {
+		return memNo;
+	}
+
+	public void setMemNo(int memNo) {
+		this.memNo = memNo;
+	}
+
+	public String getMemId() {
+		return memId;
+	}
+
+	public void setMemId(String memId) {
+		this.memId = memId;
+	}
+
+	public String getBoDeleteYn() {
+		return boDeleteYn;
+	}
+
+	public void setBoDeleteYn(String boDeleteYn) {
+		this.boDeleteYn = boDeleteYn;
 	}
 
 	public int getVoMaxmember() {
@@ -138,8 +188,10 @@ public class Volunteer {
 
 	@Override
 	public String toString() {
-		return "Volunteer [memNo=" + memNo + ", memId=" + memId + ", boNo=" + boNo + ", voMaxmember=" + voMaxmember
-				+ ", voApplymember=" + voApplymember + ", voDeadline=" + voDeadline + ", voDate=" + voDate + ", voArea="
-				+ voArea + ", voPlace=" + voPlace + ", voComment=" + voComment + "]";
+		return "Volunteer [boNo=" + boNo + ", boType=" + boType + ", cateName=" + cateName + ", boTitle=" + boTitle
+				+ ", boCount=" + boCount + ", boDate=" + boDate + ", memNo=" + memNo + ", memId=" + memId
+				+ ", boDeleteYn=" + boDeleteYn + ", voMaxmember=" + voMaxmember + ", voApplymember=" + voApplymember
+				+ ", voDeadline=" + voDeadline + ", voDate=" + voDate + ", voArea=" + voArea + ", voPlace=" + voPlace
+				+ ", voComment=" + voComment + "]";
 	}
 }

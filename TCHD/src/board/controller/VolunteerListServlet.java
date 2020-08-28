@@ -69,7 +69,7 @@ public class VolunteerListServlet extends HttpServlet {
 		
 		String page = null;
 		if(list != null) {
-			page = "WEB-INF/views/board/boardList.jsp";
+			page = "WEB-INF/views/volunteer/volunteerList.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 		} else {

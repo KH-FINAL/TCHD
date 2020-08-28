@@ -7,6 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="css/volunteer_list.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="css/common.css" type="text/css">
 </head>
 <body>
 	<section>
