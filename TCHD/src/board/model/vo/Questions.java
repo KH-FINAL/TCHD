@@ -54,6 +54,21 @@ public class Questions {//문의게시판
 
 
 	public Questions(int boNo, int boType, String cateName, String boTitle, String boContent, int boCount, Date boDate,
+			String memId, String boDeleteYn) {
+		super();
+		this.boNo = boNo;
+		this.boType = boType;
+		this.cateName = cateName;
+		this.boTitle = boTitle;
+		this.boContent = boContent;
+		this.boCount = boCount;
+		this.boDate = boDate;
+		this.memId = memId;
+		this.boDeleteYn = boDeleteYn;
+	}
+
+
+	public Questions(int boNo, int boType, String cateName, String boTitle, String boContent, int boCount, Date boDate,
 			int memNo, String memId, String boDeleteYn, String memLeave, String boPwd, String comContent, Date comDate,
 			String filePath, String originName, String changeName) {
 		super();
