@@ -169,6 +169,22 @@ public class BoardService {
 		
 		return count;
 	}
+
+	public Board selectList(int bId) {
+		Connection conn = getConnection();
+		
+		BoardDAO dao = new BoardDAO();
+		
+		int result = dao.updateCount(conn, bId);
+		
+		Questions board = null;
+		if(result > 0) {
+			board = dao.selectBoard(conn, bId);
+		}
+		
+		
+		return null;
+	}
 	
 
 } // class end

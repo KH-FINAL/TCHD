@@ -1,3 +1,4 @@
+
 package board.model.dao;
 
 import static common.JDBCTemplate.close;
@@ -285,6 +286,8 @@ public class BoardDAO {
 			close(pstmt);
 		}
 		
+		// DB에 VLIST 뷰 짜고 다시 재도전 예정 ㅎ..
+		
 		return VList;
 	}
 
@@ -475,7 +478,30 @@ public class BoardDAO {
 		
 		return count;
 	}
-	
+
+	public int updateCount(Connection conn, int bId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateCount");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return 0;
+	}
+
+	public Questions selectBoard(Connection conn, int bId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 	
 	
