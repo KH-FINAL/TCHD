@@ -93,7 +93,7 @@ $(function(){
 				<li id="pageNaviTitle"><a href="approveGroupMember.me">관리자 페이지</a></li>
 				<li><a href="approveGroupMember.me">사업자(단체) 가입승인</a></li>
 				<li><a href="answerQuestionForm.bo">대기중인 문의사항</a></li>
-				<li><a href="#">후원관리</a></li>
+				<li><a href="manageSupport.bo">후원관리</a></li>
 			</ul>
 		</nav>
 		<div id="listMyBoardDiv">
@@ -137,19 +137,21 @@ $(function(){
 	   					 <a href="answerQuestionForm.bo?currentPage=<%=p %>" class="num"><%=p %></a>
 	   					<%} %>
 	   		<%} %>	
-   		  <a href="answerQuestionForm.bo?currentPage=<%=currentPage+1 %>" class="bt" id="nextBtn">다음 페이지</a>
-            </div>	
+   		 	 <a href="answerQuestionForm.bo?currentPage=<%=currentPage+1 %>" class="bt" id="nextBtn">다음 페이지</a>
+            </div>
 		
-		<div id="popUpDiv_QA">
-			<input type="hidden" name="popUpqNo" id="popUpqNo" value="">
-			<div id="popUpTitle_QA"><p>문의사항 제목<br><span></span></p></div>
-			<div id="popUpWriter_QA"><p>작성자<br><span></span></p></div>
-			<div id="popUpDate_QA"><p>작성일자<br><span></span></p></div>
-			<div id="popUpContent_QA"><p>문의사항내용<br><span></span></p></div>
-			<div id="popUpAnswer_QA"><p>답변</p><br><textarea cols="47" rows="3"  ></textarea></div>
-			<button type="button" id="popUpCloseBtn">닫기</button><button type="button" id="popUpAnswerBtn">답변</button>
+			<div id="popUpDiv_QA">
+				<input type="hidden" name="popUpqNo" id="popUpqNo" value="">
+				<div id="popUpTitle_QA"><p>문의사항 제목<br><span></span></p></div>
+				<div id="popUpWriter_QA"><p>작성자<br><span></span></p></div>
+				<div id="popUpDate_QA"><p>작성일자<br><span></span></p></div>
+				<div id="popUpContent_QA"><p>문의사항내용<br><span></span></p></div>
+				<div id="popUpAnswer_QA"><p>답변</p><br><textarea cols="47" rows="3"  ></textarea></div>
+				<button type="button" id="popUpCloseBtn">닫기</button><button type="button" id="popUpAnswerBtn">답변</button>
+			</div>
 		</div>
-
+		</div>
+	</div>
 	</section>
 </body>
 </html>

@@ -24,7 +24,7 @@ public class FindIdServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("input_name");
 		String email = request.getParameter("input_email");
-
+		System.out.println(name+"/"+email);
 		Member member = new Member(0, "",name, email); // 생성자가 겹쳐서 mem_no, mem_id, mem_name, mem_email로 사용
 		
 		Member findUser = new MemberService().findId(member);
@@ -47,8 +47,9 @@ public class FindIdServlet extends HttpServlet {
 			// 이 사이 시간에 "잠시만 기다려주세요" 이런 멘트를 화면에 띄우고 싶은데
 			// 고민 좀!
 			
-			response.sendRedirect(request.getContextPath());
-			request.setAttribute("section", "WEB-INF/views/common/main.jsp");
+			response.getWriter().println("1");
+//			response.sendRedirect(request.getContextPath());
+//			request.setAttribute("section", "WEB-INF/views/common/main.jsp");
 			
 		} else {
 			request.setAttribute("errorMsg", "아이디 찾기에 실패하였습니다.");

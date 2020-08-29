@@ -26,7 +26,7 @@
 			
 			<br><br>
 			
-			<form method="post" action="findId.me" onsubmit="return validate();">
+			<!-- <form method="post" action="findId.me" onsubmit="return validate();"> -->
 				<div id="input_div">
 					<input type="text" id="input_name" class="input" name="input_name" placeholder="이름">
 					<br><br>
@@ -34,31 +34,54 @@
 				</div>
 				<br>
 				<div id="input_button_div">
-					<button id="input_button">입력</button>
+					<button id="input_button" onclick="validate();">입력</button>
 				</div>
-			</form>
+			<!-- </form> -->
 		</div>
 		
-		<script>
+	<script>
 		function validate(){
 			var name = $("#input_name");
 			var email = $("#input_email");
 			
 			if(name.val().trim().length == 0){
-				alert("이름을 입력해주세요.");
+				swal("","이름을 입력해주세요.","info");
 				name.focus();
 				
-				return false;
+				return;
 			}
 			
 			if(email.val().trim().length == 0){
-				alert("이메일을 입력해주세요.");
+				alert("","이메일을 입력해주세요.","info");
 				email.focus();
 				
-				return false;
+				return;
 			}
 			
-			return true;
+			$.ajax({
+				url: "findId.me",
+				type: "post",
+				data: {input_name: name.val(), input_email:email.val()},
+				success: function(data){
+					if(data==1){
+						swal("메일 전송 완료","입력하신 이메일로 아이디를 전송하였습니다. 확인해주세요.","success")
+						.then((ok)=>{
+							if(ok){
+								location.href="loginForm.me";
+							}
+						});
+						
+					}else{
+						swal("메일 전송 실패","입력하신 이름,이메일과 일치하는 회원이 없습니다.","error");
+						name.val("");
+						email.val("");
+					}
+				},
+				error: function(data){
+					alert("ajax에러 발생");
+				}
+				
+			});
 		}
 		</script>
 	</section>

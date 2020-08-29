@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>함께하묘 행복하개</title>
+<link rel="shortcut icon" href="images/favicon.ico">
 <link rel="stylesheet" href="css/common.css" type="text/css">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

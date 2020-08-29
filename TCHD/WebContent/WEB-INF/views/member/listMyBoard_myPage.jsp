@@ -75,7 +75,7 @@ $(function(){
 				<li><a href="myPage.me">회원정보수정</a></li>
 				<li><a href="listMyBoard.bo">내가 작성한 글</a></li>
 				<li><a href="listMyVolunteer.vo">참여 봉사 내역</a></li>
-				<li><a href="#">회원 탈퇴</a></li>
+				<li><a href="leaveForm.me">회원 탈퇴</a></li>
 			</ul>
 		</nav>
 		<div id="listMyBoardDiv">

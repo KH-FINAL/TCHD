@@ -1,9 +1,25 @@
+<%@page import="animalHospital.model.vo.AnimalHospital"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	ArrayList<AnimalHospital> hospitalList =(ArrayList<AnimalHospital>)request.getAttribute("hospitalList");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" href="css/24hAnimalHospital_list.css" type="text/css">
+<script>
+$(function(){
+	$(".hospitalTr").hover(function(){
+		$(this).children().css("cursor","pointer");
+		$(this).children().css("text-decoration","underline");
+	},function(){
+		$(this).children().css("cursor","none");
+		$(this).children().css("text-decoration","none");
+	});
+})
+</script>
 </head>
 <body>
 	<section>
@@ -52,48 +68,20 @@
 					<th>전화번호</th>
 					<th>주소</th>
 				</tr>
+			<%if(hospitalList.isEmpty()){ %>
 				<tr>
-					<td>1</td>
-					<td>24시 닥터멍 동물병원</td>
-					<td>02-554-7505</td>
-					<td>서울특별시 강남구 논현로 515</td>
+					<td colspan="4">조회결과가 없습니다.</td>
 				</tr>
-				<tr>
-					<td>2</td>
-					<td>24시 삼성 동물 의료센터</td>
-					<td>031-206-7512</td>
-					<td>경기도 수원시 영통구 덕영대로 1509</td>
+			<%}else{ %>	
+				<%for(AnimalHospital hospital : hospitalList){ %>
+				<tr class="hospitalTr" onclick="location.href='hospitalDetail.ho?hosNo=<%=hospital.getHos_no() %>'">
+					<td><%= hospital.getHos_no()%></td>
+					<td><%= hospital.getHos_name() %></td>
+					<td><%= hospital.getHos_phone() %></td>
+					<td><%= hospital.getHos_addr() %></td>
 				</tr>
-				<tr>
-					<td>3</td>
-					<td>24시 소래 동물병원</td>
-					<td>032-438-3227</td>
-					<td>
-						인천광역시 남동구 소래역남로16번길 75<br>
-						더타워상가 C동 1층
-					</td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td>의정부 24시 아이유 동물 메디컬센터</td>
-					<td>0507-1446-7588</td>
-					<td>경기도 의정부시 태평로 52</td>
-				</tr>
-				<tr>
-					<td>5</td>
-					<td>24시 튼튼 동물 의료센터</td>
-					<td>0507-1320-5277</td>
-					<td>
-						경기도 하남시 미사강변동로 73<br>
-						미사강변 노블레스 115호
-					</td>
-				</tr>
-				<tr>
-					<td>6</td>
-					<td>24시 지구촌 동물 메디컬센터</td>
-					<td>0507-1401-7582</td>
-					<td>서울특별시 구로구 구로중앙로31길 30 유성빌딩</td>
-				</tr>
+				<%} %>
+			<% }%>
 			</table>
 		</div>
 		

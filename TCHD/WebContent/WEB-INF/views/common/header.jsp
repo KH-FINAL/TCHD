@@ -8,18 +8,22 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <script type="text/javascript">
-/* $(function() {
-    $(window).scroll(function() {
-        if ($(this).scrollTop() > 800) {
-            $('#top_btn').show();
-        } else {
-            $('#top_btn').hide();
-        }
-    });
-});
- */
+
+   
  $(function(){
+	 
+	 $(window).scroll(function() {
+		
+		 
+	        if ($(this).scrollTop() < 200) {
+	        	 $('#topBtn').hide();
+	        } else {
+	            $('#topBtn').show();
+	        }
+	    });
+ 
  	 $(window).resize(function(){
 		if($(window).width()<=1516){
 			$("#remoteDiv").hide();
@@ -30,7 +34,7 @@
 		} 
 	 });
  	 
-     $("#top_btn").click(function() {
+     $("#topBtn").click(function() {
          $('html, body').animate({
              scrollTop : 0
          }, 400);
@@ -50,6 +54,11 @@
     	 location.href="<%= request.getContextPath() %>/volunteerList.bo";
      });
      
+     $('#menuBar3').children().eq(1).click(function(){ 
+    	 location.href="<%= request.getContextPath() %>/hospitalList.ho";
+     });
+     
+     
      $('#menuBar4').children().eq(0).click(function(){
     	 location.href="<%= request.getContextPath() %>/list.qu";
      });
@@ -67,7 +76,7 @@
 		<div id="topBar"><span><%=loginUser.getMem_name()%> 님 안녕하세요 </span><a href="logout.me" id="a_logout">로그아웃  </a><span> | </span><a href="myPage.me">마이페이지</a></div>
 	<%} %>
 		<div id="topDiv">
-			<div id="title"><a href="<%=request.getContextPath() %>"><img alt="로고" src="images/pets(1).png"> 함께하묘 행복하개</a></div>
+			<div id="title"><a href="<%=request.getContextPath() %>"><img alt="로고" src="images/MainLogo.png"></a></div>
 			<div id="navi">
 				<ul class="naviDetail_ul" >
 						<li class="naviDetail_li"><a href="introduction.co">사이트소개</a></li>

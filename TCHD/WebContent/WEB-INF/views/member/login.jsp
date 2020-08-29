@@ -54,16 +54,24 @@
 				var pwd = $("#input_pw");
 				
 				if(id.val().trim().length == 0){
-					swal("","아이디를 입력해주세요.","info");
-					id.focus();
+					swal("","아이디를 입력해주세요.","info")
+					.then((ok)=>{ 
+						if(ok){
+							id.focus();
+						}
+					});
 					
 					//return false;
 					return;
 				}
 				
 				if(pwd.val().trim().length == 0){
-					swal("","비밀번호를 입력해주세요.","info");
-					pwd.focus();
+					swal("","비밀번호를 입력해주세요.","info")
+					.then((ok)=>{
+						if(ok){
+							pwd.focus();
+						}
+					});
 					
 					//return false;
 					return;
