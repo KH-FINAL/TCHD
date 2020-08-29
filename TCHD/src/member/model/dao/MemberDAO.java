@@ -92,7 +92,7 @@ public class MemberDAO {
 					   rset.getString("MEM_ID"),
 					   null, 	
 					   rset.getString("MEM_NAME"),
-					   null,
+					   rset.getString("MEM_PHONE"),
 					   null,
 					   null,
 					   null
