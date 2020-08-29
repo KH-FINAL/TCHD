@@ -477,7 +477,7 @@ public class BoardDAO {
 		return count;
 	}
 
-	public int updateCount(Connection conn, int bId) {
+	public int updateCount(Connection conn, int bNo) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -485,7 +485,7 @@ public class BoardDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, bId);
+			pstmt.setInt(1, bNo);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -495,21 +495,21 @@ public class BoardDAO {
 		return 0;
 	}
 
-	public Questions selectBoard(Connection conn, int bId) {
+	public Questions selectBoard(Connection conn, int bNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		Questions board = null;
+		Questions qBoard = null;
 		
 		String query = prop.getProperty("selectBoard");
 		
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, bId);
+			pstmt.setInt(1, bNo);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				board  = new Questions(rset.getInt("bo_no"),
+				qBoard  = new Questions(rset.getInt("bo_no"),
 									rset.getInt("bo_type"),
 									rset.getString("cate_name"),
 									rset.getString("bo_title"),
@@ -528,7 +528,7 @@ public class BoardDAO {
 			close(pstmt);
 		}
 		
-		return board;
+		return qBoard;
 	}
 	
 

@@ -31,11 +31,6 @@ public class Questions {//문의게시판
 
 	
 	//목록보기
-
-
-
-
-
 	public Questions(int boNo, int boType, String cateName, String boTitle, String boContent, int boCount, Date boDate,
 			int memNo, String memId, String boDeleteYn, String memLeave) {
 		super();
@@ -52,7 +47,7 @@ public class Questions {//문의게시판
 		this.memLeave = memLeave;
 	}
 
-
+	//상세보기
 	public Questions(int boNo, int boType, String cateName, String boTitle, String boContent, int boCount, Date boDate,
 			String memId, String boDeleteYn) {
 		super();

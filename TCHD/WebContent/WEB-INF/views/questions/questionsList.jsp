@@ -47,9 +47,7 @@
 			         	   <%= q.getBoNo() %>
 			         	   </td>
 			         	   <td><%= q.getCateName() %></td>
-			         	   <td class="tet">
-			         	   	<a href="<%= q.getBoTitle() %>/detail.qu"><%= q.getBoTitle() %></a>
-			         	   </td>
+			         	   <td class="tet"><%= q.getBoTitle() %></td>
 			         	   <td><%= q.getMemId() %></td>
 			         	   <td><%= q.getBoCount() %></td>
 			         	   <td><%= q.getBoDate() %></td>
@@ -105,21 +103,28 @@
 		}
 		
 		function goLogin(){
-
+			
 			window.alert("로그인 후 이용해주시기 바랍니다.");
 			location.href="<%= request.getContextPath() %>/loginForm.me";
 		}
+		
 		</script>
         </section>
 	<script>
   	$(function(){
-  		$('td').mouseenter(function(){zzz
+  		$('.tet').mouseenter(function(){
    			$(this).parent().css({'background':'#eee', 'cursor':'pointer', 'text-decoration':'underline'});
    		}).mouseout(function(){
    			$(this).parent().css({'background': 'none', 'text-decoration':'none'});
    		}).click(function(){
-   			var num = $(this).parent().children().eq(0).text();
-   			location.href="<%= request.getContextPath() %>/detail.qu?qu="+num;
+			var bNo = $(this).parent().children().children('input').val();
+			
+   			<% if(loginUser != null){%>
+   			location.href="<%= request.getContextPath() %>/detail.qu?bNo=" + bNo;
+   			<% } else { %>
+   				alert('비밀게시글은 로그인 회원만 조회가능합니다.'); //테스트용. 추후에 비밀번호입력창으로 수정할것
+   			<% } %>	
+   		
    		});
    	});
    </script>

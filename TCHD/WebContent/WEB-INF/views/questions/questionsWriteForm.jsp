@@ -64,6 +64,10 @@
 		</div>
 
 	</section>
-	
+	<script type="text/javascript">
+      $('#ex_file').focus(function(){
+         $(':focus').blur();     
+      })
+   </script>
 </body>
 </html>

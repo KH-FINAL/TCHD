@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="board.model.vo.Questions" %>
+<% Questions q = (Questions)request.getAttribute("qBoard"); %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="css/questions_detail.css" type="text/css">
 </head>
 <body>
  	<section>
@@ -16,7 +19,7 @@
      				
      			</div>
      		<div id = "div1" class = "div-color">
-				<img src="images/questions(1).png.PNG" width="600px" height="380px"><span>첨부파일 : example.PNG</span>
+				<img src="images/questions(1).png" width="600px" height="380px"><span>첨부파일 : example.PNG</span>
 		  		<br>
 				예전에 가입해둔 아이디가 있던 것 같은데 기억이 안납니다. 로그인이 안되네요! ㅆ<br>
 				 첨부파일 확인 좀 해주세요~
@@ -26,7 +29,7 @@
 			<div id = "hr_line"><hr></div>
 			<div class="board_list">
 				<div id = "div_head">
-					<h3>관리자 답변  <img src="images/supervisor.PNG" width="25px" height="25px"></h3>
+					<h3>관리자 답변  <img src="images/supervisor.png" width="25px" height="25px"></h3>
 				</div>	
 				<div id = "div_question">
 					<textarea name="content" class="content">안녕하세요. 김수지이인 회원님, 로그인관련 문의 주셨네요!

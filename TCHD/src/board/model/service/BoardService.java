@@ -158,20 +158,30 @@ public class BoardService {
 		return count;
 	}
 
-	public Board selectList(int bId) {
+	public Questions selectBoard(int bNo) {
 		Connection conn = getConnection();
 		
 		BoardDAO dao = new BoardDAO();
 		
-		int result = dao.updateCount(conn, bId);
+		int result = dao.updateCount(conn, bNo);
 		
-		Questions board = null;
+		Questions qBoard = null;
+		
 		if(result > 0) {
-			board = dao.selectBoard(conn, bId);
+			qBoard = dao.selectBoard(conn, bNo);
+			
+			if(qBoard != null) {
+				commit(conn);
+			}else {
+				rollback(conn);
+			}
+		}else {
+			rollback(conn);
 		}
+		close(conn);
 		
 		
-		return null;
+		return qBoard;
 	}
 	
 

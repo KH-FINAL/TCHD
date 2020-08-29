@@ -84,6 +84,7 @@ a {
     height: 250px;
     border: #ccc;
     resize: none;
+    padding: 10px;
 }
 
 .board_list .btn{
