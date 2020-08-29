@@ -8,11 +8,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import board.model.service.BoardService;
+import board.model.vo.Adopt;
 import board.model.vo.Board;
+import board.model.vo.Files;
 import board.model.vo.PageInfo;
 import board.model.vo.Questions;
+import member.model.vo.Member;
+
 
 
 /**
@@ -35,6 +40,20 @@ public class QuestionsListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BoardService qService = new BoardService(); //레퍼런스 변수에 담음
+		HttpSession session = request.getSession();
+		
+		
+		/*
+		 * if((Member)session.getAttribute("loginUser")==null) { //비회원일때
+		 * System.out.println("null입니다요"); }
+		 * 
+		 * String userId = ((Member)session.getAttribute("loginUser")).getMem_id();
+		 * System.out.println("문의게시판 userId : " + userId);
+		 * 
+		 * 
+		 */
+	
+	
 		
 		int listCount;		//총 게시글 개수
 		int currentPage;	//현재 페이지

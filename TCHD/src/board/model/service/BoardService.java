@@ -34,6 +34,8 @@ public class BoardService {
 		
 		return list;
 	}
+	
+	
 
 	public int getListCount() {
 		Connection conn = getConnection();

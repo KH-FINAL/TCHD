@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, board.model.vo.*" %>    
+<%@ page import="java.util.ArrayList, board.model.vo.*, member.model.vo.Member"  %>    
 <%
 	@SuppressWarnings("unchecked")
 	ArrayList<Questions> Qlist = (ArrayList<Questions>)request.getAttribute("Qlist");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	String userId = (String)request.getAttribute("userId");
+	Member loginUser = (Member)session.getAttribute("loginUser");
+	String msg = (String)session.getAttribute("msg");
+	
 	
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
@@ -57,7 +59,7 @@
             </table>
             
   			<div id="wrtie_button_div">
-  				<% if(userId != null){ %>
+  				<% if(loginUser!=null){ %>
          		<button id="write_button" onClick="goWrite()">글쓰기</button>
       			<% } else {%> 
       			<button id="write_button" onClick="goLogin()">글쓰기</button>
@@ -103,9 +105,7 @@
 		}
 		
 		function goLogin(){
-			if("loginUser" != null){
-				
-			}
+
 			window.alert("로그인 후 이용해주시기 바랍니다.");
 			location.href="<%= request.getContextPath() %>/loginForm.me";
 		}
@@ -113,7 +113,7 @@
         </section>
 	<script>
   	$(function(){
-  		$('td').mouseenter(function(){
+  		$('td').mouseenter(function(){zzz
    			$(this).parent().css({'background':'#eee', 'cursor':'pointer', 'text-decoration':'underline'});
    		}).mouseout(function(){
    			$(this).parent().css({'background': 'none', 'text-decoration':'none'});

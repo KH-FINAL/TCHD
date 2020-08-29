@@ -265,6 +265,10 @@ public class Member {
 				+ mem_email + ", mem_leave=" + mem_leave + ", pm_birth=" + pm_birth + ", pm_volist=" + pm_volist
 				+ ", gm_regno=" + gm_regno + ", gm_name=" + gm_name + ", gm_ok_ny=" + gm_ok_ny + "]";
 	}
+
+
+
+
 		
 	
 }
