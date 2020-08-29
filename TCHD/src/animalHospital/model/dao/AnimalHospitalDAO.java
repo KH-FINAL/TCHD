@@ -24,30 +24,71 @@ public class AnimalHospitalDAO {
 		}
 	}
 	
-	public ArrayList<AnimalHospital> selectHospitalList(Connection conn) {
+	public ArrayList<AnimalHospital> allHospitalList(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<AnimalHospital> hospitalList = new ArrayList<AnimalHospital>();
 		
 		try {
-			pstmt = conn.prepareStatement(prop.getProperty("selectHospitalList"));
+			pstmt = conn.prepareStatement(prop.getProperty("allHospitalList"));
 			rset= pstmt.executeQuery();
 			
 			while(rset.next()) {
-				AnimalHospital hospital = new AnimalHospital(
-						rset.getInt("HOS_NO"), 
-						rset.getString("HOS_NAME"), 
-						rset.getString("HOS_ADDR"), 
-						rset.getString("HOS_PHONE"));
+				AnimalHospital hospital = new AnimalHospital(rset.getInt("HOS_NO"), 
+															 rset.getString("HOS_NAME"), 
+															 rset.getString("HOS_ADDR"), 
+															 rset.getString("HOS_PHONE"));
 				hospitalList.add(hospital);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return hospitalList;
 	}
-
-	public AnimalHospital selectHospitalList(Connection conn, int hosNo) {
+	
+	public ArrayList<AnimalHospital> selectHospitalList(Connection conn, String addr) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<AnimalHospital> hospitalList = new ArrayList<AnimalHospital>();
+		int num = 1;
+		
+		switch(addr) {
+		case "서울특별시": case "부산광역시": case "대구광역시": case "인천광역시": case "광주광역시": case "대전광역시":
+		case "울산광역시": case "세종특별자치시": case "경기도": case "강원도": case "제주특별자치도":
+			addr = addr.substring(0, 2);
+			break;
+		case "충청북도":	addr = "충북";	break;
+		case "충청남도":	addr = "충남";	break;
+		case "전라북도":	addr = "전북";	break;
+		case "전라남도":	addr = "전남";	break;
+		case "경상북도":	addr = "경북";	break;
+		case "경상남도":	addr = "경남";	break;
+		}
+		System.out.println("DAO_addr : " + addr);
+		
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("selectHospitalList"));
+			pstmt.setString(1, addr + "%");
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				AnimalHospital hospital = new AnimalHospital(num, 
+															 rset.getString("HOS_NAME"), 
+															 rset.getString("HOS_ADDR"), 
+															 rset.getString("HOS_PHONE"));
+				hospitalList.add(hospital);
+				num++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return hospitalList;
+	}
+	
+	public AnimalHospital selectHospital(Connection conn, int hosNo) {
 		PreparedStatement pstmt =null;
 		ResultSet rset = null;
 		AnimalHospital hospital = null;
@@ -71,5 +112,4 @@ public class AnimalHospitalDAO {
 		}
 		return hospital;
 	}
-
 }

@@ -346,7 +346,7 @@ public class MemberDAO {
 	}
 	
 	public int confirmPw(Connection conn, Member member) {
-		// 오버로딩?
+		// 오버로딩 ==> 회원가입할 때 사용
 		PreparedStatement pstmt = null;
 		int result = 0;
 		

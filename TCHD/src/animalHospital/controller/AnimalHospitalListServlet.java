@@ -21,9 +21,19 @@ public class AnimalHospitalListServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ArrayList<AnimalHospital> hospitalList = null;
+		AnimalHospitalService ahs = new AnimalHospitalService();
+		String addr = (String)request.getParameter("addr");
 		
-		ArrayList<AnimalHospital> hospitalList = new AnimalHospitalService().selectHospitalList();
-		
+		if(addr == null || addr.equals("전체보기")) {
+			// 지역 선택하지 않은 경우 & 전체보기를 선택한 경우
+			hospitalList = ahs.allHospitalList();
+		} else {
+			// 지역 선택한 경우
+			// 개수에 맞는 번호를 목록에서 보여줘야 함
+			System.out.println("listServlet_addr : " + addr);
+			hospitalList = ahs.selectHospitalList(addr);
+		}
 		
 		request.setAttribute("hospitalList", hospitalList);
 		request.setAttribute("section", "WEB-INF/views/animalHospital/animalHospitalList.jsp");

@@ -50,8 +50,38 @@ $(function(){
 </script>
 </head>
 <body>
-<section>
-<div id="map" style="width:500px;height:400px;"></div>
-</section>
+	<section>
+		<div id="ment">24시 동물병원</div>
+		<br>
+		<div id="details_div">
+			<div id="map" style="width:500px;height:400px;"></div>
+<!-- 			<div id="hospital_map"> -->
+<!-- 				<img src="images/animal_hospital(3).PNG"/> -->
+<!-- 			</div> -->
+			<div id="hospital_info_div">
+				<div id="hospital_name">24시 소래 동물병원</div>
+				<br>
+				<hr>
+				<br>
+				<table id="hospital_info">
+					<tr>
+						<th>지역</th>
+						<td>인천광역시</td>
+					</tr>
+					<tr>
+						<th>주소</th>
+						<td>
+							인천광역시 남동구 소래역남로16번길 75<br>
+							더타워상가 C동 1층
+						</td>
+					</tr>
+					<tr>
+						<th>전화번호</th>
+						<td>032-438-3227</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</section>
 </body>
 </html>

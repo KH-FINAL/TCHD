@@ -92,7 +92,7 @@
 						</li>
 						<li class="naviDetail_li"><a href="#">정보마당</a><ul id="menuBar3" class="menuBar">
 							<li><a href="#">공지사항</a></li>
-							<li><a href="#">동물병원</a></li>
+							<li><a href="hospitalList.ho">동물병원</a></li>
 						</ul ></li>
 						<li class="naviDetail_li"><a href="#">고객센터</a><ul id="menuBar4" class="menuBar">
 								<li><a href="#">문의게시판</a></li>
