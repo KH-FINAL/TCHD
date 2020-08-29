@@ -118,8 +118,8 @@
    		}).mouseout(function(){
    			$(this).parent().css({'background': 'none', 'text-decoration':'none'});
    		}).click(function(){
-   			var bId = $(this).parent().children().children('input').val();
-   			
+   			var num = $(this).parent().children().eq(0).text();
+   			location.href="<%= request.getContextPath() %>/detail.qu?qu="+num;
    		});
    	});
    </script>

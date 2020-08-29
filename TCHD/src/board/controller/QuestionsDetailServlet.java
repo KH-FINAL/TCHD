@@ -29,9 +29,13 @@ public class QuestionsDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int bId = Integer.parseInt(request.getParameter("bId"));
-		
-		Board board = new BoardService().selectList(bId);
+		/*
+		 * int bId = Integer.parseInt(request.getParameter("bId"));
+		 * 
+		 * Board board = new BoardService().selectList(bId);
+		 */
+		request.setAttribute("section", "WEB-INF/views/questions/questionsDetail.jsp");
+		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
 	/**

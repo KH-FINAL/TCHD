@@ -45,7 +45,7 @@ public class QuestionsListServlet extends HttpServlet {
 		
 		/*
 		 * if((Member)session.getAttribute("loginUser")==null) { //비회원일때
-		 * System.out.println("null입니다요"); }
+		 * System.out.println("null입니다요"); } // 잘찍힘
 		 * 
 		 * String userId = ((Member)session.getAttribute("loginUser")).getMem_id();
 		 * System.out.println("문의게시판 userId : " + userId);

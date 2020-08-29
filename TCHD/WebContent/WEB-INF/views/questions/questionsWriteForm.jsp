@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="css/questions_write.css" type="text/css">
 </head>
 <body>
 	<section>
