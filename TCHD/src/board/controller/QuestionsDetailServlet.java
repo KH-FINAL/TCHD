@@ -36,7 +36,7 @@ public class QuestionsDetailServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		
-		if(qBoard == null) {
+		if(qBoard != null) {
 			request.setAttribute("section", "WEB-INF/views/questions/questionsDetail.jsp");
 			request.setAttribute("qBoard", qBoard);
 		}else {

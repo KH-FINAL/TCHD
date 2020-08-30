@@ -18,13 +18,13 @@
 			<td width="100px"><span id = "span1">*</span><b>분류</b> </td>
 			<td width="750px" class="align_left">
 			<select name="board" class="btn" size = "1">
+			<option value = "ze">----------------</option>
 			<option value = "bo">회원정보</option>
 			<option value = "bo">입양</option>
 			<option value = "bo">후원</option>
 			<option value = "bo">봉사</option>
 			<option value = "bo">유기동물</option>
 			<option value = "bo">etc</option>
-			<option value = "ze">분류 선택</option>
 			</select></td>
 			</tr>
 		  <tr>

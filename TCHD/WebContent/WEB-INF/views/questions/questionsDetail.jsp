@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="board.model.vo.Questions" %>
-<% Questions q = (Questions)request.getAttribute("qBoard"); %>
+<%@ page import="board.model.vo.Questions, member.model.vo.Member, board.model.vo.*" %>
+<% Questions q = (Questions)request.getAttribute("qBoard");
+	Files file = (Files)request.getAttribute("file");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,15 +16,16 @@
 		
      	<div class = "board_list_design">
      		<div class = "head_board">
-     			<h1 div class = "title_area">로그인이 안되네요~~~</h1>
-     			<h4 div class = "info_area">김수지이인 | 2020-08-11 | 50</h4>
+     			<h1 div class = "title_area"><%= q.getBoTitle() %></h1>
+     			<h4 div class = "info_area"><%= q.getMemId() %> | <%=q.getBoDate() %> | <%=q.getBoCount() %></h4>
      				
      			</div>
      		<div id = "div1" class = "div-color">
 				<img src="images/questions(1).png" width="600px" height="380px"><span>첨부파일 : example.PNG</span>
 		  		<br>
-				예전에 가입해둔 아이디가 있던 것 같은데 기억이 안납니다. 로그인이 안되네요! ㅆ<br>
-				 첨부파일 확인 좀 해주세요~
+				<div>
+					<%= q.getBoContent() %>
+				</div>
 				
 			</div>
      		</div>
@@ -43,18 +46,18 @@
 					
 				</div>
 				<div class = btn_bottom>		
-						<input id="btn_recontent" type="button" class="btn" onClick="location.href='./questionsWrite.html'" value="수정">					
-						<input id="btn_delete" type="button" class="btn" onClick="location.href='./questionsList.html'" value="삭제">
-						<input id="btn_content" type="button" class="btn" onClick="location.href='./questionsList.html'" value="등록">
+						<input id="btn_recontent" type="button" class="btn" onClick="location.href='list.qu'" value="수정">					
+						<input id="btn_delete" type="button" class="btn" onClick="location.href='./questionsList.jsp'" value="삭제">
+						<input id="btn_content" type="button" class="btn" onClick="location.href='./questionsDetail.jsp'" value="등록">
 				</div>
 			</div>
 			
 			<div class="list_div">
 				
-					<input type="button" class="btn_list_go" value="목록보기">
+					<input type="button" class="btn_list_go" value="목록보기" onClick="location.href='list.qu'">
 				
 				<div class="text_align_right">	
-					<input type="button" class="btn_list" value="수정하기">
+					<input type="button" class="btn_list" value="수정하기" onClick="location.href='list.qu'">
 				</div>
 			</div>
 		</section>
