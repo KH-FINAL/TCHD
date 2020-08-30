@@ -3,7 +3,7 @@
 	#ment{
 		font-size: 30px;
 		font-weight: bold;
-		width: 100%;
+		width: 96%;
 		margin: 30px;	/* 위, 오른쪽, 아래, 왼쪽 */
 		text-decoration: underline;
 		text-decoration-color: rgb(41, 128, 185); 
@@ -23,7 +23,7 @@
 		height: 50px;
 		margin: 0px 0px 20px 0px;
 		border-radius: 5px;
-		width: 100%;
+		width: 96%;
 	}
 	
 	#ment1{
@@ -50,7 +50,7 @@
     #pet{		/* 동물 조건 선택하는 칸 */
      	padding-left: 0px;	/* 내부 여백 */
     	color: gray;
-    	width: 100%;
+    	width: 96%;
     	font-weight: 500;
     }
     
@@ -127,14 +127,34 @@
     
     .petKind{		/* 동물구분 설명 */
     	margin: 0px 40px 0px 10px;
-    	padding: 0px 90px 0px 30px;
+    	padding: 0px 90px 0px 40px;
     	font-size: 14px;
+    }
+    
+    #kind{
+    	weight: 150px;
+    }
+    
+    #gender{
+    	padding-left: 10px;
+    }
+    
+    #size{
+    	padding-left: 25px;
     }
     
     #catDog{
     	padding: 0px 0px 0px 60px;
     }
+    
+    #fm{
+    	padding: 0px 0px 0px 0px;
+    	margin-right: 10px;
+    }
 
+    #sml{
+    	padding-left: 0px;
+    }
 
     #petPicture{		/* 동물 사진 전체 영역 */
     	margin-top: 30px; 
@@ -190,7 +210,7 @@
     }
     
     .conditionKind{		/* 동물 조건선택 버튼 */
-    	width: 150px;
+    	width: 130px;
     	height: 40px;
     	border-radius: 5px;
     	margin: 30px 60px 20px 30px;

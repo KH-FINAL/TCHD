@@ -15,7 +15,7 @@
 		float: left;
 	}
 	
-	#homePicture{		/* 메인 사진 */
+	#thumbnailImg{		/* 메인 사진 */
 		posittion: relative;		/* 홈픽쳐에 스위치 버튼 올리기 --> 겹쳐지지도 않네 */
 		width: 420px;
 		height: 400px;
@@ -45,9 +45,11 @@
 
 	
 	#smallPictures{		/* 작은 사진들 영역 */
-		padding: 0px 0px 0px 60px;
+		padding: 0px;
 		width: 100%;
-		margin: 80px 0px 20px 0px;
+		height: 100px;
+		margin: 0px;
+		clear: both;
 	}
 
 	.smallPicture{		/* 작은 사진들 */
@@ -60,7 +62,7 @@
 	.threeButton{		/* 삭제, 수정, 입양 버튼 */
 		float: right;
 		margin: 20px 70px 0px 0px;
-		width: 165px;
+		width: 145px;
 		height: 80px;
 		border-radius: 10px;
 		border: 0px;
@@ -75,7 +77,7 @@
 	/* 동물 설명 영역 - 오른쪽 */
 	
 	#petName{			/* 설명 영역 */ 
-		width: 50%;
+		width: 45%;
 		float: left;
 	}
 	
@@ -100,5 +102,6 @@
 	}
 	
 	hr{
+		clear: both;
 		margin-bottom: 30px;
 	}

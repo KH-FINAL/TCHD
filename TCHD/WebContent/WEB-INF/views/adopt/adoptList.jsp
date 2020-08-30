@@ -15,6 +15,7 @@
 </head>
 <body>
 	<section>
+		<form method="post">
 		<div id="ment">입양게시판</div>
 		<div id="PageArea">
 		<table class="mentArea">
@@ -51,8 +52,8 @@
 					</tr>
 					<tr class="petCategory">
 						<td id="catDog" class="petKind">개/고양이</td>
-						<td class="petKind">암컷/수컷</td>
-						<td class="petKind">대형/중형/소형</td>
+						<td id="fm" class="petKind">암컷/수컷</td>
+						<td id="sml" class="petKind">대형/중형/소형</td>
 <!-- 						<td class="petKind">Puppy/Junior/Adult/Senior</td> -->
 					</tr>
 				</table>	<!-- 조건 고르는 옵션 -->
@@ -119,6 +120,7 @@
                 <a href="#" class="bt">다음 페이지</a>
 			</div>
 		</div>
+	</form>
 		<script>
 		function writeFrom(){
 			location.href="<%= request.getContextPath() %>/adoptWriteForm.bo";

@@ -49,8 +49,8 @@
 		  				<li><%= adopt.getPetRescueDate() %></li>
 		  			</ul>
 				</div>
+  				<hr>
   			</div>
-  			<hr>
 	   		<div id="smallPictures">
 	   			<% for(int i = 1; i < fileList.size();  i++){ %>
 	   				<img id="detailImg" class="smallPicture" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(i).getChangeName() %>"/>

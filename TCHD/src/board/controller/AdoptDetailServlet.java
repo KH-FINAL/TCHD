@@ -45,7 +45,7 @@ public class AdoptDetailServlet extends HttpServlet {
 			request.setAttribute("userId", userId);
 			request.setAttribute("adopt", adopt);
 			request.setAttribute("fileList", fileList);
-			request.setAttribute("section", "WEB-INF/views/adopt/adopDetail.jsp");
+			request.setAttribute("section", "WEB-INF/views/adopt/adoptDetail.jsp");
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		} else {
 			request.setAttribute("msg", "입양게시판 상세보기에 실패하였습니다.");
