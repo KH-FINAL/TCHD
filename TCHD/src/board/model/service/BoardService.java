@@ -1,8 +1,8 @@
 package board.model.service;
 
-import static common.JDBCTemplate.getConnection;
 import static common.JDBCTemplate.close;
 import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.getConnection;
 import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
@@ -184,14 +184,14 @@ public class BoardService {
 		
 		return qBoard;
 	}
-	
+
 	public ArrayList<Notice> selectNoticeList() {
 		Connection conn = getConnection();
-		
+
 		ArrayList<Notice> noticeList = new BoardDAO().selectNoticeList(conn);
-		
+
 		close(conn);
-		
+
 		return noticeList;
 	}
 
@@ -202,27 +202,27 @@ public class BoardService {
 		BoardDAO bDAO = new BoardDAO();
 		int finalResult = 0;
 		int result1 = bDAO.insertNoticeBoard1(conn, notice);
-		
+
 		if(result1>0) {
 			int result2 = bDAO.insertNoticeBoard2(conn, notice.getNoticeSubject());
 			finalResult = result2;
 			if(result2>0 && uploadFile.getOrignName()!=null) {
-				
+
 				int result3 = bDAO.insertNoticeFile(conn,uploadFile);		
-				
+
 				finalResult = result3;
-				
+
 				commit(conn);
 			}
 		}else {
 			rollback(conn);
 		}
 
-		
+
 		close(conn);
-		
+
 		return finalResult;
-			
+
 	}
 
 
@@ -232,28 +232,60 @@ public class BoardService {
 		BoardDAO bDAO = new BoardDAO();
 		int result=bDAO.updateCount(conn, bNo);
 		Notice notice =null;
+		
 		if(result>0) {
-			
+
 			notice = bDAO.selectNotice(conn,bNo);
 		}
-		
+
 		close(conn);
-		
+
 		return notice;
 	}
 
 
 
-	public Files selectNoticeFile(int bNo) {
-	Connection conn = getConnection();
+	public ArrayList<Files> selectNoticeFile(int bNo) {
+		Connection conn = getConnection();
 		
-		Files files = new BoardDAO().selectNoticeFile(conn,bNo);
-		
-		close(conn);
-		
-		return files;
-	}
+		int result = new BoardDAO().updateCount(conn, bNo);
 	
+		ArrayList<Files> fileList = null;
+		if(result > 0) {
+			fileList = new BoardDAO().selectFile(conn, bNo);
+			
+			if(fileList != null) {
+				commit(conn);
+			} else { 
+				rollback(conn);
+			}
+		} else {
+			rollback(conn);
+		}
+
+		close(conn);
+
+		return fileList;
+	}
+
+
+
+	public Adopt selectedAdopt(int bNo) {
+		Connection conn = getConnection();
+		BoardDAO dao = new BoardDAO();
+		
+		int result = dao.updateCount(conn, bNo);
+		Adopt adopt = null;
+		
+		if(result > 0) {
+			adopt = dao.selectAdopt(conn, bNo);
+		}
+		
+		return adopt;
+	}
+
+	
+
 	
 
 } // class end

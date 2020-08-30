@@ -647,19 +647,27 @@ public class BoardDAO {
 		return notice;
 	}
 
-	public Files selectNoticeFile(Connection conn, int bNo) {
+	public ArrayList<Files> selectFile(Connection conn, int bNo) {
 		PreparedStatement pstmt= null;
 		ResultSet rset = null;
-		Files file =null;
+		ArrayList<Files> fileList = null;
 		
 		try {
-			pstmt=conn.prepareStatement(prop.getProperty("selectNoticeFile"));
+			pstmt=conn.prepareStatement(prop.getProperty("selectFiles"));
 			pstmt.setInt(1, bNo);
+			
 			rset=pstmt.executeQuery();
 			
-			if(rset.next()) {
-				file = new Files(
-					rset.getInt("FILE_NO"),rset.getString("CHANGE_NAME"));
+			fileList = new ArrayList<Files>();
+			while(rset.next()) {
+				Files f = new Files();
+				f.setFileNo(rset.getInt("file_no"));
+				f.setOrignName(rset.getString("origin_name"));
+				f.setChangeName(rset.getString("change_name"));
+				f.setFilePath(rset.getString("file_path"));
+				f.setUploadDate(rset.getDate("upload_date"));
+				
+				fileList.add(f);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -667,8 +675,47 @@ public class BoardDAO {
 			close(rset);
 			close(pstmt);
 		}		
-		return file;
+		return fileList;
 	}
+
+	public Adopt selectAdopt(Connection conn, int bNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Adopt adopt = null;
+		
+		String query = prop.getProperty("selectAdopt");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				adopt = new Adopt(rset.getInt("bo_type"),
+								rset.getString("cate_name"),
+								rset.getString("mem_id"),
+								rset.getString("pet_kinds"),
+								rset.getString("pet_category"),
+								rset.getString("pet_gender"),
+								rset.getString("pet_unigender"),
+								rset.getString("pet_name"),
+								rset.getString("pet_age"),
+								rset.getDate("pet_rescue_date"),
+								rset.getFloat("pet_weight"),
+								rset.getString("pet_color"),
+								rset.getString("pet_size"),
+								rset.getString("pet_comment"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return adopt;
+	}
+
 
 	
 	

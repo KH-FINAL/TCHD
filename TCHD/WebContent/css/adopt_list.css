@@ -95,12 +95,10 @@
     	height: 43px;
     	border-radius: 10px;
     	border: 1px solid rgb(173, 216, 230);
-/*     	background-color: rgb(173, 216, 230); */
-/*     	color: dimgray; */
 		background-color: rgba(41, 128, 185, 0.7);
 		color: white;
     	font-weight: bold;
-    	font-size: 15px;
+    	font- : 15px;
     	
     }
     
@@ -114,24 +112,27 @@
     /* 동물 선택 옵션 부분(테이블) */
     
 	.petlSelectInfo{
-    	padding: 20px 0px 0px 20px;
+		margin-left: 20px; 
+    	padding: 20px 0px 0px 10px;
     }
     
     
     .petChoice{		/* 동물구분 */
-    	padding: 0px 0px 0px 10px;
+    	margin: 0px 50px 0px 20px;
+    	padding: 0px 100px 0px 50px;
     	width: 200px;
     	font-size: 20px;
     	font-weight: bold;
     }
     
     .petKind{		/* 동물구분 설명 */
-    	padding: 3px;
+    	margin: 0px 40px 0px 10px;
+    	padding: 0px 90px 0px 30px;
     	font-size: 14px;
     }
     
     #catDog{
-    	padding: 0px 0px 0px 20px;
+    	padding: 0px 0px 0px 60px;
     }
 
 
@@ -166,9 +167,9 @@
     }
     
 	.petInfos{			/* 하나의 동물 설명 */
-    	width: 247px;
+    	width: 237px;
     	margin: -5px 0px 0px -6px;
-    	padding: 10px 0px 5px 0px;
+    	padding: 10px 0px 5px 15px;
     	border: 1px solid gray;
     	border-top-style: none;
     	border-radius: 10px;
@@ -177,20 +178,22 @@
     
     .petInfo{			/* 하나의 동물 설명들 */
     	display: inline-block;
-    	margin: 0px 0px 2px 15px;
-    	font-size: 12px;
+    	margin: 0px 0px 2px 0px;
+    	font-size: 13px;
+    	color: darkgray;
     }
     
 	#conditionSelect{
     	width: 850px;
     	pdding-top: 30px;
+    	margin-left: 10px;
     }
     
     .conditionKind{		/* 동물 조건선택 버튼 */
     	width: 150px;
     	height: 40px;
     	border-radius: 5px;
-    	margin: 30px 20px 20px 10px;
+    	margin: 30px 60px 20px 30px;
     }
     
     
