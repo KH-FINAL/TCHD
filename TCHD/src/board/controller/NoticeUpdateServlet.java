@@ -2,9 +2,6 @@ package board.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Enumeration;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,67 +18,68 @@ import board.model.vo.Notice;
 import common.MyFileRenamePolicy;
 
 
-@WebServlet("/write.no")
-public class NoticeWriteServlet extends HttpServlet {
+@WebServlet("/update.no")
+public class NoticeUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
-    public NoticeWriteServlet() {
+    public NoticeUpdateServlet() {
         super();
     }
+
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 1024*1024*10;
 			String root = request.getSession().getServletContext().getRealPath("/");
 			String savePath = root + "upload_imageFiles/";
-	
+			
 			File f= new File(savePath);
 			if(!f.exists()) {
 				f.mkdirs();
 				
 			}
+			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize,"UTF-8", new MyFileRenamePolicy());
 			
-			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize,"UTF-8", new MyFileRenamePolicy()); 
-
-		
 			String saveFile = multiRequest.getFilesystemName("input_file");	// form에서 전송되는 파일이름
 			String originFile = multiRequest.getOriginalFileName("input_file");	// form에서 전송되는 파일이름
-		
+			
+			System.out.println(saveFile);
+			System.out.println(originFile);
+			
+			int no = Integer.parseInt(multiRequest.getParameter("noticeNo"));
 			String selectBoard = multiRequest.getParameter("selectBoard");
 			String title= multiRequest.getParameter("input_title");
 			String content = multiRequest.getParameter("input_content");
-		
+			Notice notice = new Notice(no, title, content, null, 0, null, selectBoard, 0);
+			
+			int fileNo =0;
 	
-			Notice notice = new Notice(0,title, content, null, 0, null, selectBoard, 0);
+			if(multiRequest.getParameter("noticeFileNo")!=null) {
+				fileNo = Integer.parseInt(multiRequest.getParameter("noticeFileNo"));
 		
-			Files uploadFile =  new Files();
-			uploadFile.setFilePath(savePath);
-			uploadFile.setOrignName(originFile);
-			uploadFile.setChangeName(saveFile);
+			}
+			Files file = new Files(fileNo, no, originFile, saveFile, savePath, null, 0, 0, null);
 			
+			int result = new BoardService().updateNotice(notice, file);
 			
-			
-			int result = new BoardService().insertNotice(notice, uploadFile);
 			
 			if(result>0) {
-				response.sendRedirect("list.no");
+				response.sendRedirect("detail.no?bNo="+no);
 			}else {
-				
 				File failedFil = new File(savePath+saveFile);
 				failedFil.delete();
 				
-				request.setAttribute("errorMsg", "공지사항 등록에 실패하였습니다.");
-				request.setAttribute("section","WEB-INF/views/common/errorPage.jsp");
+				request.setAttribute("errorMsg", "공지사항 수정에 실패하였습니다.");
+				request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
 				request.getRequestDispatcher("index.jsp").forward(request, response);
 			}
-		}
 		
+		}
 		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		doGet(request, response);
 	}
 

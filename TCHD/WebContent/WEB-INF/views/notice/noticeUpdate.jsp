@@ -1,20 +1,32 @@
+<%@page import="board.model.vo.Notice"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	Notice notice = (Notice)request.getAttribute("notice");
+	int fileNo = (int)request.getAttribute("fileNo");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" href="css/common.css" type="text/css">
 <link rel="stylesheet" href="css/notice_write.css" type="text/css">
+<script>
+$(function(){
+	$('#select_board').val('<%=notice.getNoticeSubject() %>');
+})
 
+</script>
 </head>
 <body>
  <section>
       <div id="ment">공지사항</div>
       
       <div id="write_all_div">
-      	<form method="post" action="write.no" encType="multipart/form-data" onsubmit="return validate();">
+      	<form method="post" action="update.no" encType="multipart/form-data" onsubmit="return validate();">
          <div id="write_div">
-            <table id="write_table">
+          	<input type="hidden" name="noticeNo" value="<%=notice.getBoNo() %>">
+          	<% if(fileNo!=0){ %>	<input type="hidden" name="noticeFileNo" value="<%=fileNo %>">  <%} %>
+            <table id="write_table"> 
                <tr>
                   <th><span class="ment_box">게시판 선택</span></th>
                   <td>
@@ -29,7 +41,7 @@
                <tr>
                   <th><span class="ment_box">제목</span></th>
                   <td>
-                     <input type="text" id="input_title" name="input_title">
+                     <input type="text" id="input_title" name="input_title" value="<%=notice.getBoTitle()%>">
                   </td>
                </tr>
                <tr>
@@ -45,7 +57,7 @@
                <tr>
                   <th id="td_content"><br>내용</th>
                   <td>
-                     <textarea id="write_contents" name="input_content" rows="25" cols="110"></textarea>
+                     <textarea id="write_contents" name="input_content" rows="25" cols="110"><%=notice.getBoContent() %></textarea>
                   </td>
                </tr>
             </table>
@@ -58,7 +70,6 @@
       </div>
       
      <script type="text/javascript">
- 
       $('#ex_file').focus(function(){
          $(':focus').blur();     
       })
@@ -78,11 +89,11 @@
 			return false;
 		}
 		
-		return true;
-	};
 
+			return true;
+		
+	};
    </script>
-   
    </section>
 
 </body>

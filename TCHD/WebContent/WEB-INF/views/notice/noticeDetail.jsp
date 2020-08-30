@@ -1,9 +1,16 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="board.model.vo.Notice, board.model.vo.Files,member.model.vo.Member "%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% 
 	Notice notice = (Notice)request.getAttribute("notice");
-	Files file = (Files)request.getAttribute("file");
+	ArrayList<Files> fileList = (ArrayList<Files>)request.getAttribute("file");
+	Files file =null;
+	if(fileList!=null){
+		for(int i=0; i<fileList.size();i++){
+			file = fileList.get(i);
+		}
+	}
 	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 %>
 <!DOCTYPE html>
@@ -15,10 +22,17 @@
 <body>
  <section>
       <div id="ment">공지사항</div>
-
+	<form method="post" action="updateForm.no">
       <div id="details_div">
          <div id="title_info_div">
             <div id="notice_title">
+            	<input type="hidden" name="noticeNo" value="<%=notice.getBoNo() %>">
+            	<input type="hidden" name="noticeTitle" value="<%=notice.getBoTitle() %>">
+            	<input type="hidden" name="noticeContent" value="<%=notice.getBoContent() %>">
+            	<input type="hidden" name="noticeSubject" value="<%=notice.getNoticeSubject() %>">
+            	<% if(file!=null){%>
+            		<input type="hidden" name="noticeFileNo" value="<%=file.getFileNo() %>">
+            	<%} %>
                <h1>[<%=notice.getNoticeSubject() %>]<%=notice.getBoTitle() %></h1>
             </div>
             <div id="writer_info">
@@ -37,12 +51,14 @@
             <div id="contents"><%=notice.getBoContent() %></div>
          </div>
       </div>
+     
          <div id="button_div">
-            <button id="list_view_button" onclick="location.href='list.no'">목록보기</button>
+            <button id="list_view_button" type="button" onclick="location.href='list.no'">목록보기</button>
             <%if(loginUser !=null && loginUser.getMem_id().equals("admin")){ %>
-            <button id="edit_button" onclick="location.href='update.no?bNo=<%=notice.getBoNo()%>'">수정하기</button>
+     	       <button type="submit" id="edit_button" onclick="location.href='updateForm.no'">수정하기</button>
             <%} %>
          </div>
+          </form>
    </section>
 
 </body>

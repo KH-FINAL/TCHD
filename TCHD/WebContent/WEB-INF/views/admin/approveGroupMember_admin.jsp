@@ -57,7 +57,7 @@
 							  console.log(data);
 								  swal({
 									  text:"가입승인 완료",
-									  icon: "success",		
+									  icon: "success"	
 								  }).
 								  then((ok) => {
 									  if(ok){

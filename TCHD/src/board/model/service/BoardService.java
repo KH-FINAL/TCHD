@@ -58,6 +58,8 @@ public class BoardService {
 		close(conn);
 		return Qlist;
 	}
+	
+
 
 
 	public ArrayList<Board> selectMyBoard(int mem_no, PageInfo pi) {
@@ -248,27 +250,52 @@ public class BoardService {
 	public ArrayList<Files> selectNoticeFile(int bNo) {
 		Connection conn = getConnection();
 		
-		int result = new BoardDAO().updateCount(conn, bNo);
+	
 	
 		ArrayList<Files> fileList = null;
-		if(result > 0) {
-			fileList = new BoardDAO().selectFile(conn, bNo);
-			
-			if(fileList != null) {
-				commit(conn);
-			} else { 
-				rollback(conn);
-			}
-		} else {
-			rollback(conn);
-		}
+		
+		fileList = new BoardDAO().selectFile(conn, bNo);
 
 		close(conn);
 
 		return fileList;
 	}
 
-
+	public int updateNotice(Notice notice, Files file) {
+		Connection conn = getConnection();
+		
+		BoardDAO bDAO = new BoardDAO();
+		
+		int result1 = bDAO.updateNotice1(conn,notice);
+		int finalResult=result1;
+		if(result1>0) {  // BOARD테이블 UPDATE성공
+			int result2 = bDAO.updateNotice2(conn, notice);
+			finalResult=result2;
+			if(result2>0) {  // NOTICE테이블 UPDATE성공
+				if(file.getFileNo()!=0) { //원본이 사진이 있을때
+					if(file.getOrignName()!=null) { // 수정페이지에서 사진을 추가할경우 = 사진을 변경할 경우
+						int result3 = bDAO.updateNoticeFile1(conn,file);						
+						finalResult=result3;													
+					}else { // 사진을 뺄 경우
+						int result3 = bDAO.updateNoticeFile3(conn,file);						
+						finalResult=result3;	
+					}
+					
+				}else {  //원본이 사진이 없을 때 
+					if(file.getOrignName()!=null) { // 수정페이지에서 사진을 추가할경우 = 사진을 변경할 경우
+						int result3= bDAO.updateNoticeFile2(conn, file);						
+						finalResult=result3;												
+					}
+				
+				}
+			}
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return finalResult;
+	}
 
 	public Adopt selectedAdopt(int bNo) {
 		Connection conn = getConnection();

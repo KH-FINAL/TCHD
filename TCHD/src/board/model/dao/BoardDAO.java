@@ -716,7 +716,100 @@ public class BoardDAO {
 		return adopt;
 	}
 
+	public int updateNotice1(Connection conn, Notice notice) {
+		System.out.println("updateNotice1");
+		PreparedStatement pstmt = null;
+		int result=0;
+		
+		try {
+			pstmt=conn.prepareStatement(prop.getProperty("updateNotice1"));
+			pstmt.setString(1, notice.getBoTitle());
+			pstmt.setString(2, notice.getBoContent());
+			pstmt.setInt(3, notice.getBoNo());
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
+	public int updateNotice2(Connection conn,  Notice notice) {
+		System.out.println("updateNotice2");
+		PreparedStatement pstmt=null;
+		int result =0;
+		try {
+			pstmt =conn.prepareStatement(prop.getProperty("updateNotice2"));
+			pstmt.setString(1, notice.getNoticeSubject());
+			pstmt.setInt(2, notice.getBoNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateNoticeFile1(Connection conn, Files file) {
+		System.out.println("updateNoticeFile1");
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("updateNoticeFile1"));
+			pstmt.setString(1, file.getOrignName());
+			pstmt.setString(2, file.getChangeName());
+			pstmt.setInt(3, file.getFileNo());
+			result= pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int updateNoticeFile2(Connection conn, Files file) {
+		System.out.println("updateNoticeFile2");
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		try {
+			pstmt= conn.prepareStatement(prop.getProperty("updateNoticeFile2"));
+			pstmt.setInt(1, file.getBoNo());
+			pstmt.setString(2,  file.getOrignName());
+			pstmt.setString(3, file.getChangeName());
+			pstmt.setString(4, file.getFilePath());
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateNoticeFile3(Connection conn, Files file) {
+		System.out.println("updateNoticeFile3");
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		try {
+			pstmt= conn.prepareStatement(prop.getProperty("updateNoticeFile3"));
+			pstmt.setInt(1, file.getFileNo());
+	
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 	
 	

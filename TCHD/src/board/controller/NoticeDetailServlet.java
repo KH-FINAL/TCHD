@@ -27,7 +27,7 @@ public class NoticeDetailServlet extends HttpServlet {
 		
 		int bNo = Integer.parseInt(request.getParameter("bNo"));
 		Notice notice = new BoardService().selectNotice(bNo);
-		Files file = null;
+		ArrayList<Files> file = null;
 		if(notice!=null) {
 			request.setAttribute("notice", notice);
 			file = new BoardService().selectNoticeFile(bNo);	
