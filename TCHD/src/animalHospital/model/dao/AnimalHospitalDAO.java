@@ -47,11 +47,10 @@ public class AnimalHospitalDAO {
 		return hospitalList;
 	}
 	
-	public ArrayList<AnimalHospital> selectHospitalList(Connection conn, String addr) {
+	public ArrayList<AnimalHospital> selectAddr(Connection conn, String addr) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<AnimalHospital> hospitalList = new ArrayList<AnimalHospital>();
-		int num = 1;
 		
 		switch(addr) {
 		case "서울특별시": case "부산광역시": case "대구광역시": case "인천광역시": case "광주광역시": case "대전광역시":
@@ -65,21 +64,19 @@ public class AnimalHospitalDAO {
 		case "경상북도":	addr = "경북";	break;
 		case "경상남도":	addr = "경남";	break;
 		}
-		System.out.println("DAO_addr : " + addr);
 		
 		try {
-			pstmt = conn.prepareStatement(prop.getProperty("selectHospitalList"));
+			pstmt = conn.prepareStatement(prop.getProperty("selectAddr"));
 			pstmt.setString(1, addr + "%");
 			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				AnimalHospital hospital = new AnimalHospital(num, 
+				AnimalHospital hospital = new AnimalHospital(rset.getInt("HOS_NO"), 
 															 rset.getString("HOS_NAME"), 
 															 rset.getString("HOS_ADDR"), 
 															 rset.getString("HOS_PHONE"));
 				hospitalList.add(hospital);
-				num++;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -89,27 +86,26 @@ public class AnimalHospitalDAO {
 	}
 	
 	public AnimalHospital selectHospital(Connection conn, int hosNo) {
-		PreparedStatement pstmt =null;
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		AnimalHospital hospital = null;
 		
 		try {
 			pstmt= conn.prepareStatement(prop.getProperty("selectHospital"));
 			pstmt.setInt(1, hosNo);
+			
 			rset=pstmt.executeQuery();
 			
 			if(rset.next()) {
-				hospital= new AnimalHospital(
-						rset.getInt("HOS_NO"), 
-						rset.getString("HOS_NAME"),
-						rset.getString("HOS_ADDR"), 
-						rset.getString("HOS_PHONE"));
-						
+				hospital= new AnimalHospital(rset.getInt("HOS_NO"), 
+											 rset.getString("HOS_NAME"),
+											 rset.getString("HOS_ADDR"), 
+											 rset.getString("HOS_PHONE"));
 			}
 		} catch (SQLException e) {
-		
 			e.printStackTrace();
 		}
+		
 		return hospital;
 	}
 }

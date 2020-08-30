@@ -11,17 +11,17 @@
 
 /* 안내 멘트, 지역 선택 div */
 #info_local_div {
-	margin: 10px 150px -20px 30px;
+	margin: 10px 150px 0px 30px;
 }
 /* 안내 멘트(지역을 선택하면 ~) */
 #info {
 	font-size: 15px;
-	width: 35%;
+	width: 400px;
 	float: left;
 }
 
 #local_select_table {
-	width: 65%;
+	width: 720px;
 }
 /* 지역 선택 테이블 */
 #local_select_table td {
@@ -33,7 +33,17 @@
 	height: 40px;
 	background: #eee;
 }
-
+/* 출력되는 병원 목록의 개수 div */
+#list_size{
+	width: 1000px;
+	text-align: right;
+	margin: 10px auto 3px auto;
+}
+#list_size span{
+	color: #777;
+	font-size: 14px;
+	padding-right: 5px;
+}
 /* 동물병원 목록 div */
 #animal_hospital_div {
 	margin: 0px auto;

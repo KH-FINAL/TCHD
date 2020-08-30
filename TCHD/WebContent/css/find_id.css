@@ -41,10 +41,14 @@
 /* 입력창 */
 .input {
 	width: 400px;
-	height: 50px;
+	height: 30px;
 	border: 0.5px solid lightgray;
 	font-size: 15px;
-	padding-left: 10px;
+	padding: 10px;
+}
+.input:focus {
+   border: none;
+   outline: 2px solid rgba(41, 128, 185, 0.5);
 }
 /* 입력 버튼 div */
 #input_button_div {

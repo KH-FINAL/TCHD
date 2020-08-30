@@ -22,10 +22,10 @@ public class AnimalHospitalService {
 		return hospitalList;
 	}
 	
-	public ArrayList<AnimalHospital> selectHospitalList(String addr) {
+	public ArrayList<AnimalHospital> selectAddr(String addr) {
 		Connection conn = getConnection();
 		
-		ArrayList<AnimalHospital> hospitalList = new AnimalHospitalDAO().selectHospitalList(conn, addr);
+		ArrayList<AnimalHospital> hospitalList = new AnimalHospitalDAO().selectAddr(conn, addr);
 		
 		close(conn);
 		
@@ -35,7 +35,7 @@ public class AnimalHospitalService {
 	public AnimalHospital selectHospital(int hosNo) {
 		Connection conn = getConnection();
 		
-		AnimalHospital  hospital= new AnimalHospitalDAO().selectHospital(conn, hosNo);
+		AnimalHospital hospital = new AnimalHospitalDAO().selectHospital(conn, hosNo);
 		
 		close(conn);
 		

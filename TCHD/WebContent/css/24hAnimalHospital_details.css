@@ -10,24 +10,20 @@
 }
 
 #details_div {
-	width: 100%;
-	height: 350px;
+	width: 1000px;
+	height: 400px;
+	margin: 20px auto 100px auto;
 }
 
-#hospital_map {
-	width: 45%;
+#map {
+	width: 500px;
+	height: 400px;
 	float: left;
-	text-align: center;
+	margin-right: 50px;
 }
 
-#hospital_map img {
-	width: 400px;
-	heigh: 400px;
-}
-
-#hospital_info_div {
-	width: 60%;
-	padding: 30px 0px 0px 350px;
+#hospital_info_div{
+	padding: 70px 0px;
 }
 
 #hospital_name {
@@ -36,7 +32,7 @@
 }
 
 #hospital_info th {
-	width: 90px;
+	width: 100px;
 	height: 50px;
 	text-align: left;
 	font-size: 15px;
@@ -45,4 +41,17 @@
 #hospital_info td {
 	width: 300px;
 	font-size: 15px;
+	padding-right: 20px;
+}
+
+#list_button{
+	margin-top: 50px;
+	margin-left: 170px;
+	width: 100px;
+    height: 35px;
+    background: rgb(41, 128, 185);
+    color: white;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
 }

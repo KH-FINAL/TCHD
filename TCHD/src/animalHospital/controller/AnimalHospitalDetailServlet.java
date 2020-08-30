@@ -23,7 +23,6 @@ public class AnimalHospitalDetailServlet extends HttpServlet {
 		
 		AnimalHospital hospital = new AnimalHospitalService().selectHospital(hosNo);
 		
-		
 		request.setAttribute("hospital", hospital);
 		request.setAttribute("section", "WEB-INF/views/animalHospital/animalHospitalDetail.jsp");
 		request.getRequestDispatcher("index.jsp").forward(request, response);

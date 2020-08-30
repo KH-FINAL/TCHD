@@ -47,14 +47,17 @@
 				</table>
 			</div>
 		</div>
-		<br><br>
+		<br>
+		<div id="list_size">
+			<span>총 <%= hospitalList.size() %>개</span>
+		</div>
 		<div id="animal_hospital_div">
 			<table id="animal_hospital_table">
 				<tr>
-					<th>번호</th>
 					<th>병원명</th>
-					<th>전화번호</th>
+					<th style="width: 170px;">전화번호</th>
 					<th>주소</th>
+					<th style="display: none;"></th>
 				</tr>
 			<%if(hospitalList.isEmpty()){ %>
 				<tr>
@@ -62,11 +65,11 @@
 				</tr>
 			<%}else{ %>	
 				<%for(AnimalHospital hospital : hospitalList){ %>
-				<tr class="hospitalListTr" onclick="location.href='hospitalDetail.ho?hosNo=<%=hospital.getHos_no() %>'">
-					<td><%= hospital.getHos_no()%></td>
+				<tr class="hospitalListTr">
 					<td><%= hospital.getHos_name() %></td>
 					<td><%= hospital.getHos_phone() %></td>
 					<td><%= hospital.getHos_addr() %></td>
+					<td style="display: none;"><%= hospital.getHos_no() %></td>
 				</tr>
 				<%} %>
 			<%} %>
@@ -96,18 +99,22 @@
 // 				$(this).off('mouseenter').off('mouseleave')
 // 					   .css({'background':'rgba(41, 128, 185, 0.6)', 'color':'#fafafa'});
 				var addr = $(this).text();
-				console.log("선택된 주소 : " + addr);
 				location.href="<%= request.getContextPath() %>/hospitalList.ho?addr=" + addr;
 			});
 			
 			// 병원 목록 테이블
 			$(function(){
-				$(".hospitalListTr").hover(function(){
+				$(".hospitalListTr").mouseenter(function(){
 					$(this).css({'cursor':'pointer', 'background':'#eee'});
-				},function(){
+					$(this).children().css('border-right', '2px solid white');
+				}).mouseleave(function(){
 					$(this).css({'cursor':'none', 'background':'none'});
+					$(this).children().css('border-right', 'none');
+				}).click(function(){
+					var hosNo = $(this).children().eq(3).text();
+					console.log("번호 : " + hosNo);
+					location.href="<%= request.getContextPath() %>/hospitalDetail.ho?hosNo=" + hosNo;
 				});
-				
 			});
 			
 		</script>
