@@ -17,6 +17,7 @@ import java.util.Properties;
 import board.model.vo.Adopt;
 import board.model.vo.Board;
 import board.model.vo.Files;
+import board.model.vo.Notice;
 import board.model.vo.PageInfo;
 import board.model.vo.Questions;
 import board.model.vo.Volunteer;
@@ -492,7 +493,7 @@ public class BoardDAO {
 		} finally {
 			close(pstmt);
 		}
-		return 0;
+		return result;
 	}
 
 	public Questions selectBoard(Connection conn, int bNo) {
@@ -532,6 +533,142 @@ public class BoardDAO {
 	}
 	
 
+	public ArrayList<Notice> selectNoticeList(Connection conn) {
+		PreparedStatement pstmt= null;
+		ResultSet rset= null;
+		ArrayList<Notice> noticeList = new ArrayList<Notice>();
+		
+		try {
+			pstmt=conn.prepareStatement(prop.getProperty("selectNoticeList"));
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Notice notice = new Notice(
+						rset.getInt("BO_NO"),
+						rset.getString("BO_TITLE"),
+						rset.getString("BO_CONTENT"),
+						rset.getDate("BO_DATE"),
+						rset.getInt("BO_COUNT"),
+						null,
+						rset.getString("NOTICE_SUBJECT"),
+						rset.getInt("RNUM"));
+				noticeList.add(notice);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return noticeList;
+	}
+
+	public int insertNoticeBoard1(Connection conn, Notice notice) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("insertNoticeBoard1"));
+			pstmt.setString(1, notice.getBoTitle());
+			pstmt.setString(2, notice.getBoContent());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int insertNoticeBoard2(Connection conn, String noticeSubject) {
+		PreparedStatement pstmt = null;
+		int result= 0;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("insertNoticeBoard2"));
+			pstmt.setString(1, noticeSubject);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
+
+	public int insertNoticeFile(Connection conn, Files uploadFile) {
+		PreparedStatement pstmt = null;
+		int result=0;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("insertNoticeFile"));
+			pstmt.setString(1, uploadFile.getOrignName());
+			pstmt.setString(2, uploadFile.getChangeName());
+			pstmt.setString(3, uploadFile.getFilePath());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public Notice selectNotice(Connection conn, int bNo) {
+		PreparedStatement pstmt= null;
+		ResultSet rset = null;
+		Notice notice =null;
+
+		try {
+			pstmt=conn.prepareStatement(prop.getProperty("selectNotice"));
+			pstmt.setInt(1, bNo);
+			rset=pstmt.executeQuery();
+			
+			if(rset.next()) {
+				notice = new Notice(
+						rset.getInt("BO_NO"),
+						rset.getString("BO_TITLE"),
+						rset.getString("BO_CONTENT"),
+						rset.getDate("BO_DATE"),
+						rset.getInt("BO_COUNT"),
+						null,
+						rset.getString("NOTICE_SUBJECT"),
+						0
+						);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}		
+		return notice;
+	}
+
+	public Files selectNoticeFile(Connection conn, int bNo) {
+		PreparedStatement pstmt= null;
+		ResultSet rset = null;
+		Files file =null;
+		
+		try {
+			pstmt=conn.prepareStatement(prop.getProperty("selectNoticeFile"));
+			pstmt.setInt(1, bNo);
+			rset=pstmt.executeQuery();
+			
+			if(rset.next()) {
+				file = new Files(
+					rset.getInt("FILE_NO"),rset.getString("CHANGE_NAME"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}		
+		return file;
+	}
 
 	
 	

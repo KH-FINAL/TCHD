@@ -28,7 +28,7 @@ public class UpdateMemberFormServlet extends HttpServlet {
 		
 		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 		String confirmPw = (String)request.getSession().getAttribute("confirmPw");
-		
+	
 		if(loginUser==null) {
 			response.sendRedirect(request.getContextPath());
 		}

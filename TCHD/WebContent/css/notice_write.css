@@ -112,3 +112,40 @@
 	background: rgb(41, 128, 185);
 	color: white;
 }
+
+.file_box label {
+  display: inline-block;
+  padding: 1px 6px;
+  width: 60px;
+  height: 23px;
+  color: #fff;
+  font-size: 13.7px;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: rgb(41, 128, 185);
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  -webkit-transition: background-color 0.2s;
+  transition: background-color 0.4s;
+  position: relative;
+  width: 65px;
+}
+
+.file_box label:hover {
+  background-color: skyblue;
+}
+
+.file_box label:active {
+  background-color: blue;
+}
+
+.file_box input[type="file"] {
+    /* position: absolute; */
+    width: 300px;
+   
+    padding: 0;
+    margin-left: -75px;
+    color: darkgray;
+    font-size: 12px;
+}

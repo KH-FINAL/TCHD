@@ -12,6 +12,7 @@ import board.model.dao.BoardDAO;
 import board.model.vo.Adopt;
 import board.model.vo.Board;
 import board.model.vo.Files;
+import board.model.vo.Notice;
 import board.model.vo.PageInfo;
 import board.model.vo.Questions;
 import board.model.vo.Volunteer;
@@ -183,6 +184,76 @@ public class BoardService {
 		
 		return qBoard;
 	}
+	
+	public ArrayList<Notice> selectNoticeList() {
+		Connection conn = getConnection();
+		
+		ArrayList<Notice> noticeList = new BoardDAO().selectNoticeList(conn);
+		
+		close(conn);
+		
+		return noticeList;
+	}
+
+
+
+	public int insertNotice(Notice notice, Files uploadFile) {
+		Connection conn = getConnection();
+		BoardDAO bDAO = new BoardDAO();
+		int finalResult = 0;
+		int result1 = bDAO.insertNoticeBoard1(conn, notice);
+		
+		if(result1>0) {
+			int result2 = bDAO.insertNoticeBoard2(conn, notice.getNoticeSubject());
+			finalResult = result2;
+			if(result2>0 && uploadFile.getOrignName()!=null) {
+				
+				int result3 = bDAO.insertNoticeFile(conn,uploadFile);		
+				
+				finalResult = result3;
+				
+				commit(conn);
+			}
+		}else {
+			rollback(conn);
+		}
+
+		
+		close(conn);
+		
+		return finalResult;
+			
+	}
+
+
+
+	public Notice selectNotice(int bNo) {
+		Connection conn = getConnection();
+		BoardDAO bDAO = new BoardDAO();
+		int result=bDAO.updateCount(conn, bNo);
+		Notice notice =null;
+		if(result>0) {
+			
+			notice = bDAO.selectNotice(conn,bNo);
+		}
+		
+		close(conn);
+		
+		return notice;
+	}
+
+
+
+	public Files selectNoticeFile(int bNo) {
+	Connection conn = getConnection();
+		
+		Files files = new BoardDAO().selectNoticeFile(conn,bNo);
+		
+		close(conn);
+		
+		return files;
+	}
+	
 	
 
 } // class end
