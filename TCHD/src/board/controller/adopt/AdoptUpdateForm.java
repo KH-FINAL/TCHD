@@ -1,4 +1,4 @@
-package board.controller;
+package board.controller.adopt;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class AdoptDeleteServlet
+ * Servlet implementation class AdoptUpdateForm
  */
-@WebServlet("/adoptDelete.bo")
-public class AdoptDeleteServlet extends HttpServlet {
+@WebServlet(urlPatterns="/adoptUpdateForm.bo", name="AdoptUpadateForm")
+public class AdoptUpdateForm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdoptDeleteServlet() {
+    public AdoptUpdateForm() {
         super();
         // TODO Auto-generated constructor stub
     }

@@ -1,27 +1,23 @@
-package board.controller;
+package board.controller.adopt;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import member.model.vo.Member;
 
 /**
- * Servlet implementation class AdoptWriteServlet
+ * Servlet implementation class AdoptUpdateServlet
  */
-@WebServlet(urlPatterns="/adoptWriteForm.bo", name="AdoptWriteFormServlet")
-public class AdoptWriteFormServlet extends HttpServlet {
+@WebServlet(urlPatterns="/adoptUpdate.bo", name="AdoptUpdateServlet")
+public class AdoptUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdoptWriteFormServlet() {
+    public AdoptUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,18 +26,15 @@ public class AdoptWriteFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		String userPhone = ((Member)session.getAttribute("loginUser")).getMem_phone();
-		
-		request.setAttribute("userPhone", userPhone);
-		request.setAttribute("section", "WEB-INF/views/adopt/adoptWriteForm.jsp");
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
