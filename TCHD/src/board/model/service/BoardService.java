@@ -311,8 +311,5 @@ public class BoardService {
 		return adopt;
 	}
 
-	
-
-	
 
 } // class end

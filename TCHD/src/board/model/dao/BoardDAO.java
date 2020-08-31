@@ -268,16 +268,16 @@ public class BoardDAO {
 			
 			volunteerList = new ArrayList<Volunteer>();
 			while(rset.next()) {
-				Volunteer v = new Volunteer(rset.getInt("bo_no"),
-											rset.getInt("bo_type"),
-											rset.getString("cate_name"),
-											rset.getString("bo_title"),
-											rset.getInt("bo_count"),
-											rset.getDate("bo_date"),
-											rset.getInt("mem_no"),
-											rset.getString("mem_id"),
-											rset.getString("bo_delete_yn"));
-				volunteerList.add(v);
+				Volunteer volunteer = new Volunteer(rset.getInt("bo_no"),
+													rset.getInt("bo_type"),
+													rset.getString("cate_name"),
+													rset.getString("bo_title"),
+													rset.getInt("bo_count"),
+													rset.getDate("bo_date"),
+													rset.getInt("mem_no"),
+													rset.getString("mem_id"),
+													rset.getString("bo_delete_yn"));
+				volunteerList.add(volunteer);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -812,7 +812,5 @@ public class BoardDAO {
 		}
 		return result;
 	}
-	
-	
 	
 }

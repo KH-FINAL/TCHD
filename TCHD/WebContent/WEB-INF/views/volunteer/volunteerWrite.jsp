@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="css/volunteer_write.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="css/common.css" type="text/css">
 </head>
 <body>
 	<section>
@@ -88,7 +90,7 @@
 				</table>
 			</div>
 			<div class="no_ok_button">
-				<input type="button" class="button_no" value="취소" onclick="">
+				<input type="button" class="button_no" value="취소" onclick="location.href='javascript:history.go(-1);'">
 				<input type="button" class="button_ok" value="등록" onclick="">
 			</div>
 		</div>
