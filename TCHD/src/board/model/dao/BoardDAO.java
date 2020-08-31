@@ -300,11 +300,10 @@ public class BoardDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			Board board = new Board();
 			
-			pstmt.setInt(1, board.getMemNo());
-			pstmt.setString(2, board.getBoTitle());
-			pstmt.setString(3, board.getBoContent());
+			pstmt.setInt(1, b.getMemNo());
+			pstmt.setString(2, b.getBoTitle());
+			pstmt.setString(3, b.getBoContent());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -693,7 +692,8 @@ public class BoardDAO {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				adopt = new Adopt(rset.getInt("bo_type"),
+				adopt = new Adopt(rset.getInt("bo_no"),
+								rset.getInt("bo_type"),
 								rset.getString("cate_name"),
 								rset.getString("mem_id"),
 								rset.getString("pet_kinds"),

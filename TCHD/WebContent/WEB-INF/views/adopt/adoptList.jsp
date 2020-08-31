@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="css/adopt_list.css?after" rel="stylesheet" type="text/css">
+<link href="css/adopt/adopt_list.css?after" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="css/common.css" type="text/css">
 </head>
 <body>

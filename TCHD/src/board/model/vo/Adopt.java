@@ -46,10 +46,11 @@ public class Adopt {	// 입양게시판
 	}
 
 	// 입양게시판 상세보기
-	public Adopt(int boType, String cateName, String id, String petKinds, String petCategory, String petGender,
+	public Adopt(int boNo, int boType, String cateName, String id, String petKinds, String petCategory, String petGender,
 			String petUnigender, String petName, String petAge, Date petRescueDate, float petWeight, String petColor,
 			String petSize, String petComment) {
 		super();
+		this.boNo = boNo;
 		this.boType = boType;
 		this.cateName = cateName;
 		this.id = id;

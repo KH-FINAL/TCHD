@@ -12,7 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="css/adopt_detail.css?after" rel="stylesheet" type="text/css">
+<link href="css/adopt/adopt_detail.css?after" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="css/common.css" type="text/css">
 </head>
 <body>
@@ -56,7 +56,7 @@
 	   				<img id="detailImg" class="smallPicture" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(i).getChangeName() %>"/>
    				<% } %>
    				
-   				<% if(loginUser != null && adopt.getId().equals(loginUser.getMem_id())){ %> 근데 저거 아니어도 여기서 nullPoint가 뜹니다요...
+   				<% if(loginUser != null && adopt.getId().equals(loginUser.getMem_id())){ %> 
 					<input type="button" id="delete" class="threeButton" value="삭제하기" onClick="deleteForm();"/>
 					<input type="button" id="alter" class="threeButton" value="수정하기" onClick="location.href='<%= request.getContextPath()%>/adoptUpdateForm.bo'"/>
 				<% } else { %>
@@ -64,7 +64,7 @@
 					<input type="button" id="alter" class="threeButton" value="수정하기" disabled="disabled"/>
 				<% } %>
 				<% if(loginUser != null){ %>
-					<input type="button" id="apply" class="threeButton" value="입양하기" onClick="location.href='<%= request.getContextPath()%>/applyForm.bo'"/>
+					<input type="button" id="apply" class="threeButton" value="입양하기" onClick="location.href='<%= request.getContextPath()%>/adoptApply.bo'"/>
 				<% } else{ %>
 					<input type="button" id="apply" class="threeButton" value="입양하기" onClick="loginForm();"/>
 				<% } %>
@@ -111,7 +111,7 @@
 // 			count++;
 // 		}
 		
-		function deleteForm(){		/* 왜 안뜨지??? */
+		function deleteForm(){		
 			var result = confirm("해당 게시물을 삭제하시겠습니까?");
 			if(result){
 				alert("해당 게시물이 삭제되었습니다");

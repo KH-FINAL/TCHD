@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="css/common.css" type="text/css">
-<link rel="stylesheet" href="css/adopt_write.css" type="text/css">
+<link rel="stylesheet" href="css/adopt/adopt_write.css" type="text/css">
 </head>
 <body>
 	<section>
