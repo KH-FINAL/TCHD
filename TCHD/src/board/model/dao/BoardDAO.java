@@ -335,7 +335,7 @@ public class BoardDAO {
 			pstmt.setString(10, a.getPetComment());
 			
 			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
+	} catch (SQLException e) {
 			e.printStackTrace();
 		} finally { 
 			close(pstmt);
@@ -810,6 +810,30 @@ public class BoardDAO {
 		}finally {
 			close(pstmt);
 		}
+		return result;
+	}
+
+
+
+	public int insertQuestionsBoard(Connection conn, Questions q) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertQuestions");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, q.getBoTitle());
+			pstmt.setString(2, q.getBoContent());
+			result = pstmt.executeUpdate();
+			
+			result = pstmt.executeUpdate();
+	} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { 
+			close(pstmt);
+		}
+		
 		return result;
 	}
 	

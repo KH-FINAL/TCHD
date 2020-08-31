@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+<link rel="stylesheet" href="css/common.css" type="text/css">
 <link rel="stylesheet" href="css/questions_write.css" type="text/css">
 </head>
 <body>
@@ -11,13 +11,13 @@
 
 
 		<div id = "ment" class="board_list_wrap">게시글 작성</div>
-		
+		<form method="post" action="write.qu" encType="multipart/form-data" onsubmit="return validate();">
      	<div id = "board_list_design">
 		<table class="board_list">
 			<tr>
 			<td width="100px"><span id = "span1">*</span><b>분류</b> </td>
 			<td width="750px" class="align_left">
-			<select name="board" class="btn" size = "1">
+			<select name="input_subject" class="btn" size = "1">
 			<option value = "ze">----------------</option>
 			<option value = "bo">회원정보</option>
 			<option value = "bo">입양</option>
@@ -30,7 +30,7 @@
 		  <tr>
 		    <td><span id = "span1">*</span><b>제목</b></td>
 		    <td class="align_left">
-		    <input type="text" name="title" class="btn" placeholder="제목을 입력해주세요" size="80" ></td>
+		    <input type="text" name="input_title" class="btn" placeholder="제목을 입력해주세요" size="80" ></td>
 		  </tr>
 		  <tr>
 		  	<td><b>비밀번호</b></td>
@@ -43,31 +43,43 @@
 		    <td id = "content_file"><b>첨부파일</b></td>
 		    <td class="align_left"><div class="filebox">
   					<label for="ex_file">파일 선택</label>
- 					 <input type="file" id="ex_file">		
+ 					 <input type="file" id="ex_file" accept=".png, .jpg">		
  					 <span>&nbsp;&nbsp;&nbsp;&nbsp;이미지파일(PNG, JPG)만 첨부 가능합니다.</span>
 				</div>
 			</td>
 		  </tr>
 		  <tr>
 		  <td id ="content_top"><b>내용</b></td>
-		    <td><textarea name="content" class="content" cols="110" rows="25"></textarea></td>
+		    <td>
+		    	<textarea name="content" class="content" cols="110" rows="25"></textarea>
+		    </td>
 		  </tr>
-		  <tr>
-
-	
 		</table>
-		
 		</div>
 		<div class= "button_center">
-			<input name="button_list" type="button" class="btn_no" onClick="location.href='./questionsLust.html'" value="취소">
-			<input name="button_content" type="button" class="btn_ok" onClick="location.href='./questionsDetail.html'" value="등록">
+			<input name="button_list" type="reset" class="btn_no"value="취소">
+			<input name="button_content" type="submit" class="btn_ok" value="등록">
 		</div>
-
-	</section>
+		</form>
+	
 	<script type="text/javascript">
       $('#ex_file').focus(function(){
          $(':focus').blur();     
       })
+      
+/*        function validate(){
+		
+		var title=$('#input_title');
+	
+		if(title.val().trim().length<1){
+			swal("","제목을 입력해주세요","info");
+			title.focus();
+			return false;
+		}
+		
+		return true; */
+	/* }; */
    </script>
+   </section>
 </body>
 </html>

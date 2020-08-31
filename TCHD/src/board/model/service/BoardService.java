@@ -312,4 +312,37 @@ public class BoardService {
 	}
 
 
+
+	public int insertQuestions(Questions q, Files uploadFile) {
+		Connection conn = getConnection();
+		BoardDAO bDAO = new BoardDAO();
+		int finalResult = 0;
+		int result1 = bDAO.insertQuestionsBoard(conn, q);
+
+		if(result1>0) {
+			int result2 = bDAO.insertNoticeBoard2(conn, q.getQuestionsSubject());
+			finalResult = result2;
+			if(result2>0 && uploadFile.getOrignName()!=null) {
+
+				int result3 = bDAO.insertNoticeFile(conn,uploadFile);		
+
+				finalResult = result3;
+
+				commit(conn);
+			}
+		}else {
+			rollback(conn);
+		}
+
+
+		close(conn);
+
+		return finalResult;
+		
+	}
+	
+	
+	
+
+
 } // class end
