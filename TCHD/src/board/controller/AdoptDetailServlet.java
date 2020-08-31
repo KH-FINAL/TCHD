@@ -8,10 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import board.model.service.BoardService;
 import board.model.vo.Adopt;
 import board.model.vo.Files;
+import member.model.vo.Member;
 
 /**
  * Servlet implementation class AdoptDetailServlet
@@ -32,17 +34,18 @@ public class AdoptDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = request.getSession().getId();
+		HttpSession session = request.getSession();
+//		String userId = ((Member)session.getAttribute("loginUser")).getMem_id();
+//		System.out.println("입양 상세보기 userId : " + userId);
+		
 		
 		int bNo = Integer.parseInt(request.getParameter("boNo"));
-		System.out.println("입양 상세보기 게시글 번호" + bNo);
 		
 		BoardService service = new BoardService();
 		Adopt adopt = service.selectedAdopt(bNo); 	// 입양게시판 디테일 조회  --> ADETAIL 뷰 만들기
 		ArrayList<Files> fileList = service.selectNoticeFile(bNo);
 		
-		if(adopt != null) {
-			request.setAttribute("userId", userId);
+		if(adopt != null && fileList != null ) {	// 왜 비회원일 때는 상세보기가 안되는겨..
 			request.setAttribute("adopt", adopt);
 			request.setAttribute("fileList", fileList);
 			request.setAttribute("section", "WEB-INF/views/adopt/adoptDetail.jsp");
@@ -52,6 +55,7 @@ public class AdoptDetailServlet extends HttpServlet {
 			request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
+		
 	}
 
 	/**

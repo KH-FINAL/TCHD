@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, board.model.vo.*"%>
+<%@ page import="java.util.ArrayList, board.model.vo.*, member.model.vo.*"%>
 <%
-	String userId = (String)request.getAttribute("userId");
+	Member loginUser = (Member)session.getAttribute("loginUser");
 	Adopt adopt = (Adopt)request.getAttribute("adopt");
 	ArrayList<Files> fileList = (ArrayList<Files>)request.getAttribute("fileList");
 	Files thumbnailImg = fileList.get(0);
@@ -50,20 +50,20 @@
 		  			</ul>
 				</div>
   				<hr>
-  			</div>
+  			</div>				
 	   		<div id="smallPictures">
 	   			<% for(int i = 1; i < fileList.size();  i++){ %>
 	   				<img id="detailImg" class="smallPicture" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(i).getChangeName() %>"/>
    				<% } %>
    				
-   				<% if(adopt.getId().equals(userId)){ %>
+   				<% if(loginUser != null && adopt.getId().equals(loginUser.getMem_id())){ %> 근데 저거 아니어도 여기서 nullPoint가 뜹니다요...
 					<input type="button" id="delete" class="threeButton" value="삭제하기" onClick="deleteForm();"/>
 					<input type="button" id="alter" class="threeButton" value="수정하기" onClick="location.href='<%= request.getContextPath()%>/adoptUpdateForm.bo'"/>
 				<% } else { %>
 					<input type="button" id="delete" class="threeButton" value="삭제하기" disabled="disabled"/>
 					<input type="button" id="alter" class="threeButton" value="수정하기" disabled="disabled"/>
 				<% } %>
-				<% if(userId != null){ %>
+				<% if(loginUser != null){ %>
 					<input type="button" id="apply" class="threeButton" value="입양하기" onClick="location.href='<%= request.getContextPath()%>/applyForm.bo'"/>
 				<% } else{ %>
 					<input type="button" id="apply" class="threeButton" value="입양하기" onClick="loginForm();"/>
@@ -93,32 +93,41 @@
 			})
 		});
 		
-		var count = 1;
-		function changePicture(){
-			var home = document.getElementById('homePicture');
-			var img1 = document.getElementById('firstPicture');
-			var img2 = document.getElementById('secondPicture');
-			var img3 = document.getElementById('thirdPicture');
+// 		var count = 1;
+// 		function changePicture(){
+// 			var home = document.getElementById('homePicture');
+// 			var img1 = document.getElementById('firstPicture');
+// 			var img2 = document.getElementById('secondPicture');
+// 			var img3 = document.getElementById('thirdPicture');
 			
-			if(count == 1){
-				home.src = "images/송이1.JPG";
-			} else if(count == 2){
-				home.src = "images/송이2.JPG";
-			} else {
-				home.src = "images/송이3.JPG";
-			}
+// 			if(count == 1){
+// 				home.src = "images/송이1.JPG";
+// 			} else if(count == 2){
+// 				home.src = "images/송이2.JPG";
+// 			} else {
+// 				home.src = "images/송이3.JPG";
+// 			}
 			
-			count++;
-		}
+// 			count++;
+// 		}
 		
-		function deleteForm(){
-			var result = swal("", "해당 게시물을 삭제하시겠습니까?", "info", ["취소", "삭제"]);
+		function deleteForm(){		/* 왜 안뜨지??? */
+			var result = confirm("해당 게시물을 삭제하시겠습니까?");
 			if(result){
-				swal("", "해당 게시물이 삭제되었습니다", "info");
-				return checkSubmit();
-			} else {
-				return checkSubmit();
+				alert("해당 게시물이 삭제되었습니다");
+			} else { 
+				close.self();
 			}
+				
+				
+				
+// 			var result = swal("", "해당 게시물을 삭제하시겠습니까?", "info", ["취소", "삭제"]);
+// 			if(result){
+// 				swal("", "해당 게시물이 삭제되었습니다", "info");
+// 				return checkSubmit();
+// 			} else {
+// 				return checkSubmit();
+// 			}
 		}
 		
 		function loginForm(){

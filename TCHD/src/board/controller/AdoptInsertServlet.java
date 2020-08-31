@@ -24,12 +24,11 @@ import board.model.vo.Board;
 import board.model.vo.Files;
 import common.MyFileRenamePolicy;
 import member.model.vo.Member;
-import oracle.net.aso.q;
 
 /**
  * Servlet implementation class AdoptInsertServlet
  */
-@WebServlet("/adoptInsert.bo")
+@WebServlet(urlPatterns="/adoptInsert.bo", name="AdoptInsertServlet")
 public class AdoptInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -45,10 +44,10 @@ public class AdoptInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		BoardService service = new BoardService();
 		HttpSession session = request.getSession();
 		Member member = (Member)session.getAttribute("loginUser");
-		
+		System.out.println("insert서블릿 실행");
+	
 		if(ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 1024 * 1024* 10;
 			String root = request.getSession().getServletContext().getRealPath("/"); // C:\5_JSPServlet_workspace\TCHD\WebContent\
@@ -58,6 +57,8 @@ public class AdoptInsertServlet extends HttpServlet {
 			if(!f.exists()) {		// 폴더 없으면 만들고 시작
 				f.mkdirs();
 			}
+			
+			System.out.println("insert서블릿 실행??");
 			
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
 			
@@ -73,6 +74,8 @@ public class AdoptInsertServlet extends HttpServlet {
 					originFiles.add(multiRequest.getOriginalFileName(name)); // 실제 업로드했던 파일명
 				}
 			}
+			
+			System.out.println("insert서블릿 실행???");
 			
 			String kirr[] = multiRequest.getParameterValues("petKind");		// 동물 구분 체크박스
 			String petKind = "";
@@ -131,10 +134,9 @@ public class AdoptInsertServlet extends HttpServlet {
 			} else {
 				rescueDate = new Date(new GregorianCalendar().getTimeInMillis());
 			}
-
-			ArrayList<Board> bList = new ArrayList<Board>();
-			ArrayList<Adopt> aList = new ArrayList<Adopt>();
 			
+			System.out.println("insert서블릿 실행3");
+//			ArrayList<Board> bList = new ArrayList<Board>();
 			// DB에 저장할 객체 - Board 테이블
 			Board b = new Board();
 			
@@ -143,9 +145,11 @@ public class AdoptInsertServlet extends HttpServlet {
 						petName + ", " + petCategory + ", " + petWeight + ", " + petColor + ", " + 
 						rescueDate + ", " + lastMent);
 			b.setMemNo(member.getMem_no());		
-			System.out.println("로그인 유저아이디 : " + member.getMem_no());
+			
+//			bList.add(b);
 			
 		
+//			ArrayList<Adopt> aList = new ArrayList<Adopt>();
 			// DB에 저장할 객체 - Adopt 테이블
 			Adopt a = new Adopt();
 			
@@ -161,6 +165,7 @@ public class AdoptInsertServlet extends HttpServlet {
 			a.setPetRescueDate(rescueDate);
 			a.setPetComment(lastMent);
 			
+//			aList.add(a);
 			
 			ArrayList<Files> fileList = new ArrayList<Files>();
 			for(int i = originFiles.size() - 1; i >= 0; i--) {	// originFiles.size() : 원본파일 개수
@@ -177,11 +182,15 @@ public class AdoptInsertServlet extends HttpServlet {
 				
 				fileList.add(ft);		// 파일 저장순서 순차적으로 적용
 			}
-			
+			System.out.println("insert서블릿 실행4");
 			int reslut1 = new BoardService().insertBoard(b, a, fileList);
-			
+			System.out.println("insert서블릿 실행5");
 			if(reslut1 > 0) {
-				request.setAttribute("section", "WEB-INF/views/adopt/adoptList.jsp");
+//				request.setAttribute("bList", bList);
+//				request.setAttribute("aList", aList);
+//				request.setAttribute("fileList", fileList);
+//				request.setAttribute("section", "WEB-INF/views/adopt/adopt.bo");
+				response.sendRedirect("adopt.bo");
 				request.getRequestDispatcher("index.jsp").forward(request, response);
 			} else {
 				for(int i = 0; i < saveFiles.size(); i++) {

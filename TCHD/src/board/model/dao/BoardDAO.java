@@ -300,9 +300,11 @@ public class BoardDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, b.getMemNo());
-			pstmt.setString(2, b.getBoTitle());
-			pstmt.setString(3, b.getBoContent());
+			Board board = new Board();
+			
+			pstmt.setInt(1, board.getMemNo());
+			pstmt.setString(2, board.getBoTitle());
+			pstmt.setString(3, board.getBoContent());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

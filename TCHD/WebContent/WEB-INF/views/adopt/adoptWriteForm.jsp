@@ -14,7 +14,7 @@
 <body>
 	<section>
 		<div id="ment">보호동물 게시글 등록</div>
-   		<form action="<%= request.getContextPath() %>/adoptInsert.bo" method="post" encType="multipart/form-data" onsubmit="return checkSubmit();">
+   		<form action="<%= request.getContextPath() %>/adoptInsert.bo" method="post" encType="multipart/form-data" onsubmit="return checkSubmit();">			
    		<div id="area">
    			<div id="picture">
    				<table id="pictureTable">
@@ -200,7 +200,7 @@
 	   	</script>
 		<div id="buttonArea">
 	   		<button id="cancelButton" class="buttons" onclick="location.href='<%= request.getContextPath() %>/adopt.bo'">취소</button>
-	   		<button id="okButton" class="buttons" onclick="location.href='<%= request.getContextPath() %>/adoptInsert.bo';">확인</button>
+	   		<button id="okButton" type="submit" class="buttons">확인</button>
 	   	</div>
    	<script>
    	var size = $('#sizeTd').chidren('select option:selected').val();
@@ -219,13 +219,14 @@
    		swal("", "사이즈 선택", "info");	
    	}
    	
-//    		function checkSubmit(){
+   		function checkSubmit(){
 //    			if($('#dog').is("checked") == false || $('#cat').is("checked") == false){
 //    				swal("", "동물을 선택해주세요.", "info");
 // //    				$(this).focus();
 //    				return false;
 //    			}
-//    		}
+		return true;
+   		}
    	</script>
    	</form>
 	</section>
