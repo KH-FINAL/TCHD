@@ -1,4 +1,4 @@
-package board.controller;
+package board.controller.volunteer;
 
 import java.io.IOException;
 

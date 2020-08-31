@@ -118,12 +118,12 @@
 		<script>
 		$(function(){
 			$("#list_table td").mouseenter(function(){
-				$(this).parent().css({'background':'darkgray', 'cursor':'pointer'});
+				$(this).parent().css({'background':'#eee', 'cursor':'pointer', 'text-decoration':'underline'});
 			}).mouseout(function(){
-				$(this).parent().css('background', 'none');
+				$(this).parent().css({'background':'none', 'text-decoration':'none'});
 			}).click(function(){
 				var num = $(this).parent().children().eq(0).text();
-				location.href="<%= request.getContextPath() %>/detail.no?no=" + num;
+				location.href="<%= request.getContextPath() %>/volunteerDetail.bo?bNo=" + num;
 			});
 		});
 	</script>

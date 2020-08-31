@@ -263,7 +263,7 @@ public class BoardDAO {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, startRow);	// 첫번째 자리에 startRow
 			pstmt.setInt(2, endRow);	// 두번째 자리에 endRow
-			pstmt.setInt(3, 1);
+			pstmt.setInt(3, 3);
 			rset = pstmt.executeQuery();
 			
 			volunteerList = new ArrayList<Volunteer>();
@@ -271,12 +271,15 @@ public class BoardDAO {
 				Volunteer volunteer = new Volunteer(rset.getInt("bo_no"),
 													rset.getInt("bo_type"),
 													rset.getString("cate_name"),
+													rset.getString("vo_area"),
 													rset.getString("bo_title"),
-													rset.getInt("bo_count"),
-													rset.getDate("bo_date"),
 													rset.getInt("mem_no"),
 													rset.getString("mem_id"),
-													rset.getString("bo_delete_yn"));
+													rset.getDate("bo_date"),	
+													rset.getInt("vo_maxmember"),
+													rset.getInt("vo_applymember"),
+													rset.getDate("vo_date"),
+													rset.getInt("bo_count"));
 				volunteerList.add(volunteer);
 			}
 		} catch (SQLException e) {
@@ -835,6 +838,42 @@ public class BoardDAO {
 		}
 		
 		return result;
+	}
+
+	public Volunteer selectVolunteer(Connection conn, int bNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Volunteer volunteer = null;
+		
+		String query = prop.getProperty("selectVolunteer");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				volunteer = new Volunteer(rset.getInt("bo_no"),
+											rset.getInt("bo_type"),
+											rset.getString("cate_name"),
+											rset.getString("vo_area"),
+											rset.getString("bo_title"),
+											rset.getInt("mem_no"),
+											rset.getString("mem_id"),
+											rset.getDate("bo_date"),	
+											rset.getInt("vo_maxmember"),
+											rset.getInt("vo_applymember"),
+											rset.getDate("vo_date"),
+											rset.getInt("bo_count"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return volunteer;
 	}
 	
 }

@@ -58,6 +58,40 @@ public class Volunteer {
 		this.boDeleteYn = boDeleteYn;
 	}
 
+	public Volunteer(int boNo, int boType, String cateName, String boTitle, String boDeleteYn, int memNo, String memId,
+			Date boDate, int voMaxmember, int voApplymember, Date voDate, String voArea) {
+		super();
+		this.boNo = boNo;
+		this.boType = boType;
+		this.cateName = cateName;
+		this.boTitle = boTitle;
+		this.boDate = boDate;
+		this.memNo = memNo;
+		this.memId = memId;
+		this.boDeleteYn = boDeleteYn;
+		this.voMaxmember = voMaxmember;
+		this.voApplymember = voApplymember;
+		this.voDate = voDate;
+		this.voArea = voArea;
+	}
+	
+	public Volunteer(int boNo, int boType, String cateName, String voArea, String boTitle, int memNo, String memId, Date boDate, 
+			 int voMaxmember, int voApplymember, Date voDate, int boCount) {
+		super();
+		this.boNo = boNo;
+		this.boType = boType;
+		this.cateName = cateName;
+		this.voArea = voArea;
+		this.boTitle = boTitle;
+		this.memNo = memNo;
+		this.memId = memId;
+		this.boDate = boDate;
+		this.voMaxmember = voMaxmember;
+		this.voApplymember = voApplymember;
+		this.voDate = voDate;
+		this.boCount = boCount;
+	}
+	
 	public int getBoNo() {
 		return boNo;
 	}

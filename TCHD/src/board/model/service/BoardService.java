@@ -311,8 +311,6 @@ public class BoardService {
 		return adopt;
 	}
 
-
-
 	public int insertQuestions(Questions q, Files uploadFile) {
 		Connection conn = getConnection();
 		BoardDAO bDAO = new BoardDAO();
@@ -339,6 +337,31 @@ public class BoardService {
 
 		return finalResult;
 		
+	}
+
+	public Volunteer selectVolunteer(int bNo) {
+		Connection conn = getConnection();
+		
+		BoardDAO dao = new BoardDAO();
+		
+		int result = dao.updateCount(conn, bNo);
+		
+		Volunteer volunteer = null;
+		if(result > 0) {
+			volunteer = dao.selectVolunteer(conn, bNo);
+			
+			if(volunteer != null) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return volunteer;
 	}
 	
 	
