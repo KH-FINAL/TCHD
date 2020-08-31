@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import board.model.service.BoardService;
 import board.model.vo.Board;
@@ -35,6 +36,7 @@ public class VolunteerListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		BoardService vService = new BoardService();
+		HttpSession session = request.getSession();
 		
 		int listCount;		// 총 게시글 개수
 		int currentPage;	// 현재 페이지

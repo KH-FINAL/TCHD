@@ -1,14 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, board.model.vo.Board, board.model.vo.Volunteer, board.model.vo.PageInfo" %>
+<%@ page import="java.util.ArrayList, board.model.vo.Board, board.model.vo.Volunteer, board.model.vo.PageInfo, member.model.vo.Member" %>
 <%
+	@SuppressWarnings("unchecked")
 	ArrayList<Volunteer> volunteerList = (ArrayList<Volunteer>)request.getAttribute("volunteerList");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	Member loginUser = (Member)session.getAttribute("loginUser");
+	String msg = (String)session.getAttribute("msg");
 	
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
 	int maxPage = pi.getMaxPage();
-	int StartPage = pi.getStartPage();
+	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
 %>
 <!DOCTYPE html>
@@ -70,17 +73,61 @@
 			</div>
 
 			<div class="wrtie_button_div">
-				<button id="write_button">글쓰기</button>
+				<!-- 관리자와 단체회원만 글쓰기 버튼 보이게끔. -->
+				<% if(loginUser != null && loginUser.getMem_id().equals("admin")){ %>
+				<input type="button" onclick="location.href='volunteerWriteForm.bo'" id="write_button" value="글쓰기">
+				<% } %>
+				<% if(loginUser != null && loginUser.getMem_type().equals("GM")){ %>
+				<input type="button" onclick="location.href='volunteerWriteForm.bo'" id="write_button" value="글쓰기">
+				<% } %>
 			</div>
 			
+			<!-- 페이징 -->
 			<div class="paging">
-				<a href="#" class="bt">이전 페이지</a>
-				<a href="#" class="num on">1</a>
-				<a href="#" class="num">2</a>
-				<a href="#" class="num">3</a>
-				<a href="#" class="bt">다음 페이지</a>
-			</div>
+			
+				<!-- 이전 페이지 -->
+	         	<a href="volunteerList.bo?currentPage=<%= currentPage - 1 %>" class="bt" id="beforeBtn">이전 페이지</a>
+		         	<script>
+		        	if(<%= currentPage %> <= 1){
+		        		var before = $('#beforeBtn');
+		        		before.css("visibility","hidden");
+		        	}
+		       		</script>
+
+		   	    <!-- 페이지 목록 -->
+        		<% for(int p = startPage; p <= endPage; p++){ %>
+	        		<% if(p == currentPage){ %>  
+	        			<a href="volunteerList.bo?currentPage=<%= p %>" class="num on"><%= p %></a>
+	        		<% } else { %>
+	        			<a href="volunteerList.bo?currentPage=<%= p %>" class="num"><%= p %></a>
+	        		<% } %>
+       			 <% } %>
+		   	    
+		   	    
+		   	    <!-- 다음 페이지 -->
+		   	    <a href="volunteerList.bo?currentPage=<%=currentPage + 1%>" class="bt" id="afterBtn">다음 페이지</a>
+				 <script>
+		        	if(<%= currentPage %> >= <%= maxPage %>){
+		        		var after = $('#afterBtn');
+		        		after.css("visibility", "hidden");
+		        	}
+		        </script>    		  
+    		</div>
 		</div>
+		
+		<script>
+		$(function(){
+			$("#list_table td").mouseenter(function(){
+				$(this).parent().css({'background':'darkgray', 'cursor':'pointer'});
+			}).mouseout(function(){
+				$(this).parent().css('background', 'none');
+			}).click(function(){
+				var num = $(this).parent().children().eq(0).text();
+				location.href="<%= request.getContextPath() %>/detail.no?no=" + num;
+			});
+		});
+	</script>
 	</section>
+	
 </body>
 </html>
