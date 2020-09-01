@@ -111,12 +111,12 @@
 				<%-- 다음 페이지 --%>
 				<a href="<%= request.getContextPath() %>/hospitalList.ho?addr=<%= selectedAddr %>&currentPage=<%= currentPage + 1 %>" class="after">다음 페이지</a>
 				<script>
-					if(<%= currentPage %> <= 1){
-						var before = $("#before");
+					if(<%= currentPage %> <= 1 || <%= hospitalList.isEmpty() %>){
+						var before = $(".before");
 						before.attr("style", "display:none");
 					}
-					if(<%= currentPage %> >= <%= maxPage %>){
-						var after = $("#after");
+					if(<%= currentPage %> >= <%= maxPage %> || <%= hospitalList.isEmpty() %>){
+						var after = $(".after");
 						after.attr("style", "display:none");
 					}
 				</script>

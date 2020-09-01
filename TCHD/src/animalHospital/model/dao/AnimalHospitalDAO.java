@@ -134,6 +134,8 @@ public class AnimalHospitalDAO {
 		
 		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 		int endRow = startRow + pi.getBoardLimit() - 1;
+		System.out.println("dao_startRow : " + startRow);
+		System.out.println("dao_endRow : " + endRow);
 		
 		switch(addr) {
 		case "서울특별시": case "부산광역시": case "대구광역시": case "인천광역시": case "광주광역시": case "대전광역시":
@@ -163,6 +165,10 @@ public class AnimalHospitalDAO {
 															 rset.getString("HOS_ADDR"), 
 															 rset.getString("HOS_PHONE"));
 				hospitalList.add(hospital);
+			}
+			
+			for(int i = 0; i < hospitalList.size(); i ++) {
+				System.out.println("dao_hospitalList : " + i + "번째 = " + hospitalList.get(i));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
