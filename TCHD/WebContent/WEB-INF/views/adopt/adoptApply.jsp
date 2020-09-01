@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="board.model.vo.*, member.model.vo.*"%>
 <%
+	int bNo = (int)request.getAttribute("bNo");
 	Member member = (Member)request.getAttribute("member");
 %>
 <!DOCTYPE html>
@@ -10,12 +11,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="css/adopt/adopt_apply.css?after" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="css/common.css" type="text/css">
+<link rel="stylesheet" href="css/common/common.css" type="text/css">
 </head>
 <body>
-<section>
-   	<form action="<%=request.getContextPath() %>/adoptDetail.bo" method="post" onsubmit="return checkSubmit();">
-	<div id="ment">입양신청</div>
+<section>	<!-- action="<%=request.getContextPath() %>/adoptDetail.bo" -->
+   	<form action="<%=request.getContextPath() %>/adoptApply.bo" method="post" onsubmit="return checkSubmit();">
+	<div id="ment">입양신청 <input type="text" id="bNo" name="bNo" value="<%= bNo %>"></div>
 		<div id="info">
 			<img src="./images/applyImg.PNG" id="petImg"><p>평생 책임지고 함께하실 준비가 되셨나요?</p>
 			<p>상처받은 아이들에게 새로운 가족이 되어주세요</p>
@@ -133,7 +134,7 @@
 			<p>긴 시간 동안 입양신청서에 답해 주셔서 감사합니다.<p>
 		</div>
 		<div id="buttons">
-			<button id="cancel" class="applyButton" onClick="<%= request.getContextPath() %>/adoptDetail.bo">취소</button>
+		<button id="cancel" class="applyButton" onClick="applyCancle();">취소</button>
 			<button id="okay" class="applyButton" onClick="applyConfirm();">확인</button>
 		</div>
 	</form>
@@ -215,9 +216,15 @@
 // 			// textarea에 글이 없거나, 공백만 있을 경우--> 입력칸 확인팝업창 뜸
 // 			// 동의신청에 체크를 하지 않은 경우 --> 동의해주세요 팝업창
 // 			// 그 외 --> 신청완료 팝업창 뜸
+			function applyCancle(){
+				var bNo = $('#bNo').val();
+				location.href='<%= request.getContextPath() %>/adoptDetail.bo?boNo='+ bNo;
+			}
+
 			function applyConfirm(){
 				swal("", "입양신청이 완료되었습니다.", "info");
-				location.href = "<%= request.getContextPath() %>/adoptApply.bo";
+				var bNo = $('#bNo').val();
+				location.href = "<%= request.getContextPath() %>/adoptApply.bo?bNo="+ bNo;
 			}
 			
 			function checkSubmit(){

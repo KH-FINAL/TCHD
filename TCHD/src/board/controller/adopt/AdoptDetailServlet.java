@@ -35,7 +35,6 @@ public class AdoptDetailServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bNo = Integer.parseInt(request.getParameter("boNo"));
-		System.out.println("입양상세보기 게시판번호 : "+ bNo);
 		
 		BoardService service = new BoardService();
 		Adopt adopt = service.selectedAdopt(bNo); 	

@@ -32,7 +32,9 @@ public class AdoptApplyFormServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String loginUserId = ((Member)request.getSession().getAttribute("loginUser")).getMem_id();
 		Member member = new MemberService().selectMemberPm(loginUserId);
+		int bNo = Integer.parseInt(request.getParameter("bNo"));
 		
+		request.setAttribute("bNo", bNo);
 		request.setAttribute("member", member);
 		request.setAttribute("section", "WEB-INF/views/adopt/adoptApply.jsp");
 		request.getRequestDispatcher("index.jsp").forward(request, response);

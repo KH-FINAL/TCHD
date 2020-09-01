@@ -32,20 +32,16 @@ public class AdoptApplyServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	int bNo = Integer.parseInt(request.getParameter("bNo"));
 		int loginUserNo = ((Member)request.getSession().getAttribute("loginUser")).getMem_no();		// ??? 왜 null이야 로그인 했는데
 		String answer = request.getParameter("answer1") + request.getParameter("answer2") + request.getParameter("answer3") +
 						request.getParameter("answer4") + request.getParameter("answer5") + request.getParameter("answer7");
-//		String answer = request.getParameter("answer1" + ", " + "answer2" + ", " + "answer3" + ", " + 
-//											"answer4" + ", " + "answer5" + ", " + "answer6" + ", " + "answer7");
-		System.out.println("입양신청서 : " + answer);
 		
 		Board b = new Board(0, null, "입양신청서", answer, null, 0, null, loginUserNo);
 		AdoptApply apply = new AdoptApply(answer, loginUserNo);
 		
 		int result = new BoardService().insertApply(b, apply);
 		
-		int bNo = b.getBoNo();
-		System.out.println("입양신청서 게시판 번호 : "+bNo);
 		if(result > 0) {
 			response.sendRedirect("adoptDetail.bo?boNo=" + bNo);
 		} else { 

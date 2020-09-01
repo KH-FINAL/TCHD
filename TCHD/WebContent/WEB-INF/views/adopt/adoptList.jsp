@@ -15,7 +15,7 @@
 </head>
 <body>
 	<section>
-		<form method="post">
+		<form action="<%= request.getContextPath() %>/adoptDetail.bo" method="post">
 		<div id="ment">입양게시판</div>
 		<div id="PageArea">
 		<table class="mentArea">
@@ -74,13 +74,6 @@
 						<option id="catDogSize" value=2>중형</option>
 						<option id="catDogSize" value=3>소형</option>
 					</select>
-<!-- 					<select id="fCondition" class="conditionKind"> -->
-<!-- 						<option id="allSelect" checked>All</option> -->
-<!-- 						<option id="catDogAge" value="Puppy">Puppy(~ 6개월)</option> -->
-<!-- 						<option id="catSelect"value="Junior">Junior(7개월 ~ 2살)</option> -->
-<!-- 						<option id="catSelect" value="Adult">Adult(3살 ~ 8살)</option> -->
-<!-- 						<option id="catSelect" value="Senior">Senior(9살 ~)</option> -->
-<!-- 					</select> -->
 				</div>
 			</div>
 		</form>
@@ -127,7 +120,7 @@
 		}
 		
 		function loginFrom(){
-			swal("", "로그인 후 이용해주시기 바랍니다.", "info");
+// 			swal("", "로그인 후 이용해주시기 바랍니다.", "info");
 			location.href="<%= request.getContextPath() %>/loginForm.me";
 		}
 		
@@ -139,8 +132,7 @@
 		
 		$(function(){
 			$('.petPictureInfo').click(function(){
-				var boNo = $(this).children('input').val();
-				console.log(boNo);
+				var boNo = $(this).find('input').val();
 				location.href="<%= request.getContextPath() %>/adoptDetail.bo?boNo=" + boNo;
 			});
 		});
