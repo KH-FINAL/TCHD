@@ -323,16 +323,21 @@ public class BoardDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
+//			(SEQ_BOARD_NO.CURRVAL, 1, ?-PET_KINDS, ?-PET_CATEGORY, ?-PET_GENDER, 
+//									?-PET_UNIGENDER, ?-PET_NAME, ?-PET_AGE, ?-PET_RESCUE_DATE, 
+//									?-PET_WEIGHT, ?-PET_COLOR, ?-PET_SIZE, ?-PET_COMMENT, DEFAULT)
+									
 			pstmt.setString(1, a.getPetKinds());
 			pstmt.setString(2, a.getPetCategory());
 			pstmt.setString(3, a.getPetGender());
 			pstmt.setString(4, a.getPetUnigender());
 			pstmt.setString(5, a.getPetName());
 			pstmt.setString(6, a.getPetAge());
-			pstmt.setFloat(7, a.getPetWeight());
-			pstmt.setString(8, a.getPetColor());
-			pstmt.setString(9, a.getPetSize());
-			pstmt.setString(10, a.getPetComment());
+			pstmt.setDate(7, a.getPetRescueDate());
+			pstmt.setFloat(8, a.getPetWeight());
+			pstmt.setString(9, a.getPetColor());
+			pstmt.setString(10, a.getPetSize());
+			pstmt.setString(11, a.getPetComment());
 			
 			result = pstmt.executeUpdate();
 	} catch (SQLException e) {

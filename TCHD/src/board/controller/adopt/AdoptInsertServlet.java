@@ -101,26 +101,24 @@ public class AdoptInsertServlet extends HttpServlet {
 			String unigender = "";
 			if(uirr != null) {
 				for(int i = 0; i < uirr.length; i++) {
-					unigender = "Y";
+					unigender = "O";
 				}
 			} else {
-				unigender ="N";
+				unigender ="X";
 			}
 			
 			String petSize = multiRequest.getParameter("petSize");			// 크기
-			String petAge = multiRequest.getParameter("petAge");			// 나이
+			String petAge = multiRequest.getParameter("petAge") + "/" 		// 나이
+						+ multiRequest.getParameter("petAgeDetail")	+ multiRequest.getParameter("detailAge");
+			
+			
 			String petName = multiRequest.getParameter("petName");			// 이름
 			String petCategory = multiRequest.getParameter("petCategory");	// 품종
 			float petWeight = Float.valueOf(multiRequest.getParameter("petWeight"));	// 무게
 			String petColor = multiRequest.getParameter("petColor");		// 색깔
 			String rescue = multiRequest.getParameter("rescue");			// 구조일자
-			String lastMent = "";											// 하고 싶은 말
-			if(multiRequest.getParameter("lastMent") != null) {
-				lastMent = multiRequest.getParameter("lastMent");
-			} else {
-				lastMent ="";
-			}
-			
+			String lastMent = multiRequest.getParameter("lastMent");		// 하고 싶은 말
+//			
 			Date rescueDate = null;
 			if(rescue != "") {
 				String[] dateArr = rescue.split("-");
@@ -137,14 +135,13 @@ public class AdoptInsertServlet extends HttpServlet {
 			Board b = new Board();
 			
 			b.setBoTitle(petName);
-			b.setBoContent(petKind + ", " + petGender + ", " + petSize + ", " + petAge + ", " + 
+			b.setBoContent(petKind + ", " + petGender + ", " + unigender + ", " + petSize + ", " + petAge + ", " + 
 						petName + ", " + petCategory + ", " + petWeight + ", " + petColor + ", " + 
 						rescueDate + ", " + lastMent);
 			b.setMemNo(member.getMem_no());		
 			
 		
 			// DB에 저장할 객체 - Adopt 테이블
-//			ArrayList<Adopt> aList = new ArrayList<Adopt>();
 			Adopt a = new Adopt();
 			
 			a.setPetKinds(petKind);
@@ -158,8 +155,7 @@ public class AdoptInsertServlet extends HttpServlet {
 			a.setPetColor(petColor);
 			a.setPetRescueDate(rescueDate);
 			a.setPetComment(lastMent);
-			
-//			aList.add(a);
+			System.out.println("입양게시판 등록멘트 : "+lastMent);
 			
 			ArrayList<Files> fileList = new ArrayList<Files>();
 			for(int i = originFiles.size() - 1; i >= 0; i--) {	// originFiles.size() : 원본파일 개수

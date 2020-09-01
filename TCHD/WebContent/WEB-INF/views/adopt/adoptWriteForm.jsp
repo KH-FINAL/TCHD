@@ -71,14 +71,18 @@
 						<td id="ageTd" class="secondTd">
 							<select name="petAge">	<!-- ---------- 이 상태면 등록 안되게 기능 걸기 -->
 								<option value="0"> ---------------------</option>
-								<option value="PUPPY">Puppy(~ 6개월)</option>
-								<option value="JUNIOR">Junior(7개월 ~ 2살)</option>
-								<option value="ADULT">Adult(3살 ~ 8살)</option>
-								<option value="SENIOR">Senior(9살 ~)</option>
+								<option value="Puppy">Puppy(~ 6개월)</option>
+								<option value="Junior">Junior(7개월 ~ 2살)</option>
+								<option value="Adult">Adult(3살 ~ 8살)</option>
+								<option value="Senior">Senior(9살 ~)</option>
 							</select>
 						</td>
-						<td>
-							<input type="text" id="ageDetail" name="petAgeDetail" placeholder="ex. 3개월, 1살" required/>
+						<td id="ageTd2">
+							<input type="number" id="ageDetail" name="petAgeDetail" placeholder="숫자" required/>
+							<select name="detailAge">
+								<option value="개월">개월</option>
+								<option value="살">살</option>
+							</select>
 						</td>
 					</tr>
 				</table> 

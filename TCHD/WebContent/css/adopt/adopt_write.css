@@ -115,9 +115,14 @@
 	
 	#ageDetail{				/* 상세 나이 텍스트 칸 */
 		resize: none;
-	    width: 100px;
+	    width: 50px;
 	    height: 30px;
 	    padding: 0px 0px 0px 5px;
+	}
+	
+	#ageTd2 select{		/* 상세 나이 옵션 */
+		height: 30px;
+		border-radius: 5px;
 	}
 
 	
