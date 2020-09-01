@@ -84,22 +84,22 @@
 			<div id="title"><a href="<%=request.getContextPath() %>"><img alt="로고" src="images/MainLogo.png"></a></div>
 			<div id="navi">
 				<ul class="naviDetail_ul" >
-						<li class="naviDetail_li"><a href="introduction.co">사이트소개</a></li>
-						<li class="naviDetail_li"><a href="#">참여하기</a><ul id="menuBar1" class="menuBar">
+						<li class="naviDetail_li"><a href="introduction.co" style="cursor: pointer">사이트소개</a></li>
+						<li class="naviDetail_li"><a>참여하기</a><ul id="menuBar1" class="menuBar">
 								<li>입양</li>
 								<li>봉사</li>
 							</ul>
 						</li>
-						<li class="naviDetail_li"><a href="#">후원하기</a><ul id="menuBar2" class="menuBar">
+						<li class="naviDetail_li"><a>후원하기</a><ul id="menuBar2" class="menuBar">
 								<li>후원</li>
 								<li>후원내역 확인</li>
 							</ul>
 						</li>
-						<li class="naviDetail_li"><a href="#">정보마당</a><ul id="menuBar3" class="menuBar">
+						<li class="naviDetail_li"><a>정보마당</a><ul id="menuBar3" class="menuBar">
 							<li>공지사항</li>
 							<li>동물병원</li>
 						</ul ></li>
-						<li class="naviDetail_li"><a href="#">고객센터</a><ul id="menuBar4" class="menuBar">
+						<li class="naviDetail_li"><a>고객센터</a><ul id="menuBar4" class="menuBar">
 								<li>문의게시판</li>
 							</ul>
 							</li>
