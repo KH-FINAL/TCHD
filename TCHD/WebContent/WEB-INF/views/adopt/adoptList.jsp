@@ -12,11 +12,6 @@
 <meta charset="UTF-8">
 <link href="css/adopt/adopt_list.css?after" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="css/common/common.css" type="text/css">
-<style>
-	.petPictureInfo{
-		background: pink
-	}
-</style>
 </head>
 <body>
 	<section>
@@ -97,7 +92,7 @@
 					<% Adopt a = aList.get(i); %>
 					<div class="pictureInfo">
 						<div class="petPictureInfo">
-							<input type="text" id="boardNo" name="boNo" value="<%= a.getBoNo() %>"/>
+							<input type="hidden" id="boardNo" name="boNo" value="<%= a.getBoNo() %>"/>
 								<% for(int j = 0; j < fList.size(); j++){ %>
 									<% Files f = fList.get(j); %>
 									<% if(a.getBoNo() == f.getBoNo()){ %>	<!-- 조회 : 연령 빼기, 등록시 연령스크롤바(db저장) 고르고 입력은 추가적으로.(뷰에 뿌릴거->db에도 저장) ==> db check 제약조건 없애자  -->
