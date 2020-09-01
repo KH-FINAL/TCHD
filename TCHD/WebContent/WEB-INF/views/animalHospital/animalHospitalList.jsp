@@ -97,7 +97,7 @@
 		<%-- 페이징 --%>
 			<div class="paging">
 				<%-- 이전 페이지 --%>
-				<a href="<%= request.getContextPath() %>/hospitalList.ho?addr=<%= selectedAddr %>&currentPage=<%= currentPage - 1 %>" class="before">이전 페이지</a>
+				<a href="<%= request.getContextPath() %>/hospitalList.ho?addr=<%= selectedAddr %>&currentPage=<%= currentPage - 1 %>" class="before">&lt;</a>
 				
 				<% for(int p = startPage; p <= endPage; p++){
 						if(p == currentPage){ %>
@@ -109,7 +109,7 @@
 				   }%>
 				
 				<%-- 다음 페이지 --%>
-				<a href="<%= request.getContextPath() %>/hospitalList.ho?addr=<%= selectedAddr %>&currentPage=<%= currentPage + 1 %>" class="after">다음 페이지</a>
+				<a href="<%= request.getContextPath() %>/hospitalList.ho?addr=<%= selectedAddr %>&currentPage=<%= currentPage + 1 %>" class="after">&gt;</a>
 				<script>
 					if(<%= currentPage %> <= 1 || <%= hospitalList.isEmpty() %>){
 						var before = $(".before");
