@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="board.model.vo.*, board.model.vo.Volunteer, member.model.vo.Member" %>
+<%@ page import="board.model.vo.*, board.model.vo.Volunteer, member.model.vo.Member, java.util.ArrayList" %>
 <% 
 	Volunteer v = (Volunteer)request.getAttribute("volunteer");
 	Member loginUser = (Member)session.getAttribute("loginUser");
+	ArrayList<Reply> replyList = (ArrayList<Reply>)request.getAttribute("replyList");
 %>
 <!DOCTYPE html>
 <html>
@@ -109,11 +110,32 @@
 			</div>
 			<hr class="hr">
 			<div class="comment_list">
-				<div class="comment_list_bottom">
-					<span id="id">dog01</span><br>
-					<span id="date">2020.07.28</span><br>
-					<span id="content">달봉이네 친구들 더 멋있어지겠어요 ^^ ~</span>
-				</div>
+				<table id="replySelectTable">
+					<% if(replyList.isEmpty()){ %>
+					<tr>
+						<td colspan="3">댓글이 없습니다.</td>
+					</tr>
+					<% } else { %>
+					<% for(int i = 0; i < replyList.size(); i++) { %>
+					<tr>
+						<td width="100px"><%= replyList.get(i).getReplyWriter() %></td>
+						<td width="400px"><%= replyList.get(i).getReplyContent() %></td>
+						<td width="200px"><%= replyList.get(i).getCreateDate() %></td>
+					</tr>
+					<% } %>
+					<% } %>
+				</table>
+				<%-- <div class="comment_list_bottom">
+					<% if(replyList.isEmpty()) { %>
+					<span>댓글이 없습니다.</span>
+					<% } else { %>
+					<% for(int i = 0; i < replyList.size(); i++) { %>
+					<span id="id"><%= replyList.get(i).getReplyWriter() %></span><br>
+					<span id="date"><%= replyList.get(i).getCreateDate() %></span><br>
+					<span id="content"><%= replyList.get(i).getReplyContent() %></span>
+					<% } %>
+					<% } %>
+				</div> --%>
 				<div class="comment_list_bottom">
 					<span id="id">cat02</span><br>
 					<span id="date">2020.07.29</span><br>

@@ -13,6 +13,8 @@
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
+	
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -63,7 +65,9 @@
 							<td><%= v.getMemId() %></td>				<!-- 작성자 -->
 							<td><%= v.getBoDate() %></td> 				<!-- 작성일자 -->
 							<td><%= v.getVoMaxmember() %></td>			<!-- 모집인원 -->
-							<td>N</td>									<!-- 마감유무 -->
+							<td>
+								
+							</td>									<!-- 마감유무 -->
 							<td><%= v.getBoCount() %></td>  			<!-- 조회수 -->
 						</tr>
 						<%		} %>

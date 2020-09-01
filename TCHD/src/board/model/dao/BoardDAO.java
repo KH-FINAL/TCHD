@@ -20,6 +20,7 @@ import board.model.vo.Files;
 import board.model.vo.Notice;
 import board.model.vo.PageInfo;
 import board.model.vo.Questions;
+import board.model.vo.Reply;
 import board.model.vo.Volunteer;
 
 public class BoardDAO {
@@ -912,6 +913,35 @@ public class BoardDAO {
 		}
 		
 		return volunteer;
+	}
+
+	public ArrayList<Reply> selectReplyList(Connection conn, int bNo) {
+		PreparedStatement pstmt = null; 
+		ResultSet rset = null;
+		ArrayList<Reply> replyList = null;
+		
+		String query = prop.getProperty("selectReplyList");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bNo);
+			
+			rset = pstmt.executeQuery();
+			replyList = new ArrayList<Reply>();
+			while(rset.next()) {
+				replyList.add(new Reply(rset.getInt("reply_id"),
+										rset.getString("reply_content"),
+										rset.getDate("create_date"),
+										rset.getString("status")));
+			}	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return replyList;
 	}
 }
 	

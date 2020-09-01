@@ -1,6 +1,7 @@
 package board.controller.volunteer;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import board.model.service.BoardService;
-import board.model.vo.Notice;
+import board.model.vo.Reply;
 import board.model.vo.Volunteer;
 
 /**
@@ -36,11 +37,15 @@ public class VolunteerDetailServlet extends HttpServlet {
 		
 		Volunteer volunteer = new BoardService().selectVolunteer(bNo);
 		
+		ArrayList<Reply> replyList = new BoardService().selectReplyList(bNo);
+		
+		
 		HttpSession session = request.getSession();
 		
 		if(volunteer != null) {
 			request.setAttribute("section", "WEB-INF/views/volunteer/volunteerDetail.jsp");
 			request.setAttribute("volunteer", volunteer);
+			request.setAttribute("replyList", replyList);
 		} else {
 			request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
 			request.setAttribute("msg", "문의게시글 상세조회에 실패하였습니다.");
