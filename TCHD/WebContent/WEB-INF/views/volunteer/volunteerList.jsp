@@ -20,7 +20,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="css/volunteer_list.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="css/common.css" type="text/css">
+<link rel="stylesheet" href="css/common/common.css" type="text/css">
 </head>
 <body>
 	<section>
@@ -43,7 +43,7 @@
 						<tr>
 							<th>번호</th>
 							<th>지역</th>
-							<th>제목</th>
+							<th width="400px">제목</th>
 							<th>작성자</th>
 							<th>작성일자</th>
 							<th>모집인원</th>
@@ -82,6 +82,7 @@
 				<% } %>
 			</div>
 			
+			
 			<!-- 페이징 -->
 			<div class="paging">
 			
@@ -116,17 +117,17 @@
 		</div>
 		
 		<script>
-		$(function(){
-			$("#list_table td").mouseenter(function(){
-				$(this).parent().css({'background':'#eee', 'cursor':'pointer', 'text-decoration':'underline'});
-			}).mouseout(function(){
-				$(this).parent().css({'background':'none', 'text-decoration':'none'});
-			}).click(function(){
-				var num = $(this).parent().children().eq(0).text();
-				location.href="<%= request.getContextPath() %>/volunteerDetail.bo?bNo=" + num;
+			$(function(){
+				$("#list_table td").mouseenter(function(){
+					$(this).parent().css({'background':'#eee', 'cursor':'pointer', 'text-decoration':'underline'});
+				}).mouseout(function(){
+					$(this).parent().css({'background':'none', 'text-decoration':'none'});
+				}).click(function(){
+					var num = $(this).parent().children().eq(0).text();
+					location.href="<%= request.getContextPath() %>/volunteerDetail.bo?bNo=" + num;
+				});
 			});
-		});
-	</script>
+		</script>
 	</section>
 	
 </body>

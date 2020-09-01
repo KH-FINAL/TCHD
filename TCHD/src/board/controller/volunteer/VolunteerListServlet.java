@@ -46,7 +46,7 @@ public class VolunteerListServlet extends HttpServlet {
 		int startPage;		// 페이징 된 페이지 중 시작 페이지
 		int endPage;		// 페이징 된 페이지 중 마지막 페이지
 		
-		listCount = vService.getListCount();
+		listCount = vService.getListCount(3);
 		
 		currentPage = 1;
 		if(request.getParameter("currentPage") != null) {

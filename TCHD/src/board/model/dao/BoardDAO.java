@@ -271,12 +271,15 @@ public class BoardDAO {
 				Volunteer volunteer = new Volunteer(rset.getInt("bo_no"),
 													rset.getInt("bo_type"),
 													rset.getString("cate_name"),
+													rset.getString("vo_area"),
 													rset.getString("bo_title"),
-													rset.getInt("bo_count"),
-													rset.getDate("bo_date"),
 													rset.getInt("mem_no"),
 													rset.getString("mem_id"),
-													rset.getString("bo_delete_yn"));
+													rset.getDate("bo_date"),	
+													rset.getInt("vo_maxmember"),
+													rset.getInt("vo_applymember"),
+													rset.getDate("vo_date"),
+													rset.getInt("bo_count"));
 				volunteerList.add(volunteer);
 			}
 		} catch (SQLException e) {
