@@ -63,7 +63,7 @@ public class QuestionsListServlet extends HttpServlet {
 		int startPage;		//페이징 된 페이지 중 시작페이지
 		int endPage;		//페이징 된 페이지 중 마지막페이지
 		
-		listCount = qService.getListCount();
+		listCount = qService.getListCount(2);
 		
 		
 		currentPage = 1;

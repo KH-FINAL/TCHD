@@ -828,9 +828,14 @@ public class BoardDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, q.getBoTitle());
-			pstmt.setString(2, q.getBoContent());
-			result = pstmt.executeUpdate();
+			/*
+			 * pstmt.setString(1, q.getBoTitle()); pstmt.setString(2, q.getBoContent());
+			 * pstmt.setInt(3, q.getBoCount()); pstmt.setString(4, q.getMemId());
+			 * pstmt.setString(5, q.getComContent());
+			 */
+			pstmt.setInt(1, q.getMemNo());
+			pstmt.setString(2, q.getBoTitle());
+			pstmt.setString(3, q.getBoContent());
 			
 			result = pstmt.executeUpdate();
 	} catch (SQLException e) {
