@@ -16,8 +16,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="css/common.css" type="text/css">
-<link rel="stylesheet" href="css/notice_details.css" type="text/css">
+<link rel="stylesheet" href="css/notice/notice_details.css" type="text/css">
 </head>
 <body>
  <section>

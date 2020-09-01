@@ -1,4 +1,3 @@
-
 package board.model.dao;
 
 import static common.JDBCTemplate.close;
@@ -109,7 +108,7 @@ public class BoardDAO {
 		return list;
 	}
 
-	public int getListCount(Connection conn) {
+	public int getListCount(Connection conn, int boType) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int result = 0;
@@ -118,7 +117,7 @@ public class BoardDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, 2);
+			pstmt.setInt(1, boType);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
@@ -271,15 +270,12 @@ public class BoardDAO {
 				Volunteer volunteer = new Volunteer(rset.getInt("bo_no"),
 													rset.getInt("bo_type"),
 													rset.getString("cate_name"),
-													rset.getString("vo_area"),
 													rset.getString("bo_title"),
+													rset.getInt("bo_count"),
+													rset.getDate("bo_date"),
 													rset.getInt("mem_no"),
 													rset.getString("mem_id"),
-													rset.getDate("bo_date"),	
-													rset.getInt("vo_maxmember"),
-													rset.getInt("vo_applymember"),
-													rset.getDate("vo_date"),
-													rset.getInt("bo_count"));
+													rset.getString("bo_delete_yn"));
 				volunteerList.add(volunteer);
 			}
 		} catch (SQLException e) {
@@ -303,7 +299,7 @@ public class BoardDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			
+
 			pstmt.setInt(1, b.getMemNo());
 			pstmt.setString(2, b.getBoTitle());
 			pstmt.setString(3, b.getBoContent());
@@ -537,13 +533,18 @@ public class BoardDAO {
 	}
 	
 
-	public ArrayList<Notice> selectNoticeList(Connection conn) {
+	public ArrayList<Notice> selectNoticeList(Connection conn,PageInfo pi) {
 		PreparedStatement pstmt= null;
 		ResultSet rset= null;
 		ArrayList<Notice> noticeList = new ArrayList<Notice>();
 		
+		int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() +1;
+		int endRow = startRow + pi.getBoardLimit() -1;
+		
 		try {
 			pstmt=conn.prepareStatement(prop.getProperty("selectNoticeList"));
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -875,5 +876,5 @@ public class BoardDAO {
 		
 		return volunteer;
 	}
-	
 }
+	

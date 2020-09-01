@@ -1,6 +1,8 @@
-package board.controller;
+package board.controller.myPage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,19 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
+import board.model.vo.Volunteer;
 import member.model.vo.Member;
 
 /**
- * Servlet implementation class AdminAnswerQuestionServlet
+ * Servlet implementation class MyVolunteerListServlet
  */
-@WebServlet("/answerQuestion.bo")
-public class AdminAnswerQuestionServlet extends HttpServlet {
+@WebServlet("/listMyVolunteer.vo")
+public class MyVolunteerListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminAnswerQuestionServlet() {
+    public MyVolunteerListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,16 +37,18 @@ public class AdminAnswerQuestionServlet extends HttpServlet {
 			request.setAttribute("errorMsg", "세션이 만료되었습니다. 다시 로그인해주세요.");
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
-		String answer = request.getParameter("answer");
-		int qNo = Integer.parseInt(request.getParameter("qNo"));
 		
-		int result = new BoardService().answerQuestion(qNo,answer);
+		int mem_no = ((Member)request.getSession().getAttribute("loginUser")).getMem_no();
+			
 		
-		if(result>0) {
-			response.getWriter().println("1");
-		}else {
-			response.getWriter().println("0");
-		}
+		
+		
+		ArrayList<Volunteer> volunteerList = new BoardService().selectMyVolunteer(mem_no);
+		
+		request.setAttribute("volunteerList", volunteerList);
+		request.setAttribute("section", "WEB-INF/views/member/listMyVolunteer_myPage.jsp");
+		request.getRequestDispatcher("index.jsp").forward(request, response);
+		
 		
 	}
 

@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="css/successPage.css" type="text/css">
+<link rel="stylesheet" href="css/common/successPage.css" type="text/css">
 </head>
 <body>
 	<section>

@@ -8,8 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="css/common.css" type="text/css">
-<link rel="stylesheet" href="css/notice_write.css" type="text/css">
+<link rel="stylesheet" href="css/notice/notice_write.css" type="text/css">
 <script>
 $(function(){
 	$('#select_board').val('<%=notice.getNoticeSubject() %>');

@@ -24,7 +24,7 @@ public class AnimalHospitalListServlet extends HttpServlet {
 		ArrayList<AnimalHospital> hospitalList = null;
 		AnimalHospitalService ahs = new AnimalHospitalService();
 		String addr = (String)request.getParameter("addr");
-		String selectedAddr = null;
+
 		
 		if(addr == null || addr.equals("전체보기")) {
 			// 지역 선택하지 않은 경우 & 전체보기를 선택한 경우
@@ -35,6 +35,7 @@ public class AnimalHospitalListServlet extends HttpServlet {
 			hospitalList = ahs.selectAddr(addr);
 		}
 		
+		request.setAttribute("addr", addr);
 		request.setAttribute("hospitalList", hospitalList);
 		request.setAttribute("section", "WEB-INF/views/animalHospital/animalHospitalList.jsp");
 		request.getRequestDispatcher("index.jsp").forward(request, response);

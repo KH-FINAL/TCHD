@@ -1,4 +1,4 @@
-package board.controller;
+package board.controller.admin;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,22 +8,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import board.model.service.BoardService;
-import board.model.vo.Board;
 import board.model.vo.PageInfo;
+import board.model.vo.Questions;
 import member.model.vo.Member;
 
 /**
- * Servlet implementation class MyBoardListServlet
+ * Servlet implementation class answerQuestionFormServlet
  */
-@WebServlet("/listMyBoard.bo")
-public class MyBoardListServlet extends HttpServlet {
+@WebServlet("/answerQuestionForm.bo")
+public class AdminAnswerQuestionFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyBoardListServlet() {
+    public AdminAnswerQuestionFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,9 +38,6 @@ public class MyBoardListServlet extends HttpServlet {
 			request.setAttribute("errorMsg", "세션이 만료되었습니다. 다시 로그인해주세요.");
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
-		
-		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-		
 		BoardService bService = new BoardService();
 		
 		int listCount;   // 총 게시글 개수
@@ -50,14 +48,14 @@ public class MyBoardListServlet extends HttpServlet {
 		int startPage;  // 페이징 된 페이지 중 시작 페이지
 		int endPage;   // 페이징 된 페이 중 마지막 페이지
 		
-		listCount = bService.selectMyBoardCount(loginUser.getMem_no());
-		System.out.println(listCount);
+		listCount = bService.selectAnswerQuestionsCount();
 		
 		currentPage =1;
 		if(request.getParameter("currentPage")!=null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
+
 		pageLimit = 3;
 		boardLimit = 10;
 		
@@ -72,15 +70,15 @@ public class MyBoardListServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(currentPage,listCount,pageLimit,boardLimit,maxPage,startPage, endPage);
 		
 		
-		ArrayList<Board> boardList = new BoardService().selectMyBoard(loginUser.getMem_no(),pi);
-			
-		if(boardList!=null) {
+		ArrayList<Questions> questionsList = new BoardService().selectAnswerQuestions(pi);
+		
+		if(questionsList!=null) {
 			request.setAttribute("pi", pi);
 		}
-		request.setAttribute("boardList", boardList);
-		request.setAttribute("section", "WEB-INF/views/member/listMyBoard_myPage.jsp");
-		request.getRequestDispatcher("index.jsp").forward(request, response);
 		
+		request.setAttribute("questionsList", questionsList);
+		request.setAttribute("section", "WEB-INF/views/admin/answerQuestion_admin.jsp");
+		request.getRequestDispatcher("index.jsp").forward(request, response);
 		
 	}
 

@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="css/24hAnimalHospital_details.css" type="text/css">
+<link rel="stylesheet" href="css/hospital/24hAnimalHospital_details.css" type="text/css">
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9825f8ee7c5749fcba65382d3b6f9521&libraries=services"></script>
 <script>
 $(function(){

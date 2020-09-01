@@ -3,9 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="css/join.css" type="text/css">
+<link rel="stylesheet" href="css/member/join.css" type="text/css">
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
 var checkForm="PM";
 $(function(){

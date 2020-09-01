@@ -49,7 +49,7 @@
 #button_div {
 	margin: 30px auto;
 	width: 1000px;
-	text-align: right;
+	/* text-align: right; */
 }
 
 #list_view_button {
@@ -59,7 +59,8 @@
 	border: none;
 	background: rgb(41, 128, 185);
 	color: white;
-	margin-right: 40%;
+	left: 45%;
+	position: relative;
 }
 
 #edit_button {
@@ -69,4 +70,6 @@
 	border: none;
 	background: rgb(41, 128, 185);
 	color: white;
+	   position: relative;
+    left: 876px;
 }

@@ -3,11 +3,12 @@
 <%@ page import="animalHospital.model.vo.AnimalHospital, java.util.ArrayList" %>
 <%
 	ArrayList<AnimalHospital> hospitalList =(ArrayList<AnimalHospital>)request.getAttribute("hospitalList");
+	String addr = (String)request.getAttribute("addr");
 %>
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="css/24hAnimalHospital_list.css" type="text/css">
+<link rel="stylesheet" href="css/hospital/24hAnimalHospital_list.css" type="text/css">
 </head>
 <body>
 	<section>
@@ -87,11 +88,32 @@
 		<script>
 			// 지역 선택 테이블
 			$(function(){
+				var addr = '<%= addr%>';
+				console.log(addr);
+				console.log($('#local_select_table').children().children().children());
+				var td = $('#local_select_table').children().children().children();
+				$.each(td,function(index,item){
+					console.log(item.innerHTML);
+					if(addr==item.innerHTML){
+						item.style.background= "red";
+						item.setAttribute("class","selected");
+					}
+				});
+			
+				
 				$(".localSelectTr").children().mouseenter(function(){
 					$(this).css({'cursor':'pointer', 'background':'rgba(41, 128, 185, 0.6)', 'color':'#fafafa'});
 				}).mouseleave(function(){
 					$(this).css({'cursor':'none', 'background':'#eee', 'color':'black'});
 				});
+				
+				
+				$('.selected').hover(function(){
+					$(this).css({"background":"red","color":"black"});
+				},function(){
+					$(this).css({"background":"red","color":"black"});
+				});
+				
 			});
 			
 			$('.localSelectTr').children().click(function(){

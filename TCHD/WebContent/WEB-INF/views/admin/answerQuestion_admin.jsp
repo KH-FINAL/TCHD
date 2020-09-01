@@ -18,9 +18,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="css/nav.css" type="text/css">
-<link rel="stylesheet" href="css/myPage_listMyBoard.css" type="text/css">
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link rel="stylesheet" href="css/common/nav.css" type="text/css">
+<link rel="stylesheet" href="css/member/myPage_listMyBoard.css" type="text/css">
 <script type="text/javascript">
 $(function(){
 	console.log('<%=questionsList %>');	

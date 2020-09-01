@@ -1,4 +1,4 @@
-package member.controller;
+package board.controller.notice;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,36 +10,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
+import board.model.vo.Notice;
 import board.model.vo.PageInfo;
-import member.model.service.MemberService;
 import member.model.vo.Member;
 
-/**
- * Servlet implementation class ApproveGroupMemberServlet
- */
-@WebServlet("/approveGroupMember.me")
-public class ApproveGroupMemberServlet extends HttpServlet {
+
+@WebServlet("/list.no")
+public class NoticeListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ApproveGroupMemberServlet() {
+
+    public NoticeListServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if((Member)request.getSession().getAttribute("loginUser")==null) {
-			request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
-			request.setAttribute("errorMsg", "세션이 만료되었습니다. 다시 로그인해주세요.");
-			request.getRequestDispatcher("index.jsp").forward(request, response);
-		}
-		
-		
+
 		int listCount;   // 총 게시글 개수
 		int currentPage;  // 현재 페이지
 		int pageLimit;   // 한 페이지에서 표시될 페이지수
@@ -48,16 +34,15 @@ public class ApproveGroupMemberServlet extends HttpServlet {
 		int startPage;  // 페이징 된 페이지 중 시작 페이지
 		int endPage;   // 페이징 된 페이 중 마지막 페이지
 		
-		listCount = new MemberService().selectNotOkGroupMembersCount();
+		listCount = new BoardService().getListCount(4);
 		
-
 		currentPage =1;
 		if(request.getParameter("currentPage")!=null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		
 		pageLimit = 3;
 		boardLimit = 10;
+		
 		
 		maxPage = (int) Math.ceil((double)listCount/boardLimit);
 		startPage = pageLimit*((currentPage-1)/pageLimit) + 1; //  1, 11, 21, 31, .... //   10*n + 1(n>=0)
@@ -69,22 +54,18 @@ public class ApproveGroupMemberServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(currentPage,listCount,pageLimit,boardLimit,maxPage,startPage, endPage);
 		
-		ArrayList<Member> memberList = new MemberService().selectNotOkGroupMembers(pi);
-
-		if(memberList!=null) {
-			request.setAttribute("pi", pi);
-			
-		}
-		request.setAttribute("memberList", memberList);
-		request.setAttribute("section", "WEB-INF/views/admin/approveGroupMember_admin.jsp");
+		
+		ArrayList<Notice> noticeList = new BoardService().selectNoticeList(pi);
+		
+		request.setAttribute("pi", pi);
+		request.setAttribute("noticeList", noticeList);
+		request.setAttribute("section", "WEB-INF/views/notice/noticeList.jsp");
 		request.getRequestDispatcher("index.jsp").forward(request, response);
+		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

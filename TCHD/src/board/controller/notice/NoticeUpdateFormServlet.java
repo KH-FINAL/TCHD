@@ -1,4 +1,4 @@
-package board.controller;
+package board.controller.notice;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

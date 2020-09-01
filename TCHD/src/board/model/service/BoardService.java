@@ -38,10 +38,10 @@ public class BoardService {
 	
 	
 
-	public int getListCount() {
+	public int getListCount(int boType) {
 		Connection conn = getConnection();
 		
-		int result = new BoardDAO().getListCount(conn);
+		int result = new BoardDAO().getListCount(conn,boType);
 		
 		close(conn);
 		
@@ -187,10 +187,10 @@ public class BoardService {
 		return qBoard;
 	}
 
-	public ArrayList<Notice> selectNoticeList() {
+	public ArrayList<Notice> selectNoticeList(PageInfo pi) {
 		Connection conn = getConnection();
 
-		ArrayList<Notice> noticeList = new BoardDAO().selectNoticeList(conn);
+		ArrayList<Notice> noticeList = new BoardDAO().selectNoticeList(conn,pi);
 
 		close(conn);
 
@@ -310,6 +310,8 @@ public class BoardService {
 		
 		return adopt;
 	}
+
+
 
 	public int insertQuestions(Questions q, Files uploadFile) {
 		Connection conn = getConnection();
