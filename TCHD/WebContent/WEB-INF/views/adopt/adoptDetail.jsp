@@ -22,12 +22,12 @@
    			<div id="picture">
 				<img id="thumbnailImg" src="<%= request.getContextPath()%>/upload_imageFiles/<%= thumbnailImg.getChangeName() %>"/>
 				<div id="btn">
-					<img id="left" class="switch" src="./images/btnL.PNG">
-					<img id="right" class="switch" src="./images/btnR.PNG">
+					<img id="left" class="switch" src="images/btnL.PNG">
+					<img id="right" class="switch" src="images/btnR.PNG">
 				</div>
 	   		</div>
 	   		<div id="petName">
-	   		<p>송이</p>
+	   		<p><%= adopt.getPetName() %></p>
 	   		<input type="hidden" id="boardNo" name="boNo" value="<%= adopt.getBoNo() %>">
 	   		<hr>
 				<div class="petDetail">
