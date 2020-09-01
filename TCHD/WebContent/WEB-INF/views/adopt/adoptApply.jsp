@@ -16,7 +16,7 @@
 <body>
 <section>	<!-- action="<%=request.getContextPath() %>/adoptDetail.bo" -->
    	<form action="<%=request.getContextPath() %>/adoptApply.bo" method="post" onsubmit="return checkSubmit();">
-	<div id="ment">입양신청 <input type="text" id="bNo" name="bNo" value="<%= bNo %>"></div>
+	<div id="ment">입양신청 <input type="hidden" id="bNo" name="bNo" value="<%= bNo %>"></div>
 		<div id="info">
 			<img src="./images/applyImg.PNG" id="petImg"><p>평생 책임지고 함께하실 준비가 되셨나요?</p>
 			<p>상처받은 아이들에게 새로운 가족이 되어주세요</p>

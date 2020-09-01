@@ -28,7 +28,7 @@
 	   		</div>
 	   		<div id="petName">
 	   		<p>송이</p>
-	   		<input type="text" id="boardNo" name="boNo" value="<%= adopt.getBoNo() %>">
+	   		<input type="hidden" id="boardNo" name="boNo" value="<%= adopt.getBoNo() %>">
 	   		<hr>
 				<div class="petDetail">
 		  			<ul>
