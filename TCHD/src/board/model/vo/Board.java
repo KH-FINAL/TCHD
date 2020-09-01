@@ -21,6 +21,7 @@ public class Board {
 		this.boTitle = boTitle;
 		this.boDate = boDate;
 	}
+	
 	public Board(int boNo, String boType, String boTitle, String boContent, Date boDate, int boCount, String boDeleteYn,
 			int memNo) {
 		super();
@@ -33,7 +34,6 @@ public class Board {
 		this.boDeleteYn = boDeleteYn;
 		this.memNo = memNo;
 	}
-
 
 	public int getBoNo() {
 		return boNo;

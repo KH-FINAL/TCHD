@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import board.model.vo.Adopt;
+import board.model.vo.AdoptApply;
 import board.model.vo.Board;
 import board.model.vo.Files;
 import board.model.vo.Notice;
@@ -841,6 +842,29 @@ public class BoardDAO {
 		return result;
 	}
 
+	
+	public int insertApply(Connection conn, AdoptApply apply) {
+		PreparedStatement pstmt = null; 
+		int result = 0;
+		
+		String query = prop.getProperty("insertApply");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, apply.getMemNo());
+			pstmt.setString(2, apply.getApplyContent());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	
 	public Volunteer selectVolunteer(Connection conn, int bNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;

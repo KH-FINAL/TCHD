@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import board.model.dao.BoardDAO;
 import board.model.vo.Adopt;
+import board.model.vo.AdoptApply;
 import board.model.vo.Board;
 import board.model.vo.Files;
 import board.model.vo.Notice;
@@ -341,6 +342,25 @@ public class BoardService {
 		
 	}
 
+	
+	public int insertApply(Board b, AdoptApply apply) {
+		Connection conn = getConnection();
+		
+		int result1 = new BoardDAO().insertBoard(conn, b);
+		int result2 = new BoardDAO().insertApply(conn, apply);
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		} else { 
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result2;
+	}
+	
+	
+	
 	public Volunteer selectVolunteer(int bNo) {
 		Connection conn = getConnection();
 		

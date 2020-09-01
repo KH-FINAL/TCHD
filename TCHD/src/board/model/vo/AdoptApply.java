@@ -13,6 +13,14 @@ public class AdoptApply {			// 입양신청서 작성 폼
 		this.memNo = memNo;
 		this.boNo = boNo;
 	}
+	
+	public AdoptApply(String applyContent, int memNo) {
+		super();
+		this.applyContent = applyContent;
+		this.memNo = memNo;
+	}
+
+
 
 	public int getApplyNo() {
 		return applyNo;

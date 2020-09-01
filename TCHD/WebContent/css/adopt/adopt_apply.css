@@ -99,9 +99,10 @@
 	}
 	
 	#infoTable .private input{		/* 일반 정보 입력 칸 */
-		width: 220px;
-		height: 30px;
+		width: 280px;
+		height: 20px;
 		font-size: 15px; 
+		padding: 10px;
 	}
 
 	
@@ -124,6 +125,7 @@
 	
 	.write textarea{				/* 답변 입력 칸 --> 300자로 제한*/
 		margin: 15px 0px 0px 0px;
+		padding: 10px;
 		width: 800px;
 		height: 150px;
 		text-overflow:ellipsis;

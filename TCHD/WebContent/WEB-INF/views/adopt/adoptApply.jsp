@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="board.model.vo.*"%>
+<%@ page import="board.model.vo.*, member.model.vo.*"%>
 <%
-
+	Member member = (Member)request.getAttribute("member");
 %>
 <!DOCTYPE html>
 <html>
@@ -17,7 +17,7 @@
    	<form method="post" onsubmit="return checkSubmit();">
 	<div id="ment">입양신청</div>
 		<div id="info">
-			<img src="images/입양신청.PNG" id="petImg"><p>평생 책임지고 함께하실 준비가 되셨나요?</p>
+			<img src="./images/applyImg.PNG" id="petImg"><p>평생 책임지고 함께하실 준비가 되셨나요?</p>
 			<p>상처받은 아이들에게 새로운 가족이 되어주세요</p>
 			<hr>
 		</div>
@@ -47,19 +47,19 @@
 			<table id="infoTable" class="readInfo">
 				<tr>
 					<td class="privteInfo">이름 : </td>
-					<td class="private"><input type="text" readonly/></td>
+					<td class="private"><input type="text" value="<%= member.getMem_name() %>" readonly/></td>
 				</tr>
 				<tr>
 					<td class="privteInfo">전화번호 : </td>
-					<td class="private"><input type="tel" readonly/></td>
+					<td class="private"><input type="tel" value="<%= member.getMem_phone() %>" readonly/></td>
 				</tr>
 				<tr>
 					<td class="privteInfo">주소 : </td>
-					<td class="private"><input type="text" readonly/></td>
+					<td class="private"><input type="text" value="<%= member.getMem_addr() %>" readonly/></td>
 				</tr>
 				<tr>
 					<td class="privteInfo">이메일 : </td>
-					<td class="private"><input type="email" readonly/></td>
+					<td class="private"><input type="email" value="<%= member.getMem_email() %>" readonly/></td>
 				</tr>
 			</table>
 			<ol type="I" start=2 class="applyList">
@@ -68,18 +68,18 @@
 			<ol id="asking" class="write">
 				<li>
 					입양을 결심하게 된 계기를 말해 주세요.<br>				<!-- required : 텍스트 입력이 필수임을 나타냄 -->
-					<textarea id="answer1" required></textarea>
+					<textarea id="answer1" name="answer1" required></textarea>
 					<span id="counter1">0</span>/300
 				</li>
 				<li>
 					개를 혼자서 입양하십니까? 함께 입양하는 가족/동거인이 있다면 정보를 알려주세요.<br>
-					<textarea id="answer2" required></textarea>
+					<textarea id="answer2" name="answer2" required></textarea>
 					<span id="counter2">0</span>/300
 				</li>
 				<li>
 					반려동물을 키우신 적 있습니까? 성인이 된 후 개를 기른 적이 있나요?<br>
 					만약 있다면 그 동물에 대해 알려 주세요.<br>
-					<textarea id="answer3" placeholder="없으시면 없다고 적어주세요" required></textarea>
+					<textarea id="answer3" name="answer3" placeholder="없으시면 없다고 적어주세요" required></textarea>
 					<span id="counter3">0</span>/300
 				</li>
 			</ol>
@@ -89,22 +89,22 @@
 			<ol id="promise" class="write">
 				<li>
 					반려동물과 앞으로 15년간 평생을 함께 할 준비가 되셨습니까?<br>
-					<textarea id="answer4" required></textarea>
+					<textarea id="answer4" name="answer4" required></textarea>
 					<span id="counter4">0</span>/300
 				</li>
 				<li>
 					반려동물과 함께 이사를 갈 수 있기 위해 어떤 계획을 가지고 계십니까?<br>
-					<textarea id="answer5" required></textarea>
+					<textarea id="answer5" name="answer5" required></textarea>
 					<span id="counter5">0</span>/300
 				</li>
 				<li>
 					휴가를 간다면 그 사이 반려동물을 위해 어떤 준비를 해 줄 생각이십니까?<br>
-					<textarea id="answer6" required></textarea>
+					<textarea id="answer6" name="answer6" required></textarea>
 					<span id="counter6">0</span>/300
 				</li>
 				<li>
 					어떤 상황이 발생한다면 다른 곳으로 재입양을 보낼 생각을 하십니까?<br>
-					<textarea id="answer7" required></textarea>
+					<textarea id="answer7" name="answer7" required></textarea>
 					<span id="counter7">0</span>/300
 				</li>
 			</ol>
@@ -133,8 +133,8 @@
 			<p>긴 시간 동안 입양신청서에 답해 주셔서 감사합니다.<p>
 		</div>
 		<div id="buttons">
-			<button id="cancel" class="applyButton">취소</button>
-			<button id="okay" class="applyButton">확인</button>
+			<button id="cancel" class="applyButton" onClick="<%= request.getContextPath() %>/adoptDetail.bo">취소</button>
+			<button id="okay" class="applyButton" onClick="applyConfirm();">확인</button>
 		</div>
 	</form>
 	<script>
@@ -209,30 +209,21 @@
 					$('#counter7').css('color', 'black');
 				}
 			})
-				
+		});
 			
-			function checkSubmit(){
-				return true;
-			}
-// 			// textarea에 글이 있든 없든 취소버튼 누르면 --> 취소팝업창 뜸 
-// 			// require가 있으니 취소버튼일 때도 글을 쓰라고 뜬다 --> 빼야하나?
-// 			$('#cancel').on('click', function(){
-// 				alert('입양신청이 취소되었습니다.');
-// 			})
 			
 // 			// textarea에 글이 없거나, 공백만 있을 경우--> 입력칸 확인팝업창 뜸
 // 			// 동의신청에 체크를 하지 않은 경우 --> 동의해주세요 팝업창
 // 			// 그 외 --> 신청완료 팝업창 뜸
-// 			$('#okay').on('click', function(){
-// 				if($('.write[textarea]').text() != null && $('.write[textarea]').text().trim() != ' '){
-// 					alert('입양신청이 완료되었습니다.');		
-// 						return true;
-// 				} else {
-// 					alert('입력칸을 모두 작성해주세요.');	
-// 					reture false;
-// 				}
-// 			})
-		});
+			function applyConfirm(){
+				swal("", "입양신청이 완료되었습니다.", "info");
+				location.href = "<%= request.getContextPath() %>/adoptApply.bo";
+			}
+			
+			function checkSubmit(){
+				return true;
+			}
+			
 	</script>
 </section>
 </body>

@@ -28,6 +28,7 @@
 	   		</div>
 	   		<div id="petName">
 	   		<p>송이</p>
+	   		<input type="hidden" id="bNo" name="bNo" value="<%= adopt.getBoNo() %>">
 	   		<hr>
 				<div class="petDetail">
 		  			<ul>
@@ -64,7 +65,7 @@
 					<input type="button" id="alter" class="threeButton" value="수정하기" disabled="disabled"/>
 				<% } %>
 				<% if(loginUser != null){ %>
-					<input type="button" id="apply" class="threeButton" value="입양하기" onClick="location.href='<%= request.getContextPath()%>/adoptApply.bo'"/>
+					<input type="button" id="apply" class="threeButton" value="입양하기" onClick="location.href='<%= request.getContextPath()%>/adoptApplyForm.bo'"/>
 				<% } else{ %>
 					<input type="button" id="apply" class="threeButton" value="입양하기" onClick="loginForm();"/>
 				<% } %>
