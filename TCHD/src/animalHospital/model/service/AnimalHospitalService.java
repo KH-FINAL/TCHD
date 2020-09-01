@@ -1,31 +1,51 @@
 package animalHospital.model.service;
 
-import static common.JDBCTemplate.getConnection;
-import static common.JDBCTemplate.commit;
-import static common.JDBCTemplate.rollback;
 import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.getConnection;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 
 import animalHospital.model.dao.AnimalHospitalDAO;
 import animalHospital.model.vo.AnimalHospital;
+import board.model.vo.PageInfo;
 
 public class AnimalHospitalService {
 
-	public ArrayList<AnimalHospital> allHospitalList() {
+	public int getAllListCount() {
+		Connection conn = getConnection();
+		
+		int result = new AnimalHospitalDAO().getAllListCount(conn);
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	public ArrayList<AnimalHospital> allHospitalList(PageInfo pi) {
 		Connection conn =getConnection();
 		
-		ArrayList<AnimalHospital> hospitalList = new AnimalHospitalDAO().allHospitalList(conn);
+		ArrayList<AnimalHospital> hospitalList = new AnimalHospitalDAO().allHospitalList(conn, pi);
 		
 		close(conn);
 		
 		return hospitalList;
 	}
 	
-	public ArrayList<AnimalHospital> selectAddr(String addr) {
+	public int getselectListCount(String addr) {
 		Connection conn = getConnection();
 		
-		ArrayList<AnimalHospital> hospitalList = new AnimalHospitalDAO().selectAddr(conn, addr);
+		int result = new AnimalHospitalDAO().getselectListCount(conn, addr);
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	public ArrayList<AnimalHospital> selectAddr(PageInfo pi, String addr) {
+		Connection conn = getConnection();
+		
+		ArrayList<AnimalHospital> hospitalList = new AnimalHospitalDAO().selectAddr(conn, pi, addr);
 		
 		close(conn);
 		

@@ -68,11 +68,10 @@
 	height: 40px;
 	border-bottom: 1px solid lightgray;
 }
-
+/* 페이징 */
 .paging {
 	margin: 20px 20px 40px 20px;
 	text-align: center;
-	font-size: 0;
 }
 
 .paging a {
@@ -84,22 +83,19 @@
 	text-decoration: none;
 }
 
-.paging a:first-child {
-	margin-left: 0;
-}
-
-.paging a.bt {
+.before, .after {
 	border: 1px solid #eee;
 	background: #eee;
 }
 
-.paging a.num {
+.num {
 	border: 1px solid rgb(41, 128, 185);
 	font-weight: 600;
 	color: rgb(41, 128, 185);
 }
 
-.paging a.num.on {
+.choosen {
+	border: 1px solid rgb(41, 128, 185);
 	background: rgb(41, 128, 185);
 	color: #fff;
 }

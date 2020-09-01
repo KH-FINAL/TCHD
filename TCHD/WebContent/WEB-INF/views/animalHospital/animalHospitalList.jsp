@@ -1,9 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="animalHospital.model.vo.AnimalHospital, java.util.ArrayList" %>
+<%@ page import="animalHospital.model.vo.AnimalHospital, java.util.ArrayList, board.model.vo.PageInfo" %>
 <%
 	ArrayList<AnimalHospital> hospitalList =(ArrayList<AnimalHospital>)request.getAttribute("hospitalList");
-	String addr = (String)request.getAttribute("addr");
+	String selectedAddr = (String)request.getAttribute("selectedAddr");
+	if(selectedAddr == null){
+		selectedAddr = "전체보기";
+	}
+	
+	// 페이징
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int listCount = pi.getListCount();		// 총 게시글 개수
+	int currentPage = pi.getCurrentPage();	// 현재 페이지 번호
+	int maxPage = pi.getMaxPage();			// 전체 페이지 중 가장 마지막 페이지
+	int startPage = pi.getStartPage();		// 페이징 된 페이지 중 시작 페이지
+	int endPage = pi.getEndPage();			// 페이징 된 페이지 중 마지막 페이지
+	System.out.println(listCount);
+	System.out.println(currentPage);
+	System.out.println(maxPage);
+	System.out.println(startPage);
+	System.out.println(endPage);
 %>
 <!DOCTYPE html>
 <html>
@@ -22,7 +39,7 @@
 			<div>
 				<table id="local_select_table">
 					<tr class="localSelectTr">
-						<td>전체보기</td>
+						<td id="selectAllTd">전체보기</td>
 						<td>서울특별시</td>
 						<td>부산광역시</td>
 						<td>대구광역시</td>
@@ -50,7 +67,7 @@
 		</div>
 		<br>
 		<div id="list_size">
-			<span>총 <%= hospitalList.size() %>개</span>
+			<span>총 <%= listCount %>개</span>
 		</div>
 		<div id="animal_hospital_div">
 			<table id="animal_hospital_table">
@@ -77,49 +94,75 @@
 			</table>
 		</div>
 		
-		<div class="paging">
-			<a href="#" class="bt">이전 페이지</a>
-			<a href="#" class="num on">1</a>
-			<a href="#" class="num">2</a>
-			<a href="#" class="num">3</a>
-			<a href="#" class="bt">다음 페이지</a>
-		</div>
+		<%-- 페이징 --%>
+			<div class="paging">
+				<%-- 이전 페이지 --%>
+				<a href="<%= request.getContextPath() %>/hospitalList.ho?addr=<%= selectedAddr %>&currentPage=<%= currentPage - 1 %>" class="before">이전 페이지</a>
+				
+				<% for(int p = startPage; p <= endPage; p++){
+						if(p == currentPage){ %>
+							<%-- 현재 페이지 --%>
+							<a class="choosen"><%= p %></a>
+					<%  } else { %>
+							<a href="<%= request.getContextPath() %>/hospitalList.ho?addr=<%= selectedAddr %>&currentPage=<%= p %>" class="num" ><%= p %></a>
+				<% 		}
+				   }%>
+				
+				<%-- 다음 페이지 --%>
+				<a href="<%= request.getContextPath() %>/hospitalList.ho?addr=<%= selectedAddr %>&currentPage=<%= currentPage + 1 %>" class="after">다음 페이지</a>
+				<script>
+					if(<%= currentPage %> <= 1){
+						var before = $("#before");
+						before.attr("style", "display:none");
+					}
+					if(<%= currentPage %> >= <%= maxPage %>){
+						var after = $("#after");
+						after.attr("style", "display:none");
+					}
+				</script>
+			</div>
+		
 		
 		<script>
 			// 지역 선택 테이블
 			$(function(){
-				var addr = '<%= addr%>';
-				console.log(addr);
-				console.log($('#local_select_table').children().children().children());
+				var selectedAddr = '<%= selectedAddr %>';
+				if(selectedAddr == "null"){
+					$("#selectAllTd").css({'background':'rgba(41, 128, 185, 0.6)', 'color':'#fafafa'});
+				}
 				var td = $('#local_select_table').children().children().children();
-				$.each(td,function(index,item){
-					console.log(item.innerHTML);
-					if(addr==item.innerHTML){
-						item.style.background= "red";
-						item.setAttribute("class","selected");
+				$.each(td, function(index, item){
+					if(selectedAddr == item.innerHTML){
+						item.style.background = "rgba(41, 128, 185, 0.6)";
+						item.style.color = "#fafafa";
+						item.setAttribute("class", "selected");
 					}
 				});
-			
 				
-				$(".localSelectTr").children().mouseenter(function(){
-					$(this).css({'cursor':'pointer', 'background':'rgba(41, 128, 185, 0.6)', 'color':'#fafafa'});
-				}).mouseleave(function(){
-					$(this).css({'cursor':'none', 'background':'#eee', 'color':'black'});
+				// hover(mouseenter, mouseleave)
+				$(".localSelectTr").children().hover(function(){
+					$(this).css('cursor', 'pointer');
+				}, function(){
+					$(this).css('cursor', 'none');
 				});
+				
+				if(selectedAddr != "null"){
+					$(".localSelectTr").children().hover(function(){
+						$(this).css({'cursor':'pointer', 'background':'rgba(41, 128, 185, 0.6)', 'color':'#fafafa'});
+					}, function(){
+						$(this).css({'cursor':'none', 'background':'#eee', 'color':'black'});
+					});
+				}
 				
 				
 				$('.selected').hover(function(){
-					$(this).css({"background":"red","color":"black"});
-				},function(){
-					$(this).css({"background":"red","color":"black"});
+					$(this).css({'cursor':'pointer', 'background':'rgba(41, 128, 185, 0.6)', 'color':'#fafafa'});
+				}, function(){
+					$(this).css({'cursor':'pointer', 'background':'rgba(41, 128, 185, 0.6)', 'color':'#fafafa'});
 				});
-				
 			});
 			
 			$('.localSelectTr').children().click(function(){
-				// 클릭하면 서블릿에 갔다가 다시 와서 css적용이 안되는 것 같음!!!
-// 				$(this).off('mouseenter').off('mouseleave')
-// 					   .css({'background':'rgba(41, 128, 185, 0.6)', 'color':'#fafafa'});
 				var addr = $(this).text();
 				location.href="<%= request.getContextPath() %>/hospitalList.ho?addr=" + addr;
 			});
@@ -138,7 +181,6 @@
 					location.href="<%= request.getContextPath() %>/hospitalDetail.ho?hosNo=" + hosNo;
 				});
 			});
-			
 		</script>
 	</section>
 </body>
