@@ -13,7 +13,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="css/adopt/adopt_detail.css?after" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="css/common.css" type="text/css">
+<link rel="stylesheet" href="css/common/common.css" type="text/css">
 </head>
 <body>
 <section>
@@ -28,7 +28,7 @@
 	   		</div>
 	   		<div id="petName">
 	   		<p>송이</p>
-	   		<input type="hidden" id="bNo" name="bNo" value="<%= adopt.getBoNo() %>">
+	   		<input type="hidden" id="boNo" name="boNo" value="<%= adopt.getBoNo() %>">
 	   		<hr>
 				<div class="petDetail">
 		  			<ul>

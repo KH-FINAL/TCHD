@@ -14,7 +14,7 @@
 </head>
 <body>
 <section>
-   	<form method="post" onsubmit="return checkSubmit();">
+   	<form action="<%=request.getContextPath() %>/adoptDetail.bo" method="post" onsubmit="return checkSubmit();">
 	<div id="ment">입양신청</div>
 		<div id="info">
 			<img src="./images/applyImg.PNG" id="petImg"><p>평생 책임지고 함께하실 준비가 되셨나요?</p>

@@ -33,8 +33,10 @@ public class AdoptApplyServlet extends HttpServlet {
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int loginUserNo = ((Member)request.getSession().getAttribute("loginUser")).getMem_no();		// ??? 왜 null이야 로그인 했는데
-		String answer = request.getParameter("answer1" + ", " + "answer2" + ", " + "answer3" + ", " + 
-											"answer4" + ", " + "answer5" + ", " + "answer6" + ", " + "answer7");
+		String answer = request.getParameter("answer1") + request.getParameter("answer2") + request.getParameter("answer3") +
+						request.getParameter("answer4") + request.getParameter("answer5") + request.getParameter("answer7");
+//		String answer = request.getParameter("answer1" + ", " + "answer2" + ", " + "answer3" + ", " + 
+//											"answer4" + ", " + "answer5" + ", " + "answer6" + ", " + "answer7");
 		System.out.println("입양신청서 : " + answer);
 		
 		Board b = new Board(0, null, "입양신청서", answer, null, 0, null, loginUserNo);
@@ -43,8 +45,9 @@ public class AdoptApplyServlet extends HttpServlet {
 		int result = new BoardService().insertApply(b, apply);
 		
 		int bNo = b.getBoNo();
+		System.out.println("입양신청서 게시판 번호 : "+bNo);
 		if(result > 0) {
-			response.sendRedirect("adoptDetail.bo?bNo=" + bNo);
+			response.sendRedirect("adoptDetail.bo?boNo=" + bNo);
 		} else { 
 			request.setAttribute("msg", "입양 신청서 작성에 실패하였습니다.");
 			request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
