@@ -2,6 +2,8 @@ package board.model.vo;
 
 import java.sql.Date;
 
+import member.model.vo.Member;
+
 public class Questions {// 문의게시판
 
 	private int boNo; // 게시글 번호
@@ -15,10 +17,11 @@ public class Questions {// 문의게시판
 	private String memId; // 아이디
 	private String boDeleteYn; // 삭제여부 N:default
 	private String memLeave; // 회원 탈퇴여부 N:default
-	private String boPwd; // 게시글 비밀번호 (비밀글)
-	private String questionsSubject; // 문의글 게시판 분류
 
 	// 아래서부턴 글쓰기, 상세조회에서 사용
+	private String boPwd; // 게시글 비밀번호 (비밀글)
+	private String selectBoard; // 문의글 게시판 분류
+	
 	private String comContent; // 답변내용
 	private Date comDate; // 답변 작성일자
 
@@ -57,20 +60,16 @@ public class Questions {// 문의게시판
 	 
 
 	// 작성
-	public Questions(int boNo, String boTitle, String boContent, int boCount, Date boDate, String memId,
-			String boDeleteYn, String questionsSubject, String comContent, Date comDate, String boPwd) {
+	public Questions(int boNo, String boTitle, String boContent, String memId,
+			 String selectBoard, String boPwd,int boType) {
 		super();
 		this.boNo = boNo;
 		this.boTitle = boTitle;
 		this.boContent = boContent;
-		this.boCount = boCount;
-		this.boDate = boDate;
 		this.memId = memId;
-		this.boDeleteYn = boDeleteYn;
-		this.questionsSubject = questionsSubject;
-		this.comContent = comContent;
-		this.comDate = comDate;
+		this.selectBoard = selectBoard;
 		this.boPwd = boPwd;
+		this.boType = boType;
 	}
 
 	public Questions(int boNo, int boType, String cateName, String boTitle, String boContent, int boCount, Date boDate,
@@ -94,6 +93,20 @@ public class Questions {// 문의게시판
 		this.filePath = filePath;
 		this.originName = originName;
 		this.changeName = changeName;
+	}
+
+
+
+	public Questions(int boNo, String boTitle, String boContent, String memId, Date boDate, int boCount, String selectBoard,
+			int boType) {
+		this.boNo = boNo;
+		this.boTitle = boTitle;
+		this.boContent = boContent;
+		this.memId=memId;
+		this.boDate = boDate;
+		this.boCount = boCount;
+		this.selectBoard = selectBoard;
+		this.boType=boType;
 	}
 
 	public int getBoType() {
@@ -232,12 +245,12 @@ public class Questions {// 문의게시판
 		this.changeName = changeName;
 	}
 
-	public String getQuestionsSubject() {
-		return questionsSubject;
+	public String getSelectBoard() {
+		return selectBoard;
 	}
 
-	public void setQuestionsSubject(String questionsSubject) {
-		this.questionsSubject = questionsSubject;
+	public void setSelectBoard(String selectBoard) {
+		this.selectBoard = selectBoard;
 	}
 	
 	
@@ -247,7 +260,7 @@ public class Questions {// 문의게시판
 		return "Questions [boNo=" + boNo + ", boType=" + boType + ", cateName=" + cateName + ", boTitle=" + boTitle
 				+ ", boContent=" + boContent + ", boCount=" + boCount + ", boDate=" + boDate + ", memNo=" + memNo
 				+ ", memId=" + memId + ", boDeleteYn=" + boDeleteYn + ", memLeave=" + memLeave + ", boPwd=" + boPwd
-				+ ", questionsSubject=" + questionsSubject + ", comContent=" + comContent + ", comDate=" + comDate
+				+ ", questionsSubject=" + selectBoard + ", comContent=" + comContent + ", comDate=" + comDate
 				+ ", filePath=" + filePath + ", originName=" + originName + ", changeName=" + changeName + "]";
 	}
 

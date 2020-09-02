@@ -43,7 +43,7 @@
 		    <td id = "content_file"><b>첨부파일</b></td>
 		    <td class="align_left"><div class="filebox">
   					<label for="ex_file">파일 선택</label>
- 					 <input type="file" id="ex_file" accept=".png, .jpg">		
+ 					 <input type="file" id="ex_file" name="input_file" accept=".png, .jpg">		
  					 <span>&nbsp;&nbsp;&nbsp;&nbsp;이미지파일(PNG, JPG)만 첨부 가능합니다.</span>
 				</div>
 			</td>
@@ -51,7 +51,7 @@
 		  <tr>
 		  <td id ="content_top"><b>내용</b></td>
 		    <td>
-		    	<textarea name="content" id="content" class="content" cols="110" rows="25"></textarea>
+		    	<textarea name="input_content" id="content" class="content" cols="110" rows="25"></textarea>
 		    </td>
 		  </tr>
 		</table>
@@ -74,7 +74,7 @@
 			var content=$('.content');
 			/*  var subject = $('#sub_td').chidren('select option:selected').val(); */
 			
- 			if(subject == 0){
+ 			/* if(subject == 0){
 			   	swal("", "분류를 선택해주세요.", "info");
 			   	return false;
 		   	}  */

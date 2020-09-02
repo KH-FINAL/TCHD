@@ -830,30 +830,42 @@ public class BoardDAO {
 
 
 
-	public int insertQuestionsBoard(Connection conn, Questions q) {
+	public int insertQuestions1(Connection conn, Questions q) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = prop.getProperty("insertQuestions");
+		String query = prop.getProperty("insertQuestions1");
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			/*
-			 * pstmt.setString(1, q.getBoTitle()); pstmt.setString(2, q.getBoContent());
-			 * pstmt.setInt(3, q.getBoCount()); pstmt.setString(4, q.getMemId());
-			 * pstmt.setString(5, q.getComContent());
-			 */
+			
 			pstmt.setInt(1, q.getMemNo());
 			pstmt.setString(2, q.getBoTitle());
 			pstmt.setString(3, q.getBoContent());
 			
 			result = pstmt.executeUpdate();
-	} catch (SQLException e) {
+		} catch (SQLException e) {
+				e.printStackTrace();
+			} finally { 
+				close(pstmt);
+			}
+			
+			return result;
+		}
+
+	
+	public int insertQuestions2(Connection conn, String boPwd) {
+		PreparedStatement pstmt = null;
+		int result= 0;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("insertQuestions2"));
+			pstmt.setString(1, boPwd);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally { 
+		}finally {
 			close(pstmt);
 		}
-		
 		return result;
 	}
 
@@ -1041,5 +1053,23 @@ public class BoardDAO {
 		}
 		
 		return noticeList;
+	}
+
+	public int insertQuestionsFile(Connection conn, Files uploadFile) {
+		PreparedStatement pstmt = null;
+		int result=0;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("insertQuestionsFile"));
+			pstmt.setString(1, uploadFile.getOrignName());
+			pstmt.setString(2, uploadFile.getChangeName());
+			pstmt.setString(3, uploadFile.getFilePath());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
 }
