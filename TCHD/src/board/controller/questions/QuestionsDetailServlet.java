@@ -1,6 +1,8 @@
 package board.controller.questions;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import board.model.service.BoardService;
 import board.model.vo.Board;
+import board.model.vo.Files;
 import board.model.vo.Questions;
 
 /**
@@ -34,11 +37,15 @@ public class QuestionsDetailServlet extends HttpServlet {
 		int bNo = Integer.parseInt(request.getParameter("bNo"));
 		Questions qBoard = new BoardService().selectBoard(bNo);
 		HttpSession session = request.getSession();
-		
+		ArrayList<Files> file = null;
 		
 		if(qBoard != null) {
-			request.setAttribute("section", "WEB-INF/views/questions/questionsDetail.jsp");
 			request.setAttribute("qBoard", qBoard);
+			file = new BoardService().selectNoticeFile(bNo);	
+			if(file!=null) {
+				request.setAttribute("file", file);				
+			}
+			request.setAttribute("section", "WEB-INF/views/questions/questionsDetail.jsp");
 		}else {
 			request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
 			request.setAttribute("msg", "문의게시글 상세조회에 실패하였습니다.");

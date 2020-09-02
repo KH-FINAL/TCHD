@@ -160,10 +160,10 @@ public class BoardDAO {
 									rset.getString("bo_content"),
 									rset.getInt("bo_count"),
 									rset.getDate("bo_date"),
-									rset.getInt("mem_no"),
 									rset.getString("mem_id"),
 									rset.getString("bo_delete_yn"),
-									rset.getString("mem_leave"));
+									rset.getString("mem_leave"),
+									rset.getString("qu_sub"));
 				
 				Qlist.add(q);
 			}
@@ -404,7 +404,6 @@ public class BoardDAO {
 						rset.getString("BO_CONTENT"),
 						0,
 						rset.getDate("BO_DATE"),
-						rset.getInt("MEM_NO"),
 						rset.getString("MEM_ID"),
 						null,
 						null
@@ -512,11 +511,10 @@ public class BoardDAO {
 		ResultSet rset = null;
 		Questions qBoard = null;
 		
-		String query = prop.getProperty("selectBoard");
 		
 		
 		try {
-			pstmt = conn.prepareStatement(query);
+			pstmt = conn.prepareStatement(prop.getProperty("selectQuestions"));
 			pstmt.setInt(1, bNo);
 			rset = pstmt.executeQuery();
 			
@@ -529,7 +527,8 @@ public class BoardDAO {
 									rset.getInt("bo_count"),
 									rset.getDate("bo_date"),
 									rset.getString("mem_id"),
-									rset.getString("bo_delete_yn"));
+									rset.getString("bo_delete_yn"),
+									rset.getString("qu_sub"));
 			}
 			
 			

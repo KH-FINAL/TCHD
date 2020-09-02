@@ -20,7 +20,7 @@ public class Questions {// 문의게시판
 
 	// 아래서부턴 글쓰기, 상세조회에서 사용
 	private String boPwd; // 게시글 비밀번호 (비밀글)
-	private String selectBoard; // 문의글 게시판 분류
+	private String quSub; // 문의글 게시판 분류
 	
 	private String comContent; // 답변내용
 	private Date comDate; // 답변 작성일자
@@ -34,7 +34,7 @@ public class Questions {// 문의게시판
 
 	// 목록보기
 	public Questions(int boNo, int boType, String cateName, String boTitle, String boContent, int boCount, Date boDate,
-			int memNo, String memId, String boDeleteYn, String memLeave) {
+			String memId, String boDeleteYn, String memLeave, String quSub) {
 		super();
 		this.boNo = boNo;
 		this.boType = boType;
@@ -43,33 +43,44 @@ public class Questions {// 문의게시판
 		this.boContent = boContent;
 		this.boCount = boCount;
 		this.boDate = boDate;
-		this.memNo = memNo;
 		this.memId = memId;
 		this.boDeleteYn = boDeleteYn;
 		this.memLeave = memLeave;
+		this.quSub = quSub;
 	}
 
 	
-	 //상세보기 
-	public Questions(int boNo, int boType, String cateName, String
-	  boTitle, String boContent, int boCount, Date boDate, String memId, String
-	  boDeleteYn) { super(); this.boNo = boNo; this.boType = boType; this.cateName=
-	  cateName; this.boTitle = boTitle; this.boContent = boContent; this.boCount=
-	  boCount; this.boDate = boDate; this.memId = memId; this.boDeleteYn =
-	  boDeleteYn; }
+	
+	
 	 
 
 	// 작성
 	public Questions(int boNo, String boTitle, String boContent, String memId,
-			 String selectBoard, String boPwd,int boType) {
+			 String quSub, String boPwd,int boType) {
 		super();
 		this.boNo = boNo;
 		this.boTitle = boTitle;
 		this.boContent = boContent;
 		this.memId = memId;
-		this.selectBoard = selectBoard;
+		this.quSub = quSub;
 		this.boPwd = boPwd;
 		this.boType = boType;
+	}
+	
+	 //상세보기 
+	public Questions(int boNo, int boType, String cateName, String boTitle, String boContent, int boCount, Date boDate,
+			String memId, String boDeleteYn, String quSub) {
+		super();
+		this.boNo = boNo;
+		this.boType = boType;
+		this.cateName = cateName;
+		this.boTitle = boTitle;
+		this.boContent = boContent;
+		this.boCount = boCount;
+		this.boDate = boDate;
+		this.memId = memId;
+		this.boDeleteYn = boDeleteYn;
+		this.quSub = quSub;
 	}
 
 	public Questions(int boNo, int boType, String cateName, String boTitle, String boContent, int boCount, Date boDate,
@@ -97,7 +108,7 @@ public class Questions {// 문의게시판
 
 
 
-	public Questions(int boNo, String boTitle, String boContent, String memId, Date boDate, int boCount, String selectBoard,
+	public Questions(int boNo, String boTitle, String boContent, String memId, Date boDate, int boCount, String quSub,
 			int boType) {
 		this.boNo = boNo;
 		this.boTitle = boTitle;
@@ -105,17 +116,17 @@ public class Questions {// 문의게시판
 		this.memId=memId;
 		this.boDate = boDate;
 		this.boCount = boCount;
-		this.selectBoard = selectBoard;
+		this.quSub = quSub;
 		this.boType=boType;
 	}
 
-	public Questions( int boType, String boTitle, String boContent, String boPwd, String selectBoard, int memNo) {
+	public Questions( int boType, String boTitle, String boContent, String boPwd, String quSub, int memNo) {
 		super();
 		this.boType = boType;
 		this.boTitle = boTitle;
 		this.boContent = boContent;
 		this.boPwd = boPwd;
-		this.selectBoard=selectBoard;
+		this.quSub=quSub;
 		this.memNo=memNo;
 	}
 
@@ -255,12 +266,12 @@ public class Questions {// 문의게시판
 		this.changeName = changeName;
 	}
 
-	public String getSelectBoard() {
-		return selectBoard;
+	public String getQuSub() {
+		return quSub;
 	}
 
-	public void setSelectBoard(String selectBoard) {
-		this.selectBoard = selectBoard;
+	public void setQuSub(String quSub) {
+		this.quSub = quSub;
 	}
 	
 	
@@ -270,7 +281,7 @@ public class Questions {// 문의게시판
 		return "Questions [boNo=" + boNo + ", boType=" + boType + ", cateName=" + cateName + ", boTitle=" + boTitle
 				+ ", boContent=" + boContent + ", boCount=" + boCount + ", boDate=" + boDate + ", memNo=" + memNo
 				+ ", memId=" + memId + ", boDeleteYn=" + boDeleteYn + ", memLeave=" + memLeave + ", boPwd=" + boPwd
-				+ ", questionsSubject=" + selectBoard + ", comContent=" + comContent + ", comDate=" + comDate
+				+ ", questionsSubject=" + quSub + ", comContent=" + comContent + ", comDate=" + comDate
 				+ ", filePath=" + filePath + ", originName=" + originName + ", changeName=" + changeName + "]";
 	}
 

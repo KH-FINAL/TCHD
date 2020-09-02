@@ -46,7 +46,7 @@
 			         	   	<input type="hidden" value="<%=Qlist.get(i).getBoNo() %>">
 			         	   <%=Qlist.get(i).getBoNo() %>
 			         	   </td>
-			         	   <td><%= Qlist.get(i).getSelectBoard() %></td>
+			         	   <td><%= Qlist.get(i).getQuSub() %></td>
 			         	   <td class="tet"><%= Qlist.get(i).getBoTitle() %></td>
 			         	   <td><%= Qlist.get(i).getMemId() %></td>
 			         	   <td><%= Qlist.get(i).getBoCount() %></td>
@@ -54,6 +54,7 @@
 			         	</tr>   
 				        <% } %>
 				   <% } %>
+				   
             </table>
             
   			<div id="wrtie_button_div">

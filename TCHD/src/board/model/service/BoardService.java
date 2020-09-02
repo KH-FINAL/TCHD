@@ -165,23 +165,13 @@ public class BoardService {
 
 	public Questions selectBoard(int bNo) {
 		Connection conn = getConnection();
-		
 		BoardDAO dao = new BoardDAO();
-		
 		int result = dao.updateCount(conn, bNo);
-		
 		Questions qBoard = null;
 		
 		if(result > 0) {
 			qBoard = dao.selectBoard(conn, bNo);
 			
-			if(qBoard != null) {
-				commit(conn);
-			}else {
-				rollback(conn);
-			}
-		}else {
-			rollback(conn);
 		}
 		close(conn);
 		
@@ -322,7 +312,7 @@ public class BoardService {
 		int result1 = DAO.insertQuestions1(conn, q);
 
 		if(result1>0) {
-			int result2 = DAO.insertQuestions2(conn, q.getBoPwd(), q.getSelectBoard());
+			int result2 = DAO.insertQuestions2(conn, q.getBoPwd(), q.getQuSub());
 			finalResult = result2;
 			if(result2>0 && uploadFile.getOrignName()!=null) {
 

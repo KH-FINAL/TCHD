@@ -67,8 +67,7 @@ public class QuestionsWriteServlet extends HttpServlet {
 		String content = multiRequest.getParameter("input_content");
 		String title= multiRequest.getParameter("input_title");
 		int userNo = ((Member)session.getAttribute("loginUser")).getMem_no();
-		String pass = multiRequest.getParameter("q_password"); //아니 이걸 대체 어떻게 집어넣으란겨;;;;
-		
+		String pass = multiRequest.getParameter("q_password"); 
 	
 
 		Questions q = new Questions(2, title,  content, pass, selectBoard, userNo);

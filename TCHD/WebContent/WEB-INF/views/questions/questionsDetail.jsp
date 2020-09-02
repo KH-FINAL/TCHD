@@ -37,7 +37,7 @@
        			</div>
 				
 			</div>
-     		<br>
+     		
 			<div id = "hr_line"><hr></div>
 			<div class="board_list">
 				<div id = "div_head">
