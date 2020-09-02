@@ -19,13 +19,26 @@
 	}
 	#notice tr{
 		height: 30px;
+		border-bottom: 1px solid #ccc;
 	}
 
 	#noticeDate{
 		text-align: center;
 	}
 	#noticeTitle{
-		padding-left: 10px;
+		padding: 6px 25px;
+	}
+	#noticeTitle:hover{
+		text-decoration: underline;
+		cursor: pointer;
+	}
+	
+	.notice_th{
+		border-top: 3px solid rgb(41, 128, 185);
+		border-bottom: 1px solid #ccc;
+	}
+	table{
+		border-collapse : collapse;
 	}
 	
 	/*  */

@@ -30,7 +30,7 @@
 		  <tr>
 		    <td><span id = "span1">*</span><b>제목</b></td>
 		    <td class="align_left">
-		    <input type="text" name="input_title" class="btn" placeholder="제목을 입력해주세요" size="80" ></td>
+		    <input type="text" name="input_title" id="input_title" class="btn" placeholder="제목을 입력해주세요" size="80" ></td>
 		  </tr>
 		  <tr>
 		  	<td><b>비밀번호</b></td>
@@ -67,18 +67,25 @@
          $(':focus').blur();     
       })
       
-/*        function validate(){
-		
+        function validate(){
+    	  console.log("실행");
 		var title=$('#input_title');
+		var content=$('.content');
+		
 	
 		if(title.val().trim().length<1){
 			swal("","제목을 입력해주세요","info");
 			title.focus();
 			return false;
 		}
+		if(content.val().trim().length<1){
+			swal("","내용을 입력해주세요","info");
+			content.focus();
+			return false;
+		}
 		
-		return true; */
-	/* }; */
+		return true; 
+	 }; 
    </script>
    </section>
 </body>

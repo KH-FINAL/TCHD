@@ -18,15 +18,59 @@
 				<li><a href="leaveForm.me">회원 탈퇴</a></li>
 			</ul>
 		</nav>
-		<form id="confirmPwForm" method="post" action="confirmPw.me">
+		<div  id="confirmPwForm">
+		<!-- <form id="confirmPwForm" method="post" action="confirmPw.me"> -->
 			비밀번호를 입력해주세요.	
 			<div >
 				<label>비밀번호</label>
-				<input type="password" name="inputPw" required><br>
-				<button type="submit">확인</button>
+				<input type="password" name="inputPw" id="inputPw" required><br>
+				<button type="button"id="checkBtn">확인</button>
+				
 			</div>
-		</form>
+		</div>
+		<!-- </form> -->
 	</article>
+	<script>
+		$(function(){
+			$("#checkBtn").click(function(){
+				var inputPw =$("#inputPw"); 
+				console.log(inputPw.val());
+				
+				if(inputPw.val().length==0){
+					swal("","비밀번호를 입력하세요.","info");
+				}else{
+					
+					$.ajax({
+						url: "confirmPw.me",
+						type: "post",
+						data: {inputPw: inputPw.val()},
+						success: function(data){
+							console.log(data);
+							if(data==1){
+								swal("","비밀번호가 일치합니다. 마이페이지로 이동합니다,","success")
+								.then((ok) =>{
+									if(ok){
+										location.href="myPage.me";
+									}
+								});
+							}else{
+								swal("","비밀번호가 틀립니다.","error");
+								inputPw.val("");
+							}
+							
+						},
+						error: function(data){
+							alert("ajax 에러 발생")
+						}
+						
+					});
+				}
+				
+			});
+			
+		});
+		
+	</script>
 </section>
 </body>
 </html>

@@ -342,6 +342,7 @@ public class BoardDAO {
 			pstmt.setString(9, a.getPetColor());
 			pstmt.setString(10, a.getPetSize());
 			pstmt.setString(11, a.getPetComment());
+		
 			
 			result = pstmt.executeUpdate();
 	} catch (SQLException e) {
@@ -943,5 +944,99 @@ public class BoardDAO {
 		}
 		return replyList;
 	}
-}
+
+	public ArrayList<Notice> searchNotice(Connection conn, String search, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Notice> noticeList = new ArrayList<Notice>();
+		
+		int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() +1;
+		int endRow = startRow + pi.getBoardLimit() -1;
+	  
+		try {
+			pstmt= conn.prepareStatement(prop.getProperty("searchNotice"));
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			pstmt.setString(3, search);
+			pstmt.setString(4, search);
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Notice notice = new Notice(
+						rset.getInt("BO_NO"), 
+						rset.getString("BO_TITLE"), 
+						rset.getString("BO_CONTENT"), 
+						rset.getDate("BO_DATE"), 
+						rset.getInt("BO_COUNT"),
+						null, 
+						rset.getString("NOTICE_SUBJECT"), 
+						rset.getInt("RNUM")
+						);
+				noticeList.add(notice);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+		return noticeList;
 	
+	}
+
+	public int searchNoticeCount(Connection conn, String search) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		try {
+			pstmt= conn.prepareStatement(prop.getProperty("searchNoticeCount"));
+			pstmt.setString(1, search);
+			pstmt.setString(2, search);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
+
+	public ArrayList<Notice> selectNoticeMainPage(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset= null;
+		ArrayList<Notice> noticeList = new ArrayList<Notice>();
+		
+		try {
+			pstmt= conn.prepareStatement(prop.getProperty("selectNoticeMainPage"));
+			pstmt.setString(1, "공지사항");
+			rset= pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Notice notice= new Notice(rset.getInt("BO_NO"), 
+						rset.getString("BO_TITLE"), 
+						null, 
+						rset.getDate("BO_DATE"), 
+						0,
+						null, 
+						rset.getString("NOTICE_SUBJECT"), 
+						0);
+				
+				noticeList.add(notice);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return noticeList;
+	}
+}

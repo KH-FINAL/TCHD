@@ -5,12 +5,14 @@
 	ArrayList<Notice> noticeList = (ArrayList<Notice>)request.getAttribute("noticeList");
 	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	String search = (String)request.getAttribute("search");
 	
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
+	System.out.println(listCount + " / "+ currentPage+ " / "+ maxPage+" / "+startPage+ " / "+endPage);
 %>
 <!DOCTYPE html>
 <html>
@@ -22,12 +24,12 @@
       <div id="ment">공지사항</div>
       <div id="search_div">
          <input type="text" id="search_input">
-         <button id="search_button">검색</button>
+         <button id="search_button" onclick="goSearch();">검색</button>
       </div>
       <div id="notice_list_div">
          <table id="notice_list_table">
             <tr>
-               <th>번호</th>
+               
                <th>제목</th>
                <th>작성자</th>
                <th>작성일자</th>
@@ -35,13 +37,13 @@
             </tr>
            <%if(noticeList.isEmpty()){ %>
            	<tr>
-           		<td colspan="5">조회결과가 없습니다.</td>
+           		<td colspan="4">조회결과가 없습니다.</td>
            	</tr>
            <%}else{ %>
            	<%for(int i=0; i<noticeList.size();i++){ %>
             <tr class="noticeTr">
-               <td><%=noticeList.get(i).getrNum() %><input type="hidden" class="bNo" value='<%=noticeList.get(i).getBoNo() %>'></td>
-               <td class="tit">[<%=noticeList.get(i).getNoticeSubject()%>]<%=noticeList.get(i).getBoTitle() %></td>
+               <input type="hidden" class="bNo" value='<%=noticeList.get(i).getBoNo() %>'>
+               <td class="tit">[<%=noticeList.get(i).getNoticeSubject()%>] <%=noticeList.get(i).getBoTitle() %></td>
                <td>관리자</td>
                <td><%=noticeList.get(i).getBoDate() %></td>
                <td><%=noticeList.get(i).getBoCount() %></td>
@@ -58,15 +60,15 @@
        <%} %>
       </div>
   		<div  class="paging">			
-			<a href="listMyBoard.bo?currentPage=<%=currentPage-1 %>" class="bt" id="beforBtn">이전 페이지</a>			
+			<a href="list.no?currentPage=<%=currentPage-1 %>" class="bt" id="beforBtn">이전 페이지</a>			
 			<%for(int p=startPage; p<=maxPage; p++){ %>
 	   					<% if(p==currentPage){ %>
-	   					 <a href="listMyBoard.bo?currentPage=<%=p %>" class="num on"><%=p %></a>
+	   					 <a href="list.no?<%if(search!=null){%>search=<%=search %>&<%} %>currentPage=<%=p %>" class="num on"><%=p %></a>
 	   					<%}else{ %>
-	   					 <a href="listMyBoard.bo?currentPage=<%=p %>" class="num"><%=p %></a>
+	   					 <a href="list.no?<%if(search!=null){%>search=<%=search %>&<%} %>currentPage=<%=p %>" class="num"><%=p %></a>
 	   					<%} %>
 	   		<%} %>	
-   		  <a href="listMyBoard.bo?currentPage=<%=currentPage+1 %>" class="bt" id="nextBtn">다음 페이지</a>
+   		  <a href="list.no?currentPage=<%=currentPage+1 %>" class="bt" id="nextBtn">다음 페이지</a>
             </div>	
    </section>
 <script>
@@ -91,7 +93,17 @@ $(function(){
 		before.css("visibility","hidden");
 	}
 	
-})
+	
+});
+	function goSearch(){
+		var search = $('#search_input');
+		if(search.val().trim().length==0){
+			swal("","검색어를 입력해주세요.","info");
+			search.focus();	
+		}else{
+			location.href="search.no?search="+search.val().trim();
+		}
+	}
 </script>
 </body>
 </html>

@@ -395,8 +395,43 @@ public class BoardService {
 		return replyList;
 	}
 	
-	
-	
+
+
+	public ArrayList<Notice> searchNotice(String search, PageInfo pi) {
+		Connection conn = getConnection();
+		
+		ArrayList<Notice> noticeList = new BoardDAO().searchNotice(conn,search,pi);
+		
+		close(conn);
+		
+		return noticeList;
+	}
+
+
+
+	public int searchNoticeCount(String search) {
+		Connection conn = getConnection();
+		
+		int count = new BoardDAO().searchNoticeCount(conn,search);
+		
+		close(conn);
+		
+		return count;
+		
+		
+	}
+
+
+
+	public ArrayList<Notice> selectNoticeMainPage() {
+		Connection conn = getConnection();
+		
+		ArrayList<Notice> noticeList = new BoardDAO().selectNoticeMainPage(conn);
+		
+		close(conn);
+		
+		return noticeList;
+	}
 
 
 } // class end

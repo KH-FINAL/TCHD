@@ -22,20 +22,25 @@ public class ConfirmPwServlet extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if((Member)request.getSession().getAttribute("loginUser")==null) {
+			request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
+			request.setAttribute("errorMsg", "세션이 만료되었습니다. 다시 로그인해주세요.");
+			request.getRequestDispatcher("index.jsp").forward(request, response);
+		}
+		
+		
 		String inputPw= request.getParameter("inputPw");
 		String loginUserId = ((Member)request.getSession().getAttribute("loginUser")).getMem_id();
-		System.out.println(inputPw);
-		System.out.println(loginUserId);
-		System.out.println(loginUserId);
 
-		
 		
 		int result = new MemberService().confirmPw(loginUserId,inputPw);
 		if(result>0) {
 			request.getSession().setAttribute("confirmPw", "confirmed");
-			response.sendRedirect("myPage.me");
+			response.getWriter().println("1");
+			//response.sendRedirect("myPage.me");
 		}else {
-			response.sendRedirect("myPage.me");
+			//response.sendRedirect("myPage.me");
+			response.getWriter().println("0");
 		}
 	}
 
