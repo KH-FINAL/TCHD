@@ -854,12 +854,13 @@ public class BoardDAO {
 		}
 
 	
-	public int insertQuestions2(Connection conn, String boPwd) {
+	public int insertQuestions2(Connection conn, String boPwd, String selectBoard) {
 		PreparedStatement pstmt = null;
 		int result= 0;
 		try {
 			pstmt = conn.prepareStatement(prop.getProperty("insertQuestions2"));
 			pstmt.setString(1, boPwd);
+			pstmt.setString(2, selectBoard);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

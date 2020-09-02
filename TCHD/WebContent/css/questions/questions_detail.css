@@ -143,7 +143,6 @@ width: 1000px;
 
 #hr_line{
 	width: 1000px;
-	margin-left: 150px;
 }
 
 .btn{
@@ -168,6 +167,13 @@ width: 1000px;
 /* 	text-align: right; */
 	float: right;
 	 margin-right: 150px;
+}
+#img_div {
+	padding: 50px 0px;
+}
+
+#img_div img {
+	width: 1000px;
 }
 
 .text_align_center{

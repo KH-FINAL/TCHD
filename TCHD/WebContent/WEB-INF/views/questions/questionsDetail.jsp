@@ -1,17 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="board.model.vo.Questions, member.model.vo.Member, board.model.vo.*" %>
+<%@page import="java.util.ArrayList"%>
 <% Questions q = (Questions)request.getAttribute("qBoard");
-	Files file = (Files)request.getAttribute("file");
+	ArrayList<Files> fileList = (ArrayList<Files>)request.getAttribute("file");
+	Files file =null;
+	if(fileList!=null){
+		for(int i=0; i<fileList.size();i++){
+			file = fileList.get(i);
+		}
+	}
+	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="css/questions_detail.css" type="text/css">
+<link rel="stylesheet" href="css/questions/questions_detail.css" type="text/css">
 </head>
 <body>
- 	<section>
+ 	<section><!-- <span>첨부파일 : example.PNG</span> -->
 		<div id = "ment" class="board_list_wrap">문의게시판</div>
 		
      	<div class = "board_list_design">
@@ -21,14 +29,15 @@
      				
      			</div>
      		<div id = "div1" class = "div-color">
-				<img src="images/questions(1).png" width="600px" height="380px"><span>첨부파일 : example.PNG</span>
-		  		<br>
-				<div>
-					<%= q.getBoContent() %>
-				</div>
+				<div id="img_div">
+           		 <%if(file!=null){ %>
+        		    <img src="upload_imageFiles/<%=file.getChangeName()%>"></div>
+        	    <%} %>
+        		    <div id="contents"><%=q.getBoContent() %></div>
+       			</div>
 				
 			</div>
-     		</div>
+     		<br>
 			<div id = "hr_line"><hr></div>
 			<div class="board_list">
 				<div id = "div_head">

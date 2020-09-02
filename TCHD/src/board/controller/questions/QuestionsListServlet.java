@@ -90,7 +90,6 @@ public class QuestionsListServlet extends HttpServlet {
 		ArrayList<Questions> Qlist = qService.selectQList(pi);
 		
 		
-		System.out.println(Qlist);
 		if(Qlist != null) {
 			 request.setAttribute("section", "WEB-INF/views/questions/questionsList.jsp");
 			request.setAttribute("Qlist", Qlist);

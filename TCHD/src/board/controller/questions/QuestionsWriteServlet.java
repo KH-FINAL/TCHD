@@ -43,32 +43,35 @@ public class QuestionsWriteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		if(ServletFileUpload.isMultipartContent(request)) {
-			int maxSize = 1024*1024*10;
-			String root = request.getSession().getServletContext().getRealPath("/");
+			int maxSize = 1024*1024*10; // 최대용량 10MB
+			String root = request.getSession().getServletContext().getRealPath("/"); //최상위 경로(WebContent)로 보낼때
 			String savePath = root + "upload_imageFiles/";
 	
 			File f= new File(savePath);
 			if(!f.exists()) {
-				f.mkdirs();
-				
+				f.mkdirs();// 폴더 없으면 만들고 시작? 근데 왜 만들어지지
 			}
+			System.out.println(savePath); //콘솔엔 폴더주소 잘 찍힘..
 		
-		MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize,"UTF-8", new MyFileRenamePolicy()); 
-		
-		HttpSession session = request.getSession();
-		String saveFile = multiRequest.getFilesystemName("input_file");	// form에서 전송되는 파일이름
-		String originFile = multiRequest.getOriginalFileName("input_file");	// form에서 전송되는 파일이름
+			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+			//파일이름이 중복일 때 
+			
+			
+		//파일 하나만 올릴수있으므로 arrayList 사용 x
+		String saveFile = multiRequest.getFilesystemName("file");	// 바뀐 파일명
+		String originFile = multiRequest.getOriginalFileName("file");	// 실제 업로드했던 파일명
 	
 		String selectBoard = multiRequest.getParameter("input_subject");
 		String content = multiRequest.getParameter("input_content");
 		String title= multiRequest.getParameter("input_title");
-		String userId = ((Member)session.getAttribute("loginUser")).getMem_id();
-		String pass = multiRequest.getParameter("q_password");
+		int userNo = ((Member)session.getAttribute("loginUser")).getMem_no();
+		String pass = multiRequest.getParameter("q_password"); //아니 이걸 대체 어떻게 집어넣으란겨;;;;
 		
 	
 
-		Questions q = new Questions(0, title, content, null , null , 0, selectBoard, 2);
+		Questions q = new Questions(2, title,  content, pass, selectBoard, userNo);
 		
 		
 		Files uploadFile =  new Files();
@@ -80,8 +83,6 @@ public class QuestionsWriteServlet extends HttpServlet {
 		
 		int result = new BoardService().insertQuestions(q, uploadFile);
 		
-		
-		
 		if(result>0) {
 			response.sendRedirect("list.qu");
 		}else {
@@ -92,10 +93,11 @@ public class QuestionsWriteServlet extends HttpServlet {
 			request.setAttribute("errorMsg", "문의사항 등록에 실패하였습니다.");
 			request.setAttribute("section","WEB-INF/views/common/errorPage.jsp");
 			request.getRequestDispatcher("index.jsp").forward(request, response);
+			}
 		}
 	}
 	
-	}
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

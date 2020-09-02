@@ -18,7 +18,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<link rel="stylesheet" href="css/questions_list.css" type="text/css">
+<link rel="stylesheet" href="css/questions/questions_list.css" type="text/css">
 <meta charset="UTF-8">
 <body>
 	<section>
@@ -40,17 +40,17 @@
 		               <td colspan="6">조회된 리스트가 없습니다.</td>
 		            </tr>
 		            <% } else{ %>
-		         	   <% for(Questions q : Qlist){ %>
+		         	   <% for(int i=0; i < Qlist.size(); i++){ %>
 		         	   <tr>
 			         	   <td class="td_boNo">
-			         	   	<input type="hidden" value="<%= q.getBoNo()%>">
-			         	   <%= q.getBoNo() %>
+			         	   	<input type="hidden" value="<%=Qlist.get(i).getBoNo() %>">
+			         	   <%=Qlist.get(i).getBoNo() %>
 			         	   </td>
-			         	   <td><%= q.getCateName() %></td>
-			         	   <td class="tet"><%= q.getBoTitle() %></td>
-			         	   <td><%= q.getMemId() %></td>
-			         	   <td><%= q.getBoCount() %></td>
-			         	   <td><%= q.getBoDate() %></td>
+			         	   <td><%= Qlist.get(i).getSelectBoard() %></td>
+			         	   <td class="tet"><%= Qlist.get(i).getBoTitle() %></td>
+			         	   <td><%= Qlist.get(i).getMemId() %></td>
+			         	   <td><%= Qlist.get(i).getBoCount() %></td>
+			         	   <td><%= Qlist.get(i).getBoDate() %></td>
 			         	</tr>   
 				        <% } %>
 				   <% } %>

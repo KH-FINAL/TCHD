@@ -4,7 +4,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="css/common.css" type="text/css">
-<link rel="stylesheet" href="css/questions_write.css" type="text/css">
+<link rel="stylesheet" href="css/questions/questions_write.css" type="text/css">
 </head>
 <body>
 	<section>
@@ -19,12 +19,12 @@
 			<td width="750px" class="align_left" id="sub_td">
 			<select name="input_subject" id="subject" class="btn" size = "1">
 			<option value = "0">----------------</option>
-			<option value = "MP">회원정보</option>
-			<option value = "AD">입양</option>
-			<option value = "MO">후원</option>
-			<option value = "VO">봉사</option>
-			<option value = "AN">유기동물</option>
-			<option value = "ET">etc</option>
+			<option value = "회원정보">회원정보</option>
+			<option value = "입양관련">입양관련</option>
+			<option value = "후원관련">후원관련</option>
+			<option value = "봉사관련">봉사관련</option>
+			<option value = "유기동물">유기동물</option>
+			<option value = "etc">etc</option>
 			</select></td>
 			</tr>
 		  <tr>
@@ -43,7 +43,7 @@
 		    <td id = "content_file"><b>첨부파일</b></td>
 		    <td class="align_left"><div class="filebox">
   					<label for="ex_file">파일 선택</label>
- 					 <input type="file" id="ex_file" name="input_file" accept=".png, .jpg">		
+ 					 <input type="file" id="ex_file" name="file" accept=".png, .jpg">		
  					 <span>&nbsp;&nbsp;&nbsp;&nbsp;이미지파일(PNG, JPG)만 첨부 가능합니다.</span>
 				</div>
 			</td>

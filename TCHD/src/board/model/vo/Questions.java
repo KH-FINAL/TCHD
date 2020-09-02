@@ -109,6 +109,16 @@ public class Questions {// 문의게시판
 		this.boType=boType;
 	}
 
+	public Questions( int boType, String boTitle, String boContent, String boPwd, String selectBoard, int memNo) {
+		super();
+		this.boType = boType;
+		this.boTitle = boTitle;
+		this.boContent = boContent;
+		this.boPwd = boPwd;
+		this.selectBoard=selectBoard;
+		this.memNo=memNo;
+	}
+
 	public int getBoType() {
 		return boType;
 	}

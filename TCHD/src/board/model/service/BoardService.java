@@ -322,7 +322,7 @@ public class BoardService {
 		int result1 = DAO.insertQuestions1(conn, q);
 
 		if(result1>0) {
-			int result2 = DAO.insertQuestions2(conn, q.getBoPwd());
+			int result2 = DAO.insertQuestions2(conn, q.getBoPwd(), q.getSelectBoard());
 			finalResult = result2;
 			if(result2>0 && uploadFile.getOrignName()!=null) {
 
