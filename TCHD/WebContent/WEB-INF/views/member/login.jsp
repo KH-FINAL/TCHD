@@ -15,7 +15,7 @@
 
 			<div>
 				<label class="login_label">&nbsp;&nbsp;&nbsp;아이디&nbsp;&nbsp;</label>
-				<input type="text" id="input_id" class="login_input" name="userId">
+				<input type="text" id="input_id" class="login_input" name="userId"> <!-- autocomplete="off" : 기록 안보이게(자동완성X) -->
 			</div>
 
 			<br>
@@ -77,7 +77,7 @@
 				
 				if(pwd.val().trim().length == 0){
 					swal("","비밀번호를 입력해주세요.","info")
-					.then((ok)=>{
+					.then((ok) => {
 						if(ok){
 							pwd.focus();
 						}

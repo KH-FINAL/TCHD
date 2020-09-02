@@ -64,3 +64,14 @@
 	border-radius: 10px;
 	font-size: 17px;
 }
+/* 로딩중 gif */
+#loading_div{
+	position: absolute;
+	left: 48%;
+	top: 56%;
+	background: none;
+}
+#loading_div img{
+	width: 60px;
+	heigh: 60px;
+}
