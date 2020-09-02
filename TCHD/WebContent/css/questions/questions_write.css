@@ -27,6 +27,7 @@ a {
 
 
 
+
 .board_list {
     border-top: 3px solid rgb(41, 128, 185);
     margin: 30px auto; /* 가운데 정렬됨 */
@@ -77,7 +78,7 @@ a {
     text-align: left;
 }
 
-.board_list .content {
+.board_list .content{
     
     border-radius:  3px;
     width: 730px;
@@ -87,6 +88,12 @@ a {
     padding: 10px;
 }
 
+.content:focus{
+	border: none;
+   outline: 2px solid rgba(41, 128, 185, 0.5);
+}
+
+
 .board_list .btn{
 	height: 20px;
 	font-size: 13px;
@@ -94,6 +101,10 @@ a {
 	border-radius: 3px;
 }
 
+.btn:focus{
+	border: none;
+   outline: 2px solid rgba(41, 128, 185, 0.5);	
+}
 .board_list .align_left{
 	text-align: left;
 	

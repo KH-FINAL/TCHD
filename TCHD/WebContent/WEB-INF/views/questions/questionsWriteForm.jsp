@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+  
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,14 +18,14 @@
 			<tr>
 			<td width="100px"><span id = "span1">*</span><b>분류</b> </td>
 			<td width="750px" class="align_left" id="sub_td">
-			<select name="input_subject" id="subject" class="btn" size = "1">
-			<option value = "0">----------------</option>
-			<option value = "회원정보">회원정보</option>
-			<option value = "입양관련">입양관련</option>
-			<option value = "후원관련">후원관련</option>
-			<option value = "봉사관련">봉사관련</option>
-			<option value = "유기동물">유기동물</option>
-			<option value = "etc">etc</option>
+			<select name="input_subject" id="subject" class="btn">
+				<option value = "0">----------------</option>
+				<option value = "회원정보">회원정보</option>
+				<option value = "입양관련">입양관련</option>
+				<option value = "후원관련">후원관련</option>
+				<option value = "봉사관련">봉사관련</option>
+				<option value = "유기동물">유기동물</option>
+				<option value = "etc">etc</option>
 			</select></td>
 			</tr>
 		  <tr>
@@ -65,19 +66,17 @@
 	<script type="text/javascript">
       $('#ex_file').focus(function(){
          $(':focus').blur();     
-      })
+      });
+      
+      
       
 		function validate(){
     	  console.log("실행");
     	  
+			
 			var title=$('#input_title');
 			var content=$('.content');
-			/*  var subject = $('#sub_td').chidren('select option:selected').val(); */
 			
- 			/* if(subject == 0){
-			   	swal("", "분류를 선택해주세요.", "info");
-			   	return false;
-		   	}  */
 			
 			if(title.val().trim().length<1){
 				swal("","제목을 입력해주세요","info");

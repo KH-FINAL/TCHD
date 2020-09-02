@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.ArrayList, board.model.vo.*, member.model.vo.Member"  %>    
-<%
-	@SuppressWarnings("unchecked")
+<%@ page import="java.util.ArrayList, board.model.vo.*, member.model.vo.Member, board.model.vo.Questions"  %>     
+<%  @SuppressWarnings("unchecked")
+	Questions q = (Questions)request.getAttribute("qBoard"); 
 	ArrayList<Questions> Qlist = (ArrayList<Questions>)request.getAttribute("Qlist");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	Member loginUser = (Member)session.getAttribute("loginUser");
@@ -123,11 +123,65 @@
    			<% if(loginUser != null){%>
    			location.href="<%= request.getContextPath() %>/detail.qu?bNo=" + bNo;
    			<% } else { %>
-   				alert('비밀게시글은 로그인 회원만 조회가능합니다.'); //테스트용. 추후에 비밀번호입력창으로 수정할것
+   				swal({
+  					title : '비밀글입니다!',
+  					text : '비밀번호를 입력해주세요.', 					
+  					content: {
+  					element : "input",
+  					attributes : {
+  					placeholder : "숫자 4자리 암호를 입력해주세요",
+  					type : "password",
+  					},
+  				},
+  				dangerMode : true, //확인 버튼 붉게
+  				closeOnClickOutside: false,
+  				closeOnEsc: false,
+  				buttons : {
+  						cancle : {
+  						text : '닫기',
+  						value : false,
+  					},
+  					confirm : {
+  						text : '입력',
+  						value : true
+  					}
+  				}
+  			}).then((result) => {   //value를 result로 받음
+  				<%-- if(result == <%=q.getBoPwd() %>){ 비번이랑 boPwd랑 일치시켜야하는데 잘 안됨,. --%>
+  				if(result){
+  					console.log(result);
+  					swal('입력 성공', '비밀번호가 일치합니다.','success',{
+  						closeOnClickOutside : false,
+  						closeOnEsc : false,
+  						buttons : {
+  							confirm : {
+  								text : '확인',
+  								value : true
+  							}
+  						}
+  					}).then((result) => {
+  						if(result){
+  							location.href="<%= request.getContextPath() %>/detail.qu?bNo=" + bNo;
+  						}
+  					})
+  				} else {
+  					swal('입력 실패', '비밀번호가 틀렸습니다.','warning',{
+  						closeOnClickOutside : false,
+  						closeOnEsc : false,
+  						buttons : {
+  							confirm : {
+  								text : '확인',
+  								value : true
+  							}
+  						}
+  					});
+					}
+				});
    			<% } %>	
    		
    		});
    	});
    </script>
+  
  </body>
 </html>
