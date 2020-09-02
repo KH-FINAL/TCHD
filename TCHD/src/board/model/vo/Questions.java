@@ -56,9 +56,9 @@ public class Questions {// 문의게시판
 	  boDeleteYn; }
 	 
 
-	// insert
+	// 작성
 	public Questions(int boNo, String boTitle, String boContent, int boCount, Date boDate, String memId,
-			String boDeleteYn, String questionsSubject, String comContent, Date comDate) {
+			String boDeleteYn, String questionsSubject, String comContent, Date comDate, String boPwd) {
 		super();
 		this.boNo = boNo;
 		this.boTitle = boTitle;
@@ -70,6 +70,7 @@ public class Questions {// 문의게시판
 		this.questionsSubject = questionsSubject;
 		this.comContent = comContent;
 		this.comDate = comDate;
+		this.boPwd = boPwd;
 	}
 
 	public Questions(int boNo, int boType, String cateName, String boTitle, String boContent, int boCount, Date boDate,
@@ -238,7 +239,9 @@ public class Questions {// 문의게시판
 	public void setQuestionsSubject(String questionsSubject) {
 		this.questionsSubject = questionsSubject;
 	}
-
+	
+	
+		
 	@Override
 	public String toString() {
 		return "Questions [boNo=" + boNo + ", boType=" + boType + ", cateName=" + cateName + ", boTitle=" + boTitle

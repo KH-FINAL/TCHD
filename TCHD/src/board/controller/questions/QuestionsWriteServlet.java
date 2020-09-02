@@ -66,22 +66,21 @@ public class QuestionsWriteServlet extends HttpServlet {
 			}
 		}
 		
-		
-		
-		
 	
 		String saveFile = multiRequest.getFilesystemName("input_file");	// form에서 전송되는 파일이름
 		String originFile = multiRequest.getOriginalFileName("input_file");	// form에서 전송되는 파일이름
 	
 		String selectBoard = multiRequest.getParameter("selectBoard");
 		String title= multiRequest.getParameter("input_title");
-		String content = multiRequest.getParameter("input_content");
-		String userId = multiRequest.getParameter("loginUser");
+		String content = multiRequest.getParameter("content");
+		String userId = ((Member)session.getAttribute("loginUser")).getMem_id();
 		String comContent = multiRequest.getParameter("comContent");
+		String pass = multiRequest.getParameter("q_password");
+		System.out.println(content);
 	
 
-		//DB에 저장할 객체 - Board테이블
-		Questions q = new Questions(0,title, content, 0, null, userId, null, selectBoard, comContent, null);
+		//DB에 저장할 객체 - Quesitons테이블
+		Questions q = new Questions(0 ,title, content, 0, null, userId, null, selectBoard, comContent, null, pass);
 	
 		Files uploadFile =  new Files();
 		uploadFile.setFilePath(savePath);

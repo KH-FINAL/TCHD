@@ -16,15 +16,15 @@
 		<table class="board_list">
 			<tr>
 			<td width="100px"><span id = "span1">*</span><b>분류</b> </td>
-			<td width="750px" class="align_left">
-			<select name="input_subject" class="btn" size = "1">
-			<option value = "ze">----------------</option>
-			<option value = "bo">회원정보</option>
-			<option value = "bo">입양</option>
-			<option value = "bo">후원</option>
-			<option value = "bo">봉사</option>
-			<option value = "bo">유기동물</option>
-			<option value = "bo">etc</option>
+			<td width="750px" class="align_left" id="sub_td">
+			<select name="input_subject" id="subject" class="btn" size = "1">
+			<option value = "0">----------------</option>
+			<option value = "MP">회원정보</option>
+			<option value = "AD">입양</option>
+			<option value = "MO">후원</option>
+			<option value = "VO">봉사</option>
+			<option value = "AN">유기동물</option>
+			<option value = "ET">etc</option>
 			</select></td>
 			</tr>
 		  <tr>
@@ -51,7 +51,7 @@
 		  <tr>
 		  <td id ="content_top"><b>내용</b></td>
 		    <td>
-		    	<textarea name="content" class="content" cols="110" rows="25"></textarea>
+		    	<textarea name="content" id="content" class="content" cols="110" rows="25"></textarea>
 		    </td>
 		  </tr>
 		</table>
@@ -67,26 +67,32 @@
          $(':focus').blur();     
       })
       
-        function validate(){
+		function validate(){
     	  console.log("실행");
-		var title=$('#input_title');
-		var content=$('.content');
-		
-	
-		if(title.val().trim().length<1){
-			swal("","제목을 입력해주세요","info");
-			title.focus();
-			return false;
-		}
-		if(content.val().trim().length<1){
-			swal("","내용을 입력해주세요","info");
-			content.focus();
-			return false;
-		}
-		
-		return true; 
-	 }; 
+    	  
+			var title=$('#input_title');
+			var content=$('.content');
+			/*  var subject = $('#sub_td').chidren('select option:selected').val(); */
+			
+ 			if(subject == 0){
+			   	swal("", "분류를 선택해주세요.", "info");
+			   	return false;
+		   	}  */
+			
+			if(title.val().trim().length<1){
+				swal("","제목을 입력해주세요","info");
+				title.focus();
+				return false;
+			}
+			if(content.val().trim().length<1){
+				swal("","내용을 입력해주세요","info");
+				content.focus();
+				return false;
+			}
+			
+			return true;
+	};
    </script>
-   </section>
+ </section>
 </body>
 </html>
