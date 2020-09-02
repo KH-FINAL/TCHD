@@ -100,7 +100,7 @@
 							<li>동물병원</li>
 						</ul ></li>
 						<li class="naviDetail_li"><a>고객센터</a><ul id="menuBar4" class="menuBar">
-								<li>문의게시판</li>
+								<li>문의사항</li>
 							</ul>
 							</li>
 				</ul>

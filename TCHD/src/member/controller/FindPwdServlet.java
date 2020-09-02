@@ -55,6 +55,8 @@ public class FindPwdServlet extends HttpServlet {
 					new sendMail().sendEmail("pwd", email, temporaryPwd);
 					
 					System.out.println("메일 전송 완료_pwd");
+					
+					response.getWriter().println("1");
 				} else {
 					request.setAttribute("errorMsg", "비밀번호 찾기에 실패하였습니다.");
 					request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");

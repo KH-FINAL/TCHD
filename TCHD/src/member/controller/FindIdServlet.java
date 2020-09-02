@@ -42,14 +42,7 @@ public class FindIdServlet extends HttpServlet {
 			}
 			System.out.println("메일 전송 완료_id");
 			
-			// "메일 전송 완료"가 콘솔창에 찍힘과 동시에 메인화면으로 이동
-			// 확인 버튼을 누른 시간 ~ 메일이 전송되는 시간
-			// 이 사이 시간에 "잠시만 기다려주세요" 이런 멘트를 화면에 띄우고 싶은데
-			// 고민 좀!
-			
 			response.getWriter().println("1");
-//			response.sendRedirect(request.getContextPath());
-//			request.setAttribute("section", "WEB-INF/views/common/main.jsp");
 			
 		} else {
 			request.setAttribute("errorMsg", "아이디 찾기에 실패하였습니다.");
