@@ -50,7 +50,7 @@
 		</div>
 
 		<script>
-			$(function(){
+			function validate(){
 				var id = $("#input_id");
 				var pwd = $("#input_pw");
 				
@@ -72,7 +72,7 @@
 						}
 					});
 					
-// 					return;
+					return;
 				}
 				
 				if(pwd.val().trim().length == 0){
@@ -83,27 +83,27 @@
 						}
 					});
 					
-// 					return;
+					return;
 				}
 					
 				$.ajax({
-					url: "login.me",
-					type: "post",
-					data: {userId:id.val(), userPwd:pwd.val()},
+					url: "login.me", 
+					type: "post", 
+					data: {userId:id.val(), userPwd:pwd.val()}, 
 					success: function(data){
-						if(data==1){
+						if(data == 1){
 							location.href="<%=request.getContextPath()%>";
 						}else{
 							swal("로그인 실패","입력한 정보를 가진 회원이 없습니다.","error");
 							id.val("");
 							pwd.val("");
 						}
-					},
+					}, 
 					error: function(data){
 						alert("ajax에러 발생");
 					}
 				});
-			});
+			}
 		</script>
 	</section>
 </body>
