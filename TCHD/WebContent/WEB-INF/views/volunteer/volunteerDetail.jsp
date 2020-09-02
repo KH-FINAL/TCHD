@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="board.model.vo.*, board.model.vo.Volunteer, member.model.vo.Member, java.util.ArrayList" %>
-<% 
+<%
 	Volunteer v = (Volunteer)request.getAttribute("volunteer");
 	Member loginUser = (Member)session.getAttribute("loginUser");
-	ArrayList<Reply> replyList = (ArrayList<Reply>)request.getAttribute("replyList");
+	ArrayList<Comments> commentsList = (ArrayList<Comments>)request.getAttribute("commentsList");
 %>
 <!DOCTYPE html>
 <html>
@@ -111,16 +111,16 @@
 			<hr class="hr">
 			<div class="comment_list">
 				<table id="replySelectTable">
-					<% if(replyList.isEmpty()){ %>
+					<% if(commentsList.isEmpty()){ %>
 					<tr>
 						<td colspan="3">댓글이 없습니다.</td>
 					</tr>
 					<% } else { %>
-					<% for(int i = 0; i < replyList.size(); i++) { %>
+					<% for(int i = 0; i < commentsList.size(); i++) { %>
 					<tr>
-						<td width="100px"><%= replyList.get(i).getReplyWriter() %></td>
-						<td width="400px"><%= replyList.get(i).getReplyContent() %></td>
-						<td width="200px"><%= replyList.get(i).getCreateDate() %></td>
+						<td width="100px"><%= commentsList.get(i).getMemId() %></td>
+						<td width="400px"><%= commentsList.get(i).getComContent() %></td>
+						<td width="200px"><%= commentsList.get(i).getComDate() %></td>
 					</tr>
 					<% } %>
 					<% } %>

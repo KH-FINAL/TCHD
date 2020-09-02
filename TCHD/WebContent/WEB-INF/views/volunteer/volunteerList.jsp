@@ -13,8 +13,6 @@
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
-	
-	
 %>
 <!DOCTYPE html>
 <html>
@@ -65,9 +63,17 @@
 							<td><%= v.getMemId() %></td>				<!-- 작성자 -->
 							<td><%= v.getBoDate() %></td> 				<!-- 작성일자 -->
 							<td><%= v.getVoMaxmember() %></td>			<!-- 모집인원 -->
-							<td>
-								
-							</td>									<!-- 마감유무 -->
+							<td id="deadline">										<!-- 마감유무 -->								
+								<% if((v.getVoMaxmember()-v.getVoApplymember()) <= 0){ %>
+								<%= "Y" %>
+								<% } else { %>
+								<%= "N" %>
+								<% } %>
+								<script>
+									$("#list_table td").attr({"color":#eee});
+									/* 글씨색 바뀌는 거 왜 안되냐 .. 진짜 .. */
+								</script>
+							</td>									
 							<td><%= v.getBoCount() %></td>  			<!-- 조회수 -->
 						</tr>
 						<%		} %>
@@ -123,7 +129,7 @@
 		<script>
 			$(function(){
 				$("#list_table td").mouseenter(function(){
-					$(this).parent().css({'background':'#eee', 'cursor':'pointer', 'text-decoration':'underline'});
+					$(this).parent().css({'background':'#eee', 'cursor':'pointer'});
 				}).mouseout(function(){
 					$(this).parent().css({'background':'none', 'text-decoration':'none'});
 				}).click(function(){

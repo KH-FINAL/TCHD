@@ -16,7 +16,7 @@ import board.model.vo.Files;
 import board.model.vo.Notice;
 import board.model.vo.PageInfo;
 import board.model.vo.Questions;
-import board.model.vo.Reply;
+import board.model.vo.Comments;
 import board.model.vo.Volunteer;
 
 public class BoardService {
@@ -387,12 +387,12 @@ public class BoardService {
 		return volunteer;
 	}
 
-	public ArrayList<Reply> selectReplyList(int bNo) {
+	public ArrayList<Comments> selectCommentsList(int bNo) {
 		Connection conn = getConnection();
 		
-		ArrayList<Reply> replyList = new BoardDAO().selectReplyList(conn, bNo);
+		ArrayList<Comments> commentsList = new BoardDAO().selectCommentsList(conn, bNo);
 		close(conn);
-		return replyList;
+		return commentsList;
 	}
 	
 

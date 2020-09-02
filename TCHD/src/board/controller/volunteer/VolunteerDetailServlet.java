@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import board.model.service.BoardService;
-import board.model.vo.Reply;
+import board.model.vo.Comments;
 import board.model.vo.Volunteer;
 
 /**
@@ -37,7 +37,7 @@ public class VolunteerDetailServlet extends HttpServlet {
 		
 		Volunteer volunteer = new BoardService().selectVolunteer(bNo);
 		
-		ArrayList<Reply> replyList = new BoardService().selectReplyList(bNo);
+		ArrayList<Comments> commentsList = new BoardService().selectCommentsList(bNo);
 		
 		
 		HttpSession session = request.getSession();
@@ -45,7 +45,7 @@ public class VolunteerDetailServlet extends HttpServlet {
 		if(volunteer != null) {
 			request.setAttribute("section", "WEB-INF/views/volunteer/volunteerDetail.jsp");
 			request.setAttribute("volunteer", volunteer);
-			request.setAttribute("replyList", replyList);
+			request.setAttribute("commentsList", commentsList);
 		} else {
 			request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
 			request.setAttribute("msg", "문의게시글 상세조회에 실패하였습니다.");

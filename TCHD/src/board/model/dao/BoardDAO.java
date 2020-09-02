@@ -20,7 +20,7 @@ import board.model.vo.Files;
 import board.model.vo.Notice;
 import board.model.vo.PageInfo;
 import board.model.vo.Questions;
-import board.model.vo.Reply;
+import board.model.vo.Comments;
 import board.model.vo.Volunteer;
 
 public class BoardDAO {
@@ -916,24 +916,27 @@ public class BoardDAO {
 		return volunteer;
 	}
 
-	public ArrayList<Reply> selectReplyList(Connection conn, int bNo) {
+	public ArrayList<Comments> selectCommentsList(Connection conn, int bNo) {
 		PreparedStatement pstmt = null; 
 		ResultSet rset = null;
-		ArrayList<Reply> replyList = null;
+		ArrayList<Comments> commentsList = null;
 		
-		String query = prop.getProperty("selectReplyList");
+		String query = prop.getProperty("selectCommentsList");
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, bNo);
 			
 			rset = pstmt.executeQuery();
-			replyList = new ArrayList<Reply>();
+			commentsList = new ArrayList<Comments>();
 			while(rset.next()) {
-				replyList.add(new Reply(rset.getInt("reply_id"),
-										rset.getString("reply_content"),
-										rset.getDate("create_date"),
-										rset.getString("status")));
+				commentsList.add(new Comments(rset.getInt("com_no"),
+											  rset.getInt("mem_no"),
+											  rset.getInt("BO_NO"),
+											  rset.getString("com_content"), 
+											  rset.getDate("com_date"), 
+											  rset.getString("com_delete_yn"), 
+											  rset.getString("mem_id")));
 			}	
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -942,7 +945,7 @@ public class BoardDAO {
 			close(rset);
 			close(pstmt);
 		}
-		return replyList;
+		return commentsList;
 	}
 
 	public ArrayList<Notice> searchNotice(Connection conn, String search, PageInfo pi) {
