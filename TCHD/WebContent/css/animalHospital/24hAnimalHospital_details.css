@@ -11,13 +11,18 @@
 
 #details_div {
 	width: 1000px;
-	height: 400px;
-	margin: 20px auto 100px auto;
+	margin: 20px auto 70px auto;
+}
+
+#map_info_float_div::after{
+	content: "";
+	display: block;
+	clear: both;
 }
 
 #map {
-	width: 500px;
-	height: 400px;
+	width: 450px;
+	height: 350px;
 	float: left;
 	margin-right: 50px;
 }
@@ -44,14 +49,25 @@
 	padding-right: 20px;
 }
 
-#list_button{
-	margin-top: 50px;
-	margin-left: 170px;
-	width: 100px;
-    height: 35px;
-    background: rgb(41, 128, 185);
-    color: white;
+#list_div{
+	margin-left: 5px;
+	width: 111px;
     cursor: pointer;
+}
+
+#list_a{
+	color: rgb(0, 0, 64);
+	text-decoration: none;
+	font-size: 35px;
+	font-weight: 600;
+}
+
+#list_button{
+    background: none;
+    color: rgb(0, 0, 64);
+	font-size: 20px;
     border: none;
+    outline: none;
     border-radius: 5px;
+    cursor: pointer;
 }

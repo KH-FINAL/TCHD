@@ -125,6 +125,12 @@
       margin: 0px auto;
       text-align: left;
    }
+	.blank{
+		margin: 0px 10px;
+	}
+	#address{
+		margin-right: 60px;
+	}
    
 	section{
 		margin: 0px auto;

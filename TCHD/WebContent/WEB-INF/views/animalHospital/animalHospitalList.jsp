@@ -25,7 +25,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="css/hospital/24hAnimalHospital_list.css" type="text/css">
+<link rel="stylesheet" href="css/animalHospital/24hAnimalHospital_list.css" type="text/css">
 </head>
 <body>
 	<section>

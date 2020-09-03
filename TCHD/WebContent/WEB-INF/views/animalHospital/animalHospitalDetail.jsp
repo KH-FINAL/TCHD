@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="css/hospital/24hAnimalHospital_details.css" type="text/css">
+<link rel="stylesheet" href="css/animalHospital/24hAnimalHospital_details.css" type="text/css">
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9825f8ee7c5749fcba65382d3b6f9521&libraries=services"></script>
 <script>
 $(function(){
@@ -50,23 +50,28 @@ $(function(){
 		<div id="ment">24시 동물병원</div>
 		<br>
 		<div id="details_div">
-			<div id="map"></div>
-			<div id="hospital_info_div">
-				<div id="hospital_name"><%= hospital.getHos_name() %></div>
-				<br>
-				<hr style="width: 420px;">
-				<br>
-				<table id="hospital_info">
-					<tr>
-						<th>주소</th>
-						<td><%= hospital.getHos_addr() %></td>
-					</tr>
-					<tr>
-						<th>전화번호</th>
-						<td><%= hospital.getHos_phone() %></td>
-					</tr>
-				</table>
-				<button id="list_button" onclick="location.href='<%= request.getContextPath() %>/hospitalList.ho'">목록보기</button>
+			<div id="map_info_float_div">
+				<div id="map"></div>
+				<div id="hospital_info_div">
+					<div id="hospital_name"><%= hospital.getHos_name() %></div>
+					<br>
+					<hr style="width: 420px;">
+					<br>
+					<table id="hospital_info">
+						<tr>
+							<th>주소</th>
+							<td><%= hospital.getHos_addr() %></td>
+						</tr>
+						<tr>
+							<th>전화번호</th>
+							<td><%= hospital.getHos_phone() %></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div id="list_div" onclick="location.href='<%= request.getContextPath() %>/hospitalList.ho'">
+				<a id="list_a">&lt;</a>
+				<button id="list_button">목록보기</button>
 			</div>
 		</div>
 	</section>
