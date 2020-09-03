@@ -7,7 +7,9 @@
 </head>
 <body>
  	<section>	
-		<div id="article1"><img src="images/picture1.png"></div>
+		<div id="article1">
+		</div>
+		
 		<div id="article2"><img src="images/picture2.png"></div>
 		<div id="notice">
 			<table>
@@ -27,11 +29,46 @@
 	</section>
 	<script>
 		$(function(){
+			
+		
+			$.ajax({
+				url: 'main.ad',
+				success: function(data){
+					console.log(data);
+					if(data.length>0){
+						var article1 = $("#article1");
+						for(var i=0;i<data.length; i++){
+							var petKinds = "";
+							var gender = "";
+							var age=data[i].petAge.split('/');
+							if(data[i].petKinds=="CAT"){ petKinds="고양이" }else{ petKinds="개"}
+							if(data[i].petGender=="M"){gender="수컷"}else{ gender="암컷"};
+							var input="<div class='pet' id='pet"+i+"'><div class='petContent' id='petContent"+i+"'>"+
+									"<div class='petName'>"+data[i].petName+"</div>"+
+									petKinds+" ("+data[i].petCategory+")<br>"+
+									gender+" (중성화 "+data[i].petUnigender+")<br>"+
+									age[1]+" / "+data[i].petWeight+"kg / "+data[i].petColor+"</div></div>"
+							console.log(input);
+							article1.append(input);
+							$('#pet'+i).attr("onclick","location.href='adoptDetail.bo?boNo="+data[i].boNo+"'");
+						}
+						getAdoptImage();
+					}
+				},
+				error: function(data){
+					alert("ajax 에러 발생")
+				}
+			});
+		
+			
+			
+			
+			
 			$.ajax({
 				url:  'main.no',
 				success: function(data){
 					console.log(data);
-					if(data!=null){
+					if(data.length>0){
 						var tbody = $("#notice_tbody");
 						
 						for(var i=0; i<data.length; i++){
@@ -40,7 +77,8 @@
 							tbody.append(input);
 						}						
 					}else{
-						var input="<tr><td id='noticeTitle' >등록된 공지사항이 없습니다.</td><td id='noticeDate'></td></tr>";
+						var tbody = $("#notice_tbody");
+						var input="<tr><td id='noticeTitle2'>등록된 공지사항이 없습니다.</td><td id='noticeDate'></td></tr>";
 						tbody.append(input);
 						
 					}
@@ -51,6 +89,27 @@
 			});
 			
 		});
+		
+		
+		function getAdoptImage(){
+			$.ajax({
+				url: 'mainImage.ad',
+				success: function(data){
+					console.log(data);
+					for(var i=0;i<data.length; i++){
+						var petContent = $("#petContent"+i);
+						var input="<img src='upload_imageFiles/"+data[i].changeName+"'>";
+						
+						
+						petContent.prepend(input);
+					}
+				},
+				error: function(data){
+					alert("ajax 에러 발생");
+				}
+			});
+		}
+		
 		function goNotice(boNo){
 			location.href="detail.no?bNo="+boNo;
 		};

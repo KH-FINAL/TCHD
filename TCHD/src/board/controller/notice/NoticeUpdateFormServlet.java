@@ -27,6 +27,7 @@ public class NoticeUpdateFormServlet extends HttpServlet {
 		String title = request.getParameter("noticeTitle");
 		String content = request.getParameter("noticeContent");
 		String subject  = request.getParameter("noticeSubject");
+
 		int fileNo=0;
 		if(request.getParameter("noticeFileNo")!=null) {
 			fileNo = Integer.parseInt(request.getParameter("noticeFileNo"));

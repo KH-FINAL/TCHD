@@ -96,14 +96,18 @@ $(function(){
 					<% if(!boardList.isEmpty()){ %>
 					<%	for(Board board : boardList){ %>
 						<tr class="boardTr">
-							<%if(board.getBoType()!=null){ %>
+							<%if(board.getBoType()!=null){
+								String link="";
+								if(board.getBoType().equals("입양게시판")){ link="adoptDetail.bo?boNo=";}
+								else if(board.getBoType().equals("봉사게시판")){link="volunteerDetail.bo?bNo=";}
+								else if(board.getBoType().equals("문의사항")){link="detail.qu?bNo=";}
+								%>
 								<td><%=board.getBoType() %></td>
-								<td class="board2ndTd"><%=board.getBoTitle() %></td>
+								<td class="board2ndTd"  onclick="location.href='<%=link+board.getBoNo()%>'"><%=board.getBoTitle() %></td>
 							<%}else{ %>
 								<td>댓글<input type="hidden" value="<%=board.getBoNo() %>"></td>
 								<td class="board2ndTd commentTd"><%=board.getBoTitle() %></td>
 							<%} %>
-			
 							<td><%=board.getBoDate()%></td>
 						</tr>
 						<%} %>

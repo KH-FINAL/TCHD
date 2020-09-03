@@ -186,12 +186,13 @@ public class BoardDAO {
 		
 		int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() +1;
 		int endRow = startRow + pi.getBoardLimit() -1;
+		System.out.println(startRow +"/"+ endRow);
 		
 		try {
 			pstmt=conn.prepareStatement(prop.getProperty("selectMyBoard"));
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			pstmt.setInt(3, mem_no);
+			pstmt.setInt(1, mem_no);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -227,27 +228,6 @@ public class BoardDAO {
 		}
 		
 		return  boardList;
-	}
-
-	public ArrayList<Volunteer> selectMyVolunteer(Connection conn, int mem_no) {
-		PreparedStatement pstmt = null;
-		ResultSet  rset =null;
-		ArrayList<Volunteer> volunteerList = new ArrayList<Volunteer>();
-		
-		try {
-			pstmt=conn.prepareStatement(prop.getProperty("selectMyVolunteer"));
-			
-			rset=pstmt.executeQuery();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return volunteerList;
 	}
 
 	public ArrayList<Volunteer> selectVList(Connection conn, PageInfo pi) {
@@ -1054,7 +1034,8 @@ public class BoardDAO {
 		
 		return noticeList;
 	}
-
+	
+	
 	public int insertQuestionsFile(Connection conn, Files uploadFile) {
 		PreparedStatement pstmt = null;
 		int result=0;
@@ -1072,4 +1053,103 @@ public class BoardDAO {
 		}
 		return result;
 	}
+	
+	
+
+
+	public ArrayList<Volunteer> selectMyVolunteer(Connection conn, int mem_no,PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Volunteer> voList = new ArrayList<Volunteer>();
+		
+		int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() +1;
+		int endRow = startRow + pi.getBoardLimit() -1;
+		
+		try {
+			pstmt=conn.prepareStatement(prop.getProperty("selectMyVolunteer"));
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);			
+			pstmt.setInt(3, mem_no);
+			rset=pstmt.executeQuery();
+			
+			if(rset.next()) {
+				Volunteer volunteer = new Volunteer(rset.getInt("BO_NO"), 0, 
+						null, rset.getString("BO_TITLE"), 0, 
+						null, 0, null, null,
+						0, 0, null, 
+						rset.getDate("VO_DATE"), null, rset.getString("VO_PLACE"), null);
+				
+				voList.add(volunteer);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return voList;
+	}
+
+	public int getMyVolunteerCount(Connection conn, int mem_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result=0;
+		
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("getMyVolunteerCount"));
+			pstmt.setInt(1, mem_no);
+			rset=pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public ArrayList<Adopt> selectAdoptMainPage(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Adopt> adoptList = new ArrayList<Adopt>();
+		
+		try {
+			stmt =conn.createStatement();
+			rset=stmt.executeQuery(prop.getProperty("selectAdoptMainPage"));
+			
+			while(rset.next()) {
+				Adopt adopt= new Adopt(rset.getInt("BO_NO"), 0, null, null, 
+						rset.getString("PET_KINDS"), rset.getString("PET_CATEGORY"), rset.getString("PET_GENDER"), 
+						rset.getString("PET_UNIGENDER"), rset.getString("PET_NAME"), rset.getString("PET_AGE"),  null, rset.getFloat("PET_WEIGHT"), 
+						rset.getString("PET_COLOR"), null, null);
+				adoptList.add(adopt);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return adoptList;
+ 	}
+
+	public ArrayList<Files> selectAdoptImageMainPage(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Files> fileList = new ArrayList<Files>();
+		
+		try {
+			stmt =conn.createStatement();
+			rset=stmt.executeQuery(prop.getProperty("selectAdoptMainPage"));
+			
+			while(rset.next()) {
+				Files file = new Files(rset.getInt("BO_NO"), rset.getString("CHANGE_NAME"));
+				fileList.add(file);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return fileList;
+	}
+
+
+
 }
