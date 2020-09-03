@@ -70,7 +70,7 @@ public class Questions {// 문의게시판
 	
 	 //상세보기 
 	public Questions(int boNo, int boType, String cateName, String boTitle, String boContent, int boCount, Date boDate,
-			String memId, String boDeleteYn, String quSub) {
+			String memId, String boDeleteYn, String quSub, String boPwd) {
 		super();
 		this.boNo = boNo;
 		this.boType = boType;
@@ -82,6 +82,7 @@ public class Questions {// 문의게시판
 		this.memId = memId;
 		this.boDeleteYn = boDeleteYn;
 		this.quSub = quSub;
+		this.boPwd = boPwd;
 	}
 
 	public Questions(int boNo, int boType, String cateName, String boTitle, String boContent, int boCount, Date boDate,
@@ -131,6 +132,7 @@ public class Questions {// 문의게시판
 		this.memNo=memNo;
 	}
 
+	
 	public int getBoType() {
 		return boType;
 	}

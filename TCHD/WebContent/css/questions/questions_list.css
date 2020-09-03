@@ -124,3 +124,6 @@ a {
       color: #fff;
    }
 
+	.swal-btn{
+		text-align : center;
+	}

@@ -49,15 +49,16 @@
 아래 안내해드리는 링크를 참고하시어 사이트 이용에 불편이 없으시길 바랍니다. ♡
 
 
-아이디/비밀번호 찾기 :::대충 마이페이지 링크 알려주면됨
 					</textarea>
 					<div id = "notice">*추가 문의사항이 있으실시 해당 페이지 스크릿샷을 첨부로 올려주시면 보다 수월하고 빠른 답변을 받아보실 수 있습니다.*</div>
 					
 				</div>
-				<div class = btn_bottom>		
+				<div class = btn_bottom>
+				<%if(loginUser !=null && loginUser.getMem_id().equals("admin")){ %>		
 						<input id="btn_recontent" type="button" class="btn" onClick="location.href='list.qu'" value="수정">					
 						<input id="btn_delete" type="button" class="btn" onClick="location.href='./questionsList.jsp'" value="삭제">
 						<input id="btn_content" type="button" class="btn" onClick="location.href='./questionsDetail.jsp'" value="등록">
+				<%} %>
 				</div>
 			</div>
 			

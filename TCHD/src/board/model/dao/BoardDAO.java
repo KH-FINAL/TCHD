@@ -378,6 +378,8 @@ public class BoardDAO {
 						rset.getDate("BO_DATE"),
 						rset.getString("MEM_ID"),
 						null,
+						null,
+						null,
 						null
 						);
 						questionsList.add(q);
@@ -496,7 +498,8 @@ public class BoardDAO {
 									rset.getDate("bo_date"),
 									rset.getString("mem_id"),
 									rset.getString("bo_delete_yn"),
-									rset.getString("qu_sub"));
+									rset.getString("qu_sub"),
+									rset.getString("bo_pw"));
 			}
 			
 			

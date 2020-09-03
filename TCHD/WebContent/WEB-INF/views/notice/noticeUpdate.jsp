@@ -4,6 +4,7 @@
 <%
 	Notice notice = (Notice)request.getAttribute("notice");
 	int fileNo = (int)request.getAttribute("fileNo");
+	
 %>
 <!DOCTYPE html>
 <html>

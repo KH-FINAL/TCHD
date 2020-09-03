@@ -2,12 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList, board.model.vo.*, member.model.vo.Member, board.model.vo.Questions"  %>     
 <%  @SuppressWarnings("unchecked")
-	Questions q = (Questions)request.getAttribute("qBoard"); 
-	ArrayList<Questions> Qlist = (ArrayList<Questions>)request.getAttribute("Qlist");
+	ArrayList<Questions> Qlist = (ArrayList<Questions>)request.getAttribute("Qlist");	
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	Questions q = (Questions)request.getAttribute("qBoard"); 
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	String msg = (String)session.getAttribute("msg");
 	
+	String pwd = (String)request.getAttribute("boPwd");
 	
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
@@ -43,11 +44,24 @@
 		         	   <% for(int i=0; i < Qlist.size(); i++){ %>
 		         	   <tr>
 			         	   <td class="td_boNo">
+			         	   
 			         	   	<input type="hidden" value="<%=Qlist.get(i).getBoNo() %>">
+			         	   	<input type="hidden" value="<%=Qlist.get(i).getBoPwd() %>" class="boPwd">
 			         	   <%=Qlist.get(i).getBoNo() %>
 			         	   </td>
 			         	   <td><%= Qlist.get(i).getQuSub() %></td>
-			         	   <td class="tet"><%= Qlist.get(i).getBoTitle() %></td>
+			         	   <td class="tet">
+			         		  <%= Qlist.get(i).getBoTitle() %>
+			         	   <%	/*암호 아이콘표시*/
+			         	  	if(pwd == null){ /* !=이 안먹혀....... ==이 먹는단것은 null값이 들어가고있단걸까요  */
+			         	  	
+			         	  	%>	
+			         	  	<img src="images/secret.gif">
+			         	  	<%
+		         	   		}
+			         	    %>
+			         	   	
+			         	   </td>
 			         	   <td><%= Qlist.get(i).getMemId() %></td>
 			         	   <td><%= Qlist.get(i).getBoCount() %></td>
 			         	   <td><%= Qlist.get(i).getBoDate() %></td>
@@ -112,20 +126,6 @@
 		</script>
        
 	
-	<%-- /* const { value: password } = await Swal.fire({
-		  title: 'Enter your password',
-		  input: 'password',
-		  inputPlaceholder: 'Enter your password',
-		  inputAttributes: {
-		    maxlength: 10,
-		    autocapitalize: 'off',
-		    autocorrect: 'off'
-		  }
-		})
-
-		if (password) {
-		  Swal.fire(`Entered password: ${password}`)
-		} */ --%>
 		
 	  <script>
 		$(function(){
@@ -135,29 +135,14 @@
 	   			$(this).parent().css({'background': 'none', 'text-decoration':'none'});
 	   		}).click(function(){
 				var bNo = $(this).parent().children().children('input').val();
+				var boPwd = $(this).parent().find('.boPwd').val(); //비번 hidden으로 감춘거 가져옴
 				
-				<%-- swal({
-	                content: {
-	                  element: "input",
-	                  attributes: {
-	                    placeholder: "Type your password",
-	                    type: "password",
-	                  },
-	                },
-	              }).then(password) => { //value값을 password로 가져온다.
-	                if (input === "<%=Qlist.getBoPwd() %>") { //에이젝스를 써야하는건가... pwd는 테스트해보니 잘 출력됨. 
-	                if(password){
-	                  swal("Ok!",password, {
-	                    icon: "success",
-	                  });
-	                } else {
-	                  swal("Fail", password);
-					 }
-				 }); --%>
-				 
-				 
-				 //디자인 이걸로 바꿈
-				 swal({
+				
+				if(boPwd=='null'){
+					location.href="<%= request.getContextPath() %>/detail.qu?bNo=" + bNo;
+				}else{
+					
+					swal({
 						title : '비밀글입니다!',					
 						content: {
 						element : "input",
@@ -166,27 +151,20 @@
 						type : "password",
 						},
 					},
-					dangerMode : true, //확인 버튼 붉게
-					closeOnClickOutside: false,
-					closeOnEsc: false,
-					buttons : {
-							cancle : {
-							text : '닫기',
-							value : false,
-						},
+					buttons : {							
 						confirm : {
+							className : 'swal-btn',
 							text : '입력',
 							value : true
 						}
 					}
 				}).then((result) => {   //value를 result로 받음
-					if(result){ 
-						console.log(result);
-						swal(result, '비밀번호가 일치합니다.','success',{
-							closeOnClickOutside : false,
-							closeOnEsc : false,
+					if(result==boPwd){ 
+						swal('입력 성공', '비밀번호가 일치합니다.','success',{
+							
 							buttons : {
 								confirm : {
+									className : 'swal-btn',
 									text : '확인',
 									value : true
 								}
@@ -196,26 +174,22 @@
 								location.href="<%= request.getContextPath() %>/detail.qu?bNo=" + bNo;
 							}
 						})
-					} else {
-						swal('입력 실패', '비밀번호가 틀렸습니다.','warning',{
-							closeOnClickOutside : false,
-							closeOnEsc : false,
-							buttons : {
-								confirm : {
-									text : '확인',
-									value : true
-								}
-							}
+					}  else{
+						swal('입력 실패', '비밀번호를 다시 입력해주세요.','warning',{
+							
+							timer:700
 						});
-					}
+					} 
 				});
-	   		
+		   	}
+				
+			
 	   		<!-- -->
 	   		
 	   		
 	   		});
-	   	});
-  	
+
+		});
   		
 
 </script>
