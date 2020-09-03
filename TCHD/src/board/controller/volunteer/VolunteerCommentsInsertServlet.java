@@ -38,6 +38,9 @@ public class VolunteerCommentsInsertServlet extends HttpServlet {
 		String writer = request.getParameter("mem_id");
 		int bNo = Integer.parseInt(request.getParameter("boNo"));
 		String content = request.getParameter("comContent");
+//		String writer = request.getParameter("writer");
+//		int bNo = Integer.parseInt(request.getParameter("bNo"));
+//		String content = request.getParameter("content");
 		
 		Comments comments = new Comments();
 		comments.setMemId(writer);
@@ -47,8 +50,6 @@ public class VolunteerCommentsInsertServlet extends HttpServlet {
 		ArrayList<Comments> commentsList = new BoardService().insertComments(comments);
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(commentsList, response.getWriter());
-		
-		
 	}
 
 	/**

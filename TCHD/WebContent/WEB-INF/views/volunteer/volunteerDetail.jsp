@@ -104,28 +104,29 @@
 					<button type="button" id="list_button" onclick="">다음</button>
 					<button type="button" id="edit">수정</button>
 				</div> -->
-			<div class="comment_div">
-				<input type="text" placeholder="댓글을 작성하려면 로그인 해주세요." id="commentsContent">
-				<!-- <input type="submit" value="등록" id="addComments"> -->
-				<input type="button" id="addComments" value="댓글 등록">
-			</div>
-			<hr class="hr">
-			<div class="comment_list">
-				<table id="commentsSelectTable">
-					<% if(commentsList.isEmpty()){ %>
-					<tr>
-						<td colspan="3">댓글이 없습니다.</td>
-					</tr>
-					<% } else { %>
-					<% for(int i = 0; i < commentsList.size(); i++) { %>
-					<tr>
-						<td width="100px"><%= commentsList.get(i).getMemId() %></td>
-						<td width="200px"><%= commentsList.get(i).getComDate() %></td>
-						<td width="400px"><%= commentsList.get(i).getComContent() %></td>
-					</tr>
-					<% } %>
-					<% } %>
-				</table>
+			<div class="commentsArea">
+				<div class="comment_div" id="commentsWriteArea">
+					<input type="text" placeholder="댓글을 작성하려면 로그인 해주세요." id="commentsContent">
+					<input type="button" id="addComments" value="등록">
+					<!-- <input type="submit" value="등록" id="addComments"> -->
+				</div>
+				<hr class="hr">
+				<div class="comment_list" id="commentsSelectArea">
+					<table id="commentsSelectTable">
+						<% if(commentsList.isEmpty()){ %>
+						<tr>
+							<td colspan="3">댓글이 없습니다.</td>
+						</tr>
+						<% } else { %>
+						<% for(int i = 0; i < commentsList.size(); i++) { %>
+						<tr>
+							<td width="100px"><%= commentsList.get(i).getMemId() %></td>
+							<td width="200px"><%= commentsList.get(i).getComDate() %></td>
+							<td width="400px"><%= commentsList.get(i).getComContent() %></td>
+						</tr>
+						<% } %>
+						<% } %>
+					</table>
 				<%-- <div class="comment_list_bottom">
 					<% if(commentsList.isEmpty()) { %>
 					<span>댓글이 없습니다.</span>
@@ -137,9 +138,10 @@
 					<% } %>
 					<% } %>
 				</div> --%>
+				</div>
+				</div>
+				<hr class="hr">
 			</div>
-			<hr class="hr">
-		</div>
 
 		<script>
 		$(function(){

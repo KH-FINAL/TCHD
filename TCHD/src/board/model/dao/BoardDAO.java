@@ -911,17 +911,17 @@ public class BoardDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, bNo);
 			
 			rset = pstmt.executeQuery();
 			commentsList = new ArrayList<Comments>();
 			while(rset.next()) {
 				commentsList.add(new Comments(rset.getInt("com_no"),
-											  rset.getInt("mem_no"),
-											  rset.getInt("BO_NO"),
-											  rset.getString("com_content"), 
+											  rset.getString("com_content"),
+											  rset.getInt("bo_no"),
+											  rset.getString("mem_id"),
 											  rset.getDate("com_date"), 
-											  rset.getString("com_delete_yn"), 
-											  rset.getString("mem_id")));
+											  rset.getString("com_delete_yn")));
 			}	
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1164,10 +1164,14 @@ public class BoardDAO {
 		
 		try {
 			pstmt= conn.prepareStatement(query);
-			pstmt.setInt(1, comments.getMemNo());
+			pstmt.setString(1, comments.getComContent());
 			pstmt.setInt(2, comments.getBoNo());
-			pstmt.setString(3, comments.getComContent());;
-			pstmt.setString(4, comments.getMemId());
+			pstmt.setString(3, comments.getMemId());
+			pstmt.setDate(4, comments.getComDate());
+//			pstmt.setInt(1, comments.getMemNo());
+//			pstmt.setInt(2, comments.getBoNo());
+//			pstmt.setString(3, comments.getComContent());;
+//			pstmt.setString(4, comments.getMemId());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

@@ -5,11 +5,11 @@ import java.sql.Date;
 public class Comments {
 	private int comNo;			// 댓글번호
 	private int memNo;			// 회원번호
-	private String memId;		// 아이디
 	private int boNo;			// 게시글번호
 	private String comContent;	// 댓글내용
 	private Date comDate;		// 댓글작성일자
 	private String comDelete;	// 댓글삭제여부
+	private String memId;		// 아이디
 	
 	public Comments() {}
 	
@@ -24,15 +24,14 @@ public class Comments {
 		this.comDelete = comDelete;
 	}
 	
-	public Comments(int comNo, int memNo, int boNo, String comContent, Date comDate, String comDelete, String memId) {
+	public Comments(int comNo, String comContent, int boNo, String memId, Date comDate, String comDelete) {
 		super();
 		this.comNo = comNo;
-		this.memNo = memNo;
-		this.boNo = boNo;
 		this.comContent = comContent;
+		this.boNo = boNo;
+		this.memId = memId;
 		this.comDate = comDate;
 		this.comDelete = comDelete;
-		this.memId = memId;
 	}
 
 	public int getComNo() {
