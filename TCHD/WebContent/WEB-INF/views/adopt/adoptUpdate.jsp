@@ -21,13 +21,13 @@
 </head>
 <body>
 <section>
-   	<form action="<%= request.getContextPath() %>/adoptDetail.bo?boNo=<%= bNo %>" method="post" onsubmit="return checkSubmit();">
+   	<form action="<%= request.getContextPath() %>/adoptUpdate.bo?boNo=<%= bNo %>'" method="post" encType="multipart/form-data" onsubmit="return checkSubmit();">
    		<div id="ment">보호동물 게시글 수정</div>
    		<div id="area">
    			<div id="picture">
    				<table id="pictureTable">
 					<tr>
-						<th>대표 사진</th>
+						<th>대표 사진<input type="hidden" name="boNo" value="<%= bNo %>"/></th>
 						<td id="space1"> </td>
 						<td colspan="3">
 							<div id="titleImgArea" class="pictureArea">
@@ -183,27 +183,7 @@
 		// 크기 선택 안되게 함   --> 입력 당시 값으로 고정
 		$('#petSizes option').not(":selected").attr("disabled", "disabled");
 // ----------------------------------------------------------------------------------------------------------------------------	   	
-	 // 개, 고양이 구분 체크박스 선택 유무 및 하나만 선택되게 하는 함수
-// 	   	function checkKind(chk){
-// 	   		var kinds = document.getElementsByName("petKind");
-// 	   		for(var i = 0; i < kinds.length; i++){
-// 	   			if(kinds[i] != chk){	// 아무것도 선택 안할 시
-// 	   				kinds[i] = false;
-// 	   				return false;
-// 	   			}
-// 	   		}
-// 	   	}
-	   	
-// 	   	// 성별 구분 체크박스 선택 유무 및 하나만 선택되게 하는 함수
-// 	   	function checkGender(chk){
-// 	   		var gender = document.getElementsByName("petGender");
-// 	   		for(var i = 0; i < gender.lenght; i++){
-// 	   			if(gender[i] != chk){
-// 	   				gender[i] = false;
-// 	   				return false;
-// 	   			}
-// 	   		}
-// 	   	}
+
 	   	
 // -------------------------------------------------------------------------	   	
 	   	
@@ -272,8 +252,8 @@
    		</script>
    		
    		<div id="buttonArea">
-   			<button id="cancelButton" class="buttons" onclick="location.href='<%= request.getContextPath() %>/adoptDetail.bo">취소</button>
-	   		<button type="submit" id="okButton" class="buttons" onclick="location.href='<%= request.getContextPath() %>/adoptDetail.bo'">수정</button>
+   			<button id="cancelButton" class="buttons" onclick="location.href='<%= request.getContextPath() %>/adoptDetail.bo?boNo=<%= bNo %>'">취소</button>
+	   		<button id="okButton" type="submit" class="buttons">수정</button>
 	   	</div>
  			<script>
 				function cancelButton(){

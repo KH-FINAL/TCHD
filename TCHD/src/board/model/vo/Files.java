@@ -34,8 +34,15 @@ public class Files {
 		this.status = status;
 	}
 
-
-
+	// 수정하기 
+	public Files(int boNo, String orignName, String changeName, String filePath) {
+		super();
+		this.boNo = boNo;
+		this.orignName = orignName;
+		this.changeName = changeName;
+		this.filePath = filePath;
+	}
+	
 	public int getFileNo() {
 		return fileNo;
 	}

@@ -1172,5 +1172,70 @@ public class BoardDAO {
 		return result;
 	}
 
+	public int updateBoard(Connection conn, Board b) { // 수정내용 Board 테이블에 udpate
+		PreparedStatement pstmt = null;
+		int result = 0; 
+		
+		String query = prop.getProperty("updateBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, b.getBoTitle());
+			pstmt.setString(2, b.getBoContent());
+			pstmt.setInt(3, b.getBoNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	public int updateAdopt(Connection conn, Adopt a) {	// 수정내용 Adopt 테이블에 update
+		PreparedStatement pstmt = null;
+		int result = 0; 
+		
+		String query = prop.getProperty("updateAdopt");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+//			SET PET_KINDS=?, PET_CATEGORY=?, PET_GENDER=?, PET_UNIGENDER=?, PET_NAME=?, 
+//			PET_AGE=?, PET_RESCUE_DATE=?, PET_WEIGHT=?, PET_COLOR=?, PET_SIZE=?, 
+//			PET_COMMENT=? WHERE BO_NO=?
+			pstmt.setString(1, a.getPetKinds());
+			pstmt.setString(2, a.getPetCategory());
+			pstmt.setString(3, a.getPetGender());
+			pstmt.setString(4, a.getPetUnigender());
+			pstmt.setString(5, a.getPetName());
+			pstmt.setString(6, a.getPetAge());
+			pstmt.setDate(7, a.getPetRescueDate());
+			pstmt.setFloat(8, a.getPetWeight());
+			pstmt.setString(9, a.getPetColor());
+			pstmt.setString(10, a.getPetSize());
+			pstmt.setString(11, a.getPetComment());
+			pstmt.setInt(12, a.getBoNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	public int updateAdoptFile1(Connection conn, Files files) {	// 사진 추가 or 변경할 경우 Files 테이블에 update
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateAdoptFile1");
+		return 0;
+	}
+
+	public int updateAdoptFile2(Connection conn, Files files) {	// 사진 뺴면 Files 테이블에서 상태변경 update
+		return 0;
+	}
+
 
 }

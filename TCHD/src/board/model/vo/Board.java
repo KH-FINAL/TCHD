@@ -35,6 +35,17 @@ public class Board {
 		this.memNo = memNo;
 	}
 
+	
+	// 입양게시판 수정
+	public Board(int boNo, String boType, String boTitle, String boContent, int memNo) {
+		super();
+		this.boNo = boNo;
+		this.boType = boType;
+		this.boTitle = boTitle;
+		this.boContent = boContent;
+		this.memNo = memNo;
+	}
+
 	public int getBoNo() {
 		return boNo;
 	}
