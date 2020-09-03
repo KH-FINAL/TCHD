@@ -17,38 +17,82 @@
 </head>
 <body>
 <section>	<!-- action="<%= request.getContextPath() %>/adoptApplyForm.bo" method="post" -->	<!-- action : 값을 전달(submit)할 곳으로 경로지정 -->
-	<form onsubmit="return checkSubmit();">
+	<form action="<%= request.getContextPath() %>/adoptUpdateForm.bo" method="post" onsubmit="return checkSubmit();">
    		<div id="ment">보호동물 정보</div>
    			<div id="picture">
 				<img id="thumbnailImg" src="<%= request.getContextPath()%>/upload_imageFiles/<%= thumbnailImg.getChangeName() %>"/>
+				<input type="hidden" name="thumbnail" value="<%= thumbnailImg.getChangeName() %>"/>
 				<div id="btn">
 					<img id="left" class="switch" src="images/btnL.PNG">
 					<img id="right" class="switch" src="images/btnR.PNG">
 				</div>
 	   		</div>
 	   		<div id="petName">
-	   		<p><%= adopt.getPetName() %></p>
+	   		<p><%= adopt.getPetName() %></p><input type="hidden" name="petName" value="<%= adopt.getPetName() %>">
 	   		<input type="hidden" id="boardNo" name="boNo" value="<%= adopt.getBoNo() %>">
 	   		<hr>
 				<div class="petDetail">
-		  			<ul>
-		  				<li>종/품종</li>
-		  				<li>성별(중성화여부)</li>
-		  				<li>추정나이</li>
-		  				<li>몸무게 / 크기</li>
-		  				<li>털색</li>
-		  				<li>구조일시</li>
-		  			</ul>
+		  			<table>
+			        	<tr>
+			        		<td>종/품종</td>
+			        	</tr>
+			        	<tr>
+			        		<td>성별(중성화여부)</td>
+			        	</tr>
+			        	<tr>
+			        		<td>추정나이</td>
+			        	</tr>
+			        	<tr>
+			        		<td>몸무게</td>
+			        	</tr>
+			        	<tr>
+			        		<td>털색</td>
+			        	</tr>
+			        	<tr>
+			        		<td>구조일시</td>
+			        	</tr>
+			        	<tr>
+			        		<td>하고 싶은 말</td>
+			        	</tr>
+		           </table>
 				</div>
 				<div class="petDetail">
-					<ul>
-		  				<li><%= adopt.getPetKinds() %> / <%= adopt.getPetCategory() %></li>
-		  				<li><%= adopt.getPetGender() %>(<%= adopt.getPetUnigender() %>)</li>
-		  				<li><%= adopt.getPetAge() %></li>
-		  				<li><%= adopt.getPetWeight() %>kg / <%= adopt.getPetSize() %></li>
-		  				<li><%= adopt.getPetColor() %></li>
-		  				<li><%= adopt.getPetRescueDate() %></li>
-		  			</ul>
+					<table>
+			        	<tr>
+			        		<td>
+			        			<input type="hidden" name="petKind" value="<%= adopt.getPetKinds() %>"/><%= adopt.getPetKinds() %>/
+			        			<input type="hidden" name="petCategory" value="<%= adopt.getPetCategory() %>"/><%= adopt.getPetCategory() %>
+			        		</td>
+			        	</tr>
+			        	<tr>
+			        		<td>
+			        			<input type="hidden" name="petGender" value="<%= adopt.getPetGender() %>"/><%= adopt.getPetGender() %>
+			        			<input type="hidden" name="unigender" value="<%= adopt.getPetUnigender() %>"/>(<%= adopt.getPetUnigender() %>)
+			        		</td>
+		        		</tr>
+		        		<tr>
+			        		<td>
+				        		<input type="hidden" name="petAge" value="<%= adopt.getPetAge() %>"/><%= adopt.getPetAge() %>
+				        		<input type="hidden" name="petAgeDetail"/>
+				        		<input type="hidden" name="detailAge"/>
+			        		</td>
+		        		</tr>
+		        		<tr>
+			        		<td>
+				        		<input type="hidden" name="petWeight" value="<%= adopt.getPetWeight() %>"/><%= adopt.getPetWeight() %>kg/
+				        		<input type="hidden" name="petSize" value="<%= adopt.getPetSize() %>"/><%= adopt.getPetSize() %>
+			        		</td>
+		        		</tr>
+		        		<tr>
+			        		<td><input type="hidden" name="petColor" value="<%= adopt.getPetColor() %>"/><%= adopt.getPetColor() %></td>
+			        	</tr>
+			        	<tr>
+			        		<td><input type="hidden" name="rescue" value="<%= adopt.getPetRescueDate() %>" /><%= adopt.getPetRescueDate() %></td>
+			        	</tr>
+			        	<tr>
+		        			<td><input type="hidden" name="lastMent" value="<%= adopt.getPetComment() %>"><%= adopt.getPetComment() %></td>
+		        		</tr>
+	        		</table>
 				</div>
   				<hr>
   			</div>				
@@ -56,11 +100,14 @@
 	   			<div id="smallPets">
 		   			<% for(int i = 1; i < fileList.size();  i++){ %>
 		   				<img id="detailImg" class="smallPicture" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(i).getChangeName() %>"/>
+		   				<input type="hidden" name="fileNo1" value="<%= fileList.get(1).getChangeName() %>"/>
+		   				<input type="hidden" name="fileNo2" value="<%= fileList.get(2).getChangeName() %>"/>
+		   				<input type="hidden" name="fileNo3" value="<%= fileList.get(3).getChangeName() %>"/>
 	   				<% } %>
    				</div>
    				<% if(loginUser != null && adopt.getId().equals(loginUser.getMem_id())){ %> 
 					<input type="button" id="delete" class="threeButton" value="삭제하기" onClick="deleteForm();"/>
-					<input type="button" id="alter" class="threeButton" value="수정하기" onClick="location.href='<%= request.getContextPath()%>/adoptUpdateForm.bo'"/>
+					<input type="submit" id="alter" class="threeButton" value="수정하기"> 
 				<% } else { %>
 					<input type="button" id="delete" class="threeButton" value="삭제하기" disabled="disabled"/>
 					<input type="button" id="alter" class="threeButton" value="수정하기" disabled="disabled"/>

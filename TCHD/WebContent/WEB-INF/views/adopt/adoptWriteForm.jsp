@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="css/common.css" type="text/css">
+<link rel="stylesheet" href="css/common/common.css" type="text/css">
 <link rel="stylesheet" href="css/adopt/adopt_write.css" type="text/css">
 </head>
 <body>
@@ -50,17 +50,17 @@
 				<table id="firstTable">
 					<tr>
 						<td class="firstTd"><span>*</span> 구분 </td>
-						<td id="kindTd" class="secondTd"><input type="checkbox" id="dog" name="petKind" value="DOG"/> 개 
-							<input type="checkbox" id="cat" name="petKind" value="CAT"/> 고양이
+						<td id="kindTd" class="secondTd"><input type="checkbox" id="dog" name="petKind" value="DOG" onclick="checkKind(this);"/> 개 
+							<input type="checkbox" id="cat" name="petKind" value="CAT" onclick="checkKind(this);"/> 고양이
 						</td>
 						<td class="firstTd"><span>*</span> 성별 </td>
-						<td id="genderTd" class="secondTd"><input type="checkbox" name="petGender" value="F"/> 암컷 
-							<input type="checkbox" name="petGender" value="M"/> 수컷
+						<td id="genderTd" class="secondTd"><input type="checkbox" name="petGender" value="F" onclick="checkGender(this);"/> 암컷 
+							<input type="checkbox" name="petGender" value="M" onclick="checkGender(this);"/> 수컷
 							<input type="checkbox" name="unigender"/> 중성화
 						</td>
 						<td class="firstTd"><span>*</span> 크기 </td>
 						<td id="sizeTd" class="secondTd">
-							<select name="petSize">	<!-- ---------- 이 상태면 등록 안되게 기능 걸기 -->
+							<select id="petSizes" name="petSize">	<!-- ---------- 이 상태면 등록 안되게 기능 걸기 -->
 								<option value="0"> ------------</option>
 								<option value="S">소형</option>
 								<option value="M">중형</option>
@@ -159,6 +159,21 @@
 	   			<input type="file" id="thumbnailImg4" multiple="multiple" name="thumbnailImg4" onchange="LoadImg(this,4)"/>
 	   		</div>
 	   	<script>
+	   		// 하고 싶은 말 글자 수 카운트 및 글자 수 제한
+	   		$(document).ready(function(){
+				$('#lastAnswer').keyup(function(e){
+					$('#counter').text($(this).val().length);
+					if($(this).val().length >= 100){
+						$(this).val($(this).val().substring(0, 100));
+						$('#counter').css('color', 'red');
+					} else {
+						$('#counter').css('color', 'black');
+					}
+				})
+				
+	   		});
+	   	
+	   		// 사진 업로드 시 자리 지정
 	   		$(function(){
 	   			$("#fileArea").hide();
 	   			
@@ -176,6 +191,7 @@
 	   			});
 	   		});
 	   		
+	   		// 이미지 업로드 함수
 	   		function LoadImg(value, num){
 	   			if(value.files && value.files[0]){
 	   				var reader = new FileReader();
@@ -207,30 +223,35 @@
 	   		<button id="okButton" type="submit" class="buttons">확인</button>
 	   	</div>
    	<script>
-   	var size = $('#sizeTd').chidren('select option:selected').val();
-   	var age = $('#ageTd').chidren('select option:selected').val();
-   	if(size == 0){
-	   	swal("", "사이즈를 선택해주세요.", "info");
-	   	return false;
-   	}
-   	
-   	if(age == 0){
-	   	swal("", "나이를 선택해주세요.", "info");
-	   	return false;
-   	}
-   	
-   	if($('#sizeTd').chidren('select option').is(":selected")){
-   		swal("", "사이즈 선택", "info");	
-   	}
-   	
-   		function checkSubmit(){
-//    			if($('#dog').is("checked") == false || $('#cat').is("checked") == false){
-//    				swal("", "동물을 선택해주세요.", "info");
-// //    				$(this).focus();
-//    				return false;
-//    			}
-		return true;
+   	// 개, 고양이 구분 체크박스 선택 유무 및 하나만 선택되게 하는 함수
+   	function checkKind(chk){
+   		var kinds = document.getElementsByName("petKind");
+   		for(var i = 0; i < kinds.length; i++){
+   			if(kinds[i] != chk){	// 아무것도 선택 안할 시
+   				kinds[i] = false;
+   				return false;
+   			}
    		}
+   	}
+   	
+   	// 성별 구분 체크박스 선택 유무 및 하나만 선택되게 하는 함수
+   	function checkGender(chk){
+   		var gender = document.getElementsByName("petGender");
+   		for(var i = 0; i < gender.lenght; i++){
+   			if(gender[i] != chk){
+   				gender[i] = false;
+   				return false;
+   			}
+   		}
+   	}
+
+   	
+   	
+   	
+   	function checkSubmit(){		// 정보 넘기는 함수
+// 		var select = $('#petSizes')   		
+		return true;
+ 	}
    	</script>
    	</form>
 	</section>

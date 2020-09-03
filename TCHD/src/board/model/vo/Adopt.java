@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Adopt {	// 입양게시판
 	private int boNo;				// 게시판 번호
-	private int boType;			// 게시판 분류번호
+	private int boType;				// 게시판 분류번호
 	private String cateName;		// 게시판 분류명
 	private String id;				// 아이디
 	private String petKinds;		// 동물 구분(개, 고양이)
@@ -14,6 +14,7 @@ public class Adopt {	// 입양게시판
 	private String petName;			// 이름
 	private String petAge;			// 나이
 	private Date petRescueDate;		// 구조일시	--> 게시판 목록에서 보이게 하자
+	private String rescueDate;		// 구조일시 	--> 수정게시판에서 쓸 예정(수정X)
 	private float petWeight;		// 몸무게
 	private String petColor;		// 색깔
 	private String petSize;			// 크기
@@ -67,13 +68,44 @@ public class Adopt {	// 입양게시판
 		this.petComment = petComment;
 	}
 	
+	// 입양게시판 수정하기1
+	public Adopt(String petKinds, String petCategory, String petGender, String petUnigender, String petName,
+			String petAge, String rescueDate, float petWeight, String petColor, String petSize, String petComment) {
+		super();
+		this.petKinds = petKinds;
+		this.petCategory = petCategory;
+		this.petGender = petGender;
+		this.petUnigender = petUnigender;
+		this.petName = petName;
+		this.petAge = petAge;
+		this.rescueDate = rescueDate;
+		this.petWeight = petWeight;
+		this.petColor = petColor;
+		this.petSize = petSize;
+		this.petComment = petComment;
+	}
+	
+	// 입양게시판 수정하기2
+	public Adopt(String petKinds, String petCategory, String petGender, String petUnigender, String petName,
+			String petAge, Date petRescueDate, float petWeight, String petColor, String petSize, String petComment) {
+		super();
+		this.petKinds = petKinds;
+		this.petCategory = petCategory;
+		this.petGender = petGender;
+		this.petUnigender = petUnigender;
+		this.petName = petName;
+		this.petAge = petAge;
+		this.petRescueDate = petRescueDate;
+		this.petWeight = petWeight;
+		this.petColor = petColor;
+		this.petSize = petSize;
+		this.petComment = petComment;
+	}
 	
 	
 	public int getBoNo() {
 		return boNo;
 	}
-
-
 	public void setBoNo(int boNo) {
 		this.boNo = boNo;
 	}
@@ -161,6 +193,14 @@ public class Adopt {	// 입양게시판
 	public float getPetWeight() {
 		return petWeight;
 	}
+	
+	public String getRescueDate() {
+		return rescueDate;
+	}
+
+	public void setRescueDate(String rescueDate) {
+		this.rescueDate = rescueDate;
+	}
 
 	public void setPetWeight(float petWeight) {
 		this.petWeight = petWeight;
@@ -196,15 +236,6 @@ public class Adopt {	// 입양게시판
 
 	public void setAdoptYn(String adoptYn) {
 		this.adoptYn = adoptYn;
-	}
-
-	@Override
-	public String toString() {
-		return "Adopt [boNo=" + boNo + ", boType=" + boType + ", cateName=" + cateName + ", id=" + id + ", petKinds="
-				+ petKinds + ", petCategory=" + petCategory + ", petGender=" + petGender + ", petUnigender="
-				+ petUnigender + ", petName=" + petName + ", petAge=" + petAge + ", petRescueDate=" + petRescueDate
-				+ ", petWeight=" + petWeight + ", petColor=" + petColor + ", petSize=" + petSize + ", petComment="
-				+ petComment + ", adoptYn=" + adoptYn + "]";
 	}
 
 } // class end

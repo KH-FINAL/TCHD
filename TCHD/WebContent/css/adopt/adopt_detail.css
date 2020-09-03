@@ -99,14 +99,16 @@
 	.petDetail{			/* 세부설명 영역 */
 		width: 40%;
 		float: left;
+		padding-bottom: 30px;
 	}
 	
-	.petDetail ul{		/* 세부설명 영역 */
+	.petDetail tr{		/* 세부설명 영역 */
 		margin: 20px 0px 40px 0px;
 	}
 	
-	.petDetail li{		/* 세부설명 글자부분 */
+	.petDetail td{		/* 세부설명 글자부분 */
 		margin: 15px 0px 0px 0px;
+		padding: 10px 0px 0px 0px;
 		list-style: none;
 	}
 	

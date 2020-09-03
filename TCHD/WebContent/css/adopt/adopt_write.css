@@ -186,10 +186,11 @@
 	
 	#lastAnswer{		/* 하고 싶은 말 텍스트 상자 */
 		width: 800px;
-		height: 80px;
+		height: 70px;
 		resize: none;
 		text-overflow: ellipsis;
 		margin: 0px 0px 0px 7px;
+		padding: 10px;
 	}
 	
 	

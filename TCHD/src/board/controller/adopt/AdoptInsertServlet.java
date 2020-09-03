@@ -109,7 +109,8 @@ public class AdoptInsertServlet extends HttpServlet {
 			
 			String petSize = multiRequest.getParameter("petSize");			// 크기
 			String petAge = multiRequest.getParameter("petAge") + "/" 		// 나이
-						+ multiRequest.getParameter("petAgeDetail")	+ multiRequest.getParameter("detailAge");
+						+ multiRequest.getParameter("petAgeDetail")
+					    + multiRequest.getParameter("detailAge");
 			
 			
 			String petName = multiRequest.getParameter("petName");			// 이름
@@ -155,7 +156,6 @@ public class AdoptInsertServlet extends HttpServlet {
 			a.setPetColor(petColor);
 			a.setPetRescueDate(rescueDate);
 			a.setPetComment(lastMent);
-			System.out.println("입양게시판 등록멘트 : "+lastMent);
 			
 			ArrayList<Files> fileList = new ArrayList<Files>();
 			for(int i = originFiles.size() - 1; i >= 0; i--) {	// originFiles.size() : 원본파일 개수
