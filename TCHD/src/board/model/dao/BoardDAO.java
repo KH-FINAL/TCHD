@@ -917,7 +917,6 @@ public class BoardDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, bNo);
 			
 			rset = pstmt.executeQuery();
 			commentsList = new ArrayList<Comments>();

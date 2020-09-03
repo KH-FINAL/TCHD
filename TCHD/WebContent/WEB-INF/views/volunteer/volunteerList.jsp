@@ -28,6 +28,8 @@
 
 		<div class="main_div">
 			<div class="sub_div">
+				<!-- 검색 시작 -->
+				<form action="volunteerList.jsp" method="get">
 				<div class="list_search">
 					<select id="search_select">
 						<option value="hidden" disabled selected>선택</option>
@@ -35,9 +37,11 @@
 						<option>제목</option>
 					</select>
 						<input type="text" id="search_text">
-						<input type="button" id="search_button" value="검색" onclick="goSearch();">
+						<input type="button" id="search_button" value="검색">
 						<!-- <button id="search_button" onclick="goSearch();">검색</button> -->
 				</div>
+				</form>
+				<!-- 검색 종료 -->
 
 				<div class="table_div">
 					<table id="list_table">
@@ -135,19 +139,9 @@
 					$(this).parent().css({'background':'none', 'text-decoration':'none'});
 				}).click(function(){
 					var num = $(this).parent().children().eq(0).text();
-					location.href="<%= request.getContextPath() %>/volunteerDetail.bo?bNo=" + bNo;
+					location.href="<%= request.getContextPath() %>/volunteerDetail.bo?bNo=" + num;
 				});
 			});
-			
-			function goSearch(){
-				var search = $('#search_text');
-				if(search.val().trim().length==0){
-					swal("","검색어를 입력해주세요.","info");
-					search.focus();	
-				}else{
-					location.href="volSearch.bo?search="+search.val().trim();
-				}
-			}
 		</script>
 	</section>
 	
