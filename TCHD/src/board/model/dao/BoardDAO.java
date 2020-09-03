@@ -160,7 +160,8 @@ public class BoardDAO {
 									rset.getString("mem_id"),
 									rset.getString("bo_delete_yn"),
 									rset.getString("mem_leave"),
-									rset.getString("qu_sub"));
+									rset.getString("qu_sub"),
+									rset.getString("bo_pw"));
 				
 				Qlist.add(q);
 			}

@@ -57,8 +57,8 @@
 				   
             </table>
             
-  			<div id="wrtie_button_div">
-  				<% if(loginUser!=null){ %>
+  			<div id="wrtie_button_div"> <!-- 로그인유저만 글쓰기 가능하게, 비회원은 로그인페이지로 -->
+  				<% if(loginUser!=null){ %> 
          		<button id="write_button" onClick="goWrite()">글쓰기</button>
       			<% } else {%> 
       			<button id="write_button" onClick="goLogin()">글쓰기</button>
@@ -110,78 +110,115 @@
 		}
 		
 		</script>
-        </section>
-	<script>
-  	$(function(){
-  		$('.tet').mouseenter(function(){
-   			$(this).parent().css({'background':'#eee', 'cursor':'pointer', 'text-decoration':'underline'});
-   		}).mouseout(function(){
-   			$(this).parent().css({'background': 'none', 'text-decoration':'none'});
-   		}).click(function(){
-			var bNo = $(this).parent().children().children('input').val();
-			
-   			<% if(loginUser != null){%>
-   			location.href="<%= request.getContextPath() %>/detail.qu?bNo=" + bNo;
-   			<% } else { %>
-   				swal({
-  					title : '비밀글입니다!',
-  					text : '비밀번호를 입력해주세요.', 					
-  					content: {
-  					element : "input",
-  					attributes : {
-  					placeholder : "숫자 4자리 암호를 입력해주세요",
-  					type : "password",
-  					},
-  				},
-  				dangerMode : true, //확인 버튼 붉게
-  				closeOnClickOutside: false,
-  				closeOnEsc: false,
-  				buttons : {
-  						cancle : {
-  						text : '닫기',
-  						value : false,
-  					},
-  					confirm : {
-  						text : '입력',
-  						value : true
-  					}
-  				}
-  			}).then((result) => {   //value를 result로 받음
-  				<%-- if(result == <%=q.getBoPwd() %>){ 비번이랑 boPwd랑 일치시켜야하는데 잘 안됨,. --%>
-  				if(result){
-  					console.log(result);
-  					swal('입력 성공', '비밀번호가 일치합니다.','success',{
-  						closeOnClickOutside : false,
-  						closeOnEsc : false,
-  						buttons : {
-  							confirm : {
-  								text : '확인',
-  								value : true
-  							}
-  						}
-  					}).then((result) => {
-  						if(result){
-  							location.href="<%= request.getContextPath() %>/detail.qu?bNo=" + bNo;
-  						}
-  					})
-  				} else {
-  					swal('입력 실패', '비밀번호가 틀렸습니다.','warning',{
-  						closeOnClickOutside : false,
-  						closeOnEsc : false,
-  						buttons : {
-  							confirm : {
-  								text : '확인',
-  								value : true
-  							}
-  						}
-  					});
+       
+	
+	<%-- /* const { value: password } = await Swal.fire({
+		  title: 'Enter your password',
+		  input: 'password',
+		  inputPlaceholder: 'Enter your password',
+		  inputAttributes: {
+		    maxlength: 10,
+		    autocapitalize: 'off',
+		    autocorrect: 'off'
+		  }
+		})
+
+		if (password) {
+		  Swal.fire(`Entered password: ${password}`)
+		} */ --%>
+		
+	  <script>
+		$(function(){
+	  		$('.tet').mouseenter(function(){
+	   			$(this).parent().css({'background':'#eee', 'cursor':'pointer', 'text-decoration':'underline'});
+	   		}).mouseout(function(){
+	   			$(this).parent().css({'background': 'none', 'text-decoration':'none'});
+	   		}).click(function(){
+				var bNo = $(this).parent().children().children('input').val();
+				
+				<%-- swal({
+	                content: {
+	                  element: "input",
+	                  attributes: {
+	                    placeholder: "Type your password",
+	                    type: "password",
+	                  },
+	                },
+	              }).then(password) => { //value값을 password로 가져온다.
+	                if (input === "<%=Qlist.getBoPwd() %>") { //에이젝스를 써야하는건가... pwd는 테스트해보니 잘 출력됨. 
+	                if(password){
+	                  swal("Ok!",password, {
+	                    icon: "success",
+	                  });
+	                } else {
+	                  swal("Fail", password);
+					 }
+				 }); --%>
+				 
+				 
+				 //디자인 이걸로 바꿈
+				 swal({
+						title : '비밀글입니다!',					
+						content: {
+						element : "input",
+						attributes : {
+						placeholder : "숫자 4자리 암호를 입력해주세요",
+						type : "password",
+						},
+					},
+					dangerMode : true, //확인 버튼 붉게
+					closeOnClickOutside: false,
+					closeOnEsc: false,
+					buttons : {
+							cancle : {
+							text : '닫기',
+							value : false,
+						},
+						confirm : {
+							text : '입력',
+							value : true
+						}
+					}
+				}).then((result) => {   //value를 result로 받음
+					if(result){ 
+						console.log(result);
+						swal(result, '비밀번호가 일치합니다.','success',{
+							closeOnClickOutside : false,
+							closeOnEsc : false,
+							buttons : {
+								confirm : {
+									text : '확인',
+									value : true
+								}
+							}
+						}).then((result) => {
+							if(result){
+								location.href="<%= request.getContextPath() %>/detail.qu?bNo=" + bNo;
+							}
+						})
+					} else {
+						swal('입력 실패', '비밀번호가 틀렸습니다.','warning',{
+							closeOnClickOutside : false,
+							closeOnEsc : false,
+							buttons : {
+								confirm : {
+									text : '확인',
+									value : true
+								}
+							}
+						});
 					}
 				});
-   			<% } %>	
-   		
-   		});
-   	});
-   </script>
-  
+	   		
+	   		<!-- -->
+	   		
+	   		
+	   		});
+	   	});
+  	
+  		
+
+</script>
+   </section>
  </body>
 </html>
