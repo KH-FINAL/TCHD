@@ -29,6 +29,8 @@
 	</section>
 	<script>
 		$(function(){
+			
+		
 			$.ajax({
 				url: 'main.ad',
 				success: function(data){
@@ -50,29 +52,17 @@
 							article1.append(input);
 							$('#pet'+i).attr("onclick","location.href='adoptDetail.bo?boNo="+data[i].boNo+"'");
 						}
+						getAdoptImage();
 					}
 				},
 				error: function(data){
 					alert("ajax 에러 발생")
 				}
 			});
+		
 			
-			$.ajax({
-				url: 'mainImage.ad',
-				success: function(data){
-					console.log(data);
-					for(var i=0;i<data.length; i++){
-						var petContent = $("#petContent"+i);
-						var input="<img src='upload_imageFiles/"+data[i].changeName+"'>";
-						
-						
-						petContent.prepend(input);
-					}
-				},
-				error: function(data){
-					alert("ajax 에러 발생");
-				}
-			});
+			
+			
 			
 			$.ajax({
 				url:  'main.no',
@@ -99,6 +89,27 @@
 			});
 			
 		});
+		
+		
+		function getAdoptImage(){
+			$.ajax({
+				url: 'mainImage.ad',
+				success: function(data){
+					console.log(data);
+					for(var i=0;i<data.length; i++){
+						var petContent = $("#petContent"+i);
+						var input="<img src='upload_imageFiles/"+data[i].changeName+"'>";
+						
+						
+						petContent.prepend(input);
+					}
+				},
+				error: function(data){
+					alert("ajax 에러 발생");
+				}
+			});
+		}
+		
 		function goNotice(boNo){
 			location.href="detail.no?bNo="+boNo;
 		};
