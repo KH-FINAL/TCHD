@@ -9,7 +9,7 @@
 		float: left;
 		width: 140px;
 		height: 220px;
-		margin: 5px 8px;
+		margin: 0px 4px 5px 4px;
 		box-shadow: 2px 2px 5px;
 	}
 	.pet:hover{
@@ -40,7 +40,7 @@
 		text-align: center;
 	}
 	#notice{
-		margin: 24px 0px 0px 0px;
+		margin: 10px 0px 0px 0px;
 		display: grid;
 	}
 	#notice tr{

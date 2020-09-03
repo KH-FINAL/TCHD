@@ -15,11 +15,12 @@ import board.model.vo.Volunteer;
 import member.model.vo.Member;
 
 
-@WebServlet("/listMyVolunteer.vo")
-public class MyVolunteerListServlet extends HttpServlet {
+@WebServlet("/listMyVolunteerGm.vo")
+public class GmVolunteerListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-    public MyVolunteerListServlet() {
+       
+ 
+    public GmVolunteerListServlet() {
         super();
     }
 
@@ -30,10 +31,10 @@ public class MyVolunteerListServlet extends HttpServlet {
 			request.setAttribute("errorMsg", "세션이 만료되었습니다. 다시 로그인해주세요.");
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
-
+		
 		int mem_no = ((Member)request.getSession().getAttribute("loginUser")).getMem_no();
 		///////////////////////////////
-	
+				
 		int listCount;   // 총 게시글 개수
 		int currentPage;  // 현재 페이지
 		int pageLimit;   // 한 페이지에서 표시될 페이지수
@@ -42,7 +43,7 @@ public class MyVolunteerListServlet extends HttpServlet {
 		int startPage;  // 페이징 된 페이지 중 시작 페이지
 		int endPage;   // 페이징 된 페이 중 마지막 페이지
 		
-		listCount =new BoardService().getMyVolunteerCount(mem_no);
+		listCount =new BoardService().getMyVolunteerCountGm(mem_no);
 		currentPage =1;
 		if(request.getParameter("currentPage")!=null) {
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
@@ -62,20 +63,15 @@ public class MyVolunteerListServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(currentPage,listCount,pageLimit,boardLimit,maxPage,startPage, endPage);
 		/////////////////////////////////////////////////////////
 		
-
-		ArrayList<Volunteer> volunteerList  = new BoardService().selectMyVolunteerList(mem_no,pi);
-	
 		
-		
+		ArrayList<Volunteer> volunteerList  = new BoardService().selectMyVolunteerListGm(mem_no,pi);
 		request.setAttribute("pi", pi);
 		request.setAttribute("volunteerList", volunteerList);
 		request.setAttribute("section", "WEB-INF/views/member/listMyVolunteer_myPage.jsp");
 		request.getRequestDispatcher("index.jsp").forward(request, response);
-		
-		
 	}
 
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

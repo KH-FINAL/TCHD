@@ -1,3 +1,4 @@
+<%@page import="member.model.vo.Member"%>
 <%@page import="board.model.vo.PageInfo, board.model.vo.Volunteer ,java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -24,12 +25,20 @@
 				<li id="pageNaviTitle"><a href="myPage.me">마이페이지</a></li>
 				<li><a href="myPage.me">회원정보수정</a></li>
 				<li><a href="listMyBoard.bo">내가 작성한 글</a></li>
-				<li><a href="listMyVolunteer.vo">참여 봉사 내역</a></li>
+				 <%if(((Member)request.getSession().getAttribute("loginUser")).getMem_type().equals("PM")){ %>
+					<li><a href="listMyVolunteer.vo">참여 봉사 내역</a></li>
+				<%}else{ %>
+					<li><a href="listMyVolunteerGm.vo">개설 봉사 내역</a></li>
+				<%} %>
 				<li><a href="leaveForm.me">회원 탈퇴</a></li>
 			</ul>
 		</nav>
 		<div id="listMyBoardDiv">
+		 <%if(((Member)request.getSession().getAttribute("loginUser")).getMem_type().equals("PM")){ %>
 			<div id="listMyBoardTitle">참여 봉사 내역</div>
+		<%}else{ %>
+			<div id="listMyBoardTitle">개설 봉사 내역</div>
+		<%} %>
 			<div id="listMyBoardContent">
 				
 				<div id="tableMyBoard">
@@ -39,16 +48,17 @@
 							<th>제목</th>
 							<th>장소</th>
 						</tr>
-					<%if(volunteerList!=null){ %>
+					<%if(!volunteerList.isEmpty()){ %>
 						<%for(Volunteer v : volunteerList){ %>
-						<tr>
+						<tr class="volunteerTr">
+							<input type="hidden" class="bNo" value="<%=v.getBoNo() %>">
 							<td><%=v.getVoDate() %></td>
 							<td><%=v.getBoTitle() %></td>
 							<td><%=v.getVoPlace() %></td>
 						</tr>
 						<%} %>
 					<%}else{ %>
-						<tr>
+						<tr >
 							<td colspan="3">조회결과가 없습니다.</td>
 							
 						</tr>
@@ -81,8 +91,17 @@
 			//before.attr("href","");
 			before.css("visibility","hidden");
 		}
+		$('.volunteerTr').hover(function(){
+			$(this).children().css({'cursor':'pointer', 'background':'#eee'});
+		},function(){
+			$(this).children().css({'cursor':'none', 'background':'none'});
+		}).click(function(){
+			var bNo=$(this).find('.bNo').val();
+			location.href="volunteerDetail.bo?bNo="+bNo;
+		});
 		
-	})	
+	});
+	
 	
 	</script>
 </body>

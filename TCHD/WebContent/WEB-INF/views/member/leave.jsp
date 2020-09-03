@@ -1,3 +1,4 @@
+<%@page import="member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -9,11 +10,15 @@
 <body>
 	<section>
 		<nav>
-			<ul id="pageNavi">
+			<ul id="pageNavi"> 
 				<li id="pageNaviTitle"><a href="myPage.me">마이페이지</a></li>
 				<li><a href="myPage.me">회원정보수정</a></li>
 				<li><a href="listMyBoard.bo">내가 작성한 글</a></li>
-				<li><a href="listMyVolunteer.vo">참여 봉사 내역</a></li>
+				 <%if(((Member)request.getSession().getAttribute("loginUser")).getMem_type().equals("PM")){ %>
+					<li><a href="listMyVolunteer.vo">참여 봉사 내역</a></li>
+				<%}else{ %>
+					<li><a href="listMyVolunteerGm.vo">개설 봉사 내역</a></li>
+				<%} %>
 				<li><a href="leaveForm.me">회원 탈퇴</a></li>
 			</ul>
 		</nav>

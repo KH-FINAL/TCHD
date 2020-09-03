@@ -39,6 +39,7 @@
 	text-align: center;
 	margin: 0px auto;
 	border-collapse: collapse;
+	    font-size: 14px;
 }
 
 #notice_list_table th {

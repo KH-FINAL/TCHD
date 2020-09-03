@@ -1,29 +1,21 @@
-<%@page import="board.model.vo.PageInfo"%>
-<%@page import="board.model.vo.Board"%>
-<%@page import="java.util.ArrayList"%>
+<%@page import="member.model.vo.Member"%>
+<%@page import="java.util.HashMap, board.model.vo.PageInfo, board.model.vo.Board, java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 	ArrayList<Board> boardList = (ArrayList<Board>)request.getAttribute("boardList");
+	HashMap<String, Integer> eachBoardCount = (HashMap<String, Integer>)request.getAttribute("eachBoardCount");
 	int total=0;
 	int adopt=0;
 	int volunteer=0;
 	int comment=0;
 	int questions=0;
-	if(boardList!=null){
-	  	for(Board board : boardList){
-	  		if(board.getBoType().equals("입양게시판")){
-	  			total+=1; adopt+=1;
-	  		}else if(board.getBoType().equals("봉사게시판")){
-	  			 total+=1; volunteer+=1;
-	  		}else if(board.getBoType().equals("문의사항")){
-	  			total+=1; questions+=1; 
-	  		}else{
-	  			 total+=1; comment+=1;
-	  		}
-		}
 	
-	}
+	if(eachBoardCount.get("입양게시판")!=null){adopt=eachBoardCount.get("입양게시판");};
+	if(eachBoardCount.get("봉사게시판")!=null){volunteer=eachBoardCount.get("봉사게시판");};
+	if(eachBoardCount.get("문의사항")!=null){questions=eachBoardCount.get("문의사항");};
+	if(eachBoardCount.get("댓글")!=null){comment=eachBoardCount.get("댓글");};
+	total=adopt+volunteer+questions+comment;
 	
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	
@@ -72,7 +64,11 @@ $(function(){
 				<li id="pageNaviTitle"><a href="myPage.me">마이페이지</a></li>
 				<li><a href="myPage.me">회원정보수정</a></li>
 				<li><a href="listMyBoard.bo">내가 작성한 글</a></li>
-				<li><a href="listMyVolunteer.vo">참여 봉사 내역</a></li>
+				 <%if(((Member)request.getSession().getAttribute("loginUser")).getMem_type().equals("PM")){ %>
+					<li><a href="listMyVolunteer.vo">참여 봉사 내역</a></li>
+				<%}else{ %>
+					<li><a href="listMyVolunteerGm.vo">개설 봉사 내역</a></li>
+				<%} %>
 				<li><a href="leaveForm.me">회원 탈퇴</a></li>
 			</ul>
 		</nav>

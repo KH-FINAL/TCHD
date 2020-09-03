@@ -7,6 +7,7 @@ import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import board.model.dao.BoardDAO;
 import board.model.vo.Adopt;
 import board.model.vo.AdoptApply;
@@ -515,6 +516,34 @@ public class BoardService {
 		close(conn);
 		return finalResult;
 	}
+	
+
+	public HashMap<String, Integer> getEachBoardCount(int mem_no) {
+		Connection conn= getConnection();
+		
+		HashMap<String, Integer> eachBoardCount = new BoardDAO().getEachBoardCount(conn,mem_no);
+		
+		close(conn);
+		
+		return eachBoardCount;
+	}
+
+	public ArrayList<Volunteer> selectMyVolunteerListGm(int mem_no,PageInfo pi) {
+		Connection conn = getConnection();
+		ArrayList<Volunteer> volunteerList = new BoardDAO().selectMyVolunteerGm(conn, mem_no,pi);
+		close(conn);
+		return volunteerList;
+		
+	}
+
+
+	public int getMyVolunteerCountGm(int mem_no) {
+		Connection conn = getConnection();
+		int count = new BoardDAO().getMyVolunteerCountGm(conn, mem_no);
+		close(conn);
+		return count;
+	}
+
 	
 	public int insertVolunteer(Volunteer v, Files uploadFile) {
 		

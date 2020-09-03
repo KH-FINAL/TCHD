@@ -40,6 +40,11 @@
 	padding:3px;
 }
 
+.joinForm input:focus{
+	border: none;
+	outline: 2px solid rgba(41, 128, 185, 0.5);
+}
+
 .joinForm table{
 	border-collapse: collapse;
 	margin: 0 auto;
@@ -154,6 +159,11 @@ select{
 	display: none; 
 }
 
+
+#zoneCode, #mainAddress:hover{
+	cursor: default;
+	
+}
 /* 회원정보수정 */
 
 #updateDiv{
@@ -187,6 +197,9 @@ select{
 #updateForm  input{
 	width: 200px;
 	
+}#updateForm input:focus{
+	border: none;
+	outline: 2px solid rgba(41, 128, 185, 0.5);
 }
 #updateForm  table{
 	border-collapse: collapse;
@@ -208,6 +221,9 @@ select{
 	text-align: left;
 	font-weight: bold;
 }
+#info_span{
+	font-size: 12px;
+}
 
 #updateForm  input {
 	height: 28px;
@@ -224,7 +240,7 @@ select{
 	width:104px;
 	height: 28px;
 	color: rgb(255,255,255);
-	background-color: rgb(41, 128, 185);
+	background-color: rgba(41, 128, 185, 0.8);
 	border-style: none;
 	margin-left: 5px;
 }

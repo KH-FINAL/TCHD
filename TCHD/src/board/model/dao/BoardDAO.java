@@ -12,8 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
-
 import board.model.vo.Adopt;
 import board.model.vo.AdoptApply;
 import board.model.vo.Board;
@@ -946,7 +946,6 @@ public class BoardDAO {
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
 			pstmt.setString(3, search);
-			pstmt.setString(4, search);
 			rset=pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -1060,9 +1059,9 @@ public class BoardDAO {
 		
 		try {
 			pstmt=conn.prepareStatement(prop.getProperty("selectMyVolunteer"));
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);			
-			pstmt.setInt(3, mem_no);
+			pstmt.setInt(1, mem_no);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);			
 			rset=pstmt.executeQuery();
 			
 			if(rset.next()) {
@@ -1183,6 +1182,77 @@ public class BoardDAO {
 		return result;
 	}
 
+	public HashMap<String, Integer> getEachBoardCount(Connection conn, int mem_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Integer> eachBoardCount = new HashMap<String, Integer>();
+		
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("getEachBoardCount"));
+			pstmt.setInt(1, mem_no);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				eachBoardCount.put(rset.getString("CATE_NAME"), rset.getInt(1));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return eachBoardCount;
+	}
+
+	public ArrayList<Volunteer> selectMyVolunteerGm(Connection conn, int mem_no, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Volunteer> volunteerList = new ArrayList<Volunteer>();
+		
+		int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() +1;
+		int endRow = startRow + pi.getBoardLimit() -1;
+		
+		try {
+			pstmt= conn.prepareStatement(prop.getProperty("selectMyVolunteerGm"));
+			pstmt.setInt(1, mem_no);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rset=pstmt.executeQuery();
+			while(rset.next()) {
+				Volunteer volunteer = new Volunteer(rset.getInt("BO_NO"), 0, 
+						null, rset.getString("BO_TITLE"), 0, 
+						null, 0, null, null,
+						0, 0, null, 
+						rset.getDate("VO_DATE"), null, rset.getString("VO_PLACE"), null);
+				volunteerList.add(volunteer);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return volunteerList;
+	}
+
+	public int getMyVolunteerCountGm(Connection conn, int mem_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("getMyVolunteerCountGm"));
+			pstmt.setInt(1, mem_no);
+			rset= pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt(1);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
+		
+	}
+	
 	public int updateBoard(Connection conn, Board b) { // 수정내용 Board 테이블에 udpate
 		PreparedStatement pstmt = null;
 		int result = 0; 
@@ -1346,6 +1416,7 @@ public class BoardDAO {
 			close(pstmt);
 		}
 		return result;
-	}
+}
+	
 
 }

@@ -13,17 +13,6 @@
 
    
  $(function(){
-	 
-	 $(window).scroll(function() {
-		
-		 
-	        if ($(this).scrollTop() < 200) {
-	        	 $('#topBtn').hide();
-	        } else {
-	            $('#topBtn').show();
-	        }
-	    });
- 
  	 $(window).resize(function(){
 		if($(window).width()<=1516){
 			$("#remoteDiv").hide();
@@ -37,7 +26,7 @@
      $("#topBtn").click(function() {
          $('html, body').animate({
              scrollTop : 0
-         }, 400);
+         }, 150);
      });
      
      $('.naviDetail_li').hover(function(){

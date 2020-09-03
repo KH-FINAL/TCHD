@@ -2,6 +2,7 @@ package board.controller.myPage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -73,10 +74,12 @@ public class MyBoardListServlet extends HttpServlet {
 		
 		
 		ArrayList<Board> boardList = new BoardService().selectMyBoard(loginUser.getMem_no(),pi);
-			
+		HashMap<String, Integer> eachBoardCount = new BoardService().getEachBoardCount(loginUser.getMem_no());	
+		System.out.println(eachBoardCount);
 		if(boardList!=null) {
 			request.setAttribute("pi", pi);
 		}
+		request.setAttribute("eachBoardCount", eachBoardCount);
 		request.setAttribute("boardList", boardList);
 		request.setAttribute("section", "WEB-INF/views/member/listMyBoard_myPage.jsp");
 		request.getRequestDispatcher("index.jsp").forward(request, response);

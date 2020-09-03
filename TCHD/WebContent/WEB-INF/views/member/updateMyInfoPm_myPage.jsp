@@ -17,12 +17,16 @@
 </head>
 <body>
 <section>
-	<nav>
+		<nav>
 			<ul id="pageNavi"> 
 				<li id="pageNaviTitle"><a href="myPage.me">마이페이지</a></li>
 				<li><a href="myPage.me">회원정보수정</a></li>
 				<li><a href="listMyBoard.bo">내가 작성한 글</a></li>
-				<li><a href="listMyVolunteer.vo">참여 봉사 내역</a></li>
+				 <%if(((Member)request.getSession().getAttribute("loginUser")).getMem_type().equals("PM")){ %>
+					<li><a href="listMyVolunteer.vo">참여 봉사 내역</a></li>
+				<%}else{ %>
+					<li><a href="listMyVolunteerGm.vo">개설 봉사 내역</a></li>
+				<%} %>
 				<li><a href="leaveForm.me">회원 탈퇴</a></li>
 			</ul>
 		</nav>
@@ -45,7 +49,7 @@
 					<td><input type="password" name="userPwd" class="inputPwd" maxlength="15">
 						<input type="hidden" name="originalPwd" value="<%=member.getMem_pw() %>">		
 					</td>
-					<td></td>
+					<td><span id="info_span">비밀번호 변경 시 입력해주세요.</span></td>
 				</tr>
 				<tr>
 					<td class="form_title">비밀번호확인</td>

@@ -20,10 +20,16 @@
 	border-style: none;
 }
 
+#confirmPwForm input:focus{
+	border: none;
+	outline: 2px solid rgba(41, 128, 185, 0.5);
+}
+
 #confirmPwForm button{
 	width: 100px;
 	height: 40px;
-	background-color: rgb(52, 152, 219);
+	background-color:rgba(41, 128, 185, 0.8);
+	border-radius: 10px;
 	color: rgb(255,255,255);
 	font-size: 16px;
 	border-style: none;
