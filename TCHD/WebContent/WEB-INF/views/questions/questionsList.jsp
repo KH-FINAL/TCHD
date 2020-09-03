@@ -4,11 +4,8 @@
 <%  @SuppressWarnings("unchecked")
 	ArrayList<Questions> Qlist = (ArrayList<Questions>)request.getAttribute("Qlist");	
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	Questions q = (Questions)request.getAttribute("qBoard"); 
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	String msg = (String)session.getAttribute("msg");
-	
-	String pwd = (String)request.getAttribute("boPwd");
 	
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
@@ -53,7 +50,7 @@
 			         	   <td class="tet">
 			         		  <%= Qlist.get(i).getBoTitle() %>
 			         	   <%	/*암호 아이콘표시*/
-			         	  	if(pwd == null){ /* !=이 안먹혀....... ==이 먹는단것은 null값이 들어가고있단걸까요  */
+			         	  	if(Qlist.get(i).getBoPwd() != null){ /* !=이 안먹혀....... ==이 먹는단것은 null값이 들어가고있단걸까요  */
 			         	  	
 			         	  	%>	
 			         	  	<img src="images/secret.gif">

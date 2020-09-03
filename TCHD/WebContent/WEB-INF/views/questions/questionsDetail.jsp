@@ -44,11 +44,9 @@
 					<h3>관리자 답변  <img src="images/supervisor.png" width="25px" height="25px"></h3>
 				</div>	
 				<div id = "div_question">
-					<textarea name="content" class="content">안녕하세요. <%= q.getMemId() %> 회원님, 로그인관련 문의 주셨네요!
+					<textarea name="content" class="content" id="comment" readonly>안녕하세요. <%= q.getMemId() %> 회원님, <%= q.getQuSub()%> 관련 문의 주셨네요!
 저희 함께하묘행복하개는 아이디/비밀번호찾기 기능을 제공중에 있으니,
 아래 안내해드리는 링크를 참고하시어 사이트 이용에 불편이 없으시길 바랍니다. ♡
-
-
 					</textarea>
 					<div id = "notice">*추가 문의사항이 있으실시 해당 페이지 스크릿샷을 첨부로 올려주시면 보다 수월하고 빠른 답변을 받아보실 수 있습니다.*</div>
 					
@@ -70,6 +68,11 @@
 					<input type="button" class="btn_list" value="수정하기" onClick="location.href='list.qu'">
 				</div>
 			</div>
+			<script type="text/javascript">
+     			 $('#comment').focus(function(){
+    		     $(':focus').blur();     
+  				    });
+      		</script>
 		</section>
 </body>
 </html>		

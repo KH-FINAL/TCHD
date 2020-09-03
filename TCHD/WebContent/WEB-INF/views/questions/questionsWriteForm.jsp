@@ -21,10 +21,9 @@
 			<select name="input_subject" id="subject" class="btn">
 				<option value = "0">----------------</option>
 				<option value = "회원정보">회원정보</option>
-				<option value = "입양관련">입양관련</option>
-				<option value = "후원관련">후원관련</option>
-				<option value = "봉사관련">봉사관련</option>
-				<option value = "유기동물">유기동물</option>
+				<option value = "입양하기">입양하기</option>
+				<option value = "후원하기">후원관련</option>
+				<option value = "봉사하기">봉사하기</option>
 				<option value = "etc">etc</option>
 			</select></td>
 			</tr>
