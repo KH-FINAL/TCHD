@@ -515,6 +515,36 @@ public class BoardService {
 		close(conn);
 		return finalResult;
 	}
+	
+	public int insertVolunteer(Volunteer v, Files uploadFile) {
+		
+		Connection conn = getConnection();
+		
+		BoardDAO dao = new BoardDAO();
+		
+		int finalResult = 0;
+		int result1 = dao.insertVolunteer1(conn, v);
 
+		if(result1>0) {
+			int result2 = dao.insertVolunteer2(conn, v, v.getVoMaxmember(), v.getVoApplymember(), v.getVoDeadline(), v.getVoDate(), v.getVoArea(), v.getVoPlace(), v.getVoComment());
+			finalResult = result2;
+			if(result2>0 && uploadFile.getOrignName()!=null) {
+
+				int result3 = dao.insertVolunteerFile(conn,uploadFile);		
+
+				finalResult = result3;
+
+				commit(conn);
+			}
+			
+		} else {
+			
+			rollback(conn);
+		}
+
+		close(conn);
+
+		return finalResult;
+	}
 
 } // class end

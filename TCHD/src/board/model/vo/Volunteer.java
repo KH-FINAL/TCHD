@@ -92,6 +92,23 @@ public class Volunteer {
 		this.boCount = boCount;
 	}
 	
+	public Volunteer(int boNo, String boTitle, String voArea, Date voDate, String voPlace, int voMaxmember, String voComment, int boType) {
+		super();
+		this.boNo = boNo;
+		this.boTitle = boTitle;
+		this.voArea = voArea;
+		this.voDate = voDate;
+		this.voPlace = voPlace;
+		this.voMaxmember = voMaxmember;
+		this.voComment = voComment;
+		this.boType = boType;
+	}
+
+	public Volunteer(int i, String boTitle2, String voArea2, String voDate2, String voPlace2, String voMaxmember2,
+			String voComment2, String selectBoard) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public int getBoNo() {
 		return boNo;
 	}

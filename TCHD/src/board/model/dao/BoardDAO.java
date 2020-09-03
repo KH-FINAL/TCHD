@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -1287,6 +1288,60 @@ public class BoardDAO {
 		
 		return result;
 	}
+	
+	public int insertVolunteer1(Connection conn, Volunteer v) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("insertVolunteer1"));
+			pstmt.setInt(1, v.getMemNo());
+			pstmt.setString(2, v.getBoTitle());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
+	public int insertVolunteer2(Connection conn, Volunteer v, int voMaxmember, int voApplymember, String voDeadline, Date voDate,
+			String voArea, String voPlace, String voComment) {
+		PreparedStatement pstmt = null;
+		int result= 0;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("insertVolunteer2"));
+			pstmt.setInt(1, v.getVoMaxmember());
+			pstmt.setDate(2, v.getVoDate());
+			pstmt.setString(3, v.getVoArea());
+			pstmt.setString(4, v.getVoPlace());
+			pstmt.setString(5, v.getVoComment());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int insertVolunteerFile(Connection conn, Files uploadFile) {
+		PreparedStatement pstmt = null;
+		int result=0;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("insertVolunteerFile"));
+			pstmt.setString(1, uploadFile.getOrignName());
+			pstmt.setString(2, uploadFile.getChangeName());
+			pstmt.setString(3, uploadFile.getFilePath());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
 }
