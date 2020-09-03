@@ -7,7 +7,6 @@ import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
-
 import board.model.dao.BoardDAO;
 import board.model.vo.Adopt;
 import board.model.vo.AdoptApply;
@@ -74,16 +73,7 @@ public class BoardService {
 		return boardList;
 	}
 
-	public ArrayList<Volunteer> selectMyVolunteer(int mem_no) {
-		Connection conn = getConnection();
-		
-		ArrayList<Volunteer> volunteerList = new BoardDAO().selectMyVolunteer(conn,mem_no);
-		
-		close(conn);
-		
-		return volunteerList;
-		
-	}
+
 
 	public ArrayList<Volunteer> selectVList(PageInfo pi) {
 		Connection conn = getConnection();
@@ -177,16 +167,6 @@ public class BoardService {
 		
 		
 		return qBoard;
-	}
-
-	public ArrayList<Notice> selectNoticeList(PageInfo pi) {
-		Connection conn = getConnection();
-
-		ArrayList<Notice> noticeList = new BoardDAO().selectNoticeList(conn,pi);
-
-		close(conn);
-
-		return noticeList;
 	}
 
 
@@ -423,6 +403,65 @@ public class BoardService {
 		
 		return noticeList;
 	}
+
+	public ArrayList<Notice> selectNoticeList(PageInfo pi) {
+		Connection conn = getConnection();
+
+		ArrayList<Notice> noticeList = new BoardDAO().selectNoticeList(conn,pi);
+
+		close(conn);
+
+		return noticeList;
+	}
+
+
+
+	public int getMyVolunteerCount(int mem_no) {
+		Connection conn= getConnection();
+		
+		int count = new BoardDAO().getMyVolunteerCount(conn,mem_no);
+		
+		close(conn);
+		
+		return count;
+	}
+
+	public ArrayList<Volunteer> selectMyVolunteerList(int mem_no,PageInfo pi) {
+		Connection conn = getConnection();
+		
+		ArrayList<Volunteer> volunteerList = new BoardDAO().selectMyVolunteer(conn,mem_no,pi);
+		
+		close(conn);
+		
+		return volunteerList;
+		
+	}
+
+
+
+	public ArrayList<Adopt> selectAdoptMainPage() {
+		Connection conn = getConnection();
+		
+		ArrayList<Adopt> adoptList = new BoardDAO().selectAdoptMainPage(conn);
+		
+		close(conn);
+		
+		return adoptList;
+	}
+
+
+
+	public ArrayList<Files> selectAdoptImageMainPage() {
+		Connection conn = getConnection();
+		
+		ArrayList<Files> fileList = new BoardDAO().selectAdoptImageMainPage(conn);
+		
+		close(conn);
+		
+		return fileList;
+	}
+
+
 
 
 } // class end

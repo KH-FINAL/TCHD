@@ -69,7 +69,7 @@
 	   					<%} %>
 	   		<%} %>	
    		  <a href="list.no?currentPage=<%=currentPage+1 %>" class="bt" id="nextBtn">다음 페이지</a>
-            </div>	
+          </div>	
    </section>
 <script>
 $(function(){

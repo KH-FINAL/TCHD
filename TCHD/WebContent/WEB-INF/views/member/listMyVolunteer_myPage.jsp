@@ -1,9 +1,15 @@
-<%@page import="board.model.vo.Volunteer"%>
-<%@page import="java.util.ArrayList"%>
+<%@page import="board.model.vo.PageInfo, board.model.vo.Volunteer ,java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	ArrayList<Volunteer> volunteerList = (ArrayList<Volunteer>)request.getAttribute("boardList"); 
+	ArrayList<Volunteer> volunteerList = (ArrayList<Volunteer>)request.getAttribute("volunteerList"); 
+	System.out.println(volunteerList);
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
 %>
 <!DOCTYPE html>
 <html>
@@ -34,7 +40,13 @@
 							<th>장소</th>
 						</tr>
 					<%if(volunteerList!=null){ %>
-					
+						<%for(Volunteer v : volunteerList){ %>
+						<tr>
+							<td><%=v.getVoDate() %></td>
+							<td><%=v.getBoTitle() %></td>
+							<td><%=v.getVoPlace() %></td>
+						</tr>
+						<%} %>
 					<%}else{ %>
 						<tr>
 							<td colspan="3">조회결과가 없습니다.</td>
@@ -42,17 +54,36 @@
 						</tr>
 					<%} %>
 					</table>
-					<div  class="paging">
-		                <a href="#" class="bt">이전 페이지</a>
-		                <a href="#" class="num on">1</a>
-		                <a href="#" class="num">2</a>
-		                <a href="#" class="num">3</a>
-		                <a href="#" class="bt">다음 페이지</a>
-		            </div>
+					<div  class="paging">			
+						<a href="list.no?currentPage=<%=currentPage-1 %>" class="bt" id="beforBtn">이전 페이지</a>			
+						<%for(int p=startPage; p<=maxPage; p++){ %>
+			   					<% if(p==currentPage){ %>
+			   					 <a href="listMyVolunteer.vo?currentPage=<%=p%>" class="num on"><%=p %></a>
+			   					<%}else{ %>
+			   					 <a href="listMyVolunteer.vo?currentPage=<%=p%>" class="num"><%=p %></a>
+			   					<%} %>
+			  	 		<%} %>	
+		   			  <a href="list.no?currentPage=<%=currentPage+1 %>" class="bt" id="nextBtn">다음 페이지</a>
+		        	 </div>	
 				</div>
 			</div>
 		</div>
+	</section>	
+	<script>
+	$(function(){
+		if(<%=currentPage %> <=1){
+			var before = $('#beforBtn');
+			//before.attr("href","");
+			before.css("visibility","hidden");
+		}
+		if(<%=currentPage %>== <%=maxPage%>){
+			var before = $('#nextBtn');
+			//before.attr("href","");
+			before.css("visibility","hidden");
+		}
+		
+	})	
 	
-	</section>
+	</script>
 </body>
 </html>
