@@ -2,6 +2,8 @@ package board.controller.adopt;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -55,11 +57,21 @@ public class AdoptUpdateServlet extends HttpServlet {
 		
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize,"UTF-8", new MyFileRenamePolicy());
 			
-			String saveFile = multiRequest.getFilesystemName("input_file");	// form에서 전송되는 파일이름
-			String originFile = multiRequest.getOriginalFileName("input_file");	// form에서 전송되는 파일이름
+			ArrayList<String> saveFiles = new ArrayList<String>();	 // 바뀐 파일 이름 저장
+			ArrayList<String> originFiles = new ArrayList<String>(); // 원본파일 이름 저장
 			
-			System.out.println(saveFile);
-			System.out.println(originFile);
+			Enumeration<String> files = multiRequest.getFileNames();	// form에서 전송되는 파일이름
+			while(files.hasMoreElements()) {
+				String name = files.nextElement();
+				
+				if(multiRequest.getFilesystemName(name) != null) {
+					saveFiles.add(multiRequest.getFilesystemName(name));	 // 바뀐 파일명
+					originFiles.add(multiRequest.getOriginalFileName(name)); // 실제 업로드했던 파일명
+				}
+			}
+			
+			System.out.println(saveFiles);
+			System.out.println(originFiles);
 			
 			
 			int bNo = Integer.parseInt(multiRequest.getParameter("boNo"));
@@ -90,31 +102,55 @@ public class AdoptUpdateServlet extends HttpServlet {
 			// insert 했던 파일 정보
 			String thumbnail = request.getParameter("thumbnail");
 			
-			String fileNo1 = ""; 
-			String fileNo2 = ""; 
-			String fileNo3 = ""; 
-			if(multiRequest.getParameter("fileNo1") != null ) {
-				fileNo1 = request.getParameter("fileNo1");
+			String contentImg1 = ""; 
+			String contentImg2 = ""; 
+			String contentImg3 = ""; 
+			if(multiRequest.getParameter("contentImg1") != null ) {
+				contentImg1 = request.getParameter("contentImg1");
 			}
 			
-			if(multiRequest.getParameter("fileNo2") != null ) {
-				fileNo2 = request.getParameter("fileNo2");
+			if(multiRequest.getParameter("contentImg2") != null ) {
+				contentImg2 = request.getParameter("contentImg2");
 			}
 
-			if(multiRequest.getParameter("fileNo3") != null ) {
-				fileNo3 = request.getParameter("fileNo3");
+			if(multiRequest.getParameter("contentImg3") != null ) {
+				contentImg3 = request.getParameter("contentImg3");
+			}
+			ArrayList<Files> fList = new ArrayList<Files>();
+			for(int i = 0; i < originFiles.size(); i++) {
+				Files ft = new Files();
+				ft.setFilePath(savePath);
+				ft.setOrignName(originFiles.get(i));
+				ft.setChangeName(saveFiles.get(i));
+				
+				if(i == originFiles.size() -1) {
+					ft.setFileLevel(0);
+				} else { 
+					ft.setFileLevel(1);
+				}
+				
+				fList.add(ft);
 			}
 			
-			Files files = new Files(bNo, originFile, saveFile, savePath);
 			
+			int result = new BoardService().updateAdopt(b, a, fList);
 			
-			int result = new BoardService().updateAdopt(b, a, files);
-			
-			
-			
-			
-			
-			
+			if(result > 0) {
+//				response.sendRedirect("adoptDetail.bo?boNo=" + bNo);
+				request.setAttribute("adopt", a);
+				request.setAttribute("fileList", fList);
+				request.setAttribute("section", "WEB-INF/views/adopt/aodptDetdail.jsp");
+				request.getRequestDispatcher("index.jsp").forward(request, response);
+				
+			} else {
+				for(int i = 0; i < saveFiles.size(); i++) {
+					File failedFile = new File(savePath + saveFiles.get(i));
+					failedFile.delete();
+				}
+				request.setAttribute("msg", "사진 게시판 수정에 실패하였습니다.");
+				request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
+				request.getRequestDispatcher("index.jsp").forward(request, response);
+			}
 			
 		}
 	}

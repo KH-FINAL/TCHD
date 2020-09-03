@@ -56,19 +56,19 @@ public class AdoptUpdateFormServlet extends HttpServlet {
 		// insert 했던 파일 정보
 		String thumbnail = request.getParameter("thumbnail");
 		
-		String fileNo1 = ""; 
-		String fileNo2 = ""; 
-		String fileNo3 = ""; 
-		if(request.getParameter("fileNo1") != null ) {
-			fileNo1 = request.getParameter("fileNo1");
+		String contentImg1 = ""; 
+		String contentImg2 = ""; 
+		String contentImg3 = ""; 
+		if(request.getParameter("contentImg1") != null ) {
+			contentImg1 = request.getParameter("contentImg1");
 		}
 		
-		if(request.getParameter("fileNo2") != null ) {
-			fileNo2 = request.getParameter("fileNo2");
+		if(request.getParameter("contentImg2") != null ) {
+			contentImg2 = request.getParameter("contentImg2");
 		}
 
-		if(request.getParameter("fileNo3") != null ) {
-			fileNo3 = request.getParameter("fileNo3");
+		if(request.getParameter("contentImg3") != null ) {
+			contentImg3 = request.getParameter("contentImg3");
 		}
 		
 		Adopt adopt = new Adopt(petKind, petCategory, petGender, unigender, petName, petAge, 
@@ -78,9 +78,9 @@ public class AdoptUpdateFormServlet extends HttpServlet {
 		request.setAttribute("userPhone", userPhone);
 		request.setAttribute("adopt", adopt);
 		request.setAttribute("thumbnail", thumbnail);
-		request.setAttribute("fileNo1", fileNo1);
-		request.setAttribute("fileNo2", fileNo2);
-		request.setAttribute("fileNo3", fileNo3);
+		request.setAttribute("contentImg1", contentImg1);
+		request.setAttribute("contentImg2", contentImg2);
+		request.setAttribute("contentImg3", contentImg3);
 		request.setAttribute("section", "WEB-INF/views/adopt/adoptUpdate.jsp");
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 		}

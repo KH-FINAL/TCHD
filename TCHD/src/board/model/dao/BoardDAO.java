@@ -32,10 +32,8 @@ public class BoardDAO {
 		try {
 			prop.load(new FileReader(fileName));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -53,7 +51,6 @@ public class BoardDAO {
 			
 			list = new ArrayList<Adopt>();
 			
-			// 
 			while(rset.next()) {
 				list.add(new Adopt(rset.getInt("bo_no"),
 						rset.getInt("bo_type"),
@@ -220,7 +217,6 @@ public class BoardDAO {
 		
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(rset);
@@ -264,7 +260,6 @@ public class BoardDAO {
 				volunteerList.add(volunteer);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(rset);
@@ -307,10 +302,7 @@ public class BoardDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-//			(SEQ_BOARD_NO.CURRVAL, 1, ?-PET_KINDS, ?-PET_CATEGORY, ?-PET_GENDER, 
-//									?-PET_UNIGENDER, ?-PET_NAME, ?-PET_AGE, ?-PET_RESCUE_DATE, 
-//									?-PET_WEIGHT, ?-PET_COLOR, ?-PET_SIZE, ?-PET_COMMENT, DEFAULT)
-									
+			
 			pstmt.setString(1, a.getPetKinds());
 			pstmt.setString(2, a.getPetCategory());
 			pstmt.setString(3, a.getPetGender());
@@ -322,7 +314,6 @@ public class BoardDAO {
 			pstmt.setString(9, a.getPetColor());
 			pstmt.setString(10, a.getPetSize());
 			pstmt.setString(11, a.getPetComment());
-		
 			
 			result = pstmt.executeUpdate();
 	} catch (SQLException e) {
@@ -391,7 +382,6 @@ public class BoardDAO {
 						questionsList.add(q);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
@@ -411,7 +401,6 @@ public class BoardDAO {
 			pstmt.setString(2, answer);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
@@ -435,7 +424,6 @@ public class BoardDAO {
 				count= rset.getInt(1);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(rset);
@@ -458,7 +446,6 @@ public class BoardDAO {
 				count= rset.getInt(1);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(rset);
@@ -568,7 +555,6 @@ public class BoardDAO {
 			pstmt.setString(2, notice.getBoContent());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
@@ -584,7 +570,6 @@ public class BoardDAO {
 			pstmt.setString(1, noticeSubject);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
@@ -603,7 +588,6 @@ public class BoardDAO {
 			pstmt.setString(3, uploadFile.getFilePath());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
@@ -670,6 +654,7 @@ public class BoardDAO {
 			close(rset);
 			close(pstmt);
 		}		
+		
 		return fileList;
 	}
 
@@ -728,6 +713,7 @@ public class BoardDAO {
 		}finally {
 			close(pstmt);
 		}
+		
 		return result;
 	}
 
@@ -745,6 +731,7 @@ public class BoardDAO {
 		}finally {
 			close(pstmt);
 		}
+		
 		return result;
 	}
 
@@ -785,6 +772,7 @@ public class BoardDAO {
 		}finally {
 			close(pstmt);
 		}
+		
 		return result;
 	}
 
@@ -804,6 +792,7 @@ public class BoardDAO {
 		}finally {
 			close(pstmt);
 		}
+		
 		return result;
 	}
 
@@ -930,12 +919,12 @@ public class BoardDAO {
 											  rset.getString("mem_id")));
 			}	
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(rset);
 			close(pstmt);
 		}
+		
 		return commentsList;
 	}
 
@@ -969,13 +958,12 @@ public class BoardDAO {
 				noticeList.add(notice);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(rset);
 			close(pstmt);
-			
 		}
+		
 		return noticeList;
 	
 	}
@@ -995,7 +983,6 @@ public class BoardDAO {
 			}
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(rset);
@@ -1027,8 +1014,10 @@ public class BoardDAO {
 				noticeList.add(notice);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally { 
+			close(pstmt);
+			close(rset);
 		}
 		
 		return noticeList;
@@ -1045,11 +1034,11 @@ public class BoardDAO {
 			pstmt.setString(3, uploadFile.getFilePath());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
 		}
+		
 		return result;
 	}
 	
@@ -1081,8 +1070,10 @@ public class BoardDAO {
 				voList.add(volunteer);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally { 
+			close(pstmt);
+			close(rset);
 		}
 		
 		return voList;
@@ -1102,9 +1093,12 @@ public class BoardDAO {
 				result = rset.getInt(1);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally { 
+			close(pstmt);
+			close(rset);
 		}
+		
 		return result;
 	}
 
@@ -1126,7 +1120,11 @@ public class BoardDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
 		}
+		
 		return adoptList;
  	}
 
@@ -1145,7 +1143,11 @@ public class BoardDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
 		}
+		
 		return fileList;
 	}
 
@@ -1187,6 +1189,8 @@ public class BoardDAO {
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally { 
+			close(pstmt);
 		}
 		
 		return result;
@@ -1197,7 +1201,7 @@ public class BoardDAO {
 		int result = 0; 
 		
 		String query = prop.getProperty("updateAdopt");
-		
+		System.out.println("updateAdopt 실행?");
 		try {
 			pstmt = conn.prepareStatement(query);
 			
@@ -1220,21 +1224,63 @@ public class BoardDAO {
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		
 		return result;
 	}
 
-	public int updateAdoptFile1(Connection conn, Files files) {	// 사진 추가 or 변경할 경우 Files 테이블에 update
+	public int updateAdoptFile1(Connection conn, ArrayList<Files> fList) {	// 사진 추가 or 변경할 경우 Files 테이블에 update
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
 		String query = prop.getProperty("updateAdoptFile1");
-		return 0;
+		System.out.println("updateAdoptFile1 실행?");
+		try {
+			for(int i = 0; i < fList.size(); i++) {
+				Files f = fList.get(i);
+			// SET ORIGIN_NAME=?, CHANGE_NAME=?, FILE_PATH=?, FILE_LEVEL=? WHERE BO_NO=?
+				
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, f.getOrignName());
+			pstmt.setString(2, f.getChangeName());
+			pstmt.setString(3, f.getFilePath());
+			pstmt.setInt(4, f.getFileLevel());
+			pstmt.setInt(5, f.getBoNo());
+			
+			result += pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
-	public int updateAdoptFile2(Connection conn, Files files) {	// 사진 뺴면 Files 테이블에서 상태변경 update
-		return 0;
+	public int updateAdoptFile2(Connection conn, ArrayList<Files> fList) {	// 사진 뺴면 Files 테이블에서 상태변경 update
+		PreparedStatement pstmt = null;
+		int result = 0; 
+		
+		String query = prop.getProperty("updateAdoptFile2");
+		System.out.println("updateAdoptFile12 실행?");
+		try {
+			for(int i = 0; i < fList.size(); i ++) {
+				Files f = fList.get(i);
+				pstmt = conn.prepareStatement(query);
+				pstmt.setInt(1, f.getFileNo());
+				
+				result += pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { 
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 

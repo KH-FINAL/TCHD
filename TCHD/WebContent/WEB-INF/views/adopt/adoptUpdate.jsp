@@ -6,9 +6,9 @@
 	String userPhone = (String)request.getAttribute("userPhone");
 	Adopt a = (Adopt)request.getAttribute("adopt");
 	String thumbnail = (String)request.getAttribute("thumbnail");
-	String fileNo1 = (String)request.getAttribute("fileNo1");
-	String fileNo2 = (String)request.getAttribute("fileNo2");
-	String fileNo3 = (String)request.getAttribute("fileNo3");
+	String contentImg1 = (String)request.getAttribute("contentImg1");
+	String contentImg2 = (String)request.getAttribute("contentImg2");
+	String contentImg3 = (String)request.getAttribute("contentImg3");
 	String prr[] = a.getPetAge().split("/");
 %>
 <!DOCTYPE html>
@@ -21,7 +21,7 @@
 </head>
 <body>
 <section>
-   	<form action="<%= request.getContextPath() %>/adoptUpdate.bo?boNo=<%= bNo %>'" method="post" encType="multipart/form-data" onsubmit="return checkSubmit();">
+   	<form action="<%= request.getContextPath() %>/adoptUpdate.bo" method="post" encType="multipart/form-data" onsubmit="return checkSubmit();">
    		<div id="ment">보호동물 게시글 수정</div>
    		<div id="area">
    			<div id="picture">
@@ -39,17 +39,17 @@
 						<td id="space3"> </td>
 						<td>
 							<div id="contentImgArea1" class="pictureArea">
-								<img id="contentImg1" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileNo1 %>"/>
+								<img id="contentImg1" src="<%= request.getContextPath() %>/upload_imageFiles/<%= contentImg1 %>"/>
 							</div>
 						</td>
 						<td>
 							<div id="contentImgArea2" class="pictureArea">
-								<img id="contentImg2" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileNo2 %>"/>
+								<img id="contentImg2" src="<%= request.getContextPath() %>/upload_imageFiles/<%= contentImg2 %>"/>
 							</div>
 						</td>
 						<td>
 							<div id="contentImgArea3" class="pictureArea">
-								<img id="contentImg3" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileNo3 %>"/>
+								<img id="contentImg3" src="<%= request.getContextPath() %>/upload_imageFiles/<%= contentImg3 %>"/>
 							</div>
 						</td>
 					</tr>
@@ -61,14 +61,14 @@
 					<td id="kindTd" class="secondTd">
 <!-- 						<input type="checkbox" name="petKind" value="DOG" onclick="return false;"/> 개  -->
 <!-- 						<input type="checkbox" name="petKind" value="CAT" onclick="return false;"/> 고양이 -->
-						<div id="petKind"><img name="petKind" src="./images/chkbox.png" width="12px" height="12px"/> <%= a.getPetKinds() %></div> 
+						<div id="petKind"><img name="petKind" src="./images/chkbox.png" width="12px" height="12px"/><input type="hidden" name="petKind" value="<%= a.getPetKinds() %>"/> <%= a.getPetKinds() %></div> 
 					</td>
 					<td class="firstTd"> 성별 </td>
 					<td id="genderTd" class="secondTd">
 <!-- 						<input type="checkbox" name="petGender" value="F" onclick="return false;"/> 암컷  -->
 <!-- 						<input type="checkbox" name="petGender" value="M" onclick="return false;"/> 수컷 -->
 						<div id="petGender">
-							<img name="petGender" src="./images/chkbox.png" width="12px" height="12px"/> <%= a.getPetGender() %>
+							<img name="petGender" src="./images/chkbox.png" width="12px" height="12px"/><input type="hidden" id="petGender" value="<%= a.getPetGender() %>"/> <%= a.getPetGender() %>
 							<input type="checkbox" name="unigender"/> 중성화
 						</div> 
 					</td>
@@ -161,16 +161,16 @@
 						</td>
 					</tr>
 			</table> 
-			<div id="last">
-				<div>하고 싶은 말 : </div><textarea id="lastAnswer"><%= a.getPetComment() %></textarea>
+			<div id="last"><input type="hidden" name="lastMent" value="<%= a.getPetComment() %>"/>
+				<div>하고 싶은 말 : </div><textarea id="lastAnswer"> <%= a.getPetComment() %></textarea>
 				<span id="counter">0</span>/100
 			</div> 
    		</div>
    		<div id="fileArea">	<!-- 파일 업로드 부분 -->
-	   			<input type="file" id="thumbnailImg1" multiple="multiple" name="thumbnailImg1" onchange="LoadImg(this,1)"/>
-	   			<input type="file" id="thumbnailImg2" multiple="multiple" name="thumbnailImg2" onchange="LoadImg(this,2)"/>
-	   			<input type="file" id="thumbnailImg3" multiple="multiple" name="thumbnailImg3" onchange="LoadImg(this,3)"/>
-	   			<input type="file" id="thumbnailImg4" multiple="multiple" name="thumbnailImg4" onchange="LoadImg(this,4)"/>
+	   			<input type="file" id="thumbnailImg1" multiple="multiple" name="thumbnailImg" onchange="LoadImg(this,1)"/>
+	   			<input type="file" id="thumbnailImg2" multiple="multiple" name="thumbnailImg1" onchange="LoadImg(this,2)"/>
+	   			<input type="file" id="thumbnailImg3" multiple="multiple" name="thumbnailImg1" onchange="LoadImg(this,3)"/>
+	   			<input type="file" id="thumbnailImg4" multiple="multiple" name="thumbnailImg1" onchange="LoadImg(this,4)"/>
 	   		</div>
 	   	<script>
 		// insert 당시 입력했던 값 가져옴
@@ -252,7 +252,7 @@
    		</script>
    		
    		<div id="buttonArea">
-   			<button id="cancelButton" class="buttons" onclick="location.href='<%= request.getContextPath() %>/adoptDetail.bo?boNo=<%= bNo %>'">취소</button>
+   			<button id="cancelButton" class="buttons" type="reset" onclick="location.href='<%= request.getContextPath() %>/adopt.bo'">취소</button>
 	   		<button id="okButton" type="submit" class="buttons">수정</button>
 	   	</div>
  			<script>

@@ -35,12 +35,13 @@ public class Files {
 	}
 
 	// 수정하기 
-	public Files(int boNo, String orignName, String changeName, String filePath) {
+	public Files(int boNo, String orignName, String changeName, String filePath, int fileLevel) {
 		super();
 		this.boNo = boNo;
 		this.orignName = orignName;
 		this.changeName = changeName;
 		this.filePath = filePath;
+		this.fileLevel = fileLevel;
 	}
 	
 	public int getFileNo() {
