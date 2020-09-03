@@ -40,7 +40,7 @@ public class QuestionsListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BoardService qService = new BoardService(); //레퍼런스 변수에 담음
 		HttpSession session = request.getSession();
-		System.out.println();
+		
 		
 		/*
 		 * if((Member)session.getAttribute("loginUser")==null) { //비회원일때

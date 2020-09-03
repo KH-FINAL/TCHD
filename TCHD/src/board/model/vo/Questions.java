@@ -34,7 +34,7 @@ public class Questions {// 문의게시판
 
 	// 목록보기
 	public Questions(int boNo, int boType, String cateName, String boTitle, String boContent, int boCount, Date boDate,
-			String memId, String boDeleteYn, String memLeave, String quSub) {
+			String memId, String boDeleteYn, String memLeave, String quSub, String boPwd) {
 		super();
 		this.boNo = boNo;
 		this.boType = boType;
@@ -47,6 +47,7 @@ public class Questions {// 문의게시판
 		this.boDeleteYn = boDeleteYn;
 		this.memLeave = memLeave;
 		this.quSub = quSub;
+		this.boPwd = boPwd;
 	}
 
 	
