@@ -59,19 +59,9 @@ public class AdoptUpdateServlet extends HttpServlet {
 			
 			ArrayList<String> saveFiles = new ArrayList<String>();	 // 바뀐 파일 이름 저장
 			ArrayList<String> originFiles = new ArrayList<String>(); // 원본파일 이름 저장
-			
-			Enumeration<String> files = multiRequest.getFileNames();	// form에서 전송되는 파일이름
-			while(files.hasMoreElements()) {
-				String name = files.nextElement();
-				
-				if(multiRequest.getFilesystemName(name) != null) {
-					saveFiles.add(multiRequest.getFilesystemName(name));	 // 바뀐 파일명
-					originFiles.add(multiRequest.getOriginalFileName(name)); // 실제 업로드했던 파일명
-				}
-			}
-			
-			System.out.println(saveFiles);
-			System.out.println(originFiles);
+			ArrayList<Files> fileList = new ArrayList<Files>();
+			Board b = new Board();
+			Adopt a = new Adopt();
 			
 			
 			int bNo = Integer.parseInt(multiRequest.getParameter("boNo"));
@@ -79,7 +69,12 @@ public class AdoptUpdateServlet extends HttpServlet {
 			// insert 했던 입양 동물 정보
 			String petKind = multiRequest.getParameter("petKind");		// 동물 구분 체크박스
 			String petGender = multiRequest.getParameter("petGender");	// 동물성별 체크박스;
-			String unigender = multiRequest.getParameter("unigender");		// 중성화 여부
+			String unigender = "";
+			if(multiRequest.getParameter("unigender") != null) {
+				unigender = multiRequest.getParameter("unigender");		// 중성화 여부
+			} else {
+				unigender = "X";
+			}
 			String petSize = multiRequest.getParameter("petSize");			// 크기
 			String petAge = multiRequest.getParameter("petAge"); 			// 나이
 			String petName = multiRequest.getParameter("petName");			// 이름
@@ -93,30 +88,47 @@ public class AdoptUpdateServlet extends HttpServlet {
 					petName + ", " + petCategory + ", " + petWeight + ", " + petColor + ", " + 
 					rescue + ", " + lastMent;
 			
-			Board b = new Board(bNo, "입양게시판", petName, content, memNo);
+			System.out.println("수정하기 content : " + content);
 			
-			Adopt a = new Adopt(petKind, petCategory, petGender, unigender, petName, petAge, 
-									rescue, petWeight, petColor, petSize, lastMent);
+//			Board b = new Board(bNo, "입양게시판", petName, content, memNo);
+//			
+//			Adopt a = new Adopt(petKind, petCategory, petGender, unigender, petName, petAge, 
+//									rescue, petWeight, petColor, petSize, lastMent);
 
+			b.setBoNo(bNo);
+			b.setBoTitle(petName);
+			b.setBoContent(content);
+			b.setMemNo(memNo);
 			
-			// insert 했던 파일 정보
-			String thumbnail = request.getParameter("thumbnail");
+			a.setBoNo(bNo);
+			a.setPetName(petName);
+			a.setPetKinds(petKind);
+			a.setPetCategory(petCategory);
+			a.setPetGender(petGender);
+			a.setPetUnigender(unigender);
+			a.setPetAge(petAge);
+			a.setPetWeight(petWeight);
+			a.setPetSize(petSize);
+			a.setPetColor(petColor);
+			a.setRescueDate(rescue);
+			a.setPetComment(lastMent);
 			
-			String contentImg1 = ""; 
-			String contentImg2 = ""; 
-			String contentImg3 = ""; 
-			if(multiRequest.getParameter("contentImg1") != null ) {
-				contentImg1 = request.getParameter("contentImg1");
+			
+			
+			Enumeration<String> files = multiRequest.getFileNames();	// form에서 전송되는 파일이름 : 글 수정 시 업로드 된 파일 가져오기
+			while(files.hasMoreElements()) {
+				String name = files.nextElement();
+				String updateFile = multiRequest.getFilesystemName(name);
+				
+				if(updateFile == null) {	// 수정 시 새로운 파일 첨부 안했다면
+					saveFiles.add(multiRequest.getFilesystemName(name));	 // 바뀐 파일명
+					originFiles.add(multiRequest.getOriginalFileName(name)); // 실제 업로드했던 파일명
+				} else {					// 새로운 파일 첨부 했다면
+					saveFiles.add(multiRequest.getFilesystemName(updateFile));	 // 바뀐 파일명
+					originFiles.add(multiRequest.getOriginalFileName(updateFile));
+				}
 			}
 			
-			if(multiRequest.getParameter("contentImg2") != null ) {
-				contentImg2 = request.getParameter("contentImg2");
-			}
-
-			if(multiRequest.getParameter("contentImg3") != null ) {
-				contentImg3 = request.getParameter("contentImg3");
-			}
-			ArrayList<Files> fList = new ArrayList<Files>();
 			for(int i = 0; i < originFiles.size(); i++) {
 				Files ft = new Files();
 				ft.setFilePath(savePath);
@@ -129,27 +141,48 @@ public class AdoptUpdateServlet extends HttpServlet {
 					ft.setFileLevel(1);
 				}
 				
-				fList.add(ft);
+				fileList.add(ft);
 			}
 			
+			System.out.println(saveFiles);
+			System.out.println(originFiles);
 			
-			int result = new BoardService().updateAdopt(b, a, fList);
+			// insert 했던 파일 정보
+//			String thumbnail = request.getParameter("thumbnail");
+//			
+//			String contentImg1 = ""; 
+//			String contentImg2 = ""; 
+//			String contentImg3 = ""; 
+//			if(multiRequest.getParameter("contentImg1") != null ) {
+//				contentImg1 = request.getParameter("contentImg1");
+//			}
+//			
+//			if(multiRequest.getParameter("contentImg2") != null ) {
+//				contentImg2 = request.getParameter("contentImg2");
+//			}
+//
+//			if(multiRequest.getParameter("contentImg3") != null ) {
+//				contentImg3 = request.getParameter("contentImg3");
+//			}
+			
+			
+			int result = new BoardService().updateAdopt(b, a, fileList);
 			
 			if(result > 0) {
-//				response.sendRedirect("adoptDetail.bo?boNo=" + bNo);
 				request.setAttribute("adopt", a);
-				request.setAttribute("fileList", fList);
-				request.setAttribute("section", "WEB-INF/views/adopt/aodptDetdail.jsp");
+				request.setAttribute("fileList", fileList);
+				request.setAttribute("section", "WEB-INF/views/adopt/aodptDetdail.bo?boNo=" + bNo);
 				request.getRequestDispatcher("index.jsp").forward(request, response);
 				
 			} else {
-				for(int i = 0; i < saveFiles.size(); i++) {
-					File failedFile = new File(savePath + saveFiles.get(i));
-					failedFile.delete();
-				}
-				request.setAttribute("msg", "사진 게시판 수정에 실패하였습니다.");
-				request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
-				request.getRequestDispatcher("index.jsp").forward(request, response);
+//				for(int i = 0; i < saveFiles.size(); i++) {
+//					File failedFile = new File(savePath + saveFiles.get(i));
+//					failedFile.delete();
+//				}
+//				request.setAttribute("msg", "사진 게시판 수정에 실패하였습니다.");
+//				request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
+//				request.getRequestDispatcher("index.jsp").forward(request, response);
+				response.sendRedirect("adoptDetail.bo?boNo=" + bNo);
 			}
 			
 		}

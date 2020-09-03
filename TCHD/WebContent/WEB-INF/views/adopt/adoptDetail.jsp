@@ -100,9 +100,9 @@
 	   			<div id="smallPets">
 		   			<% for(int i = 1; i < fileList.size();  i++){ %>
 		   				<img id="detailImg" class="smallPicture" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(i).getChangeName() %>"/>
-		   				<input type="hidden" name="contentImg1" value="<%= fileList.get(1).getChangeName() %>"/>
-		   				<input type="hidden" name="contentImg2" value="<%= fileList.get(2).getChangeName() %>"/>
-		   				<input type="hidden" name="contentImg3" value="<%= fileList.get(3).getChangeName() %>"/>
+<%-- 		   				<input type="hidden" name="contentImg" value="<%= fileList.get(i).getChangeName() %>"/> --%>
+<%-- 		   				<input type="hidden" name="contentImg2" value="<%= fileList.get(2).getChangeName() %>"/> --%>
+<%-- 		   				<input type="hidden" name="contentImg3" value="<%= fileList.get(3).getChangeName() %>"/> --%>
 	   				<% } %>
    				</div>
    				<% if(loginUser != null && adopt.getId().equals(loginUser.getMem_id())){ %> 

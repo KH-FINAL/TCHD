@@ -1218,14 +1218,15 @@ public class BoardDAO {
 			pstmt.setString(4, a.getPetUnigender());
 			pstmt.setString(5, a.getPetName());
 			pstmt.setString(6, a.getPetAge());
-			pstmt.setDate(7, a.getPetRescueDate());
+			pstmt.setString(7, a.getRescueDate());
 			pstmt.setFloat(8, a.getPetWeight());
 			pstmt.setString(9, a.getPetColor());
 			pstmt.setString(10, a.getPetSize());
 			pstmt.setString(11, a.getPetComment());
 			pstmt.setInt(12, a.getBoNo());
-			
+			System.out.println("updateAdopt 실행2?");
 			result = pstmt.executeUpdate();
+			System.out.println("updateAdopt 실행3?");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

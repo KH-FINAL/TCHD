@@ -1,10 +1,7 @@
 package board.controller.adopt;
 
 import java.io.IOException;
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import board.model.service.BoardService;
 import board.model.vo.Adopt;
+import board.model.vo.Files;
 import member.model.vo.Member;
 
 /**
@@ -40,47 +39,56 @@ public class AdoptUpdateFormServlet extends HttpServlet {
 		String userPhone = ((Member)session.getAttribute("loginUser")).getMem_phone();
 		int bNo = Integer.parseInt(request.getParameter("boNo"));
 		
+		BoardService service = new BoardService();
 		// insert 했던 입양 동물 정보
-		String petKind = request.getParameter("petKind");		// 동물 구분 체크박스
-		String petGender = request.getParameter("petGender");	// 동물성별 체크박스;
-		String unigender = request.getParameter("unigender");		// 중성화 여부
-		String petSize = request.getParameter("petSize");			// 크기
-		String petAge = request.getParameter("petAge"); 			// 나이
-		String petName = request.getParameter("petName");			// 이름
-		String petCategory = request.getParameter("petCategory");	// 품종
-		float petWeight = Float.valueOf(request.getParameter("petWeight"));	// 무게
-		String petColor = request.getParameter("petColor");		// 색깔
+		Adopt adopt = service.selectedAdopt(bNo);
+//		String petKind = request.getParameter("petKind");		// 동물 구분 체크박스
+//		String petGender = request.getParameter("petGender");	// 동물성별 체크박스;
+//		String unigender = request.getParameter("unigender");		// 중성화 여부
+//		String petSize = request.getParameter("petSize");			// 크기
+//		String petAge = request.getParameter("petAge"); 			// 나이
+//		String petName = request.getParameter("petName");			// 이름
+//		String petCategory = request.getParameter("petCategory");	// 품종
+//		float petWeight = Float.valueOf(request.getParameter("petWeight"));	// 무게
+//		String petColor = request.getParameter("petColor");		// 색깔
 		String rescue = request.getParameter("rescue");
-		String lastMent = request.getParameter("lastMent");		// 하고 싶은 말
+//		String lastMent = request.getParameter("lastMent");		// 하고 싶은 말
 		
 		// insert 했던 파일 정보
-		String thumbnail = request.getParameter("thumbnail");
+	
+//		String thumbnail = request.getParameter("thumbnail");
+		ArrayList<Files> fileList = service.selectNoticeFile(bNo);
+//		String contentImg = "";
+//		for(int i = 1; i < fList.size(); i++) {
+//			contentImg = fList.get(i).getChangeName();
+//		}
+//		String contentImg1 = ""; 
+//		String contentImg2 = ""; 
+//		String contentImg3 = ""; 
+//		if(request.getParameter("contentImg1") != null ) {
+//			contentImg1 = request.getParameter("contentImg1");
+//		}
+//		
+//		if(request.getParameter("contentImg2") != null ) {
+//			contentImg2 = request.getParameter("contentImg2");
+//		}
+//
+//		if(request.getParameter("contentImg3") != null ) {
+//			contentImg3 = request.getParameter("contentImg3");
+//		}
 		
-		String contentImg1 = ""; 
-		String contentImg2 = ""; 
-		String contentImg3 = ""; 
-		if(request.getParameter("contentImg1") != null ) {
-			contentImg1 = request.getParameter("contentImg1");
-		}
-		
-		if(request.getParameter("contentImg2") != null ) {
-			contentImg2 = request.getParameter("contentImg2");
-		}
-
-		if(request.getParameter("contentImg3") != null ) {
-			contentImg3 = request.getParameter("contentImg3");
-		}
-		
-		Adopt adopt = new Adopt(petKind, petCategory, petGender, unigender, petName, petAge, 
-								rescue, petWeight, petColor, petSize, lastMent);
+//		Adopt adopt = new Adopt(petKind, petCategory, petGender, unigender, petName, petAge, 
+//								rescue, petWeight, petColor, petSize, lastMent);
 		
 		request.setAttribute("bNo", bNo);
 		request.setAttribute("userPhone", userPhone);
 		request.setAttribute("adopt", adopt);
-		request.setAttribute("thumbnail", thumbnail);
-		request.setAttribute("contentImg1", contentImg1);
-		request.setAttribute("contentImg2", contentImg2);
-		request.setAttribute("contentImg3", contentImg3);
+		request.setAttribute("rescue", rescue);
+//		request.setAttribute("thumbnail", thumbnail);
+		request.setAttribute("fileList", fileList);
+//		request.setAttribute("contentImg", contentImg);
+//		request.setAttribute("contentImg2", contentImg2);
+//		request.setAttribute("contentImg3", contentImg3);
 		request.setAttribute("section", "WEB-INF/views/adopt/adoptUpdate.jsp");
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
