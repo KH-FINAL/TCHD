@@ -1150,6 +1150,28 @@ public class BoardDAO {
 		return fileList;
 	}
 
+	public int insertComments(Connection conn, Comments comments) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertComments");
+		
+		try {
+			pstmt= conn.prepareStatement(query);
+			pstmt.setInt(1, comments.getMemNo());
+			pstmt.setInt(2, comments.getBoNo());
+			pstmt.setString(3, comments.getComContent());;
+			pstmt.setString(4, comments.getMemId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 
 
 }

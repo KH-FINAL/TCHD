@@ -461,7 +461,25 @@ public class BoardService {
 		return fileList;
 	}
 
-
+	public ArrayList<Comments> insertComments(Comments comments) {
+		Connection conn = getConnection();
+		
+		BoardDAO dao = new BoardDAO();
+		
+		int result = dao.insertComments(conn, comments);
+		
+		ArrayList<Comments> commentsList = null;
+		if(result > 0) {
+			commit(conn);
+			commentsList = dao.selectCommentsList(conn, comments.getBoNo());
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return commentsList;
+	}
 
 
 } // class end
