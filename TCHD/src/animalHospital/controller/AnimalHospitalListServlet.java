@@ -82,13 +82,6 @@ public class AnimalHospitalListServlet extends HttpServlet {
 			
 			pi = new PageInfo(currentPage, listCount, pageLimit, hospitalLimit, maxPage, startPage, endPage);
 			
-			System.out.println("servlet_currentPage : " + currentPage);
-			System.out.println("servlet_pageLimit : " + pageLimit);
-			System.out.println("servlet_hospitalLimit : " + hospitalLimit);
-			System.out.println("servlet_maxPage : " + maxPage);
-			System.out.println("servlet_startPage : " + startPage);
-			System.out.println("servlet_endPage : " + endPage);
-			
 			hospitalList = service.selectAddr(pi, addr);
 		}
 		

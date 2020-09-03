@@ -48,6 +48,7 @@
 	border-radius: 10px;
 	font-size: 20px;
 	cursor: pointer; /* 엄지랑 검지만 핀 손모양 */
+	outline: none;
 }
 /* 회원가입 div */
 #login_signUp_div {

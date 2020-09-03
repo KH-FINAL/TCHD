@@ -23,29 +23,53 @@
 				탈퇴를 원하시면 비밀번호를 입력해주세요.<br>
 				단, 동일한 아이디로 재가입은 불가능합니다.
 			</div>
-			<form method="post" action="leave.me" onsubmit="return validate();">
-				<div id="box_div">
-					<div id="input_div">
-						<label id="label_pwd">비밀번호</label>
-						<input type="password" id="input_pwd" name="input_pwd">
-					</div>
-					<button id="leave_button">탈퇴</button>
+			<div id="box_div">
+				<div id="input_div">
+					<label id="label_pwd">비밀번호</label>
+					<input type="password" id="input_pwd" name="input_pwd">
 				</div>
-			</form>
+				<button id="leave_button" onclick="validate();">탈퇴</button>
+			</div>
 		</div>
 		
 		<script>
-		function validate(){
+		function validate() {
 			var pwd = $("#input_pwd");
 			
+			System.out.println(pwd);
 			if(pwd.val().trim().length == 0){
-				alert("비밀번호를 입력해주세요.");
-				pwd.focus();
+				swal("", "비밀번호를 입력해주세요.", "info")
+				.then((ok) => {
+					if(ok){
+						pwd.focus();
+					}
+				});
 				
-				return false;
+				return;
 			}
 			
-			return true;
+			$.ajax({
+				url: "leave.me",
+				type: "post",
+				data: {input_pwd:pwd.val()},
+				success: function(data){
+					console.log("data : " + data);
+					if(data == 1){
+						swal("회원 탈퇴 완료","지금까지 ♡함께하묘 행복하개♡를 이용해주셔서 감사합니다.","success")
+						.then((ok) => {
+							if(ok){
+								location.href="main.jsp";
+							}
+						});
+					}else{
+						swal("회원 탈퇴 실패","입력하신 비밀번호가 회원 정보와 다릅니다.\n비밀번호를 확인해주세요.","error");
+						pwd.val("");
+					}
+				},
+				error: function(data){
+					alert("ajax에러 발생");
+				}
+			});
 		}
 		</script>
 	</section>

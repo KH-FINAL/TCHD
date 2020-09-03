@@ -23,7 +23,7 @@
 				<input type="button" class="find_button" value="아이디 찾기"
 					onclick="location.href='findIdForm.me'" style="cursor: pointer">
 				<input type="button" class="find_button" value="비밀번호 찾기" disabled
-					style="background: rgba(41, 128, 185, 0.8); color: white;">
+					style="background: rgba(41, 128, 185, 0.8); color: white; cursor: default;">
 			</div>
 
 			<br>
@@ -72,7 +72,7 @@
 					type: "post",
 					data: {input_id:id.val()},
 					success: function(data){
-							console.log("data : " + data);
+						console.log("data : " + data);
 						if(data == 1){
 							swal("메일 전송 완료","입력하신 이메일로 임시 비밀번호를 전송하였습니다.","success")
 							.then((ok) => {

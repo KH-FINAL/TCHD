@@ -16,11 +16,6 @@
 	int maxPage = pi.getMaxPage();			// 전체 페이지 중 가장 마지막 페이지
 	int startPage = pi.getStartPage();		// 페이징 된 페이지 중 시작 페이지
 	int endPage = pi.getEndPage();			// 페이징 된 페이지 중 마지막 페이지
-	System.out.println(listCount);
-	System.out.println(currentPage);
-	System.out.println(maxPage);
-	System.out.println(startPage);
-	System.out.println(endPage);
 %>
 <!DOCTYPE html>
 <html>
@@ -177,7 +172,6 @@
 					$(this).children().css('border-right', 'none');
 				}).click(function(){
 					var hosNo = $(this).children().eq(3).text();
-					console.log("번호 : " + hosNo);
 					location.href="<%= request.getContextPath() %>/hospitalDetail.ho?hosNo=" + hosNo;
 				});
 			});

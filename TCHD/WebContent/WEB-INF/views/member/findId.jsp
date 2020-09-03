@@ -21,7 +21,7 @@
 		<div id="id_find_div">
 			<div id="find_button_div">
 				<input type="button" class="find_button" value="아이디 찾기" disabled
-					style="background: rgba(41, 128, 185, 0.8); color: white;">
+					style="background: rgba(41, 128, 185, 0.8); color: white; cursor: default;">
 				<input type="button" class="find_button" value="비밀번호 찾기"
 					onclick="location.href='findPwdForm.me'" style="cursor: pointer">
 			</div>
