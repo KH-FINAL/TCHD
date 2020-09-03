@@ -34,8 +34,9 @@
 						<option>지역</option>
 						<option>제목</option>
 					</select>
-						<input type="text" id="search_text" placeholder="">
-						<input type="button" id="search_button" value="검색">
+						<input type="text" id="search_text">
+						<input type="button" id="search_button" value="검색" onclick="goSearch();">
+						<!-- <button id="search_button" onclick="goSearch();">검색</button> -->
 				</div>
 
 				<div class="table_div">
@@ -63,7 +64,7 @@
 							<td><%= v.getMemId() %></td>				<!-- 작성자 -->
 							<td><%= v.getBoDate() %></td> 				<!-- 작성일자 -->
 							<td><%= v.getVoMaxmember() %></td>			<!-- 모집인원 -->
-							<td id="deadline">										<!-- 마감유무 -->								
+							<td id="deadline">							<!-- 마감유무 -->								
 								<% if((v.getVoMaxmember()-v.getVoApplymember()) <= 0){ %>
 								<%= "Y" %>
 								<% } else { %>
@@ -134,9 +135,19 @@
 					$(this).parent().css({'background':'none', 'text-decoration':'none'});
 				}).click(function(){
 					var num = $(this).parent().children().eq(0).text();
-					location.href="<%= request.getContextPath() %>/volunteerDetail.bo?bNo=" + num;
+					location.href="<%= request.getContextPath() %>/volunteerDetail.bo?bNo=" + bNo;
 				});
 			});
+			
+			function goSearch(){
+				var search = $('#search_text');
+				if(search.val().trim().length==0){
+					swal("","검색어를 입력해주세요.","info");
+					search.focus();	
+				}else{
+					location.href="volSearch.bo?search="+search.val().trim();
+				}
+			}
 		</script>
 	</section>
 	

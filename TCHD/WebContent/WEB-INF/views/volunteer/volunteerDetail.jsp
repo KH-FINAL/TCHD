@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="board.model.vo.*, board.model.vo.Volunteer, member.model.vo.Member, java.util.ArrayList" %>
+<%@ page import="board.model.vo.*, board.model.vo.Volunteer, member.model.vo.Member, java.util.ArrayList, board.model.vo.Comments" %>
 <%
 	Volunteer v = (Volunteer)request.getAttribute("volunteer");
 	Member loginUser = (Member)session.getAttribute("loginUser");
@@ -105,12 +105,13 @@
 					<button type="button" id="edit">수정</button>
 				</div> -->
 			<div class="comment_div">
-				<input type="text" placeholder="댓글을 작성하려면 로그인 해주세요.">
-				<input type="submit" value="등록">
+				<input type="text" placeholder="댓글을 작성하려면 로그인 해주세요." id="commentsContent">
+				<!-- <input type="submit" value="등록" id="addComments"> -->
+				<input type="button" id="addComments" value="댓글 등록">
 			</div>
 			<hr class="hr">
 			<div class="comment_list">
-				<table id="replySelectTable">
+				<table id="commentsSelectTable">
 					<% if(commentsList.isEmpty()){ %>
 					<tr>
 						<td colspan="3">댓글이 없습니다.</td>
@@ -119,59 +120,62 @@
 					<% for(int i = 0; i < commentsList.size(); i++) { %>
 					<tr>
 						<td width="100px"><%= commentsList.get(i).getMemId() %></td>
-						<td width="400px"><%= commentsList.get(i).getComContent() %></td>
 						<td width="200px"><%= commentsList.get(i).getComDate() %></td>
+						<td width="400px"><%= commentsList.get(i).getComContent() %></td>
 					</tr>
 					<% } %>
 					<% } %>
 				</table>
 				<%-- <div class="comment_list_bottom">
-					<% if(replyList.isEmpty()) { %>
+					<% if(commentsList.isEmpty()) { %>
 					<span>댓글이 없습니다.</span>
 					<% } else { %>
-					<% for(int i = 0; i < replyList.size(); i++) { %>
-					<span id="id"><%= replyList.get(i).getReplyWriter() %></span><br>
-					<span id="date"><%= replyList.get(i).getCreateDate() %></span><br>
-					<span id="content"><%= replyList.get(i).getReplyContent() %></span>
+					<% for(int i = 0; i < commentsList.size(); i++) { %>
+					<span id="id"><%= commentsList.get(i).getMemId() %></span><br>
+					<span id="date"><%= commentsList.get(i).getComDate() %></span><br>
+					<span id="content"><%= commentsList.get(i).getComContent() %></span>
 					<% } %>
 					<% } %>
 				</div> --%>
-				<div class="comment_list_bottom">
-					<span id="id">cat02</span><br>
-					<span id="date">2020.07.29</span><br>
-					<span id="content">달봉이 최고 ! 모두 마음이 이뻐요 ~ ㅎ</span>
-					<span id="writer_button_right">
-						<input type="button" id="comment_writer_button" value="수정">
-						<input type="button" id="comment_writer_button" value="삭제">
-					</span>
-				</div>
-				<!-- <table class="commnet_table">
-					<tr>
-						<td class="comment_width">아이디1</td>
-					</tr>
-					<tr>
-						<td id="comment_date">2020.07.28</td>
-					</tr>
-					<tr>
-						<td>달봉이네 친구들 더 멋있어지겠어요 ^^ ~</td>
-					</tr>
-					<tr>
-						<td>아이디2</td>
-					</tr>
-					<tr>
-						<td id="comment_date">2020.07.29</td>
-					</tr>
-					<tr>
-						<td>달봉이 최고 !</td>
-						<td>
-							<input type="button" id="comment_writer_button" value="수정">
-							<input type="button" id="comment_writer_button" value="삭제">
-						</td>
-					</tr>
-				</table> -->
 			</div>
 			<hr class="hr">
 		</div>
+
+		<script>
+		$(function(){
+			// 댓글 등록 버튼을 눌렀을 때
+			$('#addComments').click(function(){
+				var writer = '<%= loginUser.getMem_id() %>';
+				var bNo = <%= v.getBoNo() %>;
+				var content = $('#commentsContent').val();
+				
+				$.ajax({
+					url: 'insertComments.bo',
+					data: {writer:memId, content:comContent, bNo:boNo},
+					type: 'post',
+					success: function(data){
+						$commentsTable = $('#commentsSelectTable');
+						$commentTable.html("");
+						
+						for(var key in data){
+							var $tr = $('<tr>');
+							var $writerTd = $('<td>').text(data[key].memId).css('width', '100px');
+							var $dateTd = $('<td>').text(data[key].comDate).css('width', '200px');
+							var $contentTd = $('<td>').text(data[key].comContent).css('width', '400px');
+							
+							$tr.append($writerTd);
+							$tr.append($dateTd);
+							$tr.append($contentTd);
+							$commentsTable.append($tr);
+						}
+						
+						$('$commentsContent').val("");
+					}
+				});
+			});
+		});
+		</script>
+
 	</section>
 </body>
 </html>
