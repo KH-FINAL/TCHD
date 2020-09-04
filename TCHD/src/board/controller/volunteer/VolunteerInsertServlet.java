@@ -2,8 +2,9 @@ package board.controller.volunteer;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Enumeration;
+import java.sql.Date;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,7 +12,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
@@ -59,10 +59,24 @@ public class VolunteerInsertServlet extends HttpServlet {
 			String saveFile = multiRequest.getFilesystemName("input_file");	// form에서 전송되는 파일이름
 			String originFile = multiRequest.getOriginalFileName("input_file");	// form에서 전송되는 파일이름
 		
-			String selectBoard = multiRequest.getParameter("selectBoard"); // view에서.. 첨부파일 이름인가?
+//			String boType2 = multiRequest.getParameter("selectBoard");
+//			int boType = Integer.parseInt(boType2);
+			String cateName = multiRequest.getParameter("selectBoard");
 			String boTitle = multiRequest.getParameter("boTitle");
 			String voArea = multiRequest.getParameter("voArea");
-			String voDate = multiRequest.getParameter("voDate");
+			String voDate2 = multiRequest.getParameter("voDate");
+			String[] vo_dateArr = voDate2.split("-");
+			int year = Integer.parseInt(vo_dateArr[0]);
+			int month = Integer.parseInt(vo_dateArr[1])-1;
+			int day = Integer.parseInt(vo_dateArr[2].split("T")[0]);
+			int hour = Integer.parseInt(vo_dateArr[2].split("T")[1].split(":")[0]);
+			int min = Integer.parseInt(vo_dateArr[2].split("T")[1].split(":")[1]);
+			System.out.println("convert_voDate : " + year + "-" + (month + 1) + "-" + day + " " + hour + " : " + min);
+			Date voDate = new Date(new GregorianCalendar(year, month, day, hour, min).getTimeInMillis());
+//			String voDate2 = multiRequest.getParameter("voDate");
+//			String voDate2 = multiRequest.getParameter("voDate");
+//			Date voDate = Date.valueOf(voDate2);
+//			Date voDate = new Date(new GregorianCalendar(voDate2).getTimeInMillis());
 //			String voPlace = multiRequest.getParameter("voPlace");
 			String zonecode= multiRequest.getParameter("zoneCode");
 			String address = multiRequest.getParameter("joinAddress");
@@ -76,11 +90,14 @@ public class VolunteerInsertServlet extends HttpServlet {
 			System.out.println(address); 
 			System.out.println(address2);
 			System.out.println(boTitle);
-			
-			String voMaxmember = multiRequest.getParameter("voMaxmember");
+
+			String voMaxmember2 = multiRequest.getParameter("voMaxmember");
+			int voMaxmember = Integer.parseInt(voMaxmember2);
 			String voComment = multiRequest.getParameter("voComment");
 			
-			Volunteer v = new Volunteer(3, boTitle, voArea, voDate, voPlace, voMaxmember, voComment, selectBoard);
+//			Volunteer v = new Volunteer(3, boTitle, voArea, voDate, voPlace, voMaxmember, voComment, boType);
+//			Volunteer v = new Volunteer(3, boTitle, voArea, voDate, voPlace, voMaxmember, voComment);
+			Volunteer v = new Volunteer(3, boTitle, voArea, voDate, voPlace, voMaxmember, voComment, cateName);
 			
 			Files uploadFile =  new Files();
 			uploadFile.setFilePath(savePath);

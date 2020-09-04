@@ -3,27 +3,27 @@ package support.model.vo;
 import java.sql.Date;
 
 public class Support {
-	int sup_no; // 후원 번호
-	int mem_no; // 회원 번호
-	int sup_price; // 후원 금액
-	Date sup_date; // 후원 날짜
+	private int mem_no;		// 회원번호
+	private String mem_id;	// 아이디
+	private int sup_no;		// 후원번호
+	private int sup_price;	// 후원금액
+	private Date sup_date;	// 후원날짜
 	
 	public Support() {}
 
-	public Support(int sup_no, int mem_no, int sup_price, Date sup_date) {
+	public Support(String mem_id, int sup_price) {
 		super();
-		this.sup_no = sup_no;
+		this.mem_id = mem_id;
+		this.sup_price = sup_price;
+	}
+
+	public Support(int mem_no, String mem_id, int sup_no, int sup_price, Date sup_date) {
+		super();
 		this.mem_no = mem_no;
+		this.mem_id = mem_id;
+		this.sup_no = sup_no;
 		this.sup_price = sup_price;
 		this.sup_date = sup_date;
-	}
-
-	public int getSup_no() {
-		return sup_no;
-	}
-
-	public void setSup_no(int sup_no) {
-		this.sup_no = sup_no;
 	}
 
 	public int getMem_no() {
@@ -32,6 +32,22 @@ public class Support {
 
 	public void setMem_no(int mem_no) {
 		this.mem_no = mem_no;
+	}
+
+	public String getMem_id() {
+		return mem_id;
+	}
+
+	public void setMem_id(String mem_id) {
+		this.mem_id = mem_id;
+	}
+
+	public int getSup_no() {
+		return sup_no;
+	}
+
+	public void setSup_no(int sup_no) {
+		this.sup_no = sup_no;
 	}
 
 	public int getSup_price() {
@@ -52,7 +68,7 @@ public class Support {
 
 	@Override
 	public String toString() {
-		return "Support [sup_no=" + sup_no + ", mem_no=" + mem_no + ", sup_price=" + sup_price + ", sup_date="
-				+ sup_date + "]";
+		return "Support [mem_no=" + mem_no + ", mem_id=" + mem_id + ", sup_no=" + sup_no + ", sup_price=" + sup_price
+				+ ", sup_date=" + sup_date + "]";
 	}
 }

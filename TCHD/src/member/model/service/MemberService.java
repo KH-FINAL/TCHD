@@ -88,6 +88,8 @@ public class MemberService {
 			int result2 = mDAO.updateMemberPm(conn, member);
 			if(result2>0) {				
 				commit(conn);
+			} else {
+				rollback(conn);
 			}
 		}else {
 			rollback(conn);
@@ -109,6 +111,8 @@ public class MemberService {
 			int result2 = mDAO.updateMemberGm(conn,member);
 			if(result2>0) {
 				commit(conn);
+			} else {
+				rollback(conn);
 			}
 		}else {
 			
@@ -161,6 +165,8 @@ public class MemberService {
 		} else {
 			rollback(conn);
 		}
+		
+		close(conn);
 		
 		return result;
 	}

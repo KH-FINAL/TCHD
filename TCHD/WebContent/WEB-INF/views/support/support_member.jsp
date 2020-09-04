@@ -19,10 +19,10 @@
 					<tr>
 						<td id="step_content">
 							<select id="price_control" onChange="directFunction(this.value);">
-								<option value="1만원">1만원</option>
-								<option value="3만원">3만원</option>
-								<option value="5만원">5만원</option>
-								<option value="10만원">10만원</option>
+								<option value="10000">1만원</option>
+								<option value="30000">3만원</option>
+								<option value="50000">5만원</option>
+								<option value="100000">10만원</option>
 								<option value="직접입력">직접입력</option>
 							</select>
 							<span id="input_span" style="display: none;">
@@ -93,17 +93,15 @@
 					data: {select:select, input_direct:input.val()},
 					success: function(result){
 						console.log("result : " + result);
-						if(select == "직접입력"){
-							if(result == 1){
-								swal("후원 신청 완료","","success")
-								.then((ok) => {
-									if(ok){
-										location.href="<%=request.getContextPath()%>";
-									}
-								});
-							} else{
-								swal("후원 신청 실패","다시 신청하시기 바랍니다.","error");
-							}
+						if(result == 1){
+							swal("후원 신청 완료","","success")
+							.then((ok) => {
+								if(ok){
+									location.href="<%=request.getContextPath()%>";
+								}
+							});
+						} else{
+							swal("후원 신청 실패","다시 신청하시기 바랍니다.","error");
 						}
 					},
 					error: function(data){

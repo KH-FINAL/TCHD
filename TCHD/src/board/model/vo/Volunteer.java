@@ -16,12 +16,11 @@ public class Volunteer {
 	private int voApplymember;		// 신청인원
 	private String voDeadline;		// 마감유무
 	private Date voDate;			// 봉사일시
+//	private String voDate;
 	private String voArea;			// 지역선택
 	private String voPlace;			// 봉사지
 	private String voComment;		// 내용
 	
-	public Volunteer() {}
-
 	public Volunteer(int boNo, int boType, String cateName, String boTitle, int boCount, Date boDate, int memNo,
 			String memId, String boDeleteYn, int voMaxmember, int voApplymember, String voDeadline, Date voDate,
 			String voArea, String voPlace, String voComment) {
@@ -104,9 +103,16 @@ public class Volunteer {
 		this.boType = boType;
 	}
 
-	public Volunteer(int i, String boTitle2, String voArea2, String voDate2, String voPlace2, String voMaxmember2,
-			String voComment2, String selectBoard) {
-		// TODO Auto-generated constructor stub
+	public Volunteer(int boNo, String boTitle, String voArea, Date voDate, String voPlace, int voMaxmember, String voComment, String cateName) {
+		super();
+		this.boNo = boNo;
+		this.boTitle = boTitle;
+		this.voArea = voArea;
+		this.voDate = voDate;
+		this.voPlace = voPlace;
+		this.voMaxmember = voMaxmember;
+		this.voComment = voComment;
+		this.cateName = cateName;
 	}
 
 	public int getBoNo() {
