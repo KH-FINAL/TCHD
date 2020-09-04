@@ -31,6 +31,7 @@ public class SupportApplyMemServlet extends HttpServlet {
 			System.out.println("supportApplyMemServler_input : " + input);
 			// 사용자가 입력한 금액을 select에 저장
 			for(int i = 0; i < input.length; i ++) {
+				select = input_direct.substring(0, 1);
 				select += input[i];
 			}
 			System.out.println("supportApplyMemServler_select : " + select);
@@ -44,6 +45,12 @@ public class SupportApplyMemServlet extends HttpServlet {
 		Support support = new Support(loginUserId, price);
 		
 		int result = new SupportService().applyMem(support);
+		
+		if(result != 0) {
+			response.getWriter().println("1");
+		} else {
+			response.getWriter().println("0");
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

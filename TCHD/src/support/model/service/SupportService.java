@@ -23,9 +23,13 @@ public class SupportService {
 		if(mem_no != 0) {
 			support.setMem_no(mem_no);
 			result = dao.applyMem(conn, support);
+			
 			if(result > 0) {
 				commit(conn);
+			} else {
+				rollback(conn);
 			}
+			
 		} else {
 			rollback(conn);
 		}

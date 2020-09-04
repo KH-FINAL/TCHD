@@ -149,7 +149,6 @@
 					});
 				}
 				
-				
 				$('.selected').hover(function(){
 					$(this).css({'cursor':'pointer', 'background':'rgba(41, 128, 185, 0.6)', 'color':'#fafafa'});
 				}, function(){

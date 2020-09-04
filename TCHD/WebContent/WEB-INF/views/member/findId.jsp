@@ -6,13 +6,13 @@
 <link rel="stylesheet" href="css/member/find_id.css" type="text/css">
 <script>
 	$(document).ready(function(){
-		$('#loading_div').hide();
+		$('#loading_div').hide(); // 첫 시작 시 로딩바 숨기기
 	});
 	$(document).ajaxStart(function(){
-		$('#loading_div').show();
+		$('#loading_div').show(); // ajax 실행 시 로딩바 보여줌
 	});
 	$(document).ajaxStop(function(){
-		$('#loading_div').hide();
+		$('#loading_div').hide(); // ajax 종료 시 로딩바 숨기기
 	});
 </script>
 </head>
