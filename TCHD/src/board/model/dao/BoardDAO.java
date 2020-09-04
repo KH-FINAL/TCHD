@@ -1372,6 +1372,7 @@ public class BoardDAO {
 			pstmt = conn.prepareStatement(prop.getProperty("insertVolunteer1"));
 			pstmt.setInt(1, v.getMemNo());
 			pstmt.setString(2, v.getBoTitle());
+			pstmt.setString(3, v.getVoComment());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
