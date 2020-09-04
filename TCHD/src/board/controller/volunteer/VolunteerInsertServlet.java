@@ -75,6 +75,7 @@ public class VolunteerInsertServlet extends HttpServlet {
 			System.out.println(zonecode);
 			System.out.println(address); 
 			System.out.println(address2);
+			System.out.println(boTitle);
 			
 			String voMaxmember = multiRequest.getParameter("voMaxmember");
 			String voComment = multiRequest.getParameter("voComment");

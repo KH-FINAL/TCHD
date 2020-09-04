@@ -95,7 +95,7 @@
 					<tr>
 						<th>봉사지 <span id="star">*</span></th>
 						<td class="board_table_td">
-							<input type="text" placeholder="우편번호" class="adress" id="zoneCode" name="voPlace" readonly>
+							<input type="text" placeholder="우편번호" class="adress" id="zoneCode" name="zoneCode" readonly>
 							<button type="button"class="searchAddress" id="adress_search">주소 검색</button>
 						</td>
 					</tr>
