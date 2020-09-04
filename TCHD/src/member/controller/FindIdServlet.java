@@ -45,9 +45,7 @@ public class FindIdServlet extends HttpServlet {
 			response.getWriter().println("1");
 			
 		} else {
-			request.setAttribute("errorMsg", "아이디 찾기에 실패하였습니다.");
-			request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+			response.getWriter().println("0");
 		}
 	}
 

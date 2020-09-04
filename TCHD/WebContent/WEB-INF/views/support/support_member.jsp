@@ -69,7 +69,7 @@
 				var select = $("#price_control").val();
 				var input = $("#input_direct");
 				var check = $("#payment");
-				
+				console.log("select : " + select + " / input : " + input.val());
 				if(select == "직접입력" && input.val().trim().length == 0){
 					swal("","금액을 입력해주세요.","info")
 					.then((ok) => {
@@ -90,11 +90,11 @@
 				$.ajax({
 					url: "supportApply.su",
 					type: "post",
-					data: {input_direct:input.val()},
-					success: function(data){
-						console.log(data);
+					data: {select:select, input_direct:input.val()},
+					success: function(result){
+						console.log("result : " + result);
 						if(select == "직접입력"){
-							if(data == 1){
+							if(result == 1){
 								swal("후원 신청 완료","","success")
 								.then((ok) => {
 									if(ok){

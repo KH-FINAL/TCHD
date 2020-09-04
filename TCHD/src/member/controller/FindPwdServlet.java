@@ -58,21 +58,13 @@ public class FindPwdServlet extends HttpServlet {
 					
 					response.getWriter().println("1");
 				} else {
-					request.setAttribute("errorMsg", "비밀번호 찾기에 실패하였습니다.");
-					request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
-					request.getRequestDispatcher("index.jsp").forward(request, response);
+					response.getWriter().println("0");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
-			response.sendRedirect(request.getContextPath());
-			request.setAttribute("section", "WEB-INF/views/common/main.jsp");
-			
 		} else {
-			request.setAttribute("errorMsg", "비밀번호 찾기에 실패하였습니다.");
-			request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+			response.getWriter().println("0");
 		}
 	}
 
