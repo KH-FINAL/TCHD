@@ -1314,14 +1314,14 @@ public class BoardDAO {
 		try {
 			for(int i = 0; i < fList.size(); i++) {
 				Files f = fList.get(i);
-			// SET ORIGIN_NAME=?, CHANGE_NAME=?, FILE_PATH=?, FILE_LEVEL=? WHERE BO_NO=?
+			// ORIGIN_NAME=?, CHANGE_NAME=?, FILE_PATH=? WHERE BO_NO=? AND FILE_LEVEL = ?
 				
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, f.getOrignName());
 			pstmt.setString(2, f.getChangeName());
 			pstmt.setString(3, f.getFilePath());
-			pstmt.setInt(4, f.getFileLevel());
-			pstmt.setInt(5, f.getBoNo());
+			pstmt.setInt(4, f.getBoNo());
+			pstmt.setInt(5, f.getFileLevel());
 			
 			result += pstmt.executeUpdate();
 			}

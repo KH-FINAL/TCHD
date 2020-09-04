@@ -105,15 +105,15 @@ public class AdoptUpdateServlet extends HttpServlet {
 				} 
 			}
 			
-			System.out.println("수정하기 썸네일:" + multiRequest.getParameter("thumbnailImg"));	//	null
+			System.out.println("수정하기 썸네일:" + multiRequest.getParameter("thumbnailImg"));	// null
 			System.out.println("수정하기 내용사진:" + multiRequest.getParameter("thumbnailImg1"));// null
 
 			for(int i = 0; i < originFiles.size(); i++) {
 				Files ft = new Files();
+				ft.setBoNo(bNo);
 				ft.setFilePath(savePath);
 				ft.setOrignName(originFiles.get(i));
 				ft.setChangeName(saveFiles.get(i));
-				
 				if(i == originFiles.size() -1) {
 					ft.setFileLevel(0);
 				} else { 
@@ -121,6 +121,11 @@ public class AdoptUpdateServlet extends HttpServlet {
 				}
 				
 				fList.add(ft);
+				System.out.println("수정하기 파일 게시글 번호 :"+fList.get(i).getBoNo());
+				System.out.println("수정하기 파일 저장경로 :"+fList.get(i).getFilePath());
+				System.out.println("수정하기 파일 원본이름 :"+fList.get(i).getOrignName());
+				System.out.println("수정하기 파일 바뀐이름 :"+fList.get(i).getChangeName());
+				System.out.println("수정하기 파일레벨 :"+fList.get(i).getFileLevel());
 			}
 			
 			System.out.println(saveFiles);	// 썸네일 changeName

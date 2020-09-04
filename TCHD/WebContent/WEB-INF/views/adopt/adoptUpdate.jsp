@@ -7,11 +7,11 @@
 	Adopt a = (Adopt)request.getAttribute("adopt");
 	String rescue = (String)request.getAttribute("rescue");
 	ArrayList<Files> fileList = (ArrayList<Files>)request.getAttribute("fileList");
-	Files thumbnailImg = fileList.get(0);
+// 	Files thumbnailImg = fileList.get(0);
 	
-	Files contentImg1 = fileList.get(1);
-	Files contentImg2 = fileList.get(2);
-	Files contentImg3 = fileList.get(3);
+// 	Files contentImg1 = fileList.get(1);
+// 	Files contentImg2 = fileList.get(2);
+// 	Files contentImg3 = fileList.get(3);
 	
 // 	String contentImg = (String)request.getAttribute("contentImg");
 	String prr[] = a.getPetAge().split("/");
@@ -39,7 +39,7 @@
 								<% for(int i = 0; i < fileList.size(); i++){ %>
 								<input type="hidden" name="fileList" value="<%= fileList.get(i) %>"/>
 								<% } %>
-								<img id="titleImg" src="<%= request.getContextPath() %>/upload_imageFiles/<%= thumbnailImg.getChangeName() %>"/>
+								<img id="titleImg" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(0).getChangeName() %>"/>
 							</div>
 						</td>
 						<td id="space2"> </td>
@@ -48,18 +48,18 @@
 						<td>
 <%-- 							<% for(int i = 1; i < fileList.size(); i++){ %> --%>
 							<div id="contentImgArea1" class="pictureArea">
-								<img id="contentImg1" src="<%= request.getContextPath() %>/upload_imageFiles/<%= contentImg1.getChangeName() %>"/>
+								<img id="contentImg1" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(1).getChangeName() %>"/>
 							</div>
 <%-- 							<% } %> --%>
 						</td>
 						<td>
 							<div id="contentImgArea2" class="pictureArea">
-								<img id="contentImg2" src="<%= request.getContextPath() %>/upload_imageFiles/<%= contentImg2.getChangeName() %>"/>
+								<img id="contentImg2" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(2).getChangeName() %>"/>
 							</div>
 						</td>
 						<td>
 							<div id="contentImgArea3" class="pictureArea">
-								<img id="contentImg3" src="<%= request.getContextPath() %>/upload_imageFiles/<%= contentImg3.getChangeName() %>"/>
+								<img id="contentImg3" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(3).getChangeName() %>"/>
 							</div>
 						</td>
 					</tr>
@@ -174,15 +174,15 @@
 					</tr>
 			</table> 
 			<div id="last">
-				<div>하고 싶은 말 : </div><textarea id="lastAnswer" name="lastMent"><%= a.getPetComment() %></textarea>
+				<div>하고 싶은 말 : s</div><textarea id="lastAnswer" name="lastMent"><%= a.getPetComment() %></textarea>
 				<span id="counter">0</span>/100
 			</div> 
    		</div>
    		<div id="fileArea">	<!-- 파일 업로드 부분 -->
 	   			<input type="file" id="thumbnailImg1" multiple="multiple" name="thumbnailImg" onchange="LoadImg(this,1)"/>
 	   			<input type="file" id="thumbnailImg2" multiple="multiple" name="thumbnailImg1" onchange="LoadImg(this,2)"/>
-	   			<input type="file" id="thumbnailImg3" multiple="multiple" name="thumbnailImg1" onchange="LoadImg(this,3)"/>
-	   			<input type="file" id="thumbnailImg4" multiple="multiple" name="thumbnailImg1" onchange="LoadImg(this,4)"/>
+	   			<input type="file" id="thumbnailImg3" multiple="multiple" name="thumbnailImg2" onchange="LoadImg(this,3)"/>
+	   			<input type="file" id="thumbnailImg4" multiple="multiple" name="thumbnailImg3" onchange="LoadImg(this,4)"/>
 	   		</div>
 	   	<script>
 		// insert 당시 입력했던 값 가져옴
