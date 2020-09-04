@@ -370,7 +370,11 @@ public class BoardDAO {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				Questions q = null; // 기현오빠 이부분 도와주십쇼
+				Questions q = new Questions(rset.getInt("BO_NO"), 
+						rset.getString("BO_TITLE"), 
+						rset.getString("BO_CONTENT"), 
+						rset.getString("MEM_ID"), 
+						rset.getDate("BO_DATE"), 0, null, 0); // 기현오빠 이부분 도와주십쇼
 						questionsList.add(q);
 			}
 		} catch (SQLException e) {
@@ -1408,7 +1412,22 @@ public class BoardDAO {
 			close(pstmt);
 		}
 		return result;
-}
+	}
+
+	public int deleteVolunteer(Connection conn, int bNo) {
+		PreparedStatement pstmt  =null;
+		int result = 0;
+		
+		try {
+			pstmt=conn.prepareStatement(prop.getProperty("deleteVolunteer"));
+			pstmt.setInt(1, bNo);
+			result= pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
 	
 
 }
