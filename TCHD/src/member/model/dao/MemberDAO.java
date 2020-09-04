@@ -121,14 +121,16 @@ public class MemberDAO {
 				result=rset.getInt(1);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		return result;
 	}
 
 	public int confirmPw(Connection conn, String loginUserId,String inputPw) {
-		PreparedStatement pstmt;
+		PreparedStatement pstmt = null;
 		ResultSet rset=null;
 		int result = 0;
 		
@@ -142,8 +144,10 @@ public class MemberDAO {
 				result = rset.getInt(1);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		return result;
 	}
@@ -172,6 +176,9 @@ public class MemberDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		return member;
 	}
@@ -200,6 +207,9 @@ public class MemberDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		return member;
 	}
@@ -398,17 +408,13 @@ public class MemberDAO {
 				 
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(rset);
 			close(pstmt);
 		}
 		
-		
-		
 		return memberList;
-		
 	}
 
 	public int approveMember(Connection conn, int memNo) {
@@ -420,7 +426,6 @@ public class MemberDAO {
 			pstmt.setInt(1, memNo);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
@@ -441,7 +446,6 @@ public class MemberDAO {
 				count= rset.getInt(1);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(rset);
