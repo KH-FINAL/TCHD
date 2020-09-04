@@ -32,9 +32,9 @@ public class Questions {// 문의게시판
 	public Questions() {
 	}
 
-	// 목록보기
+	// 목록보기 Qlist
 	public Questions(int boNo, int boType, String cateName, String boTitle, String boContent, int boCount, Date boDate,
-			String memId, String boDeleteYn, String memLeave, String quSub, String boPwd) {
+			String memId, String boDeleteYn, String memLeave, String quSub, String boPwd, String comContent) {
 		super();
 		this.boNo = boNo;
 		this.boType = boType;
@@ -48,6 +48,7 @@ public class Questions {// 문의게시판
 		this.memLeave = memLeave;
 		this.quSub = quSub;
 		this.boPwd = boPwd;
+		this.comContent = comContent;
 	}
 
 	
@@ -55,7 +56,7 @@ public class Questions {// 문의게시판
 	
 	 
 
-	// 작성
+	// 작성하기
 	public Questions(int boNo, String boTitle, String boContent, String memId,
 			 String quSub, String boPwd,int boType) {
 		super();
@@ -68,9 +69,9 @@ public class Questions {// 문의게시판
 		this.boType = boType;
 	}
 	
-	 //상세보기 
+	 //상세보기 Qdetail
 	public Questions(int boNo, int boType, String cateName, String boTitle, String boContent, int boCount, Date boDate,
-			String memId, String boDeleteYn, String quSub, String boPwd) {
+			String memId, String boDeleteYn, String quSub, String boPwd, String comContent, Date comDate) {
 		super();
 		this.boNo = boNo;
 		this.boType = boType;
@@ -83,6 +84,8 @@ public class Questions {// 문의게시판
 		this.boDeleteYn = boDeleteYn;
 		this.quSub = quSub;
 		this.boPwd = boPwd;
+		this.comContent = comContent;
+		this.comDate = comDate;
 	}
 
 	public Questions(int boNo, int boType, String cateName, String boTitle, String boContent, int boCount, Date boDate,

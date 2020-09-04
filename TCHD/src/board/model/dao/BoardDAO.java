@@ -162,7 +162,8 @@ public class BoardDAO {
 									rset.getString("bo_delete_yn"),
 									rset.getString("mem_leave"),
 									rset.getString("qu_sub"),
-									rset.getString("bo_pw"));
+									rset.getString("bo_pw"),
+									rset.getString("com_content"));
 				
 				Qlist.add(q);
 			}
@@ -381,8 +382,8 @@ public class BoardDAO {
 						null,
 						null,
 						null,
-						null
-						);
+						null,
+						null);
 						questionsList.add(q);
 			}
 		} catch (SQLException e) {
@@ -500,7 +501,9 @@ public class BoardDAO {
 									rset.getString("mem_id"),
 									rset.getString("bo_delete_yn"),
 									rset.getString("qu_sub"),
-									rset.getString("bo_pw"));
+									rset.getString("bo_pw"),
+									rset.getString("com_content"),
+									rset.getString("com_date"));
 			}
 			
 			
