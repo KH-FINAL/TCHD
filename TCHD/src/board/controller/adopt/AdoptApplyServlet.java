@@ -33,7 +33,7 @@ public class AdoptApplyServlet extends HttpServlet {
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	int bNo = Integer.parseInt(request.getParameter("bNo"));
-		int loginUserNo = ((Member)request.getSession().getAttribute("loginUser")).getMem_no();		// ??? 왜 null이야 로그인 했는데
+		int loginUserNo = ((Member)request.getSession().getAttribute("loginUser")).getMem_no();		
 		String answer = request.getParameter("answer1") + request.getParameter("answer2") + request.getParameter("answer3") +
 						request.getParameter("answer4") + request.getParameter("answer5") + request.getParameter("answer7");
 		

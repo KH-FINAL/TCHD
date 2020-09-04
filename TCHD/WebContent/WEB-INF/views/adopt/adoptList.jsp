@@ -15,7 +15,7 @@
 </head>
 <body>
 	<section>
-		<form action="<%= request.getContextPath() %>/adoptDetail.bo" method="post">
+		<form action="<%= request.getContextPath() %>/adoptDetail.bo">
 		<div id="ment">입양게시판</div>
 		<div id="PageArea">
 		<table class="mentArea">
@@ -138,7 +138,7 @@
 		$(function(){
 			$('.petPictureInfo').click(function(){
 				var boNo = $(this).find('input').val();
-				location.href="<%= request.getContextPath() %>/adoptDetail.bo?boNo=" + boNo;
+				location.href="<%= request.getContextPath() %>/adoptDetail.bo?boNo="+boNo;
 			});
 		});
 		</script>

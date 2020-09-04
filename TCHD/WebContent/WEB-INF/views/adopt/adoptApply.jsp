@@ -134,7 +134,7 @@
 			<p>긴 시간 동안 입양신청서에 답해 주셔서 감사합니다.<p>
 		</div>
 		<div id="buttons">
-		<button id="cancel" class="applyButton" onClick="applyCancle();">취소</button>
+		<button id="cancel" class="applyButton" onClick="location.href='<%= request.getContextPath() %>/adoptDetail.bo?boNo='<%= bNo %>;">취소</button>
 			<button id="okay" class="applyButton" onClick="applyConfirm();">확인</button>
 		</div>
 	</form>
@@ -216,15 +216,19 @@
 // 			// textarea에 글이 없거나, 공백만 있을 경우--> 입력칸 확인팝업창 뜸
 // 			// 동의신청에 체크를 하지 않은 경우 --> 동의해주세요 팝업창
 // 			// 그 외 --> 신청완료 팝업창 뜸
-			function applyCancle(){
-				var bNo = $('#bNo').val();
-				location.href='<%= request.getContextPath() %>/adoptDetail.bo?boNo='+ bNo;
-			}
+// 			function applyCancle(){
+// 				var bNo = $('#bNo').val();
+<%-- 				location.href='<%= request.getContextPath() %>/adoptDetail.bo?boNo='+ bNo; --%>
+// 			}
 
 			function applyConfirm(){
-				swal("", "입양신청이 완료되었습니다.", "info");
-				var bNo = $('#bNo').val();
-				location.href = "<%= request.getContextPath() %>/adoptApply.bo?bNo="+ bNo;
+				swal("", "입양신청이 완료되었습니다.", "info")
+				.then(ok) => {
+					if(ok){
+						location.href = "<%= request.getContextPath() %>/adoptApply.bo?bNo="+ bNo;
+					}
+				});
+				return;
 			}
 			
 			function checkSubmit(){

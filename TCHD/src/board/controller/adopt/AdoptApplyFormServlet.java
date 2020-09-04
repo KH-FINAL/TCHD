@@ -32,7 +32,7 @@ public class AdoptApplyFormServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String loginUserId = ((Member)request.getSession().getAttribute("loginUser")).getMem_id();
 		Member member = new MemberService().selectMemberPm(loginUserId);
-		int bNo = Integer.parseInt(request.getParameter("bNo"));
+		int bNo = Integer.parseInt(request.getParameter("boNo"));
 		
 		request.setAttribute("bNo", bNo);
 		request.setAttribute("member", member);

@@ -21,7 +21,6 @@
    		<div id="ment">보호동물 정보</div>
    			<div id="picture">
 				<img id="thumbnailImg" src="<%= request.getContextPath()%>/upload_imageFiles/<%= thumbnailImg.getChangeName() %>"/>
-				<input type="hidden" name="thumbnail" value="<%= thumbnailImg.getChangeName() %>"/>
 				<div id="btn">
 					<img id="left" class="switch" src="images/btnL.PNG">
 					<img id="right" class="switch" src="images/btnR.PNG">
@@ -97,22 +96,25 @@
   				<hr>
   			</div>				
 	   		<div id="smallPictures">
-	   			<div id="smallPets">		<!-- img가 아니라 input으로 file했어야 햇나벼... -->
+	   			<div id="smallPets">		
+		   				<img id="detailImg" class="smallPicture" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(1).getChangeName() %>"/>
+		   				<img id="detailImg" class="smallPicture" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(2).getChangeName() %>"/>
+		   				<img id="detailImg" class="smallPicture" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(3).getChangeName() %>"/>
 		   			<% for(int i = 1; i < fileList.size();  i++){ %>
-		   				<img id="detailImg" class="smallPicture" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(i).getChangeName() %>"/>
+		   				<input type="hidden" name="fileList" value="<%= fileList.get(i) %>"/>
 	   				<% } %>
    				</div>
    				<% if(loginUser != null && adopt.getId().equals(loginUser.getMem_id())){ %> 
-					<input type="button" id="delete" class="threeButton" value="삭제하기" onClick="deleteForm();"/>
-					<input type="submit" id="alter" class="threeButton" value="수정하기"> 
+					<input type="button" id="delete" class="threeButton" value="삭제하기" onclick="deleteForm();"/>
+					<input type="submit" id="alter" class="threeButton" value="수정하기" onclick="location.href='<%= request.getContextPath()%>/adoptUpdateForm.bo?boNo=<%= adopt.getBoNo()%>'"/> 
 				<% } else { %>
 					<input type="button" id="delete" class="threeButton" value="삭제하기" disabled="disabled"/>
 					<input type="button" id="alter" class="threeButton" value="수정하기" disabled="disabled"/>
 				<% } %>
 				<% if(loginUser != null){ %>
-					<input type="button" id="apply" class="threeButton" value="입양하기" onClick="location.href='<%= request.getContextPath()%>/adoptApplyForm.bo?bNo=<%= adopt.getBoNo() %>'"/>
+					<input type="button" id="apply" class="threeButton" value="입양하기" onclick="location.href='<%= request.getContextPath()%>/adoptApplyForm.bo?boNo=<%= adopt.getBoNo() %>'"/>
 				<% } else{ %>
-					<input type="button" id="apply" class="threeButton" value="입양하기" onClick="loginForm();"/>
+					<input type="button" id="apply" class="threeButton" value="입양하기" onclick="loginForm();"/>
 				<% } %>
 			</div>
 	</form>		

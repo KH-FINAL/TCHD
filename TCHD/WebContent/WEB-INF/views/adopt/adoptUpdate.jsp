@@ -2,12 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList, member.model.vo.Member, board.model.vo.*"%>
 <%
-	int bNo = (int)request.getAttribute("bNo");
+// 	int bNo = (int)request.getAttribute("bNo");
 	String userPhone = (String)request.getAttribute("userPhone");
 	Adopt a = (Adopt)request.getAttribute("adopt");
 	String rescue = (String)request.getAttribute("rescue");
 	ArrayList<Files> fileList = (ArrayList<Files>)request.getAttribute("fileList");
 	Files thumbnailImg = fileList.get(0);
+	
 	Files contentImg1 = fileList.get(1);
 	Files contentImg2 = fileList.get(2);
 	Files contentImg3 = fileList.get(3);
@@ -31,10 +32,13 @@
    			<div id="picture">
    				<table id="pictureTable">
 					<tr>
-						<th>대표 사진<input type="hidden" name="boNo" value="<%= bNo %>"/></th>
+						<th>대표 사진<input type="hidden" name="boNo" value="<%= a.getBoNo() %>"/></th>
 						<td id="space1"> </td>
 						<td colspan="3">
 							<div id="titleImgArea" class="pictureArea">
+								<% for(int i = 0; i < fileList.size(); i++){ %>
+								<input type="hidden" name="fileList" value="<%= fileList.get(i) %>"/>
+								<% } %>
 								<img id="titleImg" src="<%= request.getContextPath() %>/upload_imageFiles/<%= thumbnailImg.getChangeName() %>"/>
 							</div>
 						</td>
@@ -42,9 +46,11 @@
 						<th>내용 사진</th>
 						<td id="space3"> </td>
 						<td>
+<%-- 							<% for(int i = 1; i < fileList.size(); i++){ %> --%>
 							<div id="contentImgArea1" class="pictureArea">
 								<img id="contentImg1" src="<%= request.getContextPath() %>/upload_imageFiles/<%= contentImg1.getChangeName() %>"/>
 							</div>
+<%-- 							<% } %> --%>
 						</td>
 						<td>
 							<div id="contentImgArea2" class="pictureArea">
@@ -259,16 +265,18 @@
    		</script>
    		
    		<div id="buttonArea">	<!-- 취소하기 : action의 영향 안 받음 -->
-   			<button id="cancelButton" class="buttons" type="reset" onclick="location.href='<%= request.getContextPath() %>/adoptDetail.bo'">취소</button>
+   			<button id="cancelButton" class="buttons" type="reset" onclick="location.href='<%= request.getContextPath() %>/adoptDetail.bo?boNo=<%= a.getBoNo() %>'">취소</button>
 	   		<button id="okButton" type="submit" class="buttons">수정</button>
 	   	</div>
  			<script>
-				function cancelButton(){
-					alert('게시글이 수정되지 않았습니다.');
-				}
-				
 				function okayButton(){
-					alert('게시글이 수정되었습니다.');				
+					swal("게시글 수정", "상세페이지로 이동합니다", "info")
+					.then((ok) => {
+						if(ok){
+							location.href='<%= request.getContextPath() %>/adoptUpdate.bo';
+						}
+					});
+					return;				
 				}
 				
 				

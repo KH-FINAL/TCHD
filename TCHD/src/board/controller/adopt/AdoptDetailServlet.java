@@ -40,7 +40,8 @@ public class AdoptDetailServlet extends HttpServlet {
 		Adopt adopt = service.selectedAdopt(bNo); 	
 		ArrayList<Files> fileList = service.selectNoticeFile(bNo);
 		
-		if(adopt != null && fileList != null ) {	
+		if(adopt != null && fileList != null ) {
+//			request.setAttribute("bNo", bNo);
 			request.setAttribute("adopt", adopt);
 			request.setAttribute("fileList", fileList);
 			request.setAttribute("section", "WEB-INF/views/adopt/adoptDetail.jsp");

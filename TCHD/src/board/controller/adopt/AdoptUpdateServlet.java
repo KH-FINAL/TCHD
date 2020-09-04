@@ -50,6 +50,7 @@ public class AdoptUpdateServlet extends HttpServlet {
 			String root = request.getSession().getServletContext().getRealPath("/"); // C:\5_JSPServlet_workspace\TCHD\WebContent\
 			String savePath = root + "upload_imageFiles/";	// 파일 저장경로
 			
+			
 			File f = new File(savePath);
 			if(!f.exists()) {		// 폴더 없으면 만들고 시작
 				f.mkdirs();
@@ -59,7 +60,7 @@ public class AdoptUpdateServlet extends HttpServlet {
 			
 			ArrayList<String> saveFiles = new ArrayList<String>();	 // 바뀐 파일 이름 저장
 			ArrayList<String> originFiles = new ArrayList<String>(); // 원본파일 이름 저장
-			ArrayList<Files> fileList = new ArrayList<Files>();
+			ArrayList<Files> fList = new ArrayList<Files>();
 			Board b = new Board();
 			Adopt a = new Adopt();
 			
@@ -90,13 +91,43 @@ public class AdoptUpdateServlet extends HttpServlet {
 					petName + ", " + petCategory + ", " + petWeight + ", " + petColor + ", " + 
 					rescue + ", " + lastMent;
 			
-			System.out.println("수정하기 content : " + content);
+//			System.out.println("수정하기 content : " + content);
 			
-//			Board b = new Board(bNo, "입양게시판", petName, content, memNo);
-//			
-//			Adopt a = new Adopt(petKind, petCategory, petGender, unigender, petName, petAge, 
-//									rescue, petWeight, petColor, petSize, lastMent);
+			Enumeration<String> files = multiRequest.getFileNames();	// form에서 전송되는 파일이름 : 글 수정 시 업로드 된 파일 가져오기
+			while(files.hasMoreElements()) {
+				String name = files.nextElement();	// thumbnailImg(썸네일), thumbnailImg1  ==> 내가 새로 선택한 파일 name태그명
+				String updateFile = multiRequest.getFilesystemName(name); // thumbnailImg의 changeName  --> thumbnailImg1의 changeName은 null
+				System.out.println("수정하기 파일이름 :"+name);	
+				System.out.println("수정하기 파일업데이트 :"+updateFile);
+				if(updateFile != null) {	// 사진이 추가됐을 떄??
+					saveFiles.add(multiRequest.getFilesystemName(name));	 // 바뀐 파일명
+					originFiles.add(multiRequest.getOriginalFileName(name)); // 실제 업로드했던 파일명
+				} 
+			}
+			
+			System.out.println("수정하기 썸네일:" + multiRequest.getParameter("thumbnailImg"));	//	null
+			System.out.println("수정하기 내용사진:" + multiRequest.getParameter("thumbnailImg1"));// null
 
+			for(int i = 0; i < originFiles.size(); i++) {
+				Files ft = new Files();
+				ft.setFilePath(savePath);
+				ft.setOrignName(originFiles.get(i));
+				ft.setChangeName(saveFiles.get(i));
+				
+				if(i == originFiles.size() -1) {
+					ft.setFileLevel(0);
+				} else { 
+					ft.setFileLevel(1);
+				}
+				
+				fList.add(ft);
+			}
+			
+			System.out.println(saveFiles);	// 썸네일 changeName
+			System.out.println(originFiles);// 썸네일 originName
+
+			
+			
 			b.setBoNo(bNo);
 			b.setBoTitle(petName);
 			b.setBoContent(content);
@@ -115,64 +146,11 @@ public class AdoptUpdateServlet extends HttpServlet {
 			a.setRescueDate(rescue);
 			a.setPetComment(lastMent);
 			
-			
-			
-			Enumeration<String> files = multiRequest.getFileNames();	// form에서 전송되는 파일이름 : 글 수정 시 업로드 된 파일 가져오기
-			while(files.hasMoreElements()) {
-				String name = files.nextElement();
-				String updateFile = multiRequest.getFilesystemName(name);
-				
-				if(updateFile == null) {	// 수정 시 새로운 파일 첨부 안했다면
-					saveFiles.add(multiRequest.getFilesystemName(name));	 // 바뀐 파일명
-					originFiles.add(multiRequest.getOriginalFileName(name)); // 실제 업로드했던 파일명
-				} else {					// 새로운 파일 첨부 했다면
-					saveFiles.add(multiRequest.getFilesystemName(updateFile));	 // 바뀐 파일명
-					originFiles.add(multiRequest.getOriginalFileName(updateFile));
-				}
-			}
-			
-			for(int i = 0; i < originFiles.size(); i++) {
-				Files ft = new Files();
-				ft.setFilePath(savePath);
-				ft.setOrignName(originFiles.get(i));
-				ft.setChangeName(saveFiles.get(i));
-				
-				if(i == originFiles.size() -1) {
-					ft.setFileLevel(0);
-				} else { 
-					ft.setFileLevel(1);
-				}
-				
-				fileList.add(ft);
-			}
-			
-			System.out.println(saveFiles);
-			System.out.println(originFiles);
-			
-			// insert 했던 파일 정보
-//			String thumbnail = request.getParameter("thumbnail");
-//			
-//			String contentImg1 = ""; 
-//			String contentImg2 = ""; 
-//			String contentImg3 = ""; 
-//			if(multiRequest.getParameter("contentImg1") != null ) {
-//				contentImg1 = request.getParameter("contentImg1");
-//			}
-//			
-//			if(multiRequest.getParameter("contentImg2") != null ) {
-//				contentImg2 = request.getParameter("contentImg2");
-//			}
-//
-//			if(multiRequest.getParameter("contentImg3") != null ) {
-//				contentImg3 = request.getParameter("contentImg3");
-//			}
-			
-			
-			int result = new BoardService().updateAdopt(b, a, fileList);
+			int result = new BoardService().updateAdopt(b, a, fList);
 			
 			if(result > 0) {
 				request.setAttribute("adopt", a);
-				request.setAttribute("fileList", fileList);
+				request.setAttribute("fList", fList);
 				request.setAttribute("section", "WEB-INF/views/adopt/adoptDetail.jsp");
 				request.getRequestDispatcher("index.jsp").forward(request, response);
 				

@@ -3,6 +3,7 @@
 <%@ page import="member.model.vo.Member" %>
 <%
 	String userPhone = (String)request.getAttribute("userPhone");
+	int bNo = (int)request.getAttribute("bNo");
 %>
 <!DOCTYPE html>
 <html>
@@ -219,7 +220,7 @@
 	   	
 	   	</script>
 		<div id="buttonArea">
-	   		<button id="cancelButton" class="buttons" onclick="location.href='<%= request.getContextPath() %>/adopt.bo'">취소</button>
+	   		<button id="cancelButton" class="buttons" onclick="location.href='<%= request.getContextPath() %>/adoptDetail.bo?boNo='<%= bNo %>">취소</button>
 	   		<button id="okButton" type="submit" class="buttons" onclick="okSubmit();">확인</button>
 	   	</div>
    	<script>
@@ -245,7 +246,7 @@
    		}
    	}
 
-   	function okSubmit(){			/* 왜 안돼 */
+   	function okSubmit(){			/* 왜 안도ㅐ */
    		swal("게시물 등록", "게시물이 등록되었습니다", "info")
    		.then(ok) => {
    			if(ok){
