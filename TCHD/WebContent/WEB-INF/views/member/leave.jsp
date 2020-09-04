@@ -57,9 +57,9 @@
 				url: "leave.me",
 				type: "post",
 				data: {input_pwd:pwd.val()},
-				success: function(data){
-					console.log("data : " + data);
-					if(data == 1){
+				success: function(result){
+					console.log("result : " + datresulta);
+					if(result == 1){
 						swal("회원 탈퇴 완료","지금까지 ♡함께하묘 행복하개♡를 이용해주셔서 감사합니다.","success")
 						.then((ok) => {
 							if(ok){

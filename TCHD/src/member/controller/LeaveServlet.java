@@ -35,16 +35,9 @@ public class LeaveServlet extends HttpServlet {
 		if(result != 0) {
 			session.invalidate(); // 로그아웃
 			
-//			response.sendRedirect(request.getContextPath());
-//			request.setAttribute("section", "WEB-INF/views/common/main.jsp");
-			
-			request.setAttribute("msg", "회원탈퇴가 완료되었습니다.");
-			request.setAttribute("section", "WEB-INF/views/common/successPage.jsp");
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+			response.getWriter().println("1");
 		} else {
-			request.setAttribute("errorMsg", "회원 탈퇴에 실패하였습니다.");
-			request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+			response.getWriter().println("0");
 		}
 	}
 

@@ -90,8 +90,9 @@
 					url: "login.me", 
 					type: "post", 
 					data: {userId:id.val(), userPwd:pwd.val()}, 
-					success: function(data){
-						if(data == 1){
+					success: function(result){
+						console.log("result : " + result);
+						if(result == 1){
 							location.href="<%=request.getContextPath()%>";
 						}else{
 							swal("로그인 실패","입력한 정보를 가진 회원이 없습니다.","error");
