@@ -43,15 +43,21 @@
     	 location.href="<%= request.getContextPath() %>/volunteerList.bo";
      });
      
+     $('#menuBar2').children().eq(0).click(function(){
+    	 location.href="<%= request.getContextPath() %>/supportApplyForm.su";
+     });
+     
+     $('#menuBar2').children().eq(1).click(function(){
+    	 location.href="<%= request.getContextPath() %>/supportList.su";
+     });
+     
      $('#menuBar3').children().eq(0).click(function(){ 
     	 location.href="<%= request.getContextPath() %>/list.no";
      });
      
-     
      $('#menuBar3').children().eq(1).click(function(){ 
     	 location.href="<%= request.getContextPath() %>/hospitalList.ho";
      });
-     
      
      $('#menuBar4').children().eq(0).click(function(){
     	 location.href="<%= request.getContextPath() %>/list.qu";
