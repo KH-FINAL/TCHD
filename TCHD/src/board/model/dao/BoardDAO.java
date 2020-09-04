@@ -370,20 +370,7 @@ public class BoardDAO {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				Questions q = new Questions(
-						rset.getInt("BO_NO"),
-						0,
-						rset.getString("CATE_NAME"),
-						rset.getString("BO_TITLE"),
-						rset.getString("BO_CONTENT"),
-						0,
-						rset.getDate("BO_DATE"),
-						rset.getString("MEM_ID"),
-						null,
-						null,
-						null,
-						null,
-						null);
+				Questions q = null;
 						questionsList.add(q);
 			}
 		} catch (SQLException e) {
