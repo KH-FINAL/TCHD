@@ -370,7 +370,7 @@ public class BoardDAO {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				Questions q = null;
+				Questions q = null; // 기현오빠 이부분 도와주십쇼
 						questionsList.add(q);
 			}
 		} catch (SQLException e) {
