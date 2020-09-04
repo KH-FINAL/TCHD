@@ -220,7 +220,7 @@
 	   	</script>
 		<div id="buttonArea">
 	   		<button id="cancelButton" class="buttons" onclick="location.href='<%= request.getContextPath() %>/adopt.bo'">취소</button>
-	   		<button id="okButton" type="submit" class="buttons">확인</button>
+	   		<button id="okButton" type="submit" class="buttons" onclick="okSubmit();">확인</button>
 	   	</div>
    	<script>
    	// 개, 고양이 구분 체크박스 선택 유무 및 하나만 선택되게 하는 함수
@@ -245,7 +245,14 @@
    		}
    	}
 
-   	
+   	function okSubmit(){			/* 왜 안돼 */
+   		swal("게시물 등록", "게시물이 등록되었습니다", "info")
+   		.then(ok) => {
+   			if(ok){
+   				location.href = "<%= request.getContextPath() %>/adoptInsert.bo";
+   			}
+   		});
+   	}
    	
    	
    	function checkSubmit(){		// 정보 넘기는 함수

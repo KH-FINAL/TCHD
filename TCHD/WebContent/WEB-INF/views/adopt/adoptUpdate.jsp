@@ -8,7 +8,11 @@
 	String rescue = (String)request.getAttribute("rescue");
 	ArrayList<Files> fileList = (ArrayList<Files>)request.getAttribute("fileList");
 	Files thumbnailImg = fileList.get(0);
-	String contentImg = (String)request.getAttribute("contentImg");
+	Files contentImg1 = fileList.get(1);
+	Files contentImg2 = fileList.get(2);
+	Files contentImg3 = fileList.get(3);
+	
+// 	String contentImg = (String)request.getAttribute("contentImg");
 	String prr[] = a.getPetAge().split("/");
 %>
 <!DOCTYPE html>
@@ -37,23 +41,21 @@
 						<td id="space2"> </td>
 						<th>내용 사진</th>
 						<td id="space3"> </td>
-						<% for(int i = 1; i < fileList.size(); i++){ %>
 						<td>
 							<div id="contentImgArea1" class="pictureArea">
-								<img id="contentImg1" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(i).getChangeName() %>"/>
+								<img id="contentImg1" src="<%= request.getContextPath() %>/upload_imageFiles/<%= contentImg1.getChangeName() %>"/>
 							</div>
 						</td>
-						<% } %>
-<!-- 						<td> -->
-<!-- 							<div id="contentImgArea2" class="pictureArea"> -->
-<%-- 								<img id="contentImg2" src="<%= request.getContextPath() %>/upload_imageFiles/<%= contentImg2 %>"/> --%>
-<!-- 							</div> -->
-<!-- 						</td> -->
-<!-- 						<td> -->
-<!-- 							<div id="contentImgArea3" class="pictureArea"> -->
-<%-- 								<img id="contentImg3" src="<%= request.getContextPath() %>/upload_imageFiles/<%= contentImg3 %>"/> --%>
-<!-- 							</div> -->
-<!-- 						</td> -->
+						<td>
+							<div id="contentImgArea2" class="pictureArea">
+								<img id="contentImg2" src="<%= request.getContextPath() %>/upload_imageFiles/<%= contentImg2.getChangeName() %>"/>
+							</div>
+						</td>
+						<td>
+							<div id="contentImgArea3" class="pictureArea">
+								<img id="contentImg3" src="<%= request.getContextPath() %>/upload_imageFiles/<%= contentImg3.getChangeName() %>"/>
+							</div>
+						</td>
 					</tr>
 				</table>
 			</div>
@@ -79,7 +81,7 @@
 					<td class="firstTd"> 크기 </td>
 					<td id="sizeTd" class="secondTd">
 						<select id="petSizes" name="petSize">	<!-- ---------- 이 상태면 등록 안되게 기능 걸기 -->
-							<option value="0"> ------------</option>	<!-- 기본 '크기선택'  ==> 크기선택은 고르는 것에는 없게 만들기! -->
+							<option value="0"> ------------</option>	
 							<option value="S">소형(S)</option>
 							<option value="M">중형(M)</option>
 							<option value="L">대형(L)</option>
@@ -97,7 +99,7 @@
 					</td>
 					<td id="ageTd2">
 						<input type="text" id="ageDetail" name="petAgeDetail" placeholder="숫자" required/>
-						<select id="detailAge" name="detailAge">
+						<select id="detailAges" name="detailAge">
 							<option value="개월">개월</option>
 							<option value="살">살</option>
 						</select>
@@ -166,7 +168,7 @@
 					</tr>
 			</table> 
 			<div id="last">
-				<div>하고 싶은 말 : </div><textarea id="lastAnswer" name="lastMent"> <%= a.getPetComment() %></textarea>
+				<div>하고 싶은 말 : </div><textarea id="lastAnswer" name="lastMent"><%= a.getPetComment() %></textarea>
 				<span id="counter">0</span>/100
 			</div> 
    		</div>
@@ -183,8 +185,8 @@
 		$('input[name=unigender]').val("<%= a.getPetUnigender() %>");
 		$('#petSizes').val("<%= a.getPetSize() %>");
 		$('#petAge').val("<%= prr[0].substring(0) %>");		
-		$('#petDetail').val("<%= Integer.parseInt(prr[1].substring(0, 1)) %>");
-		$('#detailAge').val("<%= prr[1].substring(1) %>");		   	
+		$('#ageDetail').val("<%= Integer.parseInt(prr[1].substring(0, 2)) %>");
+		$('#detailAges').val("<%= prr[1].substring(2) %>");		   	
 		// 크기 선택 안되게 함   --> 입력 당시 값으로 고정
 		$('#petSizes option').not(":selected").attr("disabled", "disabled");
 // ----------------------------------------------------------------------------------------------------------------------------	   	
@@ -257,7 +259,7 @@
    		</script>
    		
    		<div id="buttonArea">	<!-- 취소하기 : action의 영향 안 받음 -->
-   			<button id="cancelButton" class="buttons" type="reset" onclick="location.href='<%= request.getContextPath() %>/adoptDetail.bo?boNo='<%= bNo %>">취소</button>
+   			<button id="cancelButton" class="buttons" type="reset" onclick="location.href='<%= request.getContextPath() %>/adoptDetail.bo'">취소</button>
 	   		<button id="okButton" type="submit" class="buttons">수정</button>
 	   	</div>
  			<script>

@@ -120,8 +120,13 @@
 		}
 		
 		function loginFrom(){
-// 			swal("", "로그인 후 이용해주시기 바랍니다.", "info");
-			location.href="<%= request.getContextPath() %>/loginForm.me";
+			swal("회원 전용 서비스", "로그인 후 이용해주시기 바랍니다.", "info")
+			.then((ok) => {
+				if(ok){
+					location.href='<%= request.getContextPath()%>/loginForm.me';
+				}
+			});
+			return;
 		}
 		
 		$(function(){

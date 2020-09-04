@@ -76,7 +76,9 @@ public class AdoptUpdateServlet extends HttpServlet {
 				unigender = "X";
 			}
 			String petSize = multiRequest.getParameter("petSize");			// 크기
-			String petAge = multiRequest.getParameter("petAge"); 			// 나이
+			String petAge = multiRequest.getParameter("petAge")+ "/" 		// 나이
+							+ multiRequest.getParameter("petAgeDetail")
+						    + multiRequest.getParameter("detailAge"); 			// 나이
 			String petName = multiRequest.getParameter("petName");			// 이름
 			String petCategory = multiRequest.getParameter("petCategory");	// 품종
 			float petWeight = Float.valueOf(multiRequest.getParameter("petWeight"));	// 무게
@@ -171,17 +173,10 @@ public class AdoptUpdateServlet extends HttpServlet {
 			if(result > 0) {
 				request.setAttribute("adopt", a);
 				request.setAttribute("fileList", fileList);
-				request.setAttribute("section", "WEB-INF/views/adopt/aodptDetdail.bo?boNo=" + bNo);
+				request.setAttribute("section", "WEB-INF/views/adopt/adoptDetail.jsp");
 				request.getRequestDispatcher("index.jsp").forward(request, response);
 				
 			} else {
-//				for(int i = 0; i < saveFiles.size(); i++) {
-//					File failedFile = new File(savePath + saveFiles.get(i));
-//					failedFile.delete();
-//				}
-//				request.setAttribute("msg", "사진 게시판 수정에 실패하였습니다.");
-//				request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
-//				request.getRequestDispatcher("index.jsp").forward(request, response);
 				response.sendRedirect("adoptDetail.bo?boNo=" + bNo);
 			}
 			

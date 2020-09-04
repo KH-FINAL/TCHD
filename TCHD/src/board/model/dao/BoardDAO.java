@@ -1331,6 +1331,7 @@ public class BoardDAO {
 			
 			result += pstmt.executeUpdate();
 			}
+			System.out.println("updateAdoptFile1 실행2?");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

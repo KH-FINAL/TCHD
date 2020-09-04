@@ -97,12 +97,9 @@
   				<hr>
   			</div>				
 	   		<div id="smallPictures">
-	   			<div id="smallPets">
+	   			<div id="smallPets">		<!-- img가 아니라 input으로 file했어야 햇나벼... -->
 		   			<% for(int i = 1; i < fileList.size();  i++){ %>
 		   				<img id="detailImg" class="smallPicture" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(i).getChangeName() %>"/>
-<%-- 		   				<input type="hidden" name="contentImg" value="<%= fileList.get(i).getChangeName() %>"/> --%>
-<%-- 		   				<input type="hidden" name="contentImg2" value="<%= fileList.get(2).getChangeName() %>"/> --%>
-<%-- 		   				<input type="hidden" name="contentImg3" value="<%= fileList.get(3).getChangeName() %>"/> --%>
 	   				<% } %>
    				</div>
    				<% if(loginUser != null && adopt.getId().equals(loginUser.getMem_id())){ %> 
@@ -180,8 +177,13 @@
 		}
 		
 		function loginForm(){
-			swal("", "로그인 후 이용해주시기 바랍니다.", "info");
-			location.href='<%= request.getContextPath()%>/loginForm.me';
+			swal("회원 전용 서비스", "로그인 후 이용해주시기 바랍니다.", "info")
+			.then((ok) => {
+				if(ok){
+					location.href='<%= request.getContextPath()%>/loginForm.me';
+				}
+			});
+			return;
 		}
 	</script>
 </section>
