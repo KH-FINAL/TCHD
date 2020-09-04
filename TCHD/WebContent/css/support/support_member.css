@@ -3,7 +3,8 @@
 .title {
 	font-size: 30px;
 	font-weight: bold; /* 700; */
-	margin: 30px 30px 20px 30px; /* table에서 border-spacing: 50px 때문에 20px으로 맞춰둠. */
+	margin: 30px 30px 20px 30px;
+	/* table에서 border-spacing: 50px 때문에 20px으로 맞춰둠. */
 	text-decoration: underline;
 	text-decoration-color: rgb(41, 128, 185);
 }
@@ -20,18 +21,21 @@
 	position: relative; /* 이거 왜했더라? */
 	/* border: 1px solid orange; */
 }
+
 table {
 	margin: 0px auto;
 	border-collapse: separate; /* 이거 왜했더라?2 */
 	table-layout: fixed; /* 이거 왜했더라?3 */
 	border-spacing: 50px 50px; /* STEP1과 STEP2 사이 여백 */
 }
+
 td {
 	text-align: center;
 }
 /* STEP 버튼 */
 #step {
-	width: 400px; height: 100px;
+	width: 400px;
+	height: 100px;
 	border: none;
 	border-radius: 5px;
 	background: rgb(41, 128, 185);
@@ -39,21 +43,44 @@ td {
 	font-size: 18px;
 	text-align: center; /* STEP 글씨 가운데로 */
 }
+
 #step_content {
 	height: 100px;
 }
+
 #price_control {
-	width: 200px; /* 선택박스 가로 크기 */
+	width: 150px; /* 선택박스 가로 크기 */
 	border: 1px solid #ccc; /* 선택박스 테두리 */
 	border-radius: 5px; /* 선택박스 모서리 */
-	padding: 10px 10px; /* 선택박스 안에 공간크기 */
+	padding: 10px; /* 선택박스 안에 공간크기 */
+}
+
+#input_span {
+	width: 120px;
+	padding: 10px;
+	border: 1px solid #ccc;
+}
+
+#input_direct {
+	width: 100px;
+	/* 	padding: 10px; */
+	border: none;
+	outline: none;
+	/* 	border-right: none; */
+}
+
+#input_direct::-webkit-outer-spin-button, 
+#input_direct::-webkit-inner-spin-button{
+	-webkit-appearance: none;
+	margin: 0;
 }
 /* checkbox */
-#payment { 
-	width: 20px; height: 20px;
+#payment {
+	width: 20px;
+	height: 20px;
 }
 /* STEP2 무통장입금 글씨 크기 */
-#payment2 { 
+#payment2 {
 	font-size: 17px;
 }
 /* 후원금액 합계 */
@@ -64,7 +91,7 @@ td {
 	margin-bottom: 30px;
 	padding-top: 30px;
 	padding-right: 20px;
-	border-top: 1px solid #eee; /* 연회색 실선 */
+	border-top: 1px solid #e0e0e0; /* 연회색 실선 */
 }
 
 #total_price_won {
@@ -76,9 +103,10 @@ td {
 /* 화면상 맨 아래 영역 */
 .vol_content_footer {
 	padding: 30px; /* 다음 버튼 여백 */
-	border-top: 1px solid #eee; /* 다음 버튼 위 실선 */
+	border-top: 1px solid #e0e0e0; /* 다음 버튼 위 실선 */
 	text-align: center;
 }
+
 .vol_next {
 	border: none;
 	border-radius: 5px;
