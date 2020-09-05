@@ -69,11 +69,17 @@ $(function(){
 					</table>
 				</div>
 			</div>
-			<div id="list_div" onclick="location.href='<%= request.getContextPath() %>/hospitalList.ho'">
+			<div id="list_div" onclick="goList();">
 				<a id="list_a">&lt;</a>
 				<button id="list_button">목록보기</button>
 			</div>
 		</div>
+		
+		<script>
+			function goList(){
+				history.back();
+			}
+		</script>
 	</section>
 </body>
 </html>

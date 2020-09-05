@@ -28,13 +28,11 @@ public class SupportApplyMemServlet extends HttpServlet {
 		if(select.equals("직접입력")) {
 			// 직접입력을 선택한 경우, input_direct의 콤마 제거
 			String[] input = input_direct.split(",");
-			System.out.println("supportApplyMemServler_input : " + input);
 			// 사용자가 입력한 금액을 select에 저장
 			for(int i = 0; i < input.length; i ++) {
 				select = input_direct.substring(0, 1);
 				select += input[i];
 			}
-			System.out.println("supportApplyMemServler_select : " + select);
 		}
 		
 		int price = Integer.parseInt(select);

@@ -44,7 +44,7 @@
      });
      
      $('#menuBar2').children().eq(0).click(function(){
-    	 location.href="<%= request.getContextPath() %>/supportApplyForm.su";
+    	 location.href="<%= request.getContextPath() %>/supportApplyFirstForm.su";
      });
      
      $('#menuBar2').children().eq(1).click(function(){

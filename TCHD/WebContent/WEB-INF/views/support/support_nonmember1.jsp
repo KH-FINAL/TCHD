@@ -3,16 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 <link href="css/support/support_nonmember1.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="css/common/common.css" type="text/css">
 </head>
 <body>
 	<section>
-		<div class="title">후원하기</div>
-		<div class="main_div">
-			<div class="sub_div">
+		<div id="ment">후원하기</div>
+		<div id="main_div">
+			<div>
 				<table>
 					<tr class="step">
 						<td class="step" id="step_main">STEP1.<br>후원금 선택
