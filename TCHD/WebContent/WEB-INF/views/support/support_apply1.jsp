@@ -26,14 +26,11 @@
 								<option value="100000">10만원</option>
 								<option value="직접입력">직접입력</option>
 							</select>
-							<span id="input_span" style="display: none;">
-								<span>\</span>
-								<input type="text" id="input_direct" maxlength="15" onkeyup="addCommas(this.value);">
-							</span>
+							<input type="text" id="input_direct" maxlength="15" onkeyup="addCommas(this.value);" style="display: none;">
 						</td>
 						<td id="payment" colspan="3" style="display: none;">
 							<input type="checkbox" id="payment_check">
-							<span>&nbsp;&nbsp;무통장입금 (국민 626401-01-412935)</span>
+							<span>&nbsp;&nbsp;무통장입금 (ㅇㅇ은행 13579-55-24068)</span>
 						</td>
 					</tr>
 				</table>
@@ -54,13 +51,13 @@
 			function directFunction(select){
 				if (select == '직접입력') {
 					// 직접입력을 선택하면 금액을 입력할 수 있는 텍스트 상자 보이게
-					$('#input_span').show();
+					$('#input_direct').show();
 					// 텍스트 상자가 포커싱되면 테두리 색 바뀌게
 					$('#input_direct').focus(function(){
-						$('#input_span').attr("style", "border: none; outline: 2px solid rgba(41, 128, 185, 0.5);");
+						$('#input_direct').attr("style", "border: none; outline: 2px solid rgba(41, 128, 185, 0.5);");
 					});
 				} else {
-					$('#input_span').hide();
+					$('#input_direct').hide();
 				}
 			}
 			
@@ -114,7 +111,6 @@
 			
 			// 콤보박스에서 직접입력을 선택하고, 금액을 직접 입력하는 텍스트 상자가 공백인 상태에서 다음 버튼을 누르면 swal창 뜨게해야 함
 			// 콤보박스에서 금액을 전혀 선택하지 않고 다음 버튼을 누르면 swal창 뜨게해야 함
-			//		==> 총 후원 금액이 0인경우로 써도 될 것 같은데???????
 			function validateNext(){
 				var select = $("#price_control").val();
 				var input = $("#input_direct");
@@ -162,11 +158,6 @@
 				$("#next_button").show();
 				$("#pre_button").hide();
 				$("#apply_button").hide();
-				
-// 				var check = $("#payment_check");
-// 				if(check.is(":checked") == true){
-// 					check.attr("checked", false);
-// 				}
 			}
 			
 			// 체크하지 않고 신청 버튼을 누른 경우 swal창이 뜨게
@@ -180,7 +171,6 @@
 					
 					return;
 				}
-				
 				
 				$.ajax({
 					url: "supportApply.su",

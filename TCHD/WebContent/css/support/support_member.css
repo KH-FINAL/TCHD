@@ -52,15 +52,10 @@ td {
 	outline: none;
 }
 
-#input_span {
-	width: 160px;
-	padding: 10px;
-	border: 1px solid #ccc;
-}
-
 #input_direct {
 	width: 140px;
-	border: none;
+	padding: 10px;
+	border: 1px solid #ccc;
 	outline: none;
 }
 
