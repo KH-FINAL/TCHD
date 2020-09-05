@@ -32,9 +32,9 @@ public class AdoptWriteFormServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String userPhone = ((Member)session.getAttribute("loginUser")).getMem_phone();
-		int bNo = Integer.parseInt(request.getParameter("boNo"));
+//		int bNo = Integer.parseInt(request.getParameter("boNo"));
 		
-		request.setAttribute("bNo", bNo);
+//		request.setAttribute("bNo", bNo);
 		request.setAttribute("userPhone", userPhone);
 		request.setAttribute("section", "WEB-INF/views/adopt/adoptWriteForm.jsp");
 		request.getRequestDispatcher("index.jsp").forward(request, response);

@@ -39,10 +39,12 @@ public class AdoptDetailServlet extends HttpServlet {
 		BoardService service = new BoardService();
 		Adopt adopt = service.selectedAdopt(bNo); 	
 		ArrayList<Files> fileList = service.selectNoticeFile(bNo);
+		String rescue = (adopt.getPetRescueDate()).toString();
 		
 		if(adopt != null && fileList != null ) {
 //			request.setAttribute("bNo", bNo);
 			request.setAttribute("adopt", adopt);
+			request.setAttribute("rescue", rescue);
 			request.setAttribute("fileList", fileList);
 			request.setAttribute("section", "WEB-INF/views/adopt/adoptDetail.jsp");
 			request.getRequestDispatcher("index.jsp").forward(request, response);

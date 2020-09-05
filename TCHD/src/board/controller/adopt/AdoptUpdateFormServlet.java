@@ -36,19 +36,23 @@ public class AdoptUpdateFormServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 로그인 유저 정보 및 게시글 번호
 		HttpSession session = request.getSession();
-		String userPhone = ((Member)session.getAttribute("loginUser")).getMem_phone();
+		Member loginUser = (Member)session.getAttribute("loginUser");
 		int bNo = Integer.parseInt(request.getParameter("boNo"));
 		
 		BoardService service = new BoardService();
 		// insert 했던 입양 동물 정보
 		Adopt adopt = service.selectedAdopt(bNo);
-		String rescue = request.getParameter("rescue");
+//		String rescue = request.getParameter("rescue");
+//		int fileNo0 = Integer.parseInt(request.getParameter("fileNo0"));
+//		int fileNo = Integer.parseInt(request.getParameter("fileNo"));
 		
 		// insert 했던 파일 정보
 		ArrayList<Files> fileList = service.selectNoticeFile(bNo);
-		request.setAttribute("userPhone", userPhone);
+//		request.setAttribute("fileNo0", fileNo0);
+//		request.setAttribute("fileNo", fileNo);
+		request.setAttribute("loginUser", loginUser);
 		request.setAttribute("adopt", adopt);
-		request.setAttribute("rescue", rescue);
+//		request.setAttribute("rescue", rescue);
 		request.setAttribute("fileList", fileList);
 		request.setAttribute("section", "WEB-INF/views/adopt/adoptUpdate.jsp");
 		request.getRequestDispatcher("index.jsp").forward(request, response);

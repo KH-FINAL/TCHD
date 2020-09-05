@@ -28,16 +28,17 @@
 	
 	/* 첨부파일 테두리 */
 	.pictureArea{			
-		border: 2px dashed darkgray;
+/* 		border: 2px dashed darkgray; */
+		border: none;
 	}
 	
 	/* 첨부파일 위에서 마우스 커서 바꾸기 */
-	#titleImgArea:hover, 
-	#contentImgArea1:hover, 
-	#contentImgArea2:hover, 
-	#contentImgArea3:hover {
-		cursor:pointer;
-	}
+/* 	#titleImgArea:hover,  */
+/* 	#contentImgArea1:hover,  */
+/* 	#contentImgArea2:hover,  */
+/* 	#contentImgArea3:hover { */
+/* 		cursor:pointer; */
+/* 	} */
 	
 	/* 썸네일과 일반 사진 간격 조절칸 */
 	#space1{

@@ -30,16 +30,16 @@
 			<div id="petSelect">
 				<ul>
 					<li>
-						<button class="petButton" name="petSearch" onClick="petSearch();">검색</button>
+						<button class="petButton" name="petSearch" onclick="petSearch();">검색</button>	<!-- 아직 함수 설정 안함 -->
 					</li>
 					<li>
 						<button type="reset" class="petButton" name="petReset">초기화</button>
 					</li>
 					<li>	
 						<% if(userId != null){ %>
-							<button type="button" class="petButton" name="petUpDate" onClick="writeFrom();">등록</button>				
+							<button type="button" class="petButton" name="petUpDate" onclick="writeForm();";>등록</button>				
 						<% } else {%> 
-							<button type="button" class="petButton" name="petUpDate" onClick="loginFrom();">등록</button>	
+							<button type="button" class="petButton" name="petUpDate" onclick="loginForm();">등록</button>	
 						<% } %>
 					</li>
 				</ul>
@@ -115,11 +115,11 @@
 		</div>
 	</form>
 		<script>
-		function writeFrom(){
-			location.href="<%= request.getContextPath() %>/adoptWriteForm.bo";
+		function writeForm(){
+			location.href='<%= request.getContextPath() %>/adoptWriteForm.bo';
 		}
 		
-		function loginFrom(){
+		function loginForm(){
 			swal("회원 전용 서비스", "로그인 후 이용해주시기 바랍니다.", "info")
 			.then((ok) => {
 				if(ok){

@@ -3,7 +3,7 @@
 <%@ page import="member.model.vo.Member" %>
 <%
 	String userPhone = (String)request.getAttribute("userPhone");
-	int bNo = (int)request.getAttribute("bNo");
+// 	int bNo = (int)request.getAttribute("bNo");
 %>
 <!DOCTYPE html>
 <html>
@@ -79,7 +79,7 @@
 							</select>
 						</td>
 						<td id="ageTd2">
-							<input type="number" id="ageDetail" name="petAgeDetail" placeholder="숫자" required/>
+							<input type="number" id="ageDetail" name="petAgeDetail" placeholder="숫자"/>
 							<select name="detailAge">
 								<option value="개월">개월</option>
 								<option value="살">살</option>
@@ -93,7 +93,7 @@
 							<span>*</span> 동물이름 :
 						</td>
 						<td class="secondTd">
-							<input class="answer" name="petName" required/> 
+							<input class="answer" name="petName"/> 
 						</td>
 					</tr>
 					<tr>
@@ -101,7 +101,7 @@
 							<span>*</span> 종류(품종) :
 						</td>
 						<td class="secondTd">
-							<input class="answer" name="petCategory" required/>
+							<input class="answer" name="petCategory"/>
 						</td>
 					</tr>
 					<tr>
@@ -109,7 +109,7 @@
 							<span>*</span> 몸무게(kg) :
 						</td>
 						<td class="secondTd">		<!-- 사용자가 숫자만 입력 ==> 기본 0.0kg -->
-							<input type="text" class="answer" name="petWeight" placeholder=" ex. 0.0kg" required/>
+							<input type="text" class="answer" name="petWeight" placeholder=" ex. 0.0kg"/>
 						</td>
 					</tr>
 					<tr>
@@ -117,7 +117,7 @@
 							<span>*</span> 색깔 :
 						</td>
 						<td class="secondTd">
-							<input class="answer" name="petColor" required/>
+							<input class="answer" name="petColor"/>
 						</td>
 					</tr>
 				</table>
@@ -135,7 +135,7 @@
 							<span>*</span> 구조일시 :
 						</td>
 						<td class="secondTd">	
-							<input class="answer" type="date" name="rescue" required/>
+							<input class="answer" type="date" name="rescue"/>
 						</td>
 					</tr>
 
@@ -220,7 +220,7 @@
 	   	
 	   	</script>
 		<div id="buttonArea">
-	   		<button id="cancelButton" class="buttons" onclick="location.href='<%= request.getContextPath() %>/adoptDetail.bo?boNo='<%= bNo %>">취소</button>
+	   		<button id="cancelButton" class="buttons" onclick="location.href='<%= request.getContextPath() %>/adopt.bo">취소</button>
 	   		<button id="okButton" type="submit" class="buttons" onclick="okSubmit();">확인</button>
 	   	</div>
    	<script>
@@ -253,6 +253,7 @@
    				location.href = "<%= request.getContextPath() %>/adoptInsert.bo";
    			}
    		});
+   		return true;
    	}
    	
    	

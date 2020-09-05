@@ -1274,13 +1274,12 @@ public class BoardDAO {
 		int result = 0; 
 		
 		String query = prop.getProperty("updateAdopt");
-		System.out.println("updateAdopt 실행?");
 		try {
 			pstmt = conn.prepareStatement(query);
 			
-//			SET PET_KINDS=?, PET_CATEGORY=?, PET_GENDER=?, PET_UNIGENDER=?, PET_NAME=?, 
-//			PET_AGE=?, PET_RESCUE_DATE=?, PET_WEIGHT=?, PET_COLOR=?, PET_SIZE=?, 
-//			PET_COMMENT=? WHERE BO_NO=?
+			// PET_KINDS=?, PET_CATEGORY=?, PET_GENDER=?, PET_UNIGENDER=?, PET_NAME=?, 
+			// PET_AGE=?, PET_RESCUE_DATE=?, PET_WEIGHT=?, PET_COLOR=?, PET_SIZE=?, 
+			// PET_COMMENT=? WHERE BO_NO=?
 			pstmt.setString(1, a.getPetKinds());
 			pstmt.setString(2, a.getPetCategory());
 			pstmt.setString(3, a.getPetGender());
@@ -1293,9 +1292,7 @@ public class BoardDAO {
 			pstmt.setString(10, a.getPetSize());
 			pstmt.setString(11, a.getPetComment());
 			pstmt.setInt(12, a.getBoNo());
-			System.out.println("updateAdopt 실행2?");
 			result = pstmt.executeUpdate();
-			System.out.println("updateAdopt 실행3?");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -1314,7 +1311,7 @@ public class BoardDAO {
 		try {
 			for(int i = 0; i < fList.size(); i++) {
 				Files f = fList.get(i);
-			// ORIGIN_NAME=?, CHANGE_NAME=?, FILE_PATH=? WHERE BO_NO=? AND FILE_LEVEL = ?
+			// ORIGIN_NAME=?, CHANGE_NAME=?, FILE_PATH=? WHERE BO_NO=? AND FILE_LEVEL = ? AND FILE_NO = ?
 				
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, f.getOrignName());
@@ -1322,6 +1319,7 @@ public class BoardDAO {
 			pstmt.setString(3, f.getFilePath());
 			pstmt.setInt(4, f.getBoNo());
 			pstmt.setInt(5, f.getFileLevel());
+//			pstmt.setInt(6, f.getFileNo());
 			
 			result += pstmt.executeUpdate();
 			}
@@ -1335,28 +1333,6 @@ public class BoardDAO {
 		return result;
 	}
 
-	public int updateAdoptFile2(Connection conn, ArrayList<Files> fList) {	// 사진 뺴면 Files 테이블에서 상태변경 update
-		PreparedStatement pstmt = null;
-		int result = 0; 
-		
-		String query = prop.getProperty("updateAdoptFile2");
-		System.out.println("updateAdoptFile12 실행?");
-		try {
-			for(int i = 0; i < fList.size(); i ++) {
-				Files f = fList.get(i);
-				pstmt = conn.prepareStatement(query);
-				pstmt.setInt(1, f.getFileNo());
-				
-				result += pstmt.executeUpdate();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally { 
-			close(pstmt);
-		}
-		
-		return result;
-	}
 	
 	public int insertVolunteer1(Connection conn, Volunteer v) {
 		PreparedStatement pstmt = null;

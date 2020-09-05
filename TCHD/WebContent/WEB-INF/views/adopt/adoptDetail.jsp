@@ -4,8 +4,9 @@
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	Adopt adopt = (Adopt)request.getAttribute("adopt");
+	String rescue = (String)request.getAttribute("rescue");
 	ArrayList<Files> fileList = (ArrayList<Files>)request.getAttribute("fileList");
-	Files thumbnailImg = fileList.get(0);
+// 	Files thumbnailImg = fileList.get(0);
 %>
 <!DOCTYPE html>
 <html>
@@ -20,10 +21,11 @@
 	<form action="<%= request.getContextPath() %>/adoptUpdateForm.bo" method="post" onsubmit="return checkSubmit();">
    		<div id="ment">보호동물 정보</div>
    			<div id="picture">
-				<img id="thumbnailImg" src="<%= request.getContextPath()%>/upload_imageFiles/<%= thumbnailImg.getChangeName() %>"/>
+				<img id="thumbnailImg" src="<%= request.getContextPath()%>/upload_imageFiles/<%= fileList.get(0).getChangeName() %>"/>
+<%-- 				<input type="hidden" name="fileNo0" value="<%= thumbnailImg.getFileNo() %>"> --%>
 				<div id="btn">
-					<img id="left" class="switch" src="images/btnL.PNG">
-					<img id="right" class="switch" src="images/btnR.PNG">
+					<img id="left" class="switch" src="./images/btnL.PNG">
+					<img id="right" class="switch" src="./images/btnR.PNG">
 				</div>
 	   		</div>
 	   		<div id="petName">
@@ -86,7 +88,7 @@
 			        		<td><input type="hidden" name="petColor" value="<%= adopt.getPetColor() %>"/><%= adopt.getPetColor() %></td>
 			        	</tr>
 			        	<tr>
-			        		<td><input type="hidden" name="rescue" value="<%= adopt.getPetRescueDate() %>" /><%= adopt.getPetRescueDate() %></td>
+			        		<td><input type="hidden" name="rescue" value="<%= rescue %>" /><%= rescue %></td>
 			        	</tr>
 			        	<tr>
 		        			<td><input type="hidden" name="lastMent" value="<%= adopt.getPetComment() %>"><%= adopt.getPetComment() %></td>
@@ -100,8 +102,9 @@
 		   				<img id="detailImg" class="smallPicture" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(1).getChangeName() %>"/>
 		   				<img id="detailImg" class="smallPicture" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(2).getChangeName() %>"/>
 		   				<img id="detailImg" class="smallPicture" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(3).getChangeName() %>"/>
-		   			<% for(int i = 1; i < fileList.size();  i++){ %>
+		   			<% for(int i = 0; i < fileList.size();  i++){ %>
 		   				<input type="hidden" name="fileList" value="<%= fileList.get(i) %>"/>
+<%-- 		   				<input type="hidden" name="fileNo" value="<%= fileList.get(i).getFileNo() %>"> --%>
 	   				<% } %>
    				</div>
    				<% if(loginUser != null && adopt.getId().equals(loginUser.getMem_id())){ %> 

@@ -3,12 +3,14 @@
 <%@ page import="java.util.ArrayList, member.model.vo.Member, board.model.vo.*"%>
 <%
 // 	int bNo = (int)request.getAttribute("bNo");
-	String userPhone = (String)request.getAttribute("userPhone");
+	Member loginUser = (Member)request.getAttribute("loginUser");
 	Adopt a = (Adopt)request.getAttribute("adopt");
-	String rescue = (String)request.getAttribute("rescue");
+// 	String rescue = (String)request.getAttribute("rescue");
 	ArrayList<Files> fileList = (ArrayList<Files>)request.getAttribute("fileList");
-// 	Files thumbnailImg = fileList.get(0);
 	
+// 	int fileNo0 = (int)request.getAttribute("fileNo0");
+// 	int fileNo = (int)request.getAttribute("fileNo");
+// 	Files thumbnailImg = fileList.get(0);
 // 	Files contentImg1 = fileList.get(1);
 // 	Files contentImg2 = fileList.get(2);
 // 	Files contentImg3 = fileList.get(3);
@@ -25,8 +27,8 @@
 <link rel="stylesheet" href="css/common/common.css" type="text/css">
 </head>
 <body>
-<section>
-   	<form action="<%= request.getContextPath() %>/adoptUpdate.bo" method="post" encType="multipart/form-data" onsubmit="return checkSubmit();">
+<section>		<!-- encType="multipart/form-data" -->
+   	<form action="<%= request.getContextPath() %>/adoptUpdate.bo" method="post" onsubmit="return checkSubmit();">
    		<div id="ment">보호동물 게시글 수정</div>
    		<div id="area">
    			<div id="picture">
@@ -38,7 +40,9 @@
 							<div id="titleImgArea" class="pictureArea">
 								<% for(int i = 0; i < fileList.size(); i++){ %>
 								<input type="hidden" name="fileList" value="<%= fileList.get(i) %>"/>
+<%-- 								<input type="hidden" name="fileNo" value="<%= fileNo %>"> --%>
 								<% } %>
+<%-- 								<input type="hidden" name="fileNo" value="<%= fileNo0 %>"> --%>
 								<img id="titleImg" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(0).getChangeName() %>"/>
 							</div>
 						</td>
@@ -152,7 +156,7 @@
 						 연락처 :
 					</td>
 					<td class="secondTd">			
-						<input type="tel" id="phone" class="answer" name="phone" value="<%= userPhone %>" readonly/>
+						<input type="tel" id="phone" class="answer" name="phone" value="<%= loginUser.getMem_phone() %>" readonly/>
 					</td>
 				</tr>
 				<tr>
@@ -160,7 +164,7 @@
 						  구조일시 :
 					</td>
 					<td class="secondTd">		<!-- 사용자가 숫자만 입력 ==> 기본 0.0kg -->
-						<input class="answer" type="text" name="rescue" value="<%= rescue %>" readonly/>
+						<input class="answer" type="date" name="rescue" value="<%= a.getPetRescueDate() %>" readonly/>
 					</td>
 				</tr>
 				
@@ -174,16 +178,16 @@
 					</tr>
 			</table> 
 			<div id="last">
-				<div>하고 싶은 말 : s</div><textarea id="lastAnswer" name="lastMent"><%= a.getPetComment() %></textarea>
+				<div>하고 싶은 말 : </div><textarea id="lastAnswer" name="lastMent"><%= a.getPetComment() %></textarea>
 				<span id="counter">0</span>/100
 			</div> 
    		</div>
-   		<div id="fileArea">	<!-- 파일 업로드 부분 -->
-	   			<input type="file" id="thumbnailImg1" multiple="multiple" name="thumbnailImg" onchange="LoadImg(this,1)"/>
-	   			<input type="file" id="thumbnailImg2" multiple="multiple" name="thumbnailImg1" onchange="LoadImg(this,2)"/>
-	   			<input type="file" id="thumbnailImg3" multiple="multiple" name="thumbnailImg2" onchange="LoadImg(this,3)"/>
-	   			<input type="file" id="thumbnailImg4" multiple="multiple" name="thumbnailImg3" onchange="LoadImg(this,4)"/>
-	   		</div>
+<!--    		<div id="fileArea">	파일 업로드 부분 -->
+<!-- 	   			<input type="file" id="thumbnailImg1" multiple="multiple" name="thumbnailImg" onchange="LoadImg(this,1)"/> -->
+<!-- 	   			<input type="file" id="thumbnailImg2" multiple="multiple" name="thumbnailImg1" onchange="LoadImg(this,2)"/> -->
+<!-- 	   			<input type="file" id="thumbnailImg3" multiple="multiple" name="thumbnailImg2" onchange="LoadImg(this,3)"/> -->
+<!-- 	   			<input type="file" id="thumbnailImg4" multiple="multiple" name="thumbnailImg3" onchange="LoadImg(this,4)"/> -->
+<!-- 	   		</div> -->
 	   	<script>
 		// insert 당시 입력했던 값 가져옴
 		// $("input[name=search_value]")
@@ -191,8 +195,10 @@
 		$('input[name=unigender]').val("<%= a.getPetUnigender() %>");
 		$('#petSizes').val("<%= a.getPetSize() %>");
 		$('#petAge').val("<%= prr[0].substring(0) %>");		
-		$('#ageDetail').val("<%= Integer.parseInt(prr[1].substring(0, 2)) %>");
-		$('#detailAges').val("<%= prr[1].substring(2) %>");		   	
+<%-- 		$('#ageDetail').val("<%= Integer.parseInt(prr[1].substring(0, 2)) %>"); --%>
+<%-- 		$('#detailAges').val("<%= prr[1].substring(2) %>");		   	 --%>
+		$('#ageDetail').val("<%= Integer.parseInt(prr[1].substring(0, 1)) %>"); 
+ 		$('#detailAges').val("<%= prr[1].substring(1) %>");		
 		// 크기 선택 안되게 함   --> 입력 당시 값으로 고정
 		$('#petSizes option').not(":selected").attr("disabled", "disabled");
 // ----------------------------------------------------------------------------------------------------------------------------	   	
@@ -219,48 +225,48 @@
 	   	
 // -----------------------------------------------------------------------------------	   	
 	   	// 사진 업로드 시 자리 지정
-	   		$(function(){
-	   			$("#fileArea").hide();
+// 	   		$(function(){
+// 	   			$("#fileArea").hide();
 	   			
-	   			$("#titleImgArea").click(function(){
-	   				$("#thumbnailImg1").click();
-	   			});
-	   			$("#contentImgArea1").click(function(){
-	   				$("#thumbnailImg2").click();
-	   			});
-	   			$("#contentImgArea2").click(function(){
-	   				$("#thumbnailImg3").click();
-	   			});
-	   			$("#contentImgArea3").click(function(){
-	   				$("#thumbnailImg4").click();
-	   			});
-	   		});
+// 	   			$("#titleImgArea").click(function(){
+// 	   				$("#thumbnailImg1").click();
+// 	   			});
+// 	   			$("#contentImgArea1").click(function(){
+// 	   				$("#thumbnailImg2").click();
+// 	   			});
+// 	   			$("#contentImgArea2").click(function(){
+// 	   				$("#thumbnailImg3").click();
+// 	   			});
+// 	   			$("#contentImgArea3").click(function(){
+// 	   				$("#thumbnailImg4").click();
+// 	   			});
+// 	   		});
 	   		
-	   		// 이미지 업로드 함수
-	   		function LoadImg(value, num){
-	   			if(value.files && value.files[0]){
-	   				var reader = new FileReader();
+// 	   		// 이미지 업로드 함수
+// 	   		function LoadImg(value, num){
+// 	   			if(value.files && value.files[0]){
+// 	   				var reader = new FileReader();
 	   				
-	   				reader.onload = function(e){
-	   					switch(num){
-	   					case 1:
-	   						$('#titleImg').attr("src", e.target.result);
-	   						break;
-	   					case 2:
-	   						$('#contentImg1').attr("src", e.target.result);
-	   						break;
-	   					case 3:
-	   						$('#contentImg2').attr("src", e.target.result);
-	   						break;
-	   					case 4:
-	   						$('#contentImg3').attr("src", e.target.result);
-	   						break;
-	   					}
-	   				}
+// 	   				reader.onload = function(e){
+// 	   					switch(num){
+// 	   					case 1:
+// 	   						$('#titleImg').attr("src", e.target.result);
+// 	   						break;
+// 	   					case 2:
+// 	   						$('#contentImg1').attr("src", e.target.result);
+// 	   						break;
+// 	   					case 3:
+// 	   						$('#contentImg2').attr("src", e.target.result);
+// 	   						break;
+// 	   					case 4:
+// 	   						$('#contentImg3').attr("src", e.target.result);
+// 	   						break;
+// 	   					}
+// 	   				}
 	   				
-	   				reader.readAsDataURL(value.files[0]);
-	   			}
-	   		}
+// 	   				reader.readAsDataURL(value.files[0]);
+// 	   			}
+// 	   		}
 	   		
    		</script>
    		

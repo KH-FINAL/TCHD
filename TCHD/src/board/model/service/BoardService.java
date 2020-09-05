@@ -486,18 +486,24 @@ public class BoardService {
 
 
 
-	public int updateAdopt(Board b, Adopt a, ArrayList<Files> fList) {
+	public int updateAdopt(Board b, Adopt a) {
 		Connection conn = getConnection();
 		
 		BoardDAO dao = new BoardDAO();
 		
 		int result = dao.updateBoard(conn, b);
 		int result1 = 0;
-		int result2 = 0; 
+//		int result2 = 0; 
+//		int finalResult = 0;
 		
 		if(result > 0) {
 			result1 = dao.updateAdopt(conn, a);
-			result2 = dao.updateAdoptFile1(conn, fList);
+//			finalResult = result;
+			
+//			if(result1 >0) {
+//				result2 = dao.selectFile(conn, bNo);
+//				finalResult = result2;
+//			}
 			commit(conn);
 		} else {
 			rollback(conn);
@@ -525,6 +531,7 @@ public class BoardService {
 //			rollback(conn);
 //		}
 //		close(conn);
+//		return finalResult;
 		return result1;
 	}
 	
