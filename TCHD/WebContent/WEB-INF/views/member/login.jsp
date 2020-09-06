@@ -37,8 +37,7 @@
 			<br>
 
 			<div id="login_button_div">
-				<input type="submit" id="login_button" value="로그인"
-					onclick="validate();">
+				<input type="submit" id="login_button" value="로그인" onclick="validate();"">
 			</div>
 
 			<br>
@@ -85,7 +84,7 @@
 					
 					return;
 				}
-					
+				
 				$.ajax({
 					url: "login.me", 
 					type: "post", 
@@ -105,6 +104,12 @@
 					}
 				});
 			}
+			
+			$("#input_id, #input_pw").keyup(function(e){
+				if(e.keyCode == 13){
+					validate();
+				}
+			})
 		</script>
 	</section>
 </body>

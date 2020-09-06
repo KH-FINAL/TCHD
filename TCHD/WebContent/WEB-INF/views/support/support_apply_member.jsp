@@ -3,23 +3,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="css/support/support_member.css" rel="stylesheet" type="text/css">
+<link href="css/support/support_apply_member.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<section>
 		<div id="ment">후원하기</div>
 		<div id="main_div">
 			<div>
-				<table>
+				<table id="apply_table">
 					<tr>
 						<td class="steps" id="step1" style="background: rgb(41, 128, 185);">STEP1.<br>후원금 선택</td>
 						<td id="gt">&gt;</td>
 						<td class="steps" id="step2">STEP2.<br>결제 방법</td>
 					</tr>
 					<tr>
-						<td id="select_price" colspan="3">
+						<td id="select_price" class="apply_table_td" colspan="3">
 							<select id="price_control" onChange="directFunction(this.value);">
-								<option value="선택안함">---------------</option>
+								<option value="선택안함">--------------------</option>
 								<option value="10000">1만원</option>
 								<option value="30000">3만원</option>
 								<option value="50000">5만원</option>
@@ -28,21 +28,21 @@
 							</select>
 							<input type="text" id="input_direct" maxlength="15" onkeyup="addCommas(this.value);" style="display: none;">
 						</td>
-						<td id="payment" colspan="3" style="display: none;">
+						<td id="payment" class="apply_table_td" colspan="3" style="display: none;">
 							<input type="checkbox" id="payment_check">
 							<span>&nbsp;&nbsp;무통장입금 (ㅇㅇ은행 13579-55-24068)</span>
 						</td>
 					</tr>
 				</table>
 				<div id="total_price">
-					<span>총 후원 금액 </span>
+					<span>후원 금액 </span>
 					<span id="total_price_won">0</span>
 					<span>원</span>
 				</div>
 			</div>
 			<div id="vol_content_footer">
 				<button id="next_button" class="buttons" onclick="validateNext();">다음</button>
-				<button id="pre_button" class="buttons" onclick="goStep1();" style="display: none;">이전</button>
+				<button id="pre_button" class="buttons" onclick="validateBack();" style="display: none;">이전</button>
 				<button id="apply_button" class="buttons" onclick="validateApply();" style="display: none;">신청</button>
 			</div>
 		</div>
@@ -149,7 +149,7 @@
 			}
 			
 			// 이전 버튼을 누른 경우
-			function goStep1(){
+			function validateBack(){
 				$("#step1").css("background", "rgb(41, 128, 185)");
 				$("#step2").css("background", "#aaa");
 				$("#payment").hide();
@@ -173,7 +173,7 @@
 				}
 				
 				$.ajax({
-					url: "supportApply.su",
+					url: "supportApplyMember.su",
 					type: "post",
 					data: {select:select, input_direct:input.val()},
 					success: function(result){

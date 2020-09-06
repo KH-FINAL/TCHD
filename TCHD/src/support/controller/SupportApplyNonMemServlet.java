@@ -7,22 +7,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/supportApplySecondForm.su")
-public class SupportApplySecondFormServlet extends HttpServlet {
+@WebServlet("/supportApplyNonMember.su")
+public class SupportApplyNonMemServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public SupportApplySecondFormServlet() {
+    public SupportApplyNonMemServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String price = request.getParameter("price"); // 총 후원 금액
-		
-		request.setAttribute("price", price);
-		
-		request.setAttribute("section", "WEB-INF/views/support/support_apply2.jsp");
-		response.getWriter().println("1");
-//		request.getRequestDispatcher("index.jsp").forward(request, response);
 		
 	}
 

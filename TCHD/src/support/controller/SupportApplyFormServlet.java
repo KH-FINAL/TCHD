@@ -10,11 +10,11 @@ import javax.servlet.http.HttpSession;
 
 import member.model.vo.Member;
 
-@WebServlet("/supportApplyFirstForm.su")
-public class SupportApplyFirstFormServlet extends HttpServlet {
+@WebServlet("/supportApplyForm.su")
+public class SupportApplyFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public SupportApplyFirstFormServlet() {
+    public SupportApplyFormServlet() {
         super();
     }
 
@@ -22,9 +22,9 @@ public class SupportApplyFirstFormServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		System.out.println(session.getAttribute("loginUser"));
 		if(session.getAttribute("loginUser") != null) {
-			request.setAttribute("section", "WEB-INF/views/support/support_apply1.jsp");
+			request.setAttribute("section", "WEB-INF/views/support/support_apply_member.jsp");
 		} else {
-			request.setAttribute("section", "WEB-INF/views/support/support_nonmember1.jsp");
+			request.setAttribute("section", "WEB-INF/views/support/support_apply_nonmember.jsp");
 		}
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}

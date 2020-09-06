@@ -13,7 +13,7 @@ import member.model.vo.Member;
 import support.model.service.SupportService;
 import support.model.vo.Support;
 
-@WebServlet("/supportApply.su")
+@WebServlet("/supportApplyMember.su")
 public class SupportApplyMemServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -28,9 +28,11 @@ public class SupportApplyMemServlet extends HttpServlet {
 		if(select.equals("직접입력")) {
 			// 직접입력을 선택한 경우, input_direct의 콤마 제거
 			String[] input = input_direct.split(",");
+			for(int i = 0; i < input.length; i++) {
+			}
 			// 사용자가 입력한 금액을 select에 저장
+			select = "";
 			for(int i = 0; i < input.length; i ++) {
-				select = input_direct.substring(0, 1);
 				select += input[i];
 			}
 		}

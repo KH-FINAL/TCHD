@@ -24,6 +24,8 @@ public class SupportService {
 			support.setMem_no(mem_no);
 			result = dao.applyMem(conn, support);
 			
+			System.out.println("service_result : " + result);
+			
 			if(result > 0) {
 				commit(conn);
 			} else {

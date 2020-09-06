@@ -1,10 +1,10 @@
 @charset "UTF-8";
+
 /* 페이지 이름 */
 #ment {
 	font-size: 30px;
 	font-weight: bold; /* 700; */
-	margin: 30px 30px 20px 30px;
-	/* table에서 border-spacing: 50px 때문에 20px으로 맞춰둠. */
+	margin: 30px 30px 70px 30px;
 	text-decoration: underline;
 	text-decoration-color: rgb(41, 128, 185);
 }
@@ -13,15 +13,13 @@
 	margin-left: auto;
 	margin-right: auto;
 	width: 1000px;
+	text-align: center;
 }
 
-table {
+#apply_table {
 	margin: 0px auto;
 }
 
-td {
-	text-align: center;
-}
 /* STEP 버튼 */
 .steps {
 	width: 400px;
@@ -40,12 +38,12 @@ td {
 	color: rgb(192, 192, 192);
 }
 
-#select_price {
-	height: 100px;
+.apply_table_td {
+	padding: 40px 0px 40px 0px;
 }
 
 #price_control {
-	width: 150px; /* 선택박스 가로 크기 */
+	width: 200px; /* 선택박스 가로 크기 */
 	border: 1px solid #ccc; /* 선택박스 테두리 */
 	border-radius: 5px; /* 선택박스 모서리 */
 	padding: 10px; /* 선택박스 안에 공간크기 */
@@ -65,9 +63,6 @@ td {
 	margin: 0;
 }
 /* checkbox */
-#payment{
-	height: 100px;
-}
 #payment_check {
 	width: 20px;
 	height: 20px;
@@ -81,10 +76,10 @@ td {
 	font-size: 25px;
 	font-weight: 400;
 	text-align: right;
-	margin-bottom: 30px;
-	padding-top: 30px;
+	padding: 30px 20px 30px 0px;
 	padding-right: 20px;
 	border-top: 1px solid #e0e0e0; /* 연회색 실선 */
+	border-bottom: 1px solid #e0e0e0;
 }
 
 #total_price_won {
@@ -95,7 +90,6 @@ td {
 /* 화면상 맨 아래 영역 */
 #vol_content_footer {
 	padding: 30px; /* 다음 버튼 여백 */
-	border-top: 1px solid #e0e0e0; /* 다음 버튼 위 실선 */
 	text-align: center;
 }
 

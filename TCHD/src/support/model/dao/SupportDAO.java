@@ -47,7 +47,6 @@ public class SupportDAO {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println("dao_mem_no : " + mem_no);
 		
 		return mem_no;
 	}
@@ -62,6 +61,8 @@ public class SupportDAO {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, support.getMem_no());
 			pstmt.setInt(2, support.getSup_price());
+			
+			System.out.println("dao_price : " + support.getSup_price());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
