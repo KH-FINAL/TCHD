@@ -82,6 +82,10 @@
 		color: white;
 	}
 	
+	#delete, #alter, #apply, #apply1:hover{
+		cursor: pointer;
+	}
+	
 	
 	/* 동물 설명 영역 - 오른쪽 */
 	

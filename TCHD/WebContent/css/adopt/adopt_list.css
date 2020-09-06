@@ -102,6 +102,10 @@
     	
     }
     
+    .petButton:hover{
+    	cursor: pointer;
+    }
+    
     div>li{		
     	border-radius: 3px;
     	border: medium;

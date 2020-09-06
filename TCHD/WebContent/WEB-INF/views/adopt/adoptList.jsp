@@ -37,7 +37,7 @@
 					</li>
 					<li>	
 						<% if(userId != null){ %>
-							<button type="button" class="petButton" name="petUpDate" onclick="writeForm();";>등록</button>				
+							<button type="button" class="petButton" name="petUpDate" onclick="writeForm();">등록</button>				
 						<% } else {%> 
 							<button type="button" class="petButton" name="petUpDate" onclick="loginForm();">등록</button>	
 						<% } %>

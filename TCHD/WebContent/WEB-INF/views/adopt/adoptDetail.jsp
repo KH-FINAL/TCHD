@@ -24,8 +24,8 @@
 				<img id="thumbnailImg" src="<%= request.getContextPath()%>/upload_imageFiles/<%= fileList.get(0).getChangeName() %>"/>
 <%-- 				<input type="hidden" name="fileNo0" value="<%= thumbnailImg.getFileNo() %>"> --%>
 				<div id="btn">
-					<img id="left" class="switch" src="./images/btnL.PNG">
-					<img id="right" class="switch" src="./images/btnR.PNG">
+					<img id="left" class="switch" src="<%= request.getContextPath()%>/images/btnL.PNG">
+					<img id="right" class="switch" src="<%= request.getContextPath()%>/images/btnR.PNG">
 				</div>
 	   		</div>
 	   		<div id="petName">
@@ -122,27 +122,27 @@
 			</div>
 	</form>		
 	<script>
-		$(function(){				/* jQuery */
-			$('.threeButton').hover(function(){
-				$(this).css('cursor', 'pointer');				
-			}, function(){
-				$(this).css('cursor', 'none');
-			})
+// 		$(function(){				/* jQuery */
+// 			$('.threeButton').hover(function(){
+// 				$(this).css('cursor', 'pointer');				
+// 			}, function(){
+// 				$(this).css('cursor', 'none');
+// 			})
 			
-			$('.smallPicture').hover(function(){
-				$(this).css('cursor', 'pointer');				
-			}, function(){
-				$(this).css('cursor', 'none');
-			})
+// 			$('.smallPicture').hover(function(){
+// 				$(this).css('cursor', 'pointer');				
+// 			}, function(){
+// 				$(this).css('cursor', 'none');
+// 			})
 			
-			$('#homePicture').hover(function(){
-				$(this).css('cursor', 'pointer');
-				$('.switch').show();
-			}, function(){
-				$(this).css('cursor', 'none');
-				$('.switch').hide();
-			})
-		});
+// 			$('#homePicture').hover(function(){
+// 				$(this).css('cursor', 'pointer');
+// 				$('.switch').show();
+// 			}, function(){
+// 				$(this).css('cursor', 'none');
+// 				$('.switch').hide();
+// 			})
+// 		});
 		
 // 		var count = 1;
 // 		function changePicture(){
@@ -162,26 +162,8 @@
 // 			count++;
 // 		}
 		
-		function deleteForm(){		
-			var result = confirm("해당 게시물을 삭제하시겠습니까?");
-			if(result){
-				alert("해당 게시물이 삭제되었습니다");
-			} else { 
-				close.self();
-			}
-				
-				
-				
-// 			var result = swal("", "해당 게시물을 삭제하시겠습니까?", "info", ["취소", "삭제"]);
-// 			if(result){
-// 				swal("", "해당 게시물이 삭제되었습니다", "info");
-// 				return checkSubmit();
-// 			} else {
-// 				return checkSubmit();
-// 			}
-		}
-		
-		function loginForm(){
+		function loginForm
+		(){
 			swal("회원 전용 서비스", "로그인 후 이용해주시기 바랍니다.", "info")
 			.then((ok) => {
 				if(ok){
@@ -190,6 +172,44 @@
 			});
 			return;
 		}
+		
+		function deleteForm(){
+			var result = confirm("해당 게시글을 삭제하시겠습니까?");
+			var bNo = <%= adopt.getBoNo() %>;
+			
+			if(result){
+				location.href = "<%= request.getContextPath() %>/adoptDelete.bo?boNo=" + bNo;
+				return true;
+			} else {
+				window.close();
+				return false;
+			}
+// 			swal({
+// 				title : "게시글 삭제",
+// 				text : "게시글을 삭제하시겠습니까?",
+// 				icon : "warning",
+// // 				buttons: ["아니오", "예"],
+// 				closeOnClickOutside : false,		// 창 밖을 눌렀을 때 닫힘 : true, 안 닫힘 : false
+// 			}).then((ok) => {
+// 				if(ok){
+<%-- 					location.href = "<%= request.getContextPath() %>/adoptDelete.bo?boNo=" + bNo; --%>
+// 					if(result > 0){
+// 						swal("게시글 삭제 완료", "해당 게시글이 삭제되었습니다.", "success");
+// 					}
+// 					return true;
+// 				} else {
+// 					swal.close();
+// 					return  false;
+// 				}
+// 			});
+
+		}
+// 			var result = confirm("해당 게시물을 삭제하시겠습니까?");
+// 			if(result){
+// 				alert("해당 게시물이 삭제되었습니다");
+// 			} else { 
+// 				close.self();
+		
 	</script>
 </section>
 </body>

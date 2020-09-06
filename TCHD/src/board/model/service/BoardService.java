@@ -8,15 +8,16 @@ import static common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import board.model.dao.BoardDAO;
 import board.model.vo.Adopt;
 import board.model.vo.AdoptApply;
 import board.model.vo.Board;
+import board.model.vo.Comments;
 import board.model.vo.Files;
 import board.model.vo.Notice;
 import board.model.vo.PageInfo;
 import board.model.vo.Questions;
-import board.model.vo.Comments;
 import board.model.vo.Volunteer;
 
 public class BoardService {
@@ -592,6 +593,27 @@ public class BoardService {
 		close(conn);
 
 		return finalResult;
+	}
+
+
+
+	public int deleteAdopt(int bNo) {
+		Connection conn = getConnection();
+		BoardDAO dao = new BoardDAO();
+		int result = dao.deleteBoard(conn, bNo);
+		int result1 = 0;
+		int result2 = 0;
+		if(result > 0) {
+			result1 = dao.deleteAdopt(conn, bNo);
+			result2 = dao.deleteFiles(conn, bNo);
+			
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result1;
 	}
 
 } // class end
