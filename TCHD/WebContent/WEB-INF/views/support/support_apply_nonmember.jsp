@@ -49,7 +49,7 @@
 								* 비회원은 후원자의 정보를 입력해야 후원 신청이 가능합니다.<br>
 								&nbsp;&nbsp;정상적으로 신청이 완료되면 입력하신 이메일로 신청 내역을 보내드립니다.<br>
 							</div>
-							<div id="input_info_table_div">
+							<div>
 								<table id="input_info_table">
 									<tr>
 										<th><span>이름</span></th>
