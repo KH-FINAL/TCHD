@@ -42,11 +42,10 @@
 			<div id = "hr_line"><hr></div>
 			<div class="board_list">
 				<div id = "div_head">
-					<h3>관리자 답변  <img src="images/supervisor.png" width="25px" height="25px"></h3>
+					<h3>관리자 답변  <img src="images/supervisor.png" width="25px" height="25px"></h3><%= q.getComContent() %>
 				</div>	
-				<div id = "div_question"><%= q.getComContent() %>
-					<textarea name="content" class="content" id="comment" readonly>안녕하세요. <%= q.getMemId() %> 회원님, <%= q.getMemLeave() %> 관련 문의 주셨네요!
-					<%=	q.getBoPwd() %>
+				<div id = "div_question">
+					<textarea name="content" class="content" id="comment" readonly>안녕하세요. <%= q.getMemId() %> 회원님, <%= q.getMemLeave() %> 관련 문의 주셨네요!  <%=	q.getBoPwd() %>
 					</textarea>
 					<div id = "notice">*추가 문의사항이 있으실시 해당 페이지 스크릿샷을 첨부로 올려주시면 보다 수월하고 빠른 답변을 받아보실 수 있습니다.*</div>
 					
