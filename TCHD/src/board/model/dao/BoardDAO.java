@@ -133,7 +133,7 @@ public class BoardDAO {
 		return result;
 	}
 	
-	public ArrayList<Questions> selectQList(Connection conn, PageInfo pi) {
+	public ArrayList<Questions> selectQList(Connection conn, PageInfo pi) {	//목록
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Questions> Qlist = null;
@@ -375,7 +375,7 @@ public class BoardDAO {
 						rset.getString("BO_TITLE"), 
 						rset.getString("BO_CONTENT"), 
 						rset.getString("MEM_ID"), 
-						rset.getDate("BO_DATE"), 0, null, 0); // 기현오빠 이부분 도와주십쇼
+						rset.getDate("BO_DATE"), 0, null, 0); 
 						questionsList.add(q);
 			}
 		} catch (SQLException e) {
