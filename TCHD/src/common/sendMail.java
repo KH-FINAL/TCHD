@@ -107,6 +107,11 @@ public class sendMail {
 					"	</div>\n";
 		} else if(menu == "support") {
 			// 후원 내역 전송
+			// content = name + "," + sup_no
+			String[] strArr = content.split(",");
+			String name = strArr[0];
+			String sup_no = strArr[1];
+			
 			text = "<div style=\"border: 3px solid #2980b9; width: 850px; text-align: center; padding-top: 15px;\">\r\n" + 
 					"		<div style=\"padding: 15px; line-height:400%;\">\r\n" + 
 					"			<img src=\"https://docs.google.com/drawings/u/0/d/sytGzgCQNFh-6-SoDUlhdfQ/image?w=565&h=99&rev=3&ac=1&invite&parent=15LgYQdQFbkv1-vWBxBquFV0jA7Ire5vxVXXHF_-c56A\" style=\"width: 565px; height: 100px;\">\r\n" + 
@@ -114,8 +119,10 @@ public class sendMail {
 					"			<b style=\"font-size: 21px;\"><< 후원 신청 내역 >></b>\r\n" + 
 					"			<div style=\"font-size: 17px;\">\r\n" + 
 					"				<div style=\"font-size: 19px;\">\r\n" + 
-					"					<span style=\"color: #008eeb; font-weight: 800;\">♥ " + content + " ♥</span>\r\n" + 
-					"					<span style=\"font-weight: 800;\"> 후원자님</span>\r\n" + 
+					"					<span style=\"color: #008eeb; font-weight: 800;\">♥ " + name + " ♥</span>\r\n" + 
+					"					<span style=\"font-weight: 800;\"> 후원자님</span><br>\r\n" + 
+					"					<span style=\"font-weight: 800;\">후원 번호 : </span>\r\n" + 
+					"					<span style=\"color: #008eeb; font-weight: 800;\">" + sup_no + "</span>\r\n" + 
 					"				</div>\r\n" + 
 					"				<span>후원자님 덕분에 더 많은 보호 동물들이 행복한 세상을 만날 수 있게 되었습니다.<br>따스한 도움의 손길 감사합니다.</span>\r\n" + 
 					"			</div>\r\n" + 

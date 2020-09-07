@@ -42,7 +42,9 @@ public class SupportService {
 	public int applyNonMem(Support support) {
 		Connection conn = getConnection();
 		
-		int result = new SupportDAO().applyNonMem(conn, support);
+		SupportDAO dao = new SupportDAO();
+		
+		int result = dao.applyNonMem(conn, support);
 		
 		if(result > 0) {
 			commit(conn);
@@ -50,8 +52,10 @@ public class SupportService {
 			rollback(conn);
 		}
 		
+		int sup_no = dao.selectSupNo(conn, support);
+		
 		close(conn);
 		
-		return result;
+		return sup_no;
 	}
 }

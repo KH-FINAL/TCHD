@@ -105,6 +105,12 @@
 				}
 			});
 		}
+
+		$("#input_name, #input_email").keyup(function(e){
+			if(e.keyCode == 13){
+				validate();
+			}
+		})
 		</script>
 	</section>
 </body>
