@@ -39,6 +39,9 @@
 				
 			</div>
      		
+     		
+     		<%if(q.getComContent() != null){ 
+     		%>
 			<div id = "hr_line"><hr></div>
 			<div class="board_list">
 				<div id = "div_head">
@@ -58,6 +61,10 @@
 				<%} %>
 				</div>
 			</div>
+			
+			<%
+			}
+			%>
 			
 			<div class="list_div">
 				

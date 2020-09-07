@@ -57,8 +57,8 @@
 			         	  	<%
 		         	   		}
 			         	    %>
-			         	     <%	/*암호 아이콘표시*/
-			         	  	if(Qlist.get(i).getComContent() != null){ /* !=이 안먹혀....... ==이 먹는단것은 null값이 들어가고있단걸까요  */
+			         	     <%	
+			         	  	if(Qlist.get(i).getComContent() != null){ 
 			         	  	
 			         	  	%>	
 			         	  	<img src="images/questions.gif">
