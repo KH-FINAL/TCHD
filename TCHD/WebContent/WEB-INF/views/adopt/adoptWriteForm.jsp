@@ -111,7 +111,7 @@
 						<td class="firstTd">
 							<span>*</span> 몸무게(kg) :
 						</td>
-						<td class="secondTd">		<!-- 사용자가 숫자만 입력 ==> 기본 0.0kg -->
+						<td class="secondTd">		
 							<input type="number" id="weight" class="answer" name="petWeight" placeholder="ex. 0.0"/>
 						</td>
 					</tr>
@@ -163,19 +163,6 @@
 	   			<input type="file" id="thumbnailImg4" multiple="multiple" name="thumbnailImg4" onchange="LoadImg(this,4)"/>
 	   		</div>
 	   	<script>
-	   	$('#ageDetail').on("keyup", function(){	// 숫자만 가능
-	   		var inputAge = $(this).val();
-	   		inputAge = inputAge.replace(/[0-9]/g, ''); 
-	   		$(this).val(inputAge);
-	   	});
-
-	   	$('#weight').on("keyup", function(){
-	   		var inputWeight = $(this).val();
-	   		inputWeight = inputWeight.replace(/^\d*(\.\d{0,1})/g, '');
-	   	});
-	   	
-	   	
-	   	
    		// 하고 싶은 말 글자 수 카운트 및 글자 수 제한
    		$(document).ready(function(){
 			$('#lastAnswer').keyup(function(e){
@@ -236,7 +223,7 @@
    		
 // 정규표현식 -----------------------------------------------------------------------------------------------------   		
 
-//    		$(function(){
+   		$(function(){
    			$('#ageDetail').on("keyup", function(){
 	   			var ageNum = $('#ageDetail').val();
 	   			console.log(typeof(ageNum));
@@ -245,9 +232,15 @@
 	   			$('#ageDetail').val(ageNum);
    			});
    			
+   			$('#weight').on("keyup", function(){
+   				var weight = $('#weight').val();
+   				console.log(typeof(weight));
+   				console.log(weight);
+   				weight = weight.replace(/\d*(\.\d{0,2})/g, "");
+   				$('#weight').val(weight);
+   			});
    			
-   			
-//    		});
+   		});
    		
 	   	
    		function checkSubmit(){		// 정보 넘기는 함수

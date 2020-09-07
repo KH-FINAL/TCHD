@@ -99,12 +99,11 @@
   			</div>				
 	   		<div id="smallPictures">
 	   			<div id="smallPets">		
-		   				<img id="detailImg" class="smallPicture" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(1).getChangeName() %>"/>
-		   				<img id="detailImg" class="smallPicture" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(2).getChangeName() %>"/>
-		   				<img id="detailImg" class="smallPicture" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(3).getChangeName() %>"/>
+	   			<% for(int i = 1; i < fileList.size();  i++){ %>
+		   				<img id="detailImg" class="smallPicture" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(i).getChangeName() %>"/>
+				<% } %>
 		   			<% for(int i = 0; i < fileList.size();  i++){ %>
 		   				<input type="hidden" name="fileList" value="<%= fileList.get(i) %>"/>
-<%-- 		   				<input type="hidden" name="fileNo" value="<%= fileList.get(i).getFileNo() %>"> --%>
 	   				<% } %>
    				</div>
    				<% if(loginUser != null && adopt.getId().equals(loginUser.getMem_id())){ %> 
