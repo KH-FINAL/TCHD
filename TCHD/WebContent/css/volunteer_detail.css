@@ -166,3 +166,15 @@ input[type=submit] {
 	display: inline-block;
 	/* text-align: right; */
 }
+
+#img_div {
+	padding: 50px 0px;
+}
+
+#img_div img {
+	width: 1000px;
+}
+
+.vol_img_div {
+	width: 1000px;
+}

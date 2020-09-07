@@ -31,14 +31,14 @@
 				<!-- 검색 시작 -->
 				<form action="volunteerList.jsp" method="get">
 				<div class="list_search">
-					<select id="search_select">
+					<select id="search_select" name="col">
 						<option value="hidden" disabled selected>선택</option>
-						<option>지역</option>
-						<option>제목</option>
+						<option value="voArea">지역</option>
+						<option value="boTitle">제목</option>
 					</select>
-						<input type="text" id="search_text">
-						<input type="button" id="search_button" value="검색">
-						<!-- <button id="search_button" onclick="goSearch();">검색</button> -->
+						<input type="text" id="search_input" name="word">
+						<!-- <input type="button" id="search_button" value="검색"> -->
+						<button type="submit" id="search_button">검색</button>
 				</div>
 				</form>
 				<!-- 검색 종료 -->
@@ -57,29 +57,25 @@
 						</tr>
 						<% if(volunteerList.isEmpty()){ %>
 						<tr>
-							<td colspan="8">존재하는 봉사 모집이 없습니다.</td>
+							<td colspan="8" id="empty">존재하는 봉사 모집이 없습니다.</td>
 						</tr>
 						<% } else { %>
 						<%		for(Volunteer v : volunteerList){ %>
-						<tr>
-							<td><%= v.getBoNo() %></td>					<!-- 게시글번호 -->
-							<td><%= v.getVoArea() %></td>				<!-- 봉사지역 -->
-							<td class="tit"><%= v.getBoTitle() %></td>	<!-- 게시글제목 -->
-							<td><%= v.getMemId() %></td>				<!-- 작성자 -->
-							<td><%= v.getBoDate() %></td> 				<!-- 작성일자 -->
-							<td><%= v.getVoMaxmember() %></td>			<!-- 모집인원 -->
-							<td id="deadline">							<!-- 마감유무 -->								
+						<tr class="is">
+							<td class="event"><%= v.getBoNo() %></td>					<!-- 게시글번호 -->
+							<td class="event"><%= v.getVoArea() %></td>				<!-- 봉사지역 -->
+							<td class="event" id="tit"><%= v.getBoTitle() %></td>	<!-- 게시글제목 -->
+							<td class="event"><%= v.getMemId() %></td>				<!-- 작성자 -->
+							<td class="event"><%= v.getBoDate() %></td> 				<!-- 작성일자 -->
+							<td class="event"><%= v.getVoMaxmember() %></td>			<!-- 모집인원 -->
+							<td class="event" id="deadline">							<!-- 마감유무 -->								
 								<% if((v.getVoMaxmember()-v.getVoApplymember()) <= 0){ %>
 								<%= "Y" %>
 								<% } else { %>
 								<%= "N" %>
 								<% } %>
-								<script>
-									$("#list_table td").attr({"color":#eee});
-									/* 글씨색 바뀌는 거 왜 안되냐 .. 진짜 .. */
-								</script>
 							</td>									
-							<td><%= v.getBoCount() %></td>  			<!-- 조회수 -->
+							<td class="event"><%= v.getBoCount() %></td>  			<!-- 조회수 -->
 						</tr>
 						<%		} %>
 						<% } %>
@@ -130,20 +126,19 @@
 		        </script>    		  
     		</div>
 		</div>
-		
-		<script>
-			$(function(){
-				$("#list_table td").mouseenter(function(){
-					$(this).parent().css({'background':'#eee', 'cursor':'pointer'});
-				}).mouseout(function(){
-					$(this).parent().css({'background':'none', 'text-decoration':'none'});
-				}).click(function(){
-					var num = $(this).parent().children().eq(0).text();
-					location.href="<%= request.getContextPath() %>/volunteerDetail.bo?bNo=" + num;
-				});
-			});
-		</script>
 	</section>
+	<script>
+		$(function(){
+			$(".event").mouseenter(function(){
+				$(this).parent().css({'background':'#eee', 'cursor':'pointer'});
+			}).mouseout(function(){
+				$(this).parent().css({'background':'none', 'text-decoration':'none'});
+			}).click(function(){
+				var num = $(this).parent().children().eq(0).text();
+				location.href="<%= request.getContextPath() %>/volunteerDetail.bo?bNo=" + num;
+			});
+		});
+	</script>
 	
 </body>
 </html>

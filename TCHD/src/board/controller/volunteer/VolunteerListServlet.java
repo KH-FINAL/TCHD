@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.tools.Tool;
 
 import board.model.service.BoardService;
-import board.model.vo.Board;
 import board.model.vo.PageInfo;
 import board.model.vo.Volunteer;
 
@@ -66,7 +66,7 @@ public class VolunteerListServlet extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
-		
+
 		ArrayList<Volunteer> volunteerList = vService.selectVList(pi);
 		
 		

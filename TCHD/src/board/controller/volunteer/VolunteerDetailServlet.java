@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import board.model.service.BoardService;
 import board.model.vo.Comments;
+import board.model.vo.Files;
 import board.model.vo.Volunteer;
 
 /**
@@ -34,25 +35,41 @@ public class VolunteerDetailServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bNo = Integer.parseInt(request.getParameter("bNo"));
-		
 		Volunteer volunteer = new BoardService().selectVolunteer(bNo);
-		
-		ArrayList<Comments> commentsList = new BoardService().selectCommentsList(bNo);
-		
-		
 		HttpSession session = request.getSession();
+		ArrayList<Files> file = null;
+//		ArrayList<Comments> commentsList = new BoardService().selectCommentsList(bNo);
 		
-		if(volunteer != null || commentsList != null)  {
-			request.setAttribute("section", "WEB-INF/views/volunteer/volunteerDetail.jsp");
+		if(volunteer != null) {
 			request.setAttribute("volunteer", volunteer);
-			request.setAttribute("commentsList", commentsList);
-		} else {
+			file = new BoardService().selectNoticeFile(bNo);	
+			if(file!=null) {
+				request.setAttribute("file", file);				
+			}
+			request.setAttribute("section", "WEB-INF/views/volunteer/volunteerDetail.jsp");
+		}else {
 			request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
-			request.setAttribute("msg", "봉사게시글 상세조회에 실패하였습니다.");
+			request.setAttribute("msg", "게시글 조회에 실패하였습니다.");
+			
+			
 		}
 		
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 		
+		
+		
+//		if(volunteer != null || commentsList != null)  {
+//			request.setAttribute("section", "WEB-INF/views/volunteer/volunteerDetail.jsp");
+//			request.setAttribute("volunteer", volunteer);
+//			request.setAttribute("commentsList", commentsList);
+//		} else {
+//			request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
+//			request.setAttribute("msg", "봉사게시글 상세조회에 실패하였습니다.");
+//		}
+//		
+//		request.getRequestDispatcher("index.jsp").forward(request, response);
+//		
+//		
 	}
 
 	/**

@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="board.model.vo.Volunteer" %>
+<%
+	Volunteer v = (Volunteer)request.getAttribute("volunteer");
+	int fileNo = (int)request.getAttribute("fileNo");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,6 +38,7 @@
 			}).open();
 		});
     });
+
 //---------------------------------------------------------------------------------------
 </script>
 
@@ -42,14 +48,25 @@
 		<div class="title">봉사게시판</div>
 
 		<div class="main_div">
-			<form method="post" action="volunteerInsert.bo" encType="multipart/form-data">
+			<form method="post" action="volunteerUpdate.bo" encType="multipart/form-data" onsubmit="return validate();">
 			<div class="table_div">
+				<input type="hidden" name="volBNo" value="<%= v.getBoNo() %>">
+				<input type="hidden" name="volCateName" value="<%= v.getCateName() %>">
+				<input type="hidden" name="boDate" value="<%= v.getBoDate() %>">
+				<% if(fileNo!=0){ %>
+					<input type="hidden" name="volunteerFileNo" value="<%=fileNo %>"> 
+				<% } %>
 				<table class="board_table">
 					<tr>
 						<th>게시판 선택 <span id="star">*</span></th>
                   		<td class="board_table_td">
-                     		<select class="allbutton" name="selectBoard" required>
-                     			<option value="" disabled selected>선택</option>
+                     		<select class="allbutton" id="select1" name="selectBoard">
+                     			<%-- <option value="hidden" disabled selected>선택</option>
+                       			<option value="공지사항" <%= v.getCateName() %> = "공지사항" selected>공지사항</option>
+                        		<option value="문의사항" <%= v.getCateName() %> = "문의사항" selected>문의사항</option>
+                        		<option value="봉사게시판" <%= v.getCateName() %> = "봉사게시판" selected>봉사게시판</option>
+                        		<option value="입양게시판" <%= v.getCateName() %> = "입양게시판" selected>입양게시판</option> --%>
+                        		<option value="" disabled selected>선택</option>
                        			<option value="회원정보">회원정보</option>
                         		<option value="입양하기">입양하기</option>
                         		<option value="후원관련">후원관련</option>
@@ -60,13 +77,13 @@
 					<tr>
 						<th>제목 <span id="star">*</span></th>
 						<td class="board_table_td">
-							<input type="text" class="allbutton" id="input_title" name="boTitle" required>
+							<input type="text" class="allbutton" id="input_title" name="input_boTitle" value="<%= v.getBoTitle() %>">
 						</td>
 					</tr>
 					<tr>
 						<th>지역선택 <span id="star">*</span></th>
 						<td class="board_table_td">
-							<select class="allbutton" name="voArea" required>
+							<select class="allbutton" id="select2" name="voArea">
 								<option value="" disabled selected>선택</option>
 								<option>서울</option>
 								<option>부산</option>
@@ -90,30 +107,29 @@
 					</tr>
 					<tr>
 						<th>봉사일시 <span id="star">*</span></th>
-						
 						<td class="board_table_td">
-							<input type="datetime-local" class="allbutton" name="voDate" required>
+							<input type="datetime-local" class="allbutton" name="input_voDate" value="<%= v.getVoDate() %>">
 						</td>
-								
 					</tr>
 					<tr>
 						<th>봉사지 <span id="star">*</span></th>
+						<%-- <td name="input_voPlace"><%= v.getVoPlace() %></td> --%>
 						<td class="board_table_td">
-							<input type="text" placeholder="우편번호" class="adress" id="zoneCode" name="zoneCode" readonly required>
+							<input type="text" placeholder="우편번호" class="adress" id="zoneCode" name="input_zoneCode" readonly>
 							<button type="button"class="searchAddress" id="adress_search">주소 검색</button>
 						</td>
 					</tr>
 					<tr>
 						<th></th>
 						<td class="board_table_td">
-							<input type="text" placeholder="주소" class="adress" id="mainAddress" name="joinAddress" readonly required>
-							<input type="text" placeholder="상세주소" class="adress" id="detailAddress" name="joinAddress2" required>
+							<input type="text" placeholder="주소" class="adress" id="mainAddress" name="input_joinAddress" readonly>
+							<input type="text" placeholder="상세주소" class="adress" id="detailAddress" name="input_joinAddress2">
 						</td>
 					</tr>
 					<tr>
 						<th>모집인원 <span id="star">*</span></th>
 						<td class="board_table_td">
-							<input type="text" class="allbutton" name="voMaxmember" required>
+							<input type="text" class="allbutton" name="input_voMaxmember" value="<%= v.getVoMaxmember() %>">
 						</td>
 					</tr>
 					<tr>
@@ -121,25 +137,31 @@
 						<td class="board_table_td">
 							<div id="file">
 								<label id="file_label" for="ex_file"></label>
-								<input type="file" id="ex_file" name="input_file" accept=".png, .jpg">
+								<input type="file" id="ex_file" name="input_file" accept=".png, .jpg" value="">
 								<span>&nbsp;&nbsp;&nbsp;&nbsp;이미지파일(PNG, JPG)만 첨부 가능합니다.</span>
+								<!-- <input type="file" name="uploadFile"> * 이미지 파일은 jpg,png만 가능합니다. -->
 							</div>
 						</td>
 					</tr>
 					<tr>
 						<th id="td_content"><br>내용 <span id="star">*</span></th>
 						<td class="board_table_td">
-							<textarea id="textarea" rows="30" cols="110" name="voComment" required></textarea>
+							<textarea id="textarea" rows="30" cols="110" name="input_voComment"><%= v.getVoComment() %></textarea>
 						</td>
 					</tr>
 				</table>
 			</div>
 			<div class="no_ok_button">
 				<input type="button" class="button_no" value="취소" onclick="location.href='javascript:history.go(-1);'">
+				<!-- <input type="button" class="button_ok" value="등록" onclick=""> -->
 				<button type="submit" class="button_ok" value="등록">등록</button>
 			</div>
 			</form>
 		</div>	
+	<script>
+	$('#select1').val("<%= v.getCateName() %>");
+	$('#select2').val("<%= v.getVoArea() %>");
+	</script>
 	</section>
 </body>
 </html>

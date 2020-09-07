@@ -43,20 +43,29 @@ public class Volunteer {
 		this.voComment = voComment;
 	}
 
-	public Volunteer(int boNo, int boType, String cateName, String boTitle, int boCount, Date boDate, int memNo,
-			String memId, String boDeleteYn) {
+	public Volunteer(int boNo, String cateName, String boTitle, Date voDate, String voPlace, Date boDate, int voMaxmember, String voComment) {
 		super();
 		this.boNo = boNo;
-		this.boType = boType;
 		this.cateName = cateName;
 		this.boTitle = boTitle;
-		this.boCount = boCount;
+		this.voDate = voDate;
+		this.voPlace = voPlace;
 		this.boDate = boDate;
-		this.memNo = memNo;
-		this.memId = memId;
-		this.boDeleteYn = boDeleteYn;
+		this.voMaxmember = voMaxmember;
+		this.voComment = voComment;
 	}
-
+	
+	public Volunteer(int boNo, String cateName, String boTitle, Date voDate, Date boDate, int voMaxmember, String voComment) {
+		super();
+		this.boNo = boNo;
+		this.cateName = cateName;
+		this.boTitle = boTitle;
+		this.voDate = voDate;
+		this.boDate = boDate;
+		this.voMaxmember = voMaxmember;
+		this.voComment = voComment;
+	}
+	
 	public Volunteer(int boNo, int boType, String cateName, String boTitle, String boDeleteYn, int memNo, String memId,
 			Date boDate, int voMaxmember, int voApplymember, Date voDate, String voArea) {
 		super();
@@ -75,6 +84,25 @@ public class Volunteer {
 	}
 	
 	public Volunteer(int boNo, int boType, String cateName, String voArea, String boTitle, int memNo, String memId, Date boDate, 
+			 int voMaxmember, int voApplymember, Date voDate, int boCount, String voComment, String voPlace) {
+		super();
+		this.boNo = boNo;
+		this.boType = boType;
+		this.cateName = cateName;
+		this.voArea = voArea;
+		this.boTitle = boTitle;
+		this.memNo = memNo;
+		this.memId = memId;
+		this.boDate = boDate;
+		this.voMaxmember = voMaxmember;
+		this.voApplymember = voApplymember;
+		this.voDate = voDate;
+		this.boCount = boCount;
+		this.voComment = voComment;
+		this.voPlace = voPlace;
+	}
+	
+	public Volunteer(int boNo, int boType, String cateName, String voArea, String boTitle, int memNo, String memId, Date boDate, 
 			 int voMaxmember, int voApplymember, Date voDate, int boCount) {
 		super();
 		this.boNo = boNo;
@@ -90,7 +118,6 @@ public class Volunteer {
 		this.voDate = voDate;
 		this.boCount = boCount;
 	}
-	
 	public Volunteer(int boNo, String boTitle, String voArea, Date voDate, String voPlace, int voMaxmember, String voComment, int boType) {
 		super();
 		this.boNo = boNo;
@@ -103,7 +130,7 @@ public class Volunteer {
 		this.boType = boType;
 	}
 
-	public Volunteer(int boNo, String boTitle, String voArea, Date voDate, String voPlace, int voMaxmember, String voComment, String cateName) {
+	public Volunteer(int boNo, String boTitle, String voArea, Date voDate, String voPlace, int voMaxmember, String voComment, String cateName, int memNo) {
 		super();
 		this.boNo = boNo;
 		this.boTitle = boTitle;
@@ -113,6 +140,7 @@ public class Volunteer {
 		this.voMaxmember = voMaxmember;
 		this.voComment = voComment;
 		this.cateName = cateName;
+		this.memNo = memNo;
 	}
 
 	public int getBoNo() {

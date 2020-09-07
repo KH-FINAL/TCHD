@@ -66,7 +66,7 @@
 	color: #ccc;
 }
 /* 테이블에서 제목 왼쪽 정렬 */
-.tit {
+#tit {
 	text-align: left;
 }
 .wrtie_button_div {

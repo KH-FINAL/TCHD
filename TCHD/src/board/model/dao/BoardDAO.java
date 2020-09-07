@@ -885,7 +885,9 @@ public class BoardDAO {
 											rset.getInt("vo_maxmember"),
 											rset.getInt("vo_applymember"),
 											rset.getDate("vo_date"),
-											rset.getInt("bo_count"));
+											rset.getInt("bo_count"),
+											rset.getString("vo_comment"),
+											rset.getString("vo_place"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1354,7 +1356,7 @@ public class BoardDAO {
 	}
 
 	public int insertVolunteer2(Connection conn, Volunteer v, int voMaxmember, int voApplymember, String voDeadline, Date voDate,
-			String voArea, String voPlace, String voComment) {
+		String voArea, String voPlace, String voComment) {
 		PreparedStatement pstmt = null;
 		int result= 0;
 		try {
@@ -1403,6 +1405,126 @@ public class BoardDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return result;
+	}
+	
+	public int updateVolunteer1(Connection conn, Volunteer volunteer) {
+		System.out.println("updateVolunteer1");
+		PreparedStatement pstmt = null;
+		int result=0;
+		
+		try {
+			pstmt=conn.prepareStatement(prop.getProperty("updateVolunteer1"));
+			pstmt.setString(1, volunteer.getBoTitle());
+			pstmt.setString(2, volunteer.getVoComment());
+			pstmt.setInt(3, volunteer.getBoNo());
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateVolunteer2(Connection conn, Volunteer volunteer) {
+		System.out.println("updateVolunteer2");
+		PreparedStatement pstmt=null;
+		int result =0;
+		try {
+			pstmt =conn.prepareStatement(prop.getProperty("updateVolunteer2"));
+			pstmt.setInt(1, volunteer.getVoMaxmember());
+			pstmt.setDate(2, volunteer.getVoDate());
+			pstmt.setString(3, volunteer.getVoComment());
+			pstmt.setInt(4, volunteer.getBoNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateVolunteerFile1(Connection conn, Files file) {
+		System.out.println("updateVolunteerFile1");
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("updateVolunteerFile1"));
+			pstmt.setString(1, file.getOrignName());
+			pstmt.setString(2, file.getChangeName());
+			pstmt.setInt(3, file.getFileNo());
+			result= pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateVolunteerFile2(Connection conn, Files file) {
+		System.out.println("updateVolunteerFile2");
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		try {
+			pstmt= conn.prepareStatement(prop.getProperty("updateVolunteerFile2"));
+			pstmt.setInt(1, file.getBoNo());
+			pstmt.setString(2,  file.getOrignName());
+			pstmt.setString(3, file.getChangeName());
+			pstmt.setString(4, file.getFilePath());
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateVolunteerFile3(Connection conn, Files file) {
+		System.out.println("updateVolunteerFile3");
+		PreparedStatement pstmt = null;
+		int result = 0;
+
+		try {
+			pstmt= conn.prepareStatement(prop.getProperty("updateVolunteerFile3"));
+			pstmt.setInt(1, file.getFileNo());
+	
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateApplyVolunteer(Connection conn, int volBNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateApplyVolunteer");
+		
+		try {
+			pstmt = conn.prepareStatement("query");
+			pstmt.setInt(1, volBNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
 		return result;
 	}
 
