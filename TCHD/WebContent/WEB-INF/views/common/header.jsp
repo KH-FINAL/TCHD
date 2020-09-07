@@ -87,7 +87,7 @@
 						</li>
 						<li class="naviDetail_li"><a>후원하기</a><ul id="menuBar2" class="menuBar">
 								<li>후원</li>
-								<li>후원내역 확인</li>
+								<li>후원내역 조회</li>
 							</ul>
 						</li>
 						<li class="naviDetail_li"><a>정보마당</a><ul id="menuBar3" class="menuBar">

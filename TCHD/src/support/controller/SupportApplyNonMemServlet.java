@@ -41,12 +41,13 @@ public class SupportApplyNonMemServlet extends HttpServlet {
 		
 		Support support = new Support(null, price);
 		
-		int result = new SupportService().applyNonMem(support);
+		int sup_no = new SupportService().applyNonMem(support);
 		
-		if(result != 0) {
+		if(sup_no != 0) {
 			// 이메일 전송
 			try {
-				new sendMail().sendEmail("support", email, name);
+				String content = name + "," + sup_no;
+				new sendMail().sendEmail("support", email, content);
 			
 			} catch (Exception e) {
 				e.printStackTrace();

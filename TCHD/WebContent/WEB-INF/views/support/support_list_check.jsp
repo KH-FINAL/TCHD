@@ -1,16 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="member.model.vo.Member"%>
+<%
+    Member loginUser = (Member)session.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 <link href="css/support/support_list_check.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="css/common/common.css" type="text/css">
+<script>
+	if(<%= loginUser %> == null){
+		swal("로그인 필요","해당 서비스는 회원만 이용 가능합니다.","warning")
+		.then((ok) => {
+			if(ok){
+				location.href="<%=request.getContextPath()%>/loginForm.me";
+			} else{
+				location.href="<%=request.getContextPath()%>/loginForm.me";
+			}
+		});
+	}
+</script>
 </head>
 <body>
 	<section>
-		<div class="title">후원하기</div>
+		<div class="title">후원 내역</div>
 
 		<div class="main_div">
 			<div class="sub_div">

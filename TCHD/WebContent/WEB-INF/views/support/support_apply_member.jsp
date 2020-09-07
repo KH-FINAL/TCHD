@@ -7,7 +7,7 @@
 </head>
 <body>
 	<section>
-		<div id="ment">후원하기</div>
+		<div id="ment">후원 신청</div>
 		<div id="main_div">
 			<div>
 				<table id="apply_table">
@@ -55,10 +55,6 @@
 				if (select == '직접입력') {
 					// 직접입력을 선택하면 금액을 입력할 수 있는 텍스트 상자 보이게
 					$('#input_direct').show();
-					// 텍스트 상자가 포커싱되면 테두리 색 바뀌게
-					$('#input_direct').focus(function(){
-						$('#input_direct').attr("style", "border: none; outline: 2px solid rgba(41, 128, 185, 0.5);");
-					});
 				} else {
 					$('#input_direct').hide();
 				}

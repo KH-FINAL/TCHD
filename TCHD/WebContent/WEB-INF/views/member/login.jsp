@@ -22,8 +22,8 @@
 			<br>
 
 			<div>
-				<label class="login_label">비밀번호&nbsp;&nbsp;</label> <input
-					type="password" id="input_pw" class="login_input" name="userPwd">
+				<label class="login_label">비밀번호&nbsp;&nbsp;</label>
+				<input type="password" id="input_pw" class="login_input" name="userPwd">
 			</div>
 
 			<br>

@@ -57,7 +57,10 @@
 	width: 140px;
 	padding: 10px;
 	border: 1px solid #ccc;
-	outline: none;
+}
+
+#input_direct:focus {
+	outline: 2px solid rgba(41, 128, 185, 0.5);
 }
 
 #input_direct::-webkit-outer-spin-button, 
