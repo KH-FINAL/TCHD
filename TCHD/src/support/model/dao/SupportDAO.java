@@ -62,7 +62,25 @@ public class SupportDAO {
 			pstmt.setInt(1, support.getMem_no());
 			pstmt.setInt(2, support.getSup_price());
 			
-			System.out.println("dao_price : " + support.getSup_price());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int applyNonMem(Connection conn, Support support) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("applyNonMem");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, support.getSup_price());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

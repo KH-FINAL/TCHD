@@ -4,6 +4,17 @@
 <html>
 <head>
 <link href="css/support/support_apply_nonmember.css" rel="stylesheet" type="text/css">
+<script>
+	$(document).ready(function(){
+		$('#loading_div').hide(); // 첫 시작 시 로딩바 숨기기
+	});
+	$(document).ajaxStart(function(){
+		$('#loading_div').show(); // ajax 실행 시 로딩바 보여줌
+	});
+	$(document).ajaxStop(function(){
+		$('#loading_div').hide(); // ajax 종료 시 로딩바 숨기기
+	});
+</script>
 </head>
 <body>
 	<section>
@@ -35,37 +46,18 @@
 						<!-- step2 -->
 						<td id="input_info" class="apply_table_td" colspan="5" style="display: none;">
 							<div id="input_info_div">
-								비회원은 후원자의 정보를 입력해야 후원 신청이 가능합니다.<br>
-								<b class="required">*은 필수 입력 항목입니다.</b>
+								* 비회원은 후원자의 정보를 입력해야 후원 신청이 가능합니다.<br>
+								&nbsp;&nbsp;정상적으로 신청이 완료되면 입력하신 이메일로 신청 내역을 보내드립니다.<br>
 							</div>
 							<div id="input_info_table_div">
 								<table id="input_info_table">
 									<tr>
-										<th><span>아이디</span> <span class="required">*</span></th>
-										<td><input type="text" class="input_box"></td>
+										<th><span>이름</span></th>
+										<td><input type="text" id="input_name" class="input_box"></td>
 									</tr>
 									<tr>
-										<th><span>생년월일</span> <span class="required">*</span></th>
-										<td><input type="date" class="input_box"></td>
-									</tr>
-									<tr>
-										<th><span>연락처</span> <span class="required">*</span></th>
-										<td><input type="tel" class="input_box"></td>
-									</tr>
-									<tr>
-										<th><span>이메일</span> <span class="required">*</span></th>
-										<td><input type="email" class="input_box"></td>
-									</tr>
-									<tr>
-										<th style="border-bottom: none;">주소&nbsp;&nbsp;&nbsp;</th>
-										<td style="border-bottom: none;">
-											<div id="address_div">
-												<input type="text" placeholder="우편번호" id="input_address_num">
-												<button id="address_button">주소 검색</button>
-											</div>
-											<input type="text" placeholder="주소" class="input_address">
-											<input type="text" placeholder="상세주소" class="input_address">
-										</td>
+										<th><span>이메일</span></th>
+										<td><input type="email" id="input_email" class="input_box"></td>
 									</tr>
 								</table>
 							</div>
@@ -88,6 +80,11 @@
 				<button id="pre_button" class="buttons" onclick="validateBack();" style="display: none;">이전</button>
 				<button id="next_button" class="buttons" onclick="validateNext();">다음</button>
 				<button id="apply_button" class="buttons" onclick="validateApply();" style="display: none;">신청</button>
+			</div>
+			
+			<!-- 로딩중 -->
+			<div id="loading_div">
+				<img src="images/loading.gif">
 			</div>
 		</div>
 		
@@ -155,42 +152,34 @@
 			
 			// 다음버튼
 			// step1 -> step2) 금액 선택(입력) 없이 다음 버튼 누른 경우
-			//					count 홀수
+			//					이전 버튼 none / 신청 버튼 none
 			// step2 -> step3) 후원자 정보 다 입력하지 않고 다음 버튼 누른 경우
 			//					==> 성명, 생년월일, 연락처, 이메일 필수 / 주소 선택
-			//					count 짝수
-			var countNext = 0;
+			//					이전 버튼 inline-block / 신청 버튼 none
 			function validateNext(){
-				countNext++;
-				console.log(countNext);
 				var select = $("#price_control").val();
 				var input = $("#input_direct");
+				var name = $("#input_name");
+				var email = $("#input_email");
 				
-				if(select == "직접입력" && input.val().trim().length == 0){
-					swal("","금액을 입력해주세요.","info")
-					.then((ok) => {
-						if(ok){
-							input.focus();
-							countNext--;
-						}
-					});
+				if($("#pre_button").css("display") == "none" && $("#apply_button").css("display") == "none"){
+					// step1 -> step2
+					if(select == "직접입력" && input.val().trim().length == 0){
+						swal("","금액을 입력해주세요.","info")
+						.then((ok) => {
+							if(ok){
+								input.focus();
+							}
+						});
+						
+						return;
+						
+					} else if(select == "선택안함"){
+						swal("","금액을 선택해주세요.","info");
+						
+						return;
+					}
 					
-					return;
-					
-				} else if(select == "선택안함"){
-					swal("","금액을 선택해주세요.","info")
-					.then((ok) => {
-						if(ok){
-							input.focus();
-							countNext--;
-						}
-					});
-					
-					return;
-				}
-				
-				if(countNext % 2 != 0){
-					// 홀수이면 / step1 -> step2
 					$("#step1").css("background", "#aaa");
 					$("#step2").css("background", "rgb(41, 128, 185)");
 					$("#step3").css("background", "#aaa");
@@ -205,8 +194,28 @@
 					
 					// 다음 버튼 누르면 무조건 후원자 정보 초기화
 					$(".input_box").val("");
-				} else{
-					// 짝수이면 / step2 -> step3
+				} else if($("#pre_button").css("display") == "inline-block" && $("#apply_button").css("display") == "none"){
+					// step2 -> step3
+					if(name.val().trim().length == 0){
+						swal("","이름을 입력해주세요.","info")
+						.then((ok) => {
+							if(ok){
+								name.focus();
+							}
+						});
+						
+						return;
+					} else if(email.val().trim().length == 0){
+						swal("","이메일을 입력해주세요.","info")
+						.then((ok) => {
+							if(ok){
+								email.focus();
+							}
+						});
+						
+						return;
+					}
+					
 					$("#step1").css("background", "#aaa");
 					$("#step2").css("background", "#aaa");
 					$("#step3").css("background", "rgb(41, 128, 185)");
@@ -225,12 +234,10 @@
 			}
 			
 			// 이전 버튼
-			var countPre = 0;
+			// step2 -> step1) 다음 버튼 inline-block / 신청 버튼 none
+			// step3 -> step2) 다음 버튼 none / 신청 버튼 inline-block
 			function validateBack(){
-				countNext--;
-				// 언제 처음으로 이전 버튼을 누를지 모르니까 홀수/짝수로 하면 안됨
-				countPre++;
-				if(countPre % 2 != 0){
+				if($("#next_button").css("display") == "inline-block" && $("#apply_button").css("display") == "none"){
 					// stpe2 -> step1
 					$("#step1").css("background", "rgb(41, 128, 185)");
 					$("#step2").css("background", "#aaa");
@@ -243,7 +250,7 @@
 					$("#pre_button").hide();
 					$("#next_button").show();
 					$("#apply_button").hide();
-				} else{
+				} else if($("#next_button").css("display") == "none" && $("#apply_button").css("display") == "inline-block"){
 					// step3 -> step2
 					$("#step1").css("background", "#aaa");
 					$("#step2").css("background", "rgb(41, 128, 185)");
@@ -263,6 +270,8 @@
 			function validateApply(){
 				var select = $("#price_control").val();
 				var input = $("#input_direct");
+				var name = $("#input_name");
+				var email = $("#input_email");
 				var check = $("#payment_check");
 
 				if(check.is(":checked") == false){
@@ -274,10 +283,10 @@
 				$.ajax({
 					url: "supportApplyNonMember.su",
 					type: "post",
-					data: {select:select, input_direct:input.val()},
+					data: {select:select, input_direct:input.val(), name:name.val(), email:email.val()},
 					success: function(result){
 						if(result == 1){
-							swal("후원 신청 완료","","success")
+							swal("후원 신청 완료","입력하신 이메일로 후원 내역을 전송하였습니다.","success")
 							.then((ok) => {
 								if(ok){
 									location.href="<%=request.getContextPath()%>";
@@ -286,7 +295,14 @@
 								}
 							});
 						} else{
-							swal("후원 신청 실패","다시 신청하시기 바랍니다.","error");
+							swal("후원 신청 실패","다시 신청하시기 바랍니다.","error")
+							.then((ok) => {
+								if(ok){
+									location.href="<%=request.getContextPath()%>/supportApplyForm.su";
+								} else{
+									location.href="<%=request.getContextPath()%>/supportApplyForm.su";
+								}
+							});
 						}
 					},
 					error: function(result){

@@ -71,17 +71,12 @@
 	width: 900px;
 	margin: 0px auto 20px auto;
 	text-align: left;
-}
-
-.required{
-	color: red;
+	font-weight: 700;
 }
 
 #input_info_table{
 	width: 900px;
 	margin: 0px auto;
-/* 	border-top: 2px solid #aaa; */
-/* 	border-bottom: 2px solid #aaa; */
 	border-collapse: collapse; /* 테두리 사이 간격 없애기 */
 }
 
@@ -91,11 +86,13 @@
 	font-weight: 700;
 	padding: 15px 30px 15px 0px;
 	background: #eee;
+	border-top: 1px solid #aaa;
 	border-bottom: 1px solid #aaa;
 }
 
 #input_info_table td{
 	padding: 15px 0px 15px 20px;
+	border-top: 1px solid #aaa;
 	border-bottom: 1px solid #aaa;
 	text-align: left;
 }
@@ -185,4 +182,17 @@
 	padding: 10px;
 	font-size: 18px;
 	outline: none;
+}
+
+/* 로딩중 gif */
+#loading_div{
+	position: absolute;
+	left: 48%;
+	top: 63%;
+	background: none;
+}
+
+#loading_div img{
+	width: 60px;
+	heigh: 60px;
 }

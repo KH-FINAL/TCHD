@@ -24,14 +24,28 @@ public class SupportService {
 			support.setMem_no(mem_no);
 			result = dao.applyMem(conn, support);
 			
-			System.out.println("service_result : " + result);
-			
 			if(result > 0) {
 				commit(conn);
 			} else {
 				rollback(conn);
 			}
 			
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int applyNonMem(Support support) {
+		Connection conn = getConnection();
+		
+		int result = new SupportDAO().applyNonMem(conn, support);
+		
+		if(result > 0) {
+			commit(conn);
 		} else {
 			rollback(conn);
 		}

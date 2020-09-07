@@ -14,9 +14,10 @@
 					<tr>
 						<td class="steps" id="step1" style="background: rgb(41, 128, 185);">STEP1.<br>후원금 선택</td>
 						<td id="gt">&gt;</td>
-						<td class="steps" id="step2">STEP2.<br>결제 방법</td>
+						<td class="steps" id="step2">STEP2.<br>후원금 결제</td>
 					</tr>
 					<tr>
+						<!-- step1 -->
 						<td id="select_price" class="apply_table_td" colspan="3">
 							<select id="price_control" onChange="directFunction(this.value);">
 								<option value="선택안함">--------------------</option>
@@ -28,6 +29,8 @@
 							</select>
 							<input type="text" id="input_direct" maxlength="15" onkeyup="addCommas(this.value);" style="display: none;">
 						</td>
+						
+						<!-- step2 -->
 						<td id="payment" class="apply_table_td" colspan="3" style="display: none;">
 							<input type="checkbox" id="payment_check">
 							<span>&nbsp;&nbsp;무통장입금 (ㅇㅇ은행 13579-55-24068)</span>
@@ -41,8 +44,8 @@
 				</div>
 			</div>
 			<div id="vol_content_footer">
-				<button id="next_button" class="buttons" onclick="validateNext();">다음</button>
 				<button id="pre_button" class="buttons" onclick="validateBack();" style="display: none;">이전</button>
+				<button id="next_button" class="buttons" onclick="validateNext();">다음</button>
 				<button id="apply_button" class="buttons" onclick="validateApply();" style="display: none;">신청</button>
 			</div>
 		</div>
@@ -109,8 +112,9 @@
 				}
 			});
 			
-			// 콤보박스에서 직접입력을 선택하고, 금액을 직접 입력하는 텍스트 상자가 공백인 상태에서 다음 버튼을 누르면 swal창 뜨게해야 함
-			// 콤보박스에서 금액을 전혀 선택하지 않고 다음 버튼을 누르면 swal창 뜨게해야 함
+			// 다음 버튼
+			//		콤보박스에서 직접입력을 선택하고, 금액을 직접 입력하는 텍스트 상자가 공백인 상태에서 다음 버튼을 누르면 swal창 뜨게해야 함
+			//		콤보박스에서 금액을 전혀 선택하지 않고 다음 버튼을 누르면 swal창 뜨게해야 함
 			function validateNext(){
 				var select = $("#price_control").val();
 				var input = $("#input_direct");
@@ -138,25 +142,27 @@
 				
 				$("#step1").css("background", "#aaa");
 				$("#step2").css("background", "rgb(41, 128, 185)");
+				
 				$("#payment").show();
 				$("#select_price").hide();
 				
-				$("#next_button").hide();
 				$("#pre_button").show();
+				$("#next_button").hide();
 				$("#apply_button").show();
 				
 				$("#payment_check").prop("checked", false);
 			}
 			
-			// 이전 버튼을 누른 경우
+			// 이전 버튼
 			function validateBack(){
 				$("#step1").css("background", "rgb(41, 128, 185)");
 				$("#step2").css("background", "#aaa");
+				
 				$("#payment").hide();
 				$("#select_price").show();
 				
-				$("#next_button").show();
 				$("#pre_button").hide();
+				$("#next_button").show();
 				$("#apply_button").hide();
 			}
 			
@@ -187,7 +193,14 @@
 								}
 							});
 						} else{
-							swal("후원 신청 실패","다시 신청하시기 바랍니다.","error");
+							swal("후원 신청 실패","다시 신청하시기 바랍니다.","error")
+							.then((ok) => {
+								if(ok){
+									location.href="<%=request.getContextPath()%>/supportApplyForm.su";
+								} else{
+									location.href="<%=request.getContextPath()%>/supportApplyForm.su";
+								}
+							});
 						}
 					},
 					error: function(result){
