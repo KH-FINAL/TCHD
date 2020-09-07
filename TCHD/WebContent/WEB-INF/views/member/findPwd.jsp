@@ -90,6 +90,12 @@
 					}
 				});
 			}
+
+			$("#input_id").keyup(function(e){
+				if(e.keyCode == 13){
+					validate();
+				}
+			})
 		</script>
 	</section>
 </body>

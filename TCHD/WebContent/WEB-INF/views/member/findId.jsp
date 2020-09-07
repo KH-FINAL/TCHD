@@ -95,7 +95,7 @@
 							}
 						});
 					}else{
-						swal("메일 전송 실패","입력하신 이름,이메일과 일치하는 회원이 없습니다.","error");
+						swal("메일 전송 실패","입력하신 이름, 이메일과 일치하는 회원이 없습니다.","error");
 						name.val("");
 						email.val("");
 					}
@@ -105,6 +105,12 @@
 				}
 			});
 		}
+
+		$("#input_name, #input_email").keyup(function(e){
+			if(e.keyCode == 13){
+				validate();
+			}
+		})
 		</script>
 	</section>
 </body>

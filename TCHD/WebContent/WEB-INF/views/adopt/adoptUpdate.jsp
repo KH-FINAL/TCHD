@@ -5,7 +5,6 @@
 // 	int bNo = (int)request.getAttribute("bNo");
 	Member loginUser = (Member)request.getAttribute("loginUser");
 	Adopt a = (Adopt)request.getAttribute("adopt");
-// 	String rescue = (String)request.getAttribute("rescue");
 	ArrayList<Files> fileList = (ArrayList<Files>)request.getAttribute("fileList");
 	
 // 	int fileNo0 = (int)request.getAttribute("fileNo0");
@@ -108,7 +107,7 @@
 						</select>
 					</td>
 					<td id="ageTd2">
-						<input type="text" id="ageDetail" name="petAgeDetail" placeholder="숫자" required/>
+						<input type="text" id="ageDetail" name="petAgeDetail" placeholder="숫자" value="<%= prr[1].substring(0) %>" required/>
 						<select id="detailAges" name="detailAge">
 							<option value="개월">개월</option>
 							<option value="살">살</option>
@@ -195,10 +194,16 @@
 		$('input[name=unigender]').val("<%= a.getPetUnigender() %>");
 		$('#petSizes').val("<%= a.getPetSize() %>");
 		$('#petAge').val("<%= prr[0].substring(0) %>");		
-<%-- 		$('#ageDetail').val("<%= Integer.parseInt(prr[1].substring(0, 2)) %>"); --%>
-<%-- 		$('#detailAges').val("<%= prr[1].substring(2) %>");		   	 --%>
-		$('#ageDetail').val("<%= Integer.parseInt(prr[1].substring(0, 1)) %>"); 
- 		$('#detailAges').val("<%= prr[1].substring(1) %>");		
+		
+		// #ageDetail : 숫자만 가능
+		var ageNum = $('#ageDetail').val();
+		ageNum = ageNum.replaceAll(/[가-힣]/g, "");
+		$('#ageDetail').val(ageNum);
+		// #detailAges : 글자만 가능
+		var ageStr = "<%= prr[1].substring(0) %>";
+		ageStr = ageStr.replaceAll(/[0-9]/g, "");
+		$('#detailAges').val(ageStr);
+		
 		// 크기 선택 안되게 함   --> 입력 당시 값으로 고정
 		$('#petSizes option').not(":selected").attr("disabled", "disabled");
 // ----------------------------------------------------------------------------------------------------------------------------	   	

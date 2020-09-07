@@ -75,6 +75,11 @@
 			
 		});
 		
+		$("#inputPw").keyup(function(e){
+			if(e.keyCode == 13){
+				$("#checkBtn").click();
+			}
+		})
 	</script>
 </section>
 </body>

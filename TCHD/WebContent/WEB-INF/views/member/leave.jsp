@@ -41,7 +41,6 @@
 		function validate() {
 			var pwd = $("#input_pwd");
 			
-			System.out.println(pwd);
 			if(pwd.val().trim().length == 0){
 				swal("", "비밀번호를 입력해주세요.", "info")
 				.then((ok) => {

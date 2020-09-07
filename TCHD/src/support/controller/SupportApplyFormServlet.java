@@ -20,7 +20,6 @@ public class SupportApplyFormServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		System.out.println(session.getAttribute("loginUser"));
 		if(session.getAttribute("loginUser") != null) {
 			request.setAttribute("section", "WEB-INF/views/support/support_apply_member.jsp");
 		} else {

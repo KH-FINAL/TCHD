@@ -12,8 +12,16 @@ public class Support {
 	public Support() {}
 
 	public Support(String mem_id, int sup_price) {
+		// 회원
 		super();
 		this.mem_id = mem_id;
+		this.sup_price = sup_price;
+	}
+
+	public Support(int mem_no, int sup_price) {
+		// 비회원
+		super();
+		this.mem_no = mem_no;
 		this.sup_price = sup_price;
 	}
 
