@@ -19,10 +19,10 @@
 
 
 		<div id = "ment" class="board_list_wrap">게시글 작성</div>
-		<form method="post" action="write.qu" encType="multipart/form-data" onsubmit="return validate();">
+		<form method="post" action="update.qu" encType="multipart/form-data" onsubmit="return validate();">
      	<div id = "board_list_design">
-     	<input type="hidden" name="noticeNo" value="<%=qu.getBoNo() %>">
-          	<% if(fileNo!=0){ %>	<input type="hidden" name="noticeFileNo" value="<%=fileNo %>">  <%} %>
+     	<input type="hidden" name="qNo" value="<%=qu.getBoNo() %>">
+          	<% if(fileNo!=0){ %>	<input type="hidden" name="qFileNo" value="<%=fileNo %>">  <%} %>
 		<table class="board_list">
 			<tr>
 			<td width="100px"><span id = "span1">*</span><b>분류</b> </td>
@@ -53,7 +53,7 @@
 		    <td id = "content_file"><b>첨부파일</b></td>
 		    <td class="align_left"><div class="filebox">
   					<label for="ex_file">파일 선택</label>
- 					 <input type="file" id="ex_file" name="file" accept=".png, .jpg">		
+ 					 <input type="file" id="ex_file" name="input_file" accept=".png, .jpg">		
  					 <span>&nbsp;&nbsp;&nbsp;&nbsp;이미지파일(PNG, JPG)만 첨부 가능합니다.</span>
 				</div>
 			</td>

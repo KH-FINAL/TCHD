@@ -28,20 +28,20 @@ public class QuestionsUpdateFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int bNo = Integer.parseInt(request.getParameter("bNo"));
+		int no = Integer.parseInt(request.getParameter("qNo"));
 		String title = request.getParameter("qTitle");
 		String content = request.getParameter("qContent");
 		String subject  = request.getParameter("qSubject");
+		String pass = request.getParameter("q_password");
 
 		int fileNo=0;
 		if(request.getParameter("qFileNo")!=null) {
 			fileNo = Integer.parseInt(request.getParameter("qFileNo"));
 		}
 		
-		Questions qu = new Questions(bNo, title, content, null, null, 0, subject, 0);
-		System.out.println(qu);
+		Questions qu = new Questions(no, title, content, null, null, 0, subject, pass);
 		request.setAttribute("fileNo", fileNo);
-		request.setAttribute("notice", qu);
+		request.setAttribute("qu", qu);
 		request.setAttribute("section", "WEB-INF/views/questions/questionsUpdate.jsp");
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}

@@ -374,7 +374,7 @@ public class BoardDAO {
 						rset.getString("BO_TITLE"), 
 						rset.getString("BO_CONTENT"), 
 						rset.getString("MEM_ID"), 
-						rset.getDate("BO_DATE"), 0, null, 0); 
+						rset.getDate("BO_DATE"), 0, null, null); 
 						questionsList.add(q);
 			}
 		} catch (SQLException e) {
@@ -1787,4 +1787,103 @@ public class BoardDAO {
 		return adoptList;
 	}
 
+
+
+	public int updateQuestions1(Connection conn, Questions qu) {
+		System.out.println("updateQ1");
+		PreparedStatement pstmt = null;
+		int result=0;
+		
+		try {
+			pstmt=conn.prepareStatement(prop.getProperty("updateQuestions1"));
+			pstmt.setString(1, qu.getBoTitle());
+			pstmt.setString(2, qu.getBoContent());
+			pstmt.setInt(3, qu.getBoNo());
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int updateQuestions2(Connection conn, Questions qu) {
+		System.out.println("updateQ2");
+		PreparedStatement pstmt=null;
+		int result =0;
+		try {
+			pstmt =conn.prepareStatement(prop.getProperty("updateQuestions2"));
+			pstmt.setString(1, qu.getBoPwd());
+			pstmt.setString(2, qu.getQuSub());
+			pstmt.setInt(3, qu.getBoNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int updateQFile1(Connection conn, Files file) {
+		System.out.println("updateQFile1");
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("updateQFile1"));
+			pstmt.setString(1, file.getOrignName());
+			pstmt.setString(2, file.getChangeName());
+			pstmt.setInt(3, file.getFileNo());
+			result= pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	public int updateQFile2(Connection conn, Files file) {
+		System.out.println("updateQFile2");
+		PreparedStatement pstmt = null;
+		int result = 0;
+	
+		try {
+			pstmt= conn.prepareStatement(prop.getProperty("updateQFile2"));
+			pstmt.setInt(1, file.getBoNo());
+			pstmt.setString(2,  file.getOrignName());
+			pstmt.setString(3, file.getChangeName());
+			pstmt.setString(4, file.getFilePath());
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	public int updateQFile3(Connection conn, Files file) {
+		System.out.println("updateQFile3");
+		PreparedStatement pstmt = null;
+		int result = 0;
+	
+		try {
+			pstmt= conn.prepareStatement(prop.getProperty("updateQFile3"));
+			pstmt.setInt(1, file.getFileNo());
+	
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }

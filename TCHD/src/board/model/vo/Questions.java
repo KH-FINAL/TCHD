@@ -68,7 +68,17 @@ public class Questions {// 문의게시판
 		this.boPwd = boPwd;
 		this.boType = boType;
 	}
-	
+	public Questions(int boNo, String boTitle, String boContent, String memId, Date boDate, int boCount, String quSub,
+			String boPwd) {
+		this.boNo = boNo;
+		this.boTitle = boTitle;
+		this.boContent = boContent;
+		this.memId=memId;
+		this.boDate = boDate;
+		this.boCount = boCount;
+		this.quSub = quSub;
+		this.boPwd = boPwd;
+	}
 	 //상세보기 Qdetail
 	public Questions(int boNo, int boType, String cateName, String boTitle, String boContent, int boCount, Date boDate,
 			String memId, String boDeleteYn, String quSub, String boPwd, String comContent, Date comDate) {
@@ -113,17 +123,7 @@ public class Questions {// 문의게시판
 
 
 
-	public Questions(int boNo, String boTitle, String boContent, String memId, Date boDate, int boCount, String quSub,
-			int boType) {
-		this.boNo = boNo;
-		this.boTitle = boTitle;
-		this.boContent = boContent;
-		this.memId=memId;
-		this.boDate = boDate;
-		this.boCount = boCount;
-		this.quSub = quSub;
-		this.boType=boType;
-	}
+
 
 	public Questions( int boType, String boTitle, String boContent, String boPwd, String quSub, int memNo) {
 		super();

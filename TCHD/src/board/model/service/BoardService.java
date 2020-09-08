@@ -749,4 +749,43 @@ public class BoardService {
 		return adoptList;
 	}
 
+	
+	public int updateQuestions(Questions qu, Files file) {
+		Connection conn = getConnection();
+		
+		BoardDAO bDAO = new BoardDAO();
+		
+		int result1 = bDAO.updateQuestions1(conn,qu);
+		int finalResult=result1;
+		if(result1>0) {  // BOARD테이블 UPDATE성공
+			int result2 = bDAO.updateQuestions2(conn, qu);
+			finalResult=result2;
+			if(result2>0) {  // questions테이블 UPDATE성공
+				if(file.getFileNo()!=0) { //원본이 사진이 있을때
+					if(file.getOrignName()!=null) { // 수정페이지에서 사진을 추가할경우 = 사진을 변경할 경우
+						int result3 = bDAO.updateQFile1(conn,file);						
+						finalResult=result3;													
+					}else { // 사진을 뺄 경우
+						int result3 = bDAO.updateQFile3(conn,file);						
+						finalResult=result3;	
+					}
+					
+				}else {  //원본이 사진이 없을 때 
+					if(file.getOrignName()!=null) { // 수정페이지에서 사진을 추가할경우 = 사진을 변경할 경우
+						int result3= bDAO.updateQFile2(conn, file);						
+						finalResult=result3;												
+					}
+				
+				}
+			}
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return finalResult;
+	}
+	
+	
+	
 } // class end

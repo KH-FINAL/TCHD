@@ -34,14 +34,14 @@ public class QuestionsDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int bNo = Integer.parseInt(request.getParameter("bNo"));
-		Questions qBoard = new BoardService().selectBoard(bNo);
+		int no = Integer.parseInt(request.getParameter("bNo"));
+		Questions qBoard = new BoardService().selectBoard(no);
 		HttpSession session = request.getSession();
 		ArrayList<Files> file = null;
 		
 		if(qBoard != null) {
 			request.setAttribute("qBoard", qBoard);
-			file = new BoardService().selectNoticeFile(bNo);	
+			file = new BoardService().selectNoticeFile(no);	
 			if(file!=null) {
 				request.setAttribute("file", file);				
 			}

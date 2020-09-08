@@ -77,13 +77,11 @@
 				
 					<input type="button" class="btn_list_go" value="목록보기" onClick="location.href='list.qu'">
 				
-				<div class="text_align_right">	
-				<% if(loginUser != null && q.getMemId().equals(loginUser.getMem_id())){ %> 
+				<div class="text_align_right">	 <!-- 작성한 회원이 아니면 삭제 수정버튼 안보이게하기. -->
+				<% if(loginUser != null && q.getMemId().equals(loginUser.getMem_id())){ %>  
 					<input type="button" id="delete" class="btn_list" value="삭제하기">
 					<input type="submit" id="alter" class="btn_list" value="수정하기" onclick="location.href='<%= request.getContextPath()%>/updateForm.qu?bNo=<%= q.getBoNo()%>'"/> 
-				<% } else { %>
-					<input type="button" id="delete" class="btn_list" value="삭제하기" disabled="disabled"/>
-					<input type="button" id="alter" class="btn_list" value="수정하기" disabled="disabled"/>
+				
 				<% } %>
 					
 				</div>
