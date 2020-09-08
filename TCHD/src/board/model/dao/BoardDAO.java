@@ -1436,8 +1436,10 @@ public class BoardDAO {
 			pstmt =conn.prepareStatement(prop.getProperty("updateVolunteer2"));
 			pstmt.setInt(1, volunteer.getVoMaxmember());
 			pstmt.setDate(2, volunteer.getVoDate());
-			pstmt.setString(3, volunteer.getVoComment());
-			pstmt.setInt(4, volunteer.getBoNo());
+			pstmt.setString(3, volunteer.getVoArea());
+			pstmt.setString(4, volunteer.getVoPlace());
+			pstmt.setString(5, volunteer.getVoComment());
+			pstmt.setInt(6, volunteer.getBoNo());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
