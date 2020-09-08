@@ -3,6 +3,7 @@
 <%@ page import="board.model.vo.Questions, member.model.vo.Member, board.model.vo.*" %>
 <%@page import="java.util.ArrayList"%>
 <% Questions q = (Questions)request.getAttribute("qBoard");
+	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 	ArrayList<Files> fileList = (ArrayList<Files>)request.getAttribute("file");
 	ArrayList<Questions> questionsList=(ArrayList<Questions>)request.getAttribute("questionsList");
 	Files file =null;
@@ -11,7 +12,6 @@
 			file = fileList.get(i);
 		}
 	}
-	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 %>
 <!DOCTYPE html>
 <html>
@@ -71,20 +71,47 @@
 					<input type="button" class="btn_list_go" value="목록보기" onClick="location.href='list.qu'">
 				
 				<div class="text_align_right">	
-					<input type="button" class="btn_list" value="수정하기" onClick="location.href='list.qu'">
+				<% if(loginUser != null && q.getMemId().equals(loginUser.getMem_id())){ %> 
+					<input type="button" id="delete" class="btn_list" value="삭제하기">
+					<input type="submit" id="alter" class="btn_list" value="수정하기" onclick="location.href='<%= request.getContextPath()%>/questionsUpdateForm.bo?bNo=<%= q.getBoNo()%>'"/> 
+				<% } else { %>
+					<input type="button" id="delete" class="btn_list" value="삭제하기" disabled="disabled"/>
+					<input type="button" id="alter" class="btn_list" value="수정하기" disabled="disabled"/>
+				<% } %>
+					
 				</div>
 			</div>
 			<script type="text/javascript">
+			var bNo = <%= q.getBoNo() %>;
+			
      			 $('#comment').focus(function(){
     		     $(':focus').blur();     
   				    });
      			 
      			 
      		
-      		$(function(){
- 				console.log('<%=q %>');
- 				console.log('<%=questionsList %>');
- 			});
+	      		$(function(){
+	 				console.log('<%=q %>');
+	 				console.log('<%=questionsList %>');
+	 			});
+	      		
+	      		
+	      		$('#delete').on('click', function(){
+	
+	    			swal({
+	    				title : '게시글 삭제',
+	    				text : '해당 게시글을 삭제하시겠습니까?',
+	    				value : true
+	    			}).then((ok) => {		
+	    				location.href = "<%= request.getContextPath() %>/qDelete.qu?bNo=" + bNo;	
+	    				swal("삭제 완료", "해당 게시글이 삭제되었습니다.", "success")
+	    			});
+	    			return true;
+	    			
+	    		});
+	      		
+	      		
+      		
       		</script>
 		</section>
 </body>

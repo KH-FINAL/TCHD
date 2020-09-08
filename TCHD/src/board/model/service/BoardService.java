@@ -715,4 +715,26 @@ public class BoardService {
 		return count;
 	}
 
+
+
+	public int deleteQuestions(int bNo) {
+		Connection conn = getConnection();
+		BoardDAO dao = new BoardDAO();
+		int result = dao.deleteBoard(conn, bNo);
+		int result1 = 0;
+		int result2 = 0;
+		if(result > 0) {
+			result1 = dao.deleteQuestions(conn, bNo);
+			result2 = dao.deleteFiles(conn, bNo);
+			
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result1;
+		
+	}
+
 } // class end
