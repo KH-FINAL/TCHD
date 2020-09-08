@@ -55,7 +55,6 @@ public class BoardDAO {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
-			pstmt.setInt(3, 2); //bo_type 1  입양게시판
 			rset = pstmt.executeQuery();
 			
 			list = new ArrayList<Adopt>();
@@ -101,7 +100,7 @@ public class BoardDAO {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
-			pstmt.setInt(3, 1); //bo_type 1  입양게시판
+			pstmt.setInt(3, 0);
 			rset = pstmt.executeQuery();
 			
 			list = new ArrayList<Files>();

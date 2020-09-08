@@ -69,18 +69,18 @@
 			<ol id="asking" class="write">
 				<li>
 					입양을 결심하게 된 계기를 말해 주세요.<br>				<!-- required : 텍스트 입력이 필수임을 나타냄 -->
-					<textarea id="answer1" name="answer1" required></textarea>
+					<textarea id="answer1" class="answer" name="answer1" required></textarea>
 					<span id="counter1">0</span>/300
 				</li>
 				<li>
 					개를 혼자서 입양하십니까? 함께 입양하는 가족/동거인이 있다면 정보를 알려주세요.<br>
-					<textarea id="answer2" name="answer2" required></textarea>
+					<textarea id="answer2" class="answer" name="answer2" required></textarea>
 					<span id="counter2">0</span>/300
 				</li>
 				<li>
 					반려동물을 키우신 적 있습니까? 성인이 된 후 개를 기른 적이 있나요?<br>
 					만약 있다면 그 동물에 대해 알려 주세요.<br>
-					<textarea id="answer3" name="answer3" placeholder="없으시면 없다고 적어주세요" required></textarea>
+					<textarea id="answer3" class="answer" name="answer3" placeholder="없으시면 없다고 적어주세요" required></textarea>
 					<span id="counter3">0</span>/300
 				</li>
 			</ol>
@@ -90,17 +90,17 @@
 			<ol id="promise" class="write">
 				<li>
 					반려동물과 앞으로 15년간 평생을 함께 할 준비가 되셨습니까?<br>
-					<textarea id="answer4" name="answer4" required></textarea>
+					<textarea id="answer4" class="answer" name="answer4" required></textarea>
 					<span id="counter4">0</span>/300
 				</li>
 				<li>
 					반려동물과 함께 이사를 갈 수 있기 위해 어떤 계획을 가지고 계십니까?<br>
-					<textarea id="answer5" name="answer5" required></textarea>
+					<textarea id="answer5" class="answer" name="answer5" required></textarea>
 					<span id="counter5">0</span>/300
 				</li>
 				<li>
 					휴가를 간다면 그 사이 반려동물을 위해 어떤 준비를 해 줄 생각이십니까?<br>
-					<textarea id="answer6" name="answer6" required></textarea>
+					<textarea id="answer6" class="answer" name="answer6" required></textarea>
 					<span id="counter6">0</span>/300
 				</li>
 				<li>
