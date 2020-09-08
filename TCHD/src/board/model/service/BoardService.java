@@ -737,18 +737,6 @@ public class BoardService {
 		
 	}
 
-
-
-	public ArrayList<Adopt> selectAdopt(PageInfo pi) {
-		Connection conn = getConnection();
-		
-		ArrayList<Adopt> adoptList = new BoardDAO().selectAdoptList(conn, pi);
-		
-		close(conn);
-		
-		return adoptList;
-	}
-
 	
 	public int updateQuestions(Questions qu, Files file) {
 		Connection conn = getConnection();

@@ -5,7 +5,6 @@
 	ArrayList<Adopt> aList = (ArrayList<Adopt>)request.getAttribute("aList");
 	ArrayList<Files> fList = (ArrayList<Files>)request.getAttribute("fList");
 	String userId = (String)request.getAttribute("userId");
-	ArrayList<Adopt> adoptList = (ArrayList<Adopt>)request.getAttribute("adoptList");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	
 	int listCount = pi.getListCount();

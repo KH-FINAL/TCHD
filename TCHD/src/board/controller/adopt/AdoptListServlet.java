@@ -70,17 +70,20 @@ public class AdoptListServlet extends HttpServlet {
 		
 		if((Member)session.getAttribute("loginUser") == null) {
 			
-//			ArrayList<Adopt> aList = service.selectTList(1);
-//			ArrayList<Files> fList = service.selectTList(2);
 			PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
 			ArrayList<Adopt> aList = service.selectTList(1, pi);
 			ArrayList<Files> fList = service.selectTList(2, pi);
-//			ArrayList<Adopt> adoptList = service.selectAdopt(pi);
-			
+			for(int i = 0; i < aList.size(); i++) {
+				System.out.println("목록보기 비회원 입양 :"+aList.get(i));
+			}
+			for(int i = 0; i < fList.size(); i++) {
+				System.out.println("목록보기 비회원 파일 :"+fList.get(i));
+			}
+				
+				
 			if(aList != null && fList != null) {	
 				request.setAttribute("aList", aList);
 				request.setAttribute("fList", fList);
-//				request.setAttribute("adoptList", adoptList);
 				request.setAttribute("pi", pi);
 				request.setAttribute("section", "WEB-INF/views/adopt/adoptList.jsp");
 				request.getRequestDispatcher("index.jsp").forward(request, response);
@@ -95,13 +98,18 @@ public class AdoptListServlet extends HttpServlet {
 			PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
 			ArrayList<Adopt> aList = service.selectTList(1, pi);
 			ArrayList<Files> fList = service.selectTList(2, pi);
-//			ArrayList<Adopt> adoptList = service.selectAdopt(pi);
+			
+			for(int i = 0; i < aList.size(); i++) {
+				System.out.println("목록보기 회원 게시글번호 :"+aList.get(i).getBoNo());
+			}
+			for(int i = 0; i < fList.size(); i++) {
+				System.out.println("목록보기 회원 파일번호 :"+fList.get(i).getFileNo());
+			}
 			
 			if(aList != null && fList != null) {
 				request.setAttribute("userId", userId);
 				request.setAttribute("aList", aList);
 				request.setAttribute("fList", fList);
-//				request.setAttribute("adoptList", adoptList);
 				request.setAttribute("pi", pi);
 				request.setAttribute("section", "WEB-INF/views/adopt/adoptList.jsp");
 				request.getRequestDispatcher("index.jsp").forward(request, response);

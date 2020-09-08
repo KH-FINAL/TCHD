@@ -42,7 +42,7 @@ public class AdoptDetailServlet extends HttpServlet {
 		String rescue = (adopt.getPetRescueDate()).toString();
 		
 		if(adopt != null && fileList != null ) {
-//			request.setAttribute("bNo", bNo);
+			request.setAttribute("bNo", bNo);
 			request.setAttribute("adopt", adopt);
 			request.setAttribute("rescue", rescue);
 			request.setAttribute("fileList", fileList);

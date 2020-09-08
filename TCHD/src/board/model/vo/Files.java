@@ -5,6 +5,7 @@ import java.sql.Date;
 public class Files {
 	private int fileNo;
 	private int boNo;
+	private int boType;
 	private String orignName;
 	private String changeName;
 	private String filePath;
@@ -20,20 +21,6 @@ public class Files {
 		this.changeName = changeName;
 	}
 	
-	public Files(int fileNo, int boNo, String orignName, String changeName, String filePath, Date uploadDate,
-			int fileLevel, int downloadCount, String status) {
-		super();
-		this.fileNo = fileNo;
-		this.boNo = boNo;
-		this.orignName = orignName;
-		this.changeName = changeName;
-		this.filePath = filePath;
-		this.uploadDate = uploadDate;
-		this.fileLevel = fileLevel;
-		this.downloadCount = downloadCount;
-		this.status = status;
-	}
-
 	// 수정하기 
 	public Files(int boNo, String orignName, String changeName, String filePath, int fileLevel) {
 		super();
@@ -44,6 +31,40 @@ public class Files {
 		this.fileLevel = fileLevel;
 	}
 	
+	
+	// 목록보기
+	public Files(int fileNo, int boNo, int boType, String orignName, String changeName, String filePath,
+			Date uploadDate, int fileLevel, String status) {
+		super();
+		this.fileNo = fileNo;
+		this.boNo = boNo;
+		this.boType = boType;
+		this.orignName = orignName;
+		this.changeName = changeName;
+		this.filePath = filePath;
+		this.uploadDate = uploadDate;
+		this.fileLevel = fileLevel;
+		this.status = status;
+	}
+	
+	
+	public Files(int fileNo, int boNo, int boType, String orignName, String changeName, String filePath,
+			Date uploadDate, int fileLevel, int downloadCount, String status) {
+		super();
+		this.fileNo = fileNo;
+		this.boNo = boNo;
+		this.boType = boType;
+		this.orignName = orignName;
+		this.changeName = changeName;
+		this.filePath = filePath;
+		this.uploadDate = uploadDate;
+		this.fileLevel = fileLevel;
+		this.downloadCount = downloadCount;
+		this.status = status;
+	}
+	
+
+
 	public int getFileNo() {
 		return fileNo;
 	}
@@ -58,6 +79,14 @@ public class Files {
 
 	public void setBoNo(int boNo) {
 		this.boNo = boNo;
+	}
+	
+	public int getBoType() {
+		return boType;
+	}
+
+	public void setBoType(int boType) {
+		this.boType = boType;
 	}
 
 	public String getOrignName() {

@@ -44,10 +44,9 @@ public class BoardDAO {
 	public ArrayList selectAList(Connection conn, PageInfo pi) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<Adopt> alist = null;
+		ArrayList<Adopt> list = null;
 		
-//		String query = prop.getProperty("selectAList");
-		String query = prop.getProperty("selectAdoptList");
+		String query = prop.getProperty("selectAtList");
 		
 		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 		int endRow = startRow + pi.getBoardLimit() - 1;
@@ -59,9 +58,9 @@ public class BoardDAO {
 			pstmt.setInt(3, 2); //bo_type 1  입양게시판
 			rset = pstmt.executeQuery();
 			
-			alist = new ArrayList<Adopt>();
+			list = new ArrayList<Adopt>();
 			while(rset.next()) {
-				alist.add(new Adopt(rset.getInt("bo_no"),
+				list.add(new Adopt(rset.getInt("bo_no"),
 						rset.getInt("bo_type"),
 						rset.getString("cate_name"),
 						rset.getString("mem_id"),
@@ -85,13 +84,13 @@ public class BoardDAO {
 			close(pstmt);
 		}
 		
-		return alist;
+		return list;
 	}
 
 	public ArrayList selectFList(Connection conn, PageInfo pi) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<Files> flist = null;
+		ArrayList<Files> list = null;
 		
 		String query = prop.getProperty("selectFList");
 		
@@ -102,13 +101,21 @@ public class BoardDAO {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
-			pstmt.setInt(3, 2); //bo_type 1  입양게시판
+			pstmt.setInt(3, 1); //bo_type 1  입양게시판
+			rset = pstmt.executeQuery();
 			
-			flist = new ArrayList<Files>();
+			list = new ArrayList<Files>();
 			while(rset.next()) {
-				flist.add(new Files(rset.getInt("bo_no"),
-									rset.getString("change_name")));
-				
+				Files f = new Files(rset.getInt("file_no"),
+									rset.getInt("bo_no"),
+									rset.getInt("bo_type"),
+									rset.getString("origin_name"),
+									rset.getString("change_name"),
+									rset.getString("file_path"),
+									rset.getDate("upload_date"),
+									rset.getInt("file_level"),
+									rset.getString("status"));
+				list.add(f);
 			}
 			
 		} catch (SQLException e) {
@@ -118,7 +125,7 @@ public class BoardDAO {
 			close(pstmt);
 		}
 		
-		return flist;
+		return list;
 	}
 
 	public int getListCount(Connection conn, int boType) {
@@ -1716,6 +1723,7 @@ public class BoardDAO {
 		}
 		return count;
 	}
+	
 
 	public int deleteQuestions(Connection conn, int bNo) {
 		PreparedStatement pstmt = null;
@@ -1737,56 +1745,6 @@ public class BoardDAO {
 		return result;
 		
 	}
-
-	public ArrayList<Adopt> selectAdoptList(Connection conn, PageInfo pi) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<Adopt> adoptList = null;
-		
-		String query = prop.getProperty("selectAdoptList");
-		
-		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
-		int endRow = startRow + pi.getBoardLimit() - 1;
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			pstmt.setInt(3, 2); //bo_type 1  입양게시판
-			
-			rset = pstmt.executeQuery();
-			
-			adoptList = new ArrayList<Adopt>();
-			while(rset.next()) {
-				Adopt a = new Adopt(rset.getInt("bo_no"),
-									rset.getInt("bo_type"),
-									rset.getString("cate_name"),
-									rset.getString("mem_id"),
-									rset.getString("pet_kinds"),
-									rset.getString("pet_category"),
-									rset.getString("pet_gender"),
-									rset.getString("pet_unigender"),
-									rset.getString("pet_name"),
-									rset.getString("pet_age"),
-									rset.getDate("pet_rescue_date"),
-									rset.getFloat("pet_weight"),
-									rset.getString("pet_color"),
-									rset.getString("pet_size"),
-									rset.getString("pet_comment"));
-				adoptList.add(a);
-			}
-			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return adoptList;
-	}
-
 
 
 	public int updateQuestions1(Connection conn, Questions qu) {
