@@ -65,7 +65,7 @@ public class VolunteerInsertServlet extends HttpServlet {
 			String voDate2 = multiRequest.getParameter("voDate");
 			String[] vo_dateArr = voDate2.split("-");
 			int year = Integer.parseInt(vo_dateArr[0]);
-			int month = Integer.parseInt(vo_dateArr[1])-1;
+			int month = Integer.parseInt(vo_dateArr[1]);
 			String month2 = null;
 			if(month<10) {month2="0"+month;}else {month2=month+"";}
 			int day = Integer.parseInt(vo_dateArr[2].split("T")[0]);

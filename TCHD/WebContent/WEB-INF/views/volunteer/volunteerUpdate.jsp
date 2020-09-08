@@ -1,8 +1,17 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="board.model.vo.Volunteer" %>
 <%
 	Volunteer v = (Volunteer)request.getAttribute("volunteer");
+	System.out.println(v);
+	///////
+	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	String voDate = format.format(v.getVoDate());
+	voDate = voDate.replace(' ', 'T');
+	//////
+	String voPlace = v.getVoPlace();
+	String[] voPlaceArr= voPlace.split(",");
 	int fileNo = (int)request.getAttribute("fileNo");
 %>
 <!DOCTYPE html>
@@ -15,7 +24,13 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 //---------------------------------------------------------------------------------------
-    $(function(){ // 주소 검색 api.
+    $(function(){ 
+    	$('.board_table_td').val('<%=v.getVoArea()%>'); 
+    	$('#voDate').val('<%=voDate%>');
+    	$('#zoneCode').val('<%=voPlaceArr[0]%>');
+    	$('#mainAddress').val('<%=voPlaceArr[1]%>');
+    	$('#detailAddress').val('<%=voPlaceArr[2]%>');
+    	// 주소 검색 api.
     	$('.searchAddress').click(function(){
 			new daum.Postcode({
 				oncomplete: function(data) {
@@ -37,6 +52,8 @@
 				}
 			}).open();
 		});
+    
+    	
     });
 
 //---------------------------------------------------------------------------------------
@@ -108,7 +125,7 @@
 					<tr>
 						<th>봉사일시 <span id="star">*</span></th>
 						<td class="board_table_td">
-							<input type="datetime-local" class="allbutton" name="input_voDate" value="<%= v.getVoDate() %>">
+							<input type="datetime-local" class="allbutton" id="voDate" name="input_voDate" >
 						</td>
 					</tr>
 					<tr>

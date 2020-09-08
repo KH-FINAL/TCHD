@@ -2,6 +2,7 @@ package board.controller.volunteer;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.GregorianCalendar;
 
 import javax.servlet.ServletException;
@@ -53,16 +54,7 @@ public class VolunteerUpdateFormServlet extends HttpServlet {
 		
 		// 봉사 일시. (주석처리해둔 시간까지 받으면 배열 오류 남.)
 		String voDate2 = request.getParameter("voDate");
-		String[] vo_dateArr = voDate2.split("-");
-		int year = Integer.parseInt(vo_dateArr[0]);
-		int month = Integer.parseInt(vo_dateArr[1])-1;
-		int day = Integer.parseInt(vo_dateArr[2].split("T")[0]);
-//		int hour = Integer.parseInt(vo_dateArr[2].split("T")[1].split(":")[0]);
-//		int min = Integer.parseInt(vo_dateArr[2].split("T")[1].split(":")[1]);
-//		System.out.println("convert_voDate : " + year + "-" + (month + 1) + "-" + day + " " + hour + " : " + min);
-		System.out.println("convert_voDate : " + year + "-" + (month + 1) + "-" + day);
-//		Date voDate = new Date(new GregorianCalendar(year, month, day, hour, min).getTimeInMillis());
-		Date voDate = new Date(new GregorianCalendar(year, month, day).getTimeInMillis());
+		Timestamp voDate = Timestamp.valueOf(voDate2);
 		
 		// 봉사지. (안됨)
 		String zonecode= request.getParameter("zoneCode");
@@ -72,6 +64,8 @@ public class VolunteerUpdateFormServlet extends HttpServlet {
 //		if(!zonecode.equals("")) {
 //			voPlace = "("+zonecode+")"+" "+address+", "+address2;
 //		}
+		String voPlace= request.getParameter("voPlace");
+		
 		
 		// 봉사 정원.
 		String voMaxmember2 = request.getParameter("voMaxmember");
@@ -80,14 +74,6 @@ public class VolunteerUpdateFormServlet extends HttpServlet {
 		// 내용.
 		String voComment = request.getParameter("voComment");
 		
-		// 글쓴 날짜(받아와야 하나?)
-		String boDate2 = request.getParameter("boDate");
-		String[] bo_dateArr = boDate2.split("-");
-		int boYear = Integer.parseInt(vo_dateArr[0]);
-		int boMonth = Integer.parseInt(vo_dateArr[1])-1;
-		int boDay = Integer.parseInt(vo_dateArr[2].split("T")[0]);
-		Date boDate = new Date(new GregorianCalendar(year, month, day).getTimeInMillis());
-		System.out.println(boDate);
 		
 		int fileNo=0;
 		if(request.getParameter("volunteerFileNo")!=null) {
@@ -95,7 +81,9 @@ public class VolunteerUpdateFormServlet extends HttpServlet {
 		}
 		
 //		Volunteer volunteer = new Volunteer(volBNo, volCateName, boTitle, voDate, voPlace, boDate, voMaxmember, voComment);
-		Volunteer volunteer = new Volunteer(volBNo, volCateName, volBoTitle, voDate, boDate, voMaxmember, voComment);
+//		Volunteer volunteer = new Volunteer(volBNo, volCateName, volBoTitle, voDate, null, voMaxmember, voComment);
+		Volunteer volunteer = new Volunteer(volBNo, 0, volCateName, volBoTitle, 0, null, 0, null, null, voMaxmember, 0, null, voDate, voArea, voPlace, voComment);
+		
 		System.out.println(volunteer);
 		request.setAttribute("fileNo", fileNo);
 		request.setAttribute("volunteer", volunteer);
