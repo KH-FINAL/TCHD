@@ -15,7 +15,7 @@ public class Support {
 	public Support() {}
 
 	public Support(String mem_id, int sup_price) {
-		// 회원
+		// 회원_신청
 		super();
 		this.mem_id = mem_id;
 		this.sup_price = sup_price;
@@ -23,10 +23,18 @@ public class Support {
 
 
 	public Support(int mem_no, int sup_price) {
-		// 비회원
+		// 비회원_신청
 		super();
 		this.mem_no = mem_no;
 		this.sup_price = sup_price;
+	}
+
+	public Support(int sup_no, int sup_price, Date sup_date) {
+		// 비회원_내역 조회
+		super();
+		this.sup_no = sup_no;
+		this.sup_price = sup_price;
+		this.sup_date = sup_date;
 	}
 
 	public Support(int mem_no, String mem_id, int sup_no, int sup_price, Date sup_date) {

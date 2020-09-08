@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import support.model.service.SupportService;
+import support.model.vo.Support;
 
 @WebServlet("/supportCheckSupNo.su")
 public class SupportCheckSupNoServlet extends HttpServlet {
@@ -26,9 +27,9 @@ public class SupportCheckSupNoServlet extends HttpServlet {
 			supNo = Integer.parseInt(input_supNo);
 		}
 		
-		int result = new SupportService().checkSupNo(supNo);
+		Support support = new SupportService().checkSupNo(supNo);
 		
-		if(result == 1) {
+		if(support != null) {
 			request.getSession().setAttribute("checkSupNo", "checked");
 			response.getWriter().println("1");
 		} else {

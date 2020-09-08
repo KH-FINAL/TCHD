@@ -118,10 +118,10 @@ public class SupportDAO {
 		return sup_no;
 	}
 
-	public int checkSupNo(Connection conn, int supNo) {
+	public Support checkSupNo(Connection conn, int supNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		int result = 0;
+		Support support = null;
 		
 		String query = prop.getProperty("checkSupNo");
 		
@@ -132,7 +132,9 @@ public class SupportDAO {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				result = 1;
+				support = new Support(rset.getInt("sup_no"), 
+									  rset.getInt("sup_price"), 
+									  rset.getDate("sup_date"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -140,6 +142,6 @@ public class SupportDAO {
 			close(pstmt);
 		}
 		
-		return result;
+		return support;
 	}
 }

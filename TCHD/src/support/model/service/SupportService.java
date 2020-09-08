@@ -59,13 +59,13 @@ public class SupportService {
 		return sup_no;
 	}
 
-	public int checkSupNo(int supNo) {
+	public Support checkSupNo(int supNo) {
 		Connection conn = getConnection();
 		
-		int result = new SupportDAO().checkSupNo(conn, supNo);
+		Support support = new SupportDAO().checkSupNo(conn, supNo);
 		
 		close(conn);
 		
-		return result;
+		return support;
 	}
 }
