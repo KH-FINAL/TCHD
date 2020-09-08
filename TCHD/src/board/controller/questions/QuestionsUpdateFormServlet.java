@@ -7,10 +7,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import board.model.vo.Notice;
+import board.model.vo.Questions;
+
 /**
  * Servlet implementation class QuestionsUpdateFormServlet
  */
-@WebServlet("/questionsUpdateForm.bo")
+@WebServlet("/updateForm.qu")
 public class QuestionsUpdateFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -19,22 +22,35 @@ public class QuestionsUpdateFormServlet extends HttpServlet {
      */
     public QuestionsUpdateFormServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		int bNo = Integer.parseInt(request.getParameter("bNo"));
+		String title = request.getParameter("qTitle");
+		String content = request.getParameter("qContent");
+		String subject  = request.getParameter("qSubject");
+
+		int fileNo=0;
+		if(request.getParameter("qFileNo")!=null) {
+			fileNo = Integer.parseInt(request.getParameter("qFileNo"));
+		}
+		
+		Questions qu = new Questions(bNo, title, content, null, null, 0, subject, 0);
+		System.out.println(qu);
+		request.setAttribute("fileNo", fileNo);
+		request.setAttribute("notice", qu);
+		request.setAttribute("section", "WEB-INF/views/questions/questionsUpdate.jsp");
+		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		doGet(request, response);
 	}
 
