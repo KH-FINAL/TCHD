@@ -15,7 +15,7 @@
 <body>
 	<section>
 		<div id="ment">보호동물 게시글 등록</div>
-   		<form action="<%= request.getContextPath() %>/adoptInsert.bo" method="post" encType="multipart/form-data" onsubmit="return checkSubmit();">			
+   		<form id="form" action="<%= request.getContextPath() %>/adoptInsert.bo" method="post" encType="multipart/form-data">			
    		<div id="area">
    			<div id="picture">
    				<table id="pictureTable">
@@ -164,7 +164,7 @@
 	   		</div>
 			<div id="buttonArea">
 		   		<button id="cancelButton" class="buttons">취소</button>
-		   		<button id="okButton" class="buttons">확인</button>
+		   		<button id="okButton" type="button" class="buttons">확인</button>
 		   	</div>
 	   	<script>
    		// 하고 싶은 말 글자 수 카운트 및 글자 수 제한
@@ -342,6 +342,17 @@
 	   			return false;
 	   		}
 	   		
+			swal({
+				title : "게시글 등록 성공", 
+				text : "목록화면으로 돌아갑니다", 
+				icon : "success",
+				buttons : true
+				}).then((ok) => {
+					if(ok){
+						$('#form').submit();
+					}
+				});
+			
    	   		return true;
    			
    	 	});
@@ -351,9 +362,6 @@
    			return false;
    		});
    		
-   		function checkSubmit(){
-   			swal("게시글 등록 성공", "목록화면으로 돌아갑니다", "success");
-   		}
    		
 	   	</script>
    	</form>
