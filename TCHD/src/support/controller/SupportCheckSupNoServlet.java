@@ -29,7 +29,7 @@ public class SupportCheckSupNoServlet extends HttpServlet {
 		int result = new SupportService().checkSupNo(supNo);
 		
 		if(result == 1) {
-			request.setAttribute("checkSupNo", "checked");
+			request.getSession().setAttribute("checkSupNo", "checked");
 			response.getWriter().println("1");
 		} else {
 			response.getWriter().println("0");

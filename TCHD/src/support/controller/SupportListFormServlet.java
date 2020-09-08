@@ -18,7 +18,7 @@ public class SupportListFormServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String checkSupNo = (String)request.getAttribute("checkSupNo");
+		String checkSupNo = (String)request.getSession().getAttribute("checkSupNo");
 		
 		if(session.getAttribute("loginUser") == null) {
 			// 비회원
@@ -27,6 +27,7 @@ public class SupportListFormServlet extends HttpServlet {
 				request.setAttribute("section", "WEB-INF/views/support/supportCheckSupNo.jsp");
 			} else {
 				// 후원 번호 체크 됐으면
+				request.getSession().setAttribute("checkSupNo", null);
 				request.setAttribute("section", "WEB-INF/views/support/supportList.jsp");
 			}
 		} else {
