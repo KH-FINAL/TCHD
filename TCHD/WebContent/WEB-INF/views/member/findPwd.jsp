@@ -43,7 +43,7 @@
 			</div>
 			<br>
 			<div id="input_button_div">
-				<button id="input_button" onclick="validate();">입력</button>
+				<button id="input_button" onclick="validate();">확인</button>
 			</div>
 
 			<!-- 로딩중 -->
@@ -95,7 +95,7 @@
 				if(e.keyCode == 13){
 					validate();
 				}
-			})
+			});
 		</script>
 	</section>
 </body>

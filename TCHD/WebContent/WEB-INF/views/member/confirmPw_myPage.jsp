@@ -79,7 +79,7 @@
 			if(e.keyCode == 13){
 				$("#checkBtn").click();
 			}
-		})
+		});
 	</script>
 </section>
 </body>

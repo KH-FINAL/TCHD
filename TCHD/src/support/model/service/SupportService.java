@@ -58,4 +58,14 @@ public class SupportService {
 		
 		return sup_no;
 	}
+
+	public int checkSupNo(int supNo) {
+		Connection conn = getConnection();
+		
+		int result = new SupportDAO().checkSupNo(conn, supNo);
+		
+		close(conn);
+		
+		return result;
+	}
 }

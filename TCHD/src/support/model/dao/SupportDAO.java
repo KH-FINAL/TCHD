@@ -117,4 +117,29 @@ public class SupportDAO {
 		
 		return sup_no;
 	}
+
+	public int checkSupNo(Connection conn, int supNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("checkSupNo");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, supNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = 1;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }

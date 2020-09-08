@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="css/support/support_list_check.css" rel="stylesheet" type="text/css">
+<link href="css/support/support_list.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<section>
