@@ -41,7 +41,7 @@
 					success: function(result){
 						console.log("result : " + result);
 						if(result == 1){
-							location.href="supportListForm.su";
+							location.href="supportListForm.su?supNo=" + supNo.val();
 						}else{
 							swal("","입력하신 후원 번호가 존재하지 않습니다.","error");
 							supNo.val("");

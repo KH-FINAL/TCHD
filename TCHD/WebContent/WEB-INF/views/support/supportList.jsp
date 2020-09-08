@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="member.model.vo.Member"%>
+<%@ page import="support.model.vo.Support, java.util.ArrayList"%>
 <%
-    Member loginUser = (Member)session.getAttribute("loginUser");
+    String supNo = (String)request.getAttribute("supNo");
+	Support support = (Support)request.getAttribute("support");
+	ArrayList<Support> supportList = (ArrayList<Support>)request.getAttribute("supportList");
 %>
 <!DOCTYPE html>
 <html>
@@ -15,34 +17,38 @@
 
 		<div id="main_div">
 			<div>
-				<div id="search_div">
-					<input type="month" id="search_button">
-<!-- 					<script>
-						$('#search_month').val() = new Date().toISOString().slice(0, 7);
-					</script> -->
+				<div id="search_date_div">
+					<input type="month" id="input_search_date">
+					<script>
+						var date = new Date().toISOString().slice(0, 7);
+// 						$("#input_search_date").html(date);
+// 						console.log($("#input_search_date").html());
+					</script>
 				</div>
 				<div id="support_list_div">
 					<table id="support_list_table">
 						<tr>
-							<th>번호</th>
-							<th>날짜</th>
-							<th>금액</th>
+							<th>후원 번호</th>
+							<th>후원 날짜</th>
+							<th>후원금</th>
 						</tr>
+					<% if(supNo == null){ %>
+						<%-- 회원 (로그인) --%>
+						<% for(Support supportMem : supportList){ %>
 						<tr>
-							<td>1</td>
-							<td>2020/08/01</td>
-							<td>10,000</td>
+							<td><%= supportMem.getSup_no() %></td>
+							<td><%= supportMem.getSup_date() %></td>
+							<td><%= supportMem.getSup_price() %></td>
 						</tr>
+						<% } %>
+					<% }else{ %>
+						<%-- 비회원 --%>
 						<tr>
-							<td>2</td>
-							<td>2020/08/05</td>
-							<td>50,000</td>
+							<td><%= support.getSup_no() %></td>
+							<td><%= support.getSup_date() %></td>
+							<td><%= support.getSup_price() %></td>
 						</tr>
-						<tr>
-							<td>3</td>
-							<td>2020/08/10</td>
-							<td>100,000</td>
-						</tr>
+					<% } %>
 					</table>
 				</div>
 			</div>

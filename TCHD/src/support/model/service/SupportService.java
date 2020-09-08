@@ -6,6 +6,7 @@ import static common.JDBCTemplate.commit;
 import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import support.model.dao.SupportDAO;
 import support.model.vo.Support;
@@ -62,10 +63,30 @@ public class SupportService {
 	public int checkSupNo(int supNo) {
 		Connection conn = getConnection();
 		
-		int result = new SupportDAO().checkSupNo(conn, supNo);
+		int check = new SupportDAO().checkSupNo(conn, supNo);
 		
 		close(conn);
 		
-		return result;
+		return check;
+	}
+
+	public Support selectListNonMem(String supNo) {
+		Connection conn = getConnection();
+		
+		Support support = new SupportDAO().selectListNonMem(conn, supNo);
+		
+		close(conn);
+		
+		return support;
+	}
+
+	public ArrayList<Support> selectListMem(int mem_no) {
+		Connection conn = getConnection();
+		
+		ArrayList<Support> supportList = new SupportDAO().selectListMem(conn, mem_no);
+		
+		close(conn);
+		
+		return supportList;
 	}
 }

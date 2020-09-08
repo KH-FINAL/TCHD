@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import support.model.vo.Support;
@@ -121,7 +122,7 @@ public class SupportDAO {
 	public int checkSupNo(Connection conn, int supNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		int result = 0;
+		int check = 0;
 		
 		String query = prop.getProperty("checkSupNo");
 		
@@ -132,7 +133,7 @@ public class SupportDAO {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				result = 1;
+				check = 1;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -140,6 +141,62 @@ public class SupportDAO {
 			close(pstmt);
 		}
 		
-		return result;
+		return check;
+	}
+
+	public Support selectListNonMem(Connection conn, String supNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Support support = null;
+		
+		int supNo_int = Integer.parseInt(supNo);
+		String query = prop.getProperty("selectListNonMem");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, supNo_int);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				support = new Support(rset.getInt("sup_no"), 
+									  rset.getInt("sup_price"), 
+									  rset.getDate("sup_date"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return support;
+	}
+
+	public ArrayList<Support> selectListMem(Connection conn, int mem_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Support> supportList = new ArrayList<Support>();
+		
+		String query = prop.getProperty("selectListMem");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mem_no);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Support support = new Support(rset.getInt("sup_no"), 
+									  rset.getInt("sup_price"), 
+									  rset.getDate("sup_date"));
+				supportList.add(support);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return supportList;
 	}
 }

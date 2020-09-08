@@ -26,9 +26,9 @@ public class SupportCheckSupNoServlet extends HttpServlet {
 			supNo = Integer.parseInt(input_supNo);
 		}
 		
-		int result = new SupportService().checkSupNo(supNo);
+		int check = new SupportService().checkSupNo(supNo);
 		
-		if(result == 1) {
+		if(check == 1) {
 			request.getSession().setAttribute("checkSupNo", "checked");
 			response.getWriter().println("1");
 		} else {
