@@ -164,7 +164,7 @@
 	   		</div>
 			<div id="buttonArea">
 		   		<button id="cancelButton" class="buttons">취소</button>
-		   		<button id="okButton" type="submit" class="buttons" onclick="submitButton();">확인</button>
+		   		<button id="okButton" class="buttons">확인</button>
 		   	</div>
 	   	<script>
    		// 하고 싶은 말 글자 수 카운트 및 글자 수 제한
@@ -220,8 +220,6 @@
    						break;
    					}
    				}
-   				console.log($('#contentImg1'));
-   				console.log(typeof($('#contentImg1')));
    				reader.readAsDataURL(value.files[0]);
    			}	   			
    		}
@@ -343,20 +341,19 @@
 	   			rescue.focus();
 	   			return false;
 	   		}
-   			swal("게시글 등록", "게시글이 등록되었습니다", "success")		// 억울하다. 확인 안눌렀는데 왜 이동되는데
-   			.then((ok) => {
-   				if(ok){
-   					location.href = "<%= request.getContextPath() %>/adoptInsert.bo";
-   				}
-   			});
-   			
+	   		
    	   		return true;
+   			
    	 	});
    		
    		$('#cancelButton').on('click', function(){
    			location.href='<%= request.getContextPath() %>/adopt.bo';
    			return false;
    		});
+   		
+   		function checkSubmit(){
+   			swal("게시글 등록 성공", "목록화면으로 돌아갑니다", "success");
+   		}
    		
 	   	</script>
    	</form>

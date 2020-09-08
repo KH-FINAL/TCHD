@@ -5,6 +5,14 @@
 	ArrayList<Adopt> aList = (ArrayList<Adopt>)request.getAttribute("aList");
 	ArrayList<Files> fList = (ArrayList<Files>)request.getAttribute("fList");
 	String userId = (String)request.getAttribute("userId");
+	ArrayList<Adopt> adoptList = (ArrayList<Adopt>)request.getAttribute("adoptList");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
 %>
 <!DOCTYPE html>
 <html>
@@ -105,14 +113,37 @@
 					<% } %>
 				<% } %>
 			</div>
-			<div class="paging">
-                <a href="#" class="bt">이전 페이지</a>
-                <a href="#" class="num on">1</a>
-                <a href="#" class="num">2</a>
-                <a href="#" class="num">3</a>
-                <a href="#" class="bt">다음 페이지</a>
-			</div>
 		</div>
+			<!-- 페이징 -->
+			<div class="paging">
+			
+				<!-- 이전 페이지 -->
+				<a href="adopt.bo?currentPage=<%= currentPage - 1 %>" class="bt" id="beforeBtn">이전 페이지</a>
+				<script>
+					if(<%= currentPage %> <= 1){
+						var before = $('#beforeBtn');
+						before.css("visibility", "hidden");
+					}
+				</script>
+				
+				<!--  페이지 목록 -->
+				<% for(int p = startPage; p <= endPage; p++){ %>
+					<% if(p == currentPage){ %>
+                		<a href="adopt.bo?currentPage=<%= p %>" class="num on"><%= p %></a>
+                	<% } else { %>	
+		                <a href="adopt.bo?currentPage=<%= p %>" class="num"><%= p %></a>
+		            <% } %>
+	            <% } %>
+	            
+	            <!-- 다음 페이지 -->
+                <a href="adopt.bo?currentPage=<%= currentPage + 1 %>" class="num" id="afterBtn">다음 페이지</a>
+                <script>
+                	if(<%= currentPage %> >= <%= maxPage%>){
+                		var after = $('#afterBtn');
+                		after.css("visibility", "hidden");
+                	}
+                </script>
+			</div>
 	</form>
 		<script>
 		function writeForm(){

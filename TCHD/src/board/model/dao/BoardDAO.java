@@ -1727,4 +1727,53 @@ public class BoardDAO {
 		
 	}
 
+	public ArrayList<Adopt> selectAdoptList(Connection conn, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Adopt> adoptList = null;
+		
+		String query = prop.getProperty("selectAdoptList");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			pstmt.setInt(3, 2); //bo_type 1  입양게시판
+			
+			rset = pstmt.executeQuery();
+			
+			adoptList = new ArrayList<Adopt>();
+			while(rset.next()) {
+				Adopt a = new Adopt(rset.getInt("bo_no"),
+									rset.getInt("bo_type"),
+									rset.getString("cate_name"),
+									rset.getString("mem_id"),
+									rset.getString("pet_kinds"),
+									rset.getString("pet_category"),
+									rset.getString("pet_gender"),
+									rset.getString("pet_unigender"),
+									rset.getString("pet_name"),
+									rset.getString("pet_age"),
+									rset.getDate("pet_rescue_date"),
+									rset.getFloat("pet_weight"),
+									rset.getString("pet_color"),
+									rset.getString("pet_size"),
+									rset.getString("pet_comment"));
+				adoptList.add(a);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return adoptList;
+	}
+
 }
