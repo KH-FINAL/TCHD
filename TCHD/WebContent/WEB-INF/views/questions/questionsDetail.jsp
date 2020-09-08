@@ -22,9 +22,16 @@
 <body>
  	<section><!-- <span>첨부파일 : example.PNG</span> -->
 		<div id = "ment" class="board_list_wrap">문의게시판</div>
-		
+		<form method="post" action="updateForm.qu">
      	<div class = "board_list_design">
      		<div class = "head_board">
+     			<input type="hidden" name="qNo" value="<%=q.getBoNo() %>">
+            	<input type="hidden" name="qTitle" value="<%=q.getBoTitle() %>">
+            	<input type="hidden" name="qContent" value="<%=q.getBoContent() %>">
+            	<input type="hidden" name="qSubject" value="<%=q.getMemLeave() %>">
+            	<% if(file!=null){%>
+            		<input type="hidden" name="qFileNo" value="<%=file.getFileNo() %>">
+            	<%} %>
      			<h1 div class = "title_area"><%= q.getBoTitle() %></h1>
      			<h4 div class = "info_area"><%= q.getMemId() %> | <%=q.getBoDate() %> | <%=q.getBoCount() %></h4>
      				
@@ -73,7 +80,7 @@
 				<div class="text_align_right">	
 				<% if(loginUser != null && q.getMemId().equals(loginUser.getMem_id())){ %> 
 					<input type="button" id="delete" class="btn_list" value="삭제하기">
-					<input type="submit" id="alter" class="btn_list" value="수정하기" onclick="location.href='<%= request.getContextPath()%>/questionsUpdateForm.bo?bNo=<%= q.getBoNo()%>'"/> 
+					<input type="submit" id="alter" class="btn_list" value="수정하기" onclick="location.href='<%= request.getContextPath()%>/updateForm.qu?bNo=<%= q.getBoNo()%>'"/> 
 				<% } else { %>
 					<input type="button" id="delete" class="btn_list" value="삭제하기" disabled="disabled"/>
 					<input type="button" id="alter" class="btn_list" value="수정하기" disabled="disabled"/>
@@ -113,6 +120,7 @@
 	      		
       		
       		</script>
+      		</form>
 		</section>
 </body>
 </html>		
