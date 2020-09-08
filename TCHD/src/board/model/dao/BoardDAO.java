@@ -41,21 +41,27 @@ public class BoardDAO {
 		}
 	}
 
-	public ArrayList selectAList(Connection conn) {
-		Statement stmt = null;
+	public ArrayList selectAList(Connection conn, PageInfo pi) {
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<Adopt> list = null;
+		ArrayList<Adopt> alist = null;
 		
-		String query = prop.getProperty("selectAList");
+//		String query = prop.getProperty("selectAList");
+		String query = prop.getProperty("selectAdoptList");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
 		
 		try {
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(query);
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			pstmt.setInt(3, 2); //bo_type 1  입양게시판
+			rset = pstmt.executeQuery();
 			
-			list = new ArrayList<Adopt>();
-			
+			alist = new ArrayList<Adopt>();
 			while(rset.next()) {
-				list.add(new Adopt(rset.getInt("bo_no"),
+				alist.add(new Adopt(rset.getInt("bo_no"),
 						rset.getInt("bo_type"),
 						rset.getString("cate_name"),
 						rset.getString("mem_id"),
@@ -76,26 +82,31 @@ public class BoardDAO {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-			close(stmt);
+			close(pstmt);
 		}
 		
-		return list;
+		return alist;
 	}
 
-	public ArrayList selectFList(Connection conn) {
-		Statement stmt = null;
+	public ArrayList selectFList(Connection conn, PageInfo pi) {
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<Files> list = null;
+		ArrayList<Files> flist = null;
 		
 		String query = prop.getProperty("selectFList");
 		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
 		try {
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(query);
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			pstmt.setInt(3, 2); //bo_type 1  입양게시판
 			
-			list = new ArrayList<Files>();
+			flist = new ArrayList<Files>();
 			while(rset.next()) {
-				list.add(new Files(rset.getInt("bo_no"),
+				flist.add(new Files(rset.getInt("bo_no"),
 									rset.getString("change_name")));
 				
 			}
@@ -104,10 +115,10 @@ public class BoardDAO {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-			close(stmt);
+			close(pstmt);
 		}
 		
-		return list;
+		return flist;
 	}
 
 	public int getListCount(Connection conn, int boType) {

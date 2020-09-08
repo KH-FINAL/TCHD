@@ -24,16 +24,16 @@ import support.model.vo.Support;
 
 public class BoardService {
 
-	public ArrayList selectTList(int i) {
+	public ArrayList selectTList(int i, PageInfo pi) {
 		Connection conn = getConnection();
 		
 		ArrayList list = null;
 		BoardDAO dao = new BoardDAO();
 		
 		if(i == 1) {
-			list = dao.selectAList(conn);
+			list = dao.selectAList(conn, pi);
 		} else { 
-			list = dao.selectFList(conn);
+			list = dao.selectFList(conn, pi);
 		}
 		
 		close(conn);

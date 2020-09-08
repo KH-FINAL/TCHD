@@ -46,7 +46,7 @@ public class AdoptListServlet extends HttpServlet {
 		int startPage;		//페이징 된 페이지 중 시작페이지
 		int endPage;		//페이징 된 페이지 중 마지막페이지
 		
-		listCount = service.getListCount(2);
+		listCount = service.getListCount(1);
 		
 		
 		currentPage = 1;
@@ -69,15 +69,18 @@ public class AdoptListServlet extends HttpServlet {
 
 		
 		if((Member)session.getAttribute("loginUser") == null) {
-			ArrayList<Adopt> aList = service.selectTList(1);
-			ArrayList<Files> fList = service.selectTList(2);
-			PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
-			ArrayList<Adopt> adoptList = service.selectAdopt(pi);
 			
-			if(aList != null && fList != null && adoptList != null) {	
+//			ArrayList<Adopt> aList = service.selectTList(1);
+//			ArrayList<Files> fList = service.selectTList(2);
+			PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
+			ArrayList<Adopt> aList = service.selectTList(1, pi);
+			ArrayList<Files> fList = service.selectTList(2, pi);
+//			ArrayList<Adopt> adoptList = service.selectAdopt(pi);
+			
+			if(aList != null && fList != null) {	
 				request.setAttribute("aList", aList);
 				request.setAttribute("fList", fList);
-				request.setAttribute("adoptList", adoptList);
+//				request.setAttribute("adoptList", adoptList);
 				request.setAttribute("pi", pi);
 				request.setAttribute("section", "WEB-INF/views/adopt/adoptList.jsp");
 				request.getRequestDispatcher("index.jsp").forward(request, response);
@@ -89,16 +92,16 @@ public class AdoptListServlet extends HttpServlet {
 		} else {
 			String userId = ((Member)session.getAttribute("loginUser")).getMem_id();
 			
-			ArrayList<Adopt> aList = service.selectTList(1);
-			ArrayList<Files> fList = service.selectTList(2);
 			PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
-			ArrayList<Adopt> adoptList = service.selectAdopt(pi);
+			ArrayList<Adopt> aList = service.selectTList(1, pi);
+			ArrayList<Files> fList = service.selectTList(2, pi);
+//			ArrayList<Adopt> adoptList = service.selectAdopt(pi);
 			
-			if(aList != null && fList != null && adoptList != null) {
+			if(aList != null && fList != null) {
 				request.setAttribute("userId", userId);
 				request.setAttribute("aList", aList);
 				request.setAttribute("fList", fList);
-				request.setAttribute("adoptList", adoptList);
+//				request.setAttribute("adoptList", adoptList);
 				request.setAttribute("pi", pi);
 				request.setAttribute("section", "WEB-INF/views/adopt/adoptList.jsp");
 				request.getRequestDispatcher("index.jsp").forward(request, response);
