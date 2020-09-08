@@ -49,20 +49,10 @@
 						<th>내용 사진</th>
 						<td id="space3"> </td>
 						<td>
-<%-- 							<% for(int i = 1; i < fileList.size(); i++){ %> --%>
 							<div id="contentImgArea1" class="pictureArea">
-								<img id="contentImg1" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(1).getChangeName() %>"/>
-							</div>
-<%-- 							<% } %> --%>
-						</td>
-						<td>
-							<div id="contentImgArea2" class="pictureArea">
-								<img id="contentImg2" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(2).getChangeName() %>"/>
-							</div>
-						</td>
-						<td>
-							<div id="contentImgArea3" class="pictureArea">
-								<img id="contentImg3" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(3).getChangeName() %>"/>
+							<% for(int i = 1; i < fileList.size(); i++){ %>
+								<img id="contentImg1" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(i).getChangeName() %>"/>
+							<% } %>
 							</div>
 						</td>
 					</tr>

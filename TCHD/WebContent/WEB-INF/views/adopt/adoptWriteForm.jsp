@@ -72,7 +72,7 @@
 						</td>
 						<td class="firstTd"><span>*</span> 연령 </td>
 						<td id="ageTd" class="secondTd">
-							<select name="petAge">	
+							<select id="petAge" name="petAge">	
 								<option value="0"> ---------------------</option>
 								<option value="Puppy">Puppy(~ 6개월)</option>
 								<option value="Junior">Junior(7개월 ~ 2살)</option>
@@ -81,8 +81,8 @@
 							</select>
 						</td>
 						<td id="ageTd2">
-							<input type="text" id="ageDetail" name="petAgeDetail" placeholder="숫자"/>
-							<select name="detailAge">
+							<input type="text" id="ageDetail" name="petAgeDetail" maxlength=2 placeholder="숫자"/>
+							<select id="detailAge" name="detailAge">
 								<option value=0>----</option>
 								<option value="개월">개월</option>
 								<option value="살">살</option>
@@ -112,7 +112,7 @@
 							<span>*</span> 몸무게(kg) :
 						</td>
 						<td class="secondTd">		
-							<input type="number" id="weight" class="answer" name="petWeight" placeholder="ex. 0.0"/>
+							<input type="text" id="weight" class="answer" name="petWeight" maxlength=3 placeholder="ex. 0.0"/>
 						</td>
 					</tr>
 					<tr>
@@ -120,7 +120,7 @@
 							<span>*</span> 색깔 :
 						</td>
 						<td class="secondTd">
-							<input type="text" class="answer" name="petColor"/>
+							<input type="text" id="petColor" class="answer" name="petColor"/>
 						</td>
 					</tr>
 				</table>
@@ -162,6 +162,10 @@
 	   			<input type="file" id="thumbnailImg3" multiple="multiple" name="thumbnailImg3" onchange="LoadImg(this,3)"/>
 	   			<input type="file" id="thumbnailImg4" multiple="multiple" name="thumbnailImg4" onchange="LoadImg(this,4)"/>
 	   		</div>
+			<div id="buttonArea">
+		   		<button id="cancelButton" class="buttons">취소</button>
+		   		<button id="okButton" type="submit" class="buttons" onclick="submitButton();">확인</button>
+		   	</div>
 	   	<script>
    		// 하고 싶은 말 글자 수 카운트 및 글자 수 제한
    		$(document).ready(function(){
@@ -216,135 +220,145 @@
    						break;
    					}
    				}
-   				
+   				console.log($('#contentImg1'));
+   				console.log(typeof($('#contentImg1')));
    				reader.readAsDataURL(value.files[0]);
    			}	   			
    		}
    		
 // 정규표현식 -----------------------------------------------------------------------------------------------------   		
-
    		$(function(){
    			$('#ageDetail').on("keyup", function(){
 	   			var ageNum = $('#ageDetail').val();
-	   			console.log(typeof(ageNum));
-	   			console.log(ageNum);
-	   			ageNum = ageNum.replace(/[^0-9]/g, "");
+	   			ageNum = ageNum.replace(/[^0-9]/g, "");		// 숫자만 쓰는 나이칸
 	   			$('#ageDetail').val(ageNum);
    			});
    			
    			$('#weight').on("keyup", function(){
    				var weight = $('#weight').val();
-   				console.log(typeof(weight));
-   				console.log(weight);
-   				weight = weight.replace(/\d*(\.\d{0,2})/g, "");
+   				weight = weight.replace(/[^\d*(\.\d{0,2})]/g, "");	// 몸무게는 소수점 1자리까지만 가능
    				$('#weight').val(weight);
+   			});
+   			
+   			$('#petName').on("keyup", function(){
+   				var name = $('#petName').val();
+   				name = name.replace(/[^가-힣]/g, "");			// 이름은 한글만 가능
+   				$('#petName').val(name);
+   			});
+   			
+   			$('#category').on("keyup", function(){
+   				var category = $('#category').val();
+   				category = category.replace(/[^가-힣]/g, "");	// 품종은 한글만 가능
+   				$('#category').val(category);
+   			});
+   			
+   			$('#petColor').on("keyup", function(){
+   				var color = $('#petColor').val();
+   				color = color.replace(/[^가-힣]/g, "");		// 털색은 한글만 가능
+   				$('#petColor').val(color);
+   			});
+   			
+   			$('#rescue').on("keyup", function(){
+   				var rescue = $('#rescue').val();
+   				rescue = rescue.replace(/[^0-9]/g, "");		// 날짜는 숫자만 가능
+   				$('#rescue').val(rescue);
+   			});
+   			
+   			$('#lastAnswer').on("keyup", function(){
+   				var answer = $('#lastAnswer').val();
+   				answer = answer.replace(/[^가-힣!\s\d]/g, "");	// 하고싶은 말은 한글, 숫자, 공백, ! 가능
    			});
    			
    		});
    		
 	   	
-   		function checkSubmit(){		// 정보 넘기는 함수
-   			
-   			
-   			
-   			
-   			
-   			
-   			
-   			
+   		$('#okButton').on("click", function(){		// 정보 넘기는 함수
+   			var size = $('#petSizes');			 // select : 소형(S), 중형(M), 대형(L)
+   			var age = $('#petAge');				 // select : Puppy, Junior, Adult, Senior
+	   		var ageNum = $('#ageDetail');		 // 숫자만 받는 나이칸
+	   		var ageStr = $('#detailAge');		 // select : 개월, 살 
+	   		var name = $('#petName');			 // 이름
+	   		var category = $('#category');		 // 품종
+	   		var weight = $('#weight');			 // 무게
+	   		var color = $('#petColor');			 // 털 색
+	   		var rescue = $('#rescue');			 // 구조일자
+	   		var thumbnail = $('#thumbnailImg1'); // 대표 사진
+	   		
+   			if(!thumbnail.val()){
+   				swal("", "대표사진을 첨부해주세요", "info");
+   				thumbnail.focus();
+   				return false;
+   			}
+	   		
+	   		if(size.val() == 0){
+	   			swal("", "크기를 선택해주세요", "info");
+	   			size.focus();
+	   			return false;
+	   		}
+	   		
+	   		if(age.val() == 0){
+	   			swal("", "나이구분을 선택해주세요", "info");
+	   			age.focus();
+	   			return false;
+	   		}
+	   		
+	   		if(ageNum.val().trim().length < 1){
+	   			swal("", "나이를 입력해주세요", "info");
+	   			ageNum.focus();
+	   			return false;
+	   		}
+	   		
+	   		if(ageStr.val() == 0){
+	   			swal("", "개월, 살을 선택해주세요", "info");
+	   			ageStr.focus();
+	   			return false;
+	   		}
+	   		
+	   		if(name.val().trim() == ""){
+	   			swal("", "이름을 입력해주세요", "info");
+	   			name.focus();
+	   			return false;
+	   		}
+	   		
+	   		if(category.val().trim() == ""){
+	   			swal("", "품종을 입력해주세요", "info");
+	   			category.focus();
+	   			return false;
+	   		}
+	   		
+	   		if(weight.val().trim() == ""){		
+	   			swal("", "몸무게를 입력해주세요", "info");
+	   			weight.focus();
+	   			return false;
+	   		}
+	   		
+	   		if(color.val().trim() == ""){
+	   			swal("", "털색을 입력해주세요", "info");
+	   			color.focus();
+	   			return false;
+	   		}
+	   	
+	   		if(rescue.val().trim() == ""){
+	   			swal("", "구조날짜를 입력해주세요", "info");
+	   			rescue.focus();
+	   			return false;
+	   		}
+   			swal("게시글 등록", "게시글이 등록되었습니다", "success")		// 억울하다. 확인 안눌렀는데 왜 이동되는데
+   			.then((ok) => {
+   				if(ok){
+   					location.href = "<%= request.getContextPath() %>/adoptInsert.bo";
+   				}
+   			});
    			
    	   		return true;
-   	 	}
-   			
-   			
-   			
+   	 	});
+   		
+   		$('#cancelButton').on('click', function(){
+   			location.href='<%= request.getContextPath() %>/adopt.bo';
+   			return false;
+   		});
+   		
 	   	</script>
-		<div id="buttonArea">
-	   		<button id="cancelButton" class="buttons" onclick="location.href='<%= request.getContextPath() %>/adopt.bo">취소</button>
-	   		<button id="okButton" type="submit" class="buttons">확인</button>
-	   	</div>
-   	<script>
-
-//    	function okSubmit(){			/* 왜 안도ㅐ */
-//    		swal("게시물 등록", "게시물이 등록되었습니다", "info")
-//    		.then(ok) => {
-//    			if(ok){
-<%--    				location.href = "<%= request.getContextPath() %>/adoptInsert.bo"; --%>
-//    			}
-//    		});
-//    		return true;
-//    	}
-   	
-   	
-//    	function checkSubmit(){		// 정보 넘기는 함수
-// 		var select = $('#petSizes')   		
-   	// 개, 고양이 구분 체크박스 선택 유무 및 하나만 선택되게 하는 함수
-//    	function checkKind(chk){
-//    		var kinds = document.getElementsByName("petKind");
-//    		for(var i = 0; i < kinds.length; i++){
-//    			if(kinds[i] != chk){	// 아무것도 선택 안할 시
-//    				kinds[i] = false;
-//    				return false;
-//    			}
-//    		}
-//    	}
-   	
-//    	// 성별 구분 체크박스 선택 유무 및 하나만 선택되게 하는 함수
-//    	function checkGender(chk){
-//    		var gender = document.getElementsByName("petGender");
-//    		for(var i = 0; i < gender.lenght; i++){
-//    			if(gender[i] != chk){
-//    				gender[i] = false;
-//    				return false;
-//    			}
-//    		}
-//    	}
-//    		var ageNum = $('#ageDetail');
-//    		var name = $('#petName');
-//    		var category = $('#category');
-//    		var weight = $('#weight');
-//    		var color = $('#petColor');
-//    		var rescue = $('#rescue');
-   		
-//    		if(ageNum.val().trim().length < 1){
-//    			swal("", "나이를 입력해주세요", "info");
-//    			ageNum.focus();
-//    			return false;
-//    		}
-   		
-//    		if(name.val().trim().lenght < 1){
-//    			swal("", "이름을 입력해주세요", "info");
-//    			name.focus();
-//    			return false;
-//    		}
-   		
-//    		if(category.val().trim().lenght < 1){
-//    			swal("", "품종을 입력해주세요", "info");
-//    			category.focus();
-//    			return false;
-//    		}
-   		
-//    		if(weight.val().trim().lenght < 1){
-//    			swal("", "몸무게를 입력해주세요", "info");
-//    			weight.focus();
-//    			return false;
-//    		}
-   		
-//    		if(color.val().trim().lenght < 1){
-//    			swal("", "털색을 입력해주세요", "info");
-//    			color.focus();
-//    			return false;
-//    		}
-   	
-//    		if(rescue.val().trim().lenght < 1){
-//    			swal("", "이름을 입력해주세요", "info");
-//    			rescue.focus();
-//    			return false;
-//    		}
-//    		return true;
-   	
-//  	};
-   	</script>
    	</form>
 	</section>
 </body>

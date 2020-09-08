@@ -107,7 +107,7 @@
 	   				<% } %>
    				</div>
    				<% if(loginUser != null && adopt.getId().equals(loginUser.getMem_id())){ %> 
-					<input type="button" id="delete" class="threeButton" value="삭제하기" onclick="deleteForm();"/>
+					<input type="button" id="delete" class="threeButton" value="삭제하기"/>
 					<input type="submit" id="alter" class="threeButton" value="수정하기" onclick="location.href='<%= request.getContextPath()%>/adoptUpdateForm.bo?boNo=<%= adopt.getBoNo()%>'"/> 
 				<% } else { %>
 					<input type="button" id="delete" class="threeButton" value="삭제하기" disabled="disabled"/>
@@ -121,48 +121,7 @@
 			</div>
 	</form>		
 	<script>
-// 		$(function(){				/* jQuery */
-// 			$('.threeButton').hover(function(){
-// 				$(this).css('cursor', 'pointer');				
-// 			}, function(){
-// 				$(this).css('cursor', 'none');
-// 			})
-			
-// 			$('.smallPicture').hover(function(){
-// 				$(this).css('cursor', 'pointer');				
-// 			}, function(){
-// 				$(this).css('cursor', 'none');
-// 			})
-			
-// 			$('#homePicture').hover(function(){
-// 				$(this).css('cursor', 'pointer');
-// 				$('.switch').show();
-// 			}, function(){
-// 				$(this).css('cursor', 'none');
-// 				$('.switch').hide();
-// 			})
-// 		});
-		
-// 		var count = 1;
-// 		function changePicture(){
-// 			var home = document.getElementById('homePicture');
-// 			var img1 = document.getElementById('firstPicture');
-// 			var img2 = document.getElementById('secondPicture');
-// 			var img3 = document.getElementById('thirdPicture');
-			
-// 			if(count == 1){
-// 				home.src = "images/송이1.JPG";
-// 			} else if(count == 2){
-// 				home.src = "images/송이2.JPG";
-// 			} else {
-// 				home.src = "images/송이3.JPG";
-// 			}
-			
-// 			count++;
-// 		}
-		
-		function loginForm
-		(){
+		function loginForm(){
 			swal("회원 전용 서비스", "로그인 후 이용해주시기 바랍니다.", "info")
 			.then((ok) => {
 				if(ok){
@@ -172,42 +131,27 @@
 			return;
 		}
 		
-		function deleteForm(){
-			var result = confirm("해당 게시글을 삭제하시겠습니까?");
-			var bNo = <%= adopt.getBoNo() %>;
+		$('#delete').on('click', function(){
+// 			var result = confirm("해당 게시글을 삭제하시겠습니까?");
+<%-- 			var bNo = <%= adopt.getBoNo() %>; --%>
 			
-			if(result){
-				location.href = "<%= request.getContextPath() %>/adoptDelete.bo?boNo=" + bNo;
-				return true;
-			} else {
-				window.close();
-				return false;
-			}
-// 			swal({
-// 				title : "게시글 삭제",
-// 				text : "게시글을 삭제하시겠습니까?",
-// 				icon : "warning",
-// // 				buttons: ["아니오", "예"],
-// 				closeOnClickOutside : false,		// 창 밖을 눌렀을 때 닫힘 : true, 안 닫힘 : false
-// 			}).then((ok) => {
-// 				if(ok){
-<%-- 					location.href = "<%= request.getContextPath() %>/adoptDelete.bo?boNo=" + bNo; --%>
-// 					if(result > 0){
-// 						swal("게시글 삭제 완료", "해당 게시글이 삭제되었습니다.", "success");
-// 					}
-// 					return true;
-// 				} else {
-// 					swal.close();
-// 					return  false;
-// 				}
-// 			});
-
-		}
-// 			var result = confirm("해당 게시물을 삭제하시겠습니까?");
 // 			if(result){
-// 				alert("해당 게시물이 삭제되었습니다");
-// 			} else { 
-// 				close.self();
+<%-- 				location.href = "<%= request.getContextPath() %>/adoptDelete.bo?boNo=" + bNo; --%>
+// 				return true;
+// 			} else {
+// 				window.close();
+// 				return false;
+			swal({
+				title : '게시글 삭제',
+				text : '해당 게시글을 삭제하시겠습니까?',
+				value : true
+			}).then((ok) => {		// 왜 안 지워지지??? swal은 뜨는데
+				location.href = "<%= request.getContextPath() %>/adoptDelete.bo?boNo=" + bNo;	
+				swal("삭제 완료", "해당 게시글이 삭제되었습니다.", "success")
+			});
+			return true;
+			
+		});
 		
 	</script>
 </section>
