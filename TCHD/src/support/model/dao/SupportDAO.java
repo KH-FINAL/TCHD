@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import support.model.vo.Support;
@@ -118,16 +119,42 @@ public class SupportDAO {
 		return sup_no;
 	}
 
-	public Support checkSupNo(Connection conn, int supNo) {
+	public int checkSupNo(Connection conn, int supNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		Support support = null;
+		int check = 0;
 		
 		String query = prop.getProperty("checkSupNo");
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, supNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				check = 1;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return check;
+	}
+
+	public Support selectListNonMem(Connection conn, String supNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Support support = null;
+		
+		int supNo_int = Integer.parseInt(supNo);
+		String query = prop.getProperty("selectListNonMem");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, supNo_int);
 			
 			rset = pstmt.executeQuery();
 			
@@ -143,5 +170,33 @@ public class SupportDAO {
 		}
 		
 		return support;
+	}
+
+	public ArrayList<Support> selectListMem(Connection conn, int mem_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Support> supportList = new ArrayList<Support>();
+		
+		String query = prop.getProperty("selectListMem");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mem_no);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Support support = new Support(rset.getInt("sup_no"), 
+									  rset.getInt("sup_price"), 
+									  rset.getDate("sup_date"));
+				supportList.add(support);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return supportList;
 	}
 }

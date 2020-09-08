@@ -1,6 +1,7 @@
 package support.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import member.model.vo.Member;
+import support.model.service.SupportService;
 import support.model.vo.Support;
 
 @WebServlet("/supportListForm.su")
@@ -21,6 +24,7 @@ public class SupportListFormServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		int mem_no = ((Member)session.getAttribute("loginUser")).getMem_no();
 		String checkSupNo = (String)request.getSession().getAttribute("checkSupNo");
 		
 		if(session.getAttribute("loginUser") == null) {
@@ -35,15 +39,14 @@ public class SupportListFormServlet extends HttpServlet {
 				
 				String supNo = (String)request.getParameter("supNo");
 				request.setAttribute("supNo", supNo);
-				System.out.println("listFormServlet_supNo : " + supNo);
-				Support support = new Support();
-				System.out.println("listFormServlet_support : " + support);
-				System.out.println("listFormServlet_support_supNo : " + support.getSup_no());
-//				request.setAttribute(name, o);
+				Support support = new SupportService().selectListNonMem(supNo);
+				request.setAttribute("support", support);
 				request.setAttribute("section", "WEB-INF/views/support/supportList.jsp");
 			}
 		} else {
 			// 회원 (로그인)
+			ArrayList<Support> supportList = new SupportService().selectListMem(mem_no);
+			request.setAttribute("supportList", supportList);
 			request.setAttribute("section", "WEB-INF/views/support/supportList.jsp");
 		}
 		request.getRequestDispatcher("index.jsp").forward(request, response);
