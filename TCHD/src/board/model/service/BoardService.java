@@ -6,6 +6,7 @@ import static common.JDBCTemplate.getConnection;
 import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -19,6 +20,7 @@ import board.model.vo.Notice;
 import board.model.vo.PageInfo;
 import board.model.vo.Questions;
 import board.model.vo.Volunteer;
+import support.model.vo.Support;
 
 public class BoardService {
 
@@ -644,6 +646,38 @@ public class BoardService {
 	
 	}
 
+	public int deleteVolunteer(int bNo) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDAO().deleteVolunteer(conn,bNo);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+
+
+
+	public ArrayList<Support> selectManageSupport(Date searchDate,PageInfo pi) {
+		Connection conn =getConnection();
+		ArrayList<Support> supportList = new BoardDAO().selectManageSupport(conn,searchDate,pi);
+		close(conn);
+		return supportList;
+		
+	}
+
+
+
+	public int[] getManageSupportCount(Date searchDate) {
+		Connection conn= getConnection();
+		int[] count = new BoardDAO().getManageSupportCount(conn,searchDate);
+		close(conn);
+		return count;
+	}
+	
 	public int deleteAdopt(int bNo) {
 		Connection conn = getConnection();
 		BoardDAO dao = new BoardDAO();
@@ -663,23 +697,22 @@ public class BoardService {
 		return result1;
 	}
 
-	public int deleteVolunteer(int bNo) {
-		Connection conn = getConnection();
-		BoardDAO dao = new BoardDAO();
-		int result = dao.deleteBoard(conn, bNo);
-		int result1 = 0;
-		int result2 = 0;
-		if(result > 0) {
-			result1 = dao.deleteVolunteer(conn, bNo);
-			result2 = dao.deleteFiles(conn, bNo);
-			
-			commit(conn);
-		} else {
-			rollback(conn);
-		}
+
+
+	public ArrayList searchMyBoard(int mem_no,String searchBoard,PageInfo pi) {
+		Connection conn= getConnection();
+		ArrayList resultList = new BoardDAO().searchMyBoard(conn,mem_no,searchBoard,pi);
 		close(conn);
-		
-		return result1;
+		return resultList;
+	}
+
+
+
+	public int getSearchMyBoardCount(int mem_no, String searchBoard) {
+		Connection conn= getConnection();
+		int count = new BoardDAO().getSearchMyBoardCount(conn,mem_no,searchBoard);
+		close(conn);
+		return count;
 	}
 
 } // class end

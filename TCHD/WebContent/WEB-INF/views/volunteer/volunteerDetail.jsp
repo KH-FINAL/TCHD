@@ -1,9 +1,11 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="board.model.vo.*, board.model.vo.Volunteer, member.model.vo.Member, java.util.ArrayList, board.model.vo.Comments" %>
 <%
 	Volunteer v = (Volunteer)request.getAttribute("volunteer");
 	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	/* Member loginUser = (Member)session.getAttribute("loginUser"); */
 	/* 비회원도 상세보기 가능하게. */
 	/* Member loginUser = (Member)request.getSession().getAttribute("loginUser");
@@ -75,7 +77,7 @@
 						</tr>
 						<tr>
 							<td>
-								<div id="table_content"><%= v.getVoDate() %></div>
+								<div id="table_content"><%= format.format(v.getVoDate()) %></div>
 							</td>
 						</tr>
 						<tr>
@@ -125,7 +127,7 @@
 				<input type="button" class="go" value="목록보기" onclick="location.href='<%= request.getContextPath() %>/volunteerList.bo'">
 				<div class="text_align_right">
 				<!-- 글쓴 사람만 수정삭제버튼 보이게. -->
-				<% if(v.getMemId().equals(loginUser.getMem_id()) && loginUser != null) { %>
+				<% if(  loginUser != null  && v.getMemId().equals(loginUser.getMem_id())) { %>
 				<input type="submit" class="go" value="수정하기">
 				<input type="button" class="go" value="삭제하기" onclick="volDelete();"/>
 				<% } %>

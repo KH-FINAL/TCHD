@@ -81,7 +81,7 @@
 			//before.attr("href","");
 			before.css("visibility","hidden");
 		}
-		if(<%=currentPage %>== <%=maxPage%>){
+		if((<%=currentPage %>== <%=maxPage%> || <%=listCount%>==0)){
 			var before = $('#nextBtn');
 			//before.attr("href","");
 			before.css("visibility","hidden");
@@ -97,7 +97,7 @@
 				<li id="pageNaviTitle"><a href="approveGroupMember.me">관리자 페이지</a></li>
 				<li><a href="approveGroupMember.me">사업자(단체) 가입승인</a></li>
 				<li><a href="answerQuestionForm.bo">대기중인 문의사항</a></li>
-				<li><a href="#">후원관리</a></li>
+				<li><a href="manageSupport.bo">후원관리</a></li>
 			</ul>
 		</nav>
 		<div id="listMyBoardDiv">

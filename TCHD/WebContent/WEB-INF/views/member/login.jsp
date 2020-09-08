@@ -49,6 +49,12 @@
 		</div>
 
 		<script>
+			$('#input_pw').keyup(function(event){
+					if(event.keyCode==13){
+						validate();
+					}
+			});
+		
 			function validate(){
 				var id = $("#input_id");
 				var pwd = $("#input_pw");
@@ -84,19 +90,28 @@
 					
 					return;
 				}
-				
+					
 				$.ajax({
 					url: "login.me", 
 					type: "post", 
 					data: {userId:id.val(), userPwd:pwd.val()}, 
 					success: function(result){
 						console.log("result : " + result);
-						if(result == 1){
+						if(result == 1 || result==2){
 							location.href="<%=request.getContextPath()%>";
+						}else if(result==3){
+							swal("","아직 승인되지 않은 회원입니다.\n승인을 받기 전까지 특정게시판의 이용에 제한이 있습니다.","info")
+							.then((ok)=>{
+								if(ok){
+									location.href="<%=request.getContextPath()%>";									
+								}
+							});
 						}else{
 							swal("로그인 실패","입력한 정보를 가진 회원이 없습니다.","error");
+							
 							id.val("");
 							pwd.val("");
+							id.focus();
 						}
 					}, 
 					error: function(data){
@@ -104,12 +119,6 @@
 					}
 				});
 			}
-			
-			$("#input_id, #input_pw").keyup(function(e){
-				if(e.keyCode == 13){
-					validate();
-				}
-			})
 		</script>
 	</section>
 </body>

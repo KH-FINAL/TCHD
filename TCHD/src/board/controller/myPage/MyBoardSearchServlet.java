@@ -9,37 +9,29 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import board.model.service.BoardService;
-import board.model.vo.Board;
 import board.model.vo.PageInfo;
 import member.model.vo.Member;
 
-/**
- * Servlet implementation class MyBoardListServlet
- */
-@WebServlet("/listMyBoard.bo")
-public class MyBoardListServlet extends HttpServlet {
+
+@WebServlet("/searchMyBoard.bo")
+public class MyBoardSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public MyBoardListServlet() {
+ 
+    public MyBoardSearchServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if((Member)request.getSession().getAttribute("loginUser")==null) {
 			request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
 			request.setAttribute("errorMsg", "세션이 만료되었습니다. 다시 로그인해주세요.");
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
-		
-		Member loginUser = (Member)request.getSession().getAttribute("loginUser");
+		int mem_no =((Member)request.getSession().getAttribute("loginUser")).getMem_no();
+		String searchBoard = request.getParameter("board");
 		
 		BoardService bService = new BoardService();
 		
@@ -51,14 +43,11 @@ public class MyBoardListServlet extends HttpServlet {
 		int startPage;  // 페이징 된 페이지 중 시작 페이지
 		int endPage;   // 페이징 된 페이 중 마지막 페이지
 		
-		listCount = bService.selectMyBoardCount(loginUser.getMem_no());
-		System.out.println(listCount);
-		
+		listCount = bService.getSearchMyBoardCount(mem_no, searchBoard);
 		currentPage =1;
 		if(request.getParameter("currentPage")!=null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		
 		pageLimit = 3;
 		boardLimit = 10;
 		
@@ -69,26 +58,20 @@ public class MyBoardListServlet extends HttpServlet {
 		if(maxPage == endPage) {
 			endPage=maxPage;
 		}
-		
 		PageInfo pi = new PageInfo(currentPage,listCount,pageLimit,boardLimit,maxPage,startPage, endPage);
-		
-		
-		ArrayList<Board> boardList = new BoardService().selectMyBoard(loginUser.getMem_no(),pi);
-		HashMap<String, Integer> eachBoardCount = new BoardService().getEachBoardCount(loginUser.getMem_no());	
-		System.out.println(eachBoardCount);
+
+		  
+		ArrayList resultList =bService.searchMyBoard(mem_no,searchBoard,pi);
+		HashMap<String, Integer> eachBoardCount = new BoardService().getEachBoardCount(mem_no);	
 		
 		request.setAttribute("pi", pi);
 		request.setAttribute("eachBoardCount", eachBoardCount);
-		request.setAttribute("boardList", boardList);
+		request.setAttribute("boardList", resultList);
 		request.setAttribute("section", "WEB-INF/views/member/listMyBoard_myPage.jsp");
 		request.getRequestDispatcher("index.jsp").forward(request, response);
-		
-		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

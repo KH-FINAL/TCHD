@@ -61,7 +61,11 @@
 						</tr>
 						<% } else { %>
 						<%		for(Volunteer v : volunteerList){ %>
-						<tr class="is">
+						<%           if((v.getVoMaxmember()-v.getVoApplymember()) <= 0){ %>		
+						<tr class="is deadY">
+						<%			 }else{ %>
+						<tr class="is deadN">		
+						<%} %>
 							<td class="event"><%= v.getBoNo() %></td>					<!-- 게시글번호 -->
 							<td class="event"><%= v.getVoArea() %></td>				<!-- 봉사지역 -->
 							<td class="event" id="tit"><%= v.getBoTitle() %></td>	<!-- 게시글제목 -->

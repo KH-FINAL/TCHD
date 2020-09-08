@@ -3,10 +3,8 @@ package board.controller.volunteer;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
-import java.util.Calendar;
+import java.sql.Timestamp;
 import java.util.GregorianCalendar;
-import java.util.TimeZone;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,14 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
-
 import com.oreilly.servlet.MultipartRequest;
-
 import board.model.service.BoardService;
 import board.model.vo.Files;
 import board.model.vo.Volunteer;
 import common.MyFileRenamePolicy;
 import member.model.vo.Member;
+
 
 /**
  * Servlet implementation class VolunteerInsertServlet
@@ -45,9 +42,7 @@ public class VolunteerInsertServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		
 		if(ServletFileUpload.isMultipartContent(request)) {
-			// 파일 첨부.
 			int maxSize = 1024*1024*10;
 			String root = request.getSession().getServletContext().getRealPath("/");
 			String savePath = root + "upload_imageFiles/";
@@ -56,63 +51,64 @@ public class VolunteerInsertServlet extends HttpServlet {
 			if(!f.exists()) {
 				f.mkdirs();
 			}
-			
+	
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize,"UTF-8", new MyFileRenamePolicy()); 
 
 			String saveFile = multiRequest.getFilesystemName("input_file");	// form에서 전송되는 파일이름
 			String originFile = multiRequest.getOriginalFileName("input_file");	// form에서 전송되는 파일이름
-			
+		
 			// mem_no, selectBoard, boTitle, voArea
 			int mem_no = ((Member)session.getAttribute("loginUser")).getMem_no();
-		    System.out.println("mem_no:"+mem_no);
-		    
 			String selectBoard = multiRequest.getParameter("selectBoard");
-			
 			String boTitle = multiRequest.getParameter("boTitle");
-			System.out.println(boTitle);
-			
 			String voArea = multiRequest.getParameter("voArea");
-			
-			// 봉사 일시.
-//			String voDate = multiRequest.getParameter("voDate");
 			String voDate2 = multiRequest.getParameter("voDate");
 			String[] vo_dateArr = voDate2.split("-");
 			int year = Integer.parseInt(vo_dateArr[0]);
 			int month = Integer.parseInt(vo_dateArr[1])-1;
+			String month2 = null;
+			if(month<10) {month2="0"+month;}else {month2=month+"";}
 			int day = Integer.parseInt(vo_dateArr[2].split("T")[0]);
+			String day2 = null;
+			if(day<10) {day2="0"+day;}else {day2=day+"";}
 			int hour = Integer.parseInt(vo_dateArr[2].split("T")[1].split(":")[0]);
+			String hour2= null;
+			if(hour<10) { hour2="0"+hour;}else { hour2=hour+"";}
 			int min = Integer.parseInt(vo_dateArr[2].split("T")[1].split(":")[1]);
+			String min2 =null;
+			if(min<10) { min2="0"+min;}else {min2=min+"";}
+			//////////////////////////////////////
 			System.out.println("convert_voDate : " + year + "-" + (month + 1) + "-" + day + " " + hour + " : " + min);
-			Date voDate = new Date(new GregorianCalendar(year, month, day, hour, min).getTimeInMillis());
+			String inputDate = year+"-"+month2+"-"+day2+" "+hour2+":"+min2+":00";
+			System.out.println(inputDate);
+			Timestamp voDate = Timestamp.valueOf(inputDate);
 			System.out.println(voDate);
+//			Date voDate = new Date(new GregorianCalendar(year, month, day, hour, min).getTimeInMillis());
 //			String voDate2 = multiRequest.getParameter("voDate");
 //			String voDate2 = multiRequest.getParameter("voDate");
 //			Date voDate = Date.valueOf(voDate2);
 //			Date voDate = new Date(new GregorianCalendar(voDate2).getTimeInMillis());
-			
-			// 봉사지.
 //			String voPlace = multiRequest.getParameter("voPlace");
 			String zonecode= multiRequest.getParameter("zoneCode");
 			String address = multiRequest.getParameter("joinAddress");
 			String address2 = multiRequest.getParameter("joinAddress2");
 			String voPlace = null;
 			if(!zonecode.equals("")) {
-				voPlace = "("+zonecode+")"+" "+address+", "+address2;
+				voPlace = zonecode+","+address+","+address2;
 			}
+			System.out.println(zonecode+ "/"+voPlace);
 			System.out.println(zonecode);
 			System.out.println(address); 
 			System.out.println(address2);
-			
-			// 봉사 정원.
+			System.out.println(boTitle);
+
 			String voMaxmember2 = multiRequest.getParameter("voMaxmember");
 			int voMaxmember = Integer.parseInt(voMaxmember2);
-			
-			// 내용.
 			String voComment = multiRequest.getParameter("voComment");
 			
-			//
+//			Volunteer v = new Volunteer(3, boTitle, voArea, voDate, voPlace, voMaxmember, voComment, boType);
+//			Volunteer v = new Volunteer(3, boTitle, voArea, voDate, voPlace, voMaxmember, voComment);
 			Volunteer v = new Volunteer(3, boTitle, voArea, voDate, voPlace, voMaxmember, voComment, selectBoard, mem_no);
-			
 			Files uploadFile =  new Files();
 			uploadFile.setFilePath(savePath);
 			uploadFile.setOrignName(originFile);
@@ -131,6 +127,24 @@ public class VolunteerInsertServlet extends HttpServlet {
 				view.forward(request, response);
 			}
 		}
+//		String boTitle = request.getParameter("boTitle");
+//		String voArea = request.getParameter("voArea");
+//		String voDate = request.getParameter("voDate");
+//		String voPlace = request.getParameter("voPlace");
+//		String voMaxmember = request.getParameter("voMaxmember");
+//		String voComment = request.getParameter("voComment");
+		
+//		Volunteer volunteer = new Volunteer(boTitle, voArea, voDate, voPlace, voMaxmember, voComment);
+//		int result = new BoardService().selectVolunteer(volunteer);
+//		
+//		if(result > 0) {
+//			response.sendRedirect("volunteerList.bo");
+//		} else {
+//			request.setAttribute("msg", "게시글 등록에 실패하였습니다.");
+//			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp");
+//			view.forward(request, response);
+//		}
+		
 	}
 
 	/**

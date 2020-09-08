@@ -3,7 +3,7 @@
 #listMyBoardDiv{
 	
 	width: 800px;
-    height: 562px;
+    height: 600px;
 	text-align: center;
 	margin-left: 350px;
 }
@@ -104,7 +104,7 @@
 
 #popUpContent{
 	text-align: left;
-	height: 150px;
+	height: 190px;
 	width:100%;
 	font-size: 18px;
 	color: #333;
@@ -205,6 +205,36 @@ td#buttonTd{
 }
 #selectOptionDiv #month{
 	margin-left: 20px;
+}
+
+#selectOptionDiv button{
+	width: 68px;
+    height: 30px;
+    background-color: rgb(41, 128, 185);
+    color: rgb(255,255,255);
+    font-size: 16px;
+    border-style: none;
+    margin-left: 10px;
+}
+
+#totalPrice td{
+	text-align: right;
+	font-size: 20px;
+	text-align: right;
+	margin-bottom: 30px;
+	padding-right: 20px;
+}
+
+
+#totalPrice span{
+	font-size: 20px;
+	font-weight: 600;
+	color: rgb(41, 128, 185);
+}
+
+#totalPrice span#totalSpan{
+	margin-right: 330px;
+	color: #333333;
 }
 /* 수진쓰 페이징*/
  .paging {

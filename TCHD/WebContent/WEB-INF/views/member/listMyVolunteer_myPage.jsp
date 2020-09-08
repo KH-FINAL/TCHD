@@ -1,10 +1,11 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="member.model.vo.Member"%>
 <%@page import="board.model.vo.PageInfo, board.model.vo.Volunteer ,java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 	ArrayList<Volunteer> volunteerList = (ArrayList<Volunteer>)request.getAttribute("volunteerList"); 
-	System.out.println(volunteerList);
+	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
@@ -52,7 +53,7 @@
 						<%for(Volunteer v : volunteerList){ %>
 						<tr class="volunteerTr">
 							<input type="hidden" class="bNo" value="<%=v.getBoNo() %>">
-							<td><%=v.getVoDate() %></td>
+							<td><%=format.format(v.getVoDate()) %></td>
 							<td><%=v.getBoTitle() %></td>
 							<td><%=v.getVoPlace() %></td>
 						</tr>

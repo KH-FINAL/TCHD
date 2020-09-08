@@ -22,7 +22,6 @@
 <link rel="stylesheet" href="css/member/myPage_listMyBoard.css" type="text/css">
 <script type="text/javascript">
 $(function(){
-	console.log('<%=questionsList %>');	
 	
 	$('.answerBtn').click(function(){
 		console.log($(this).parent().parent().find(".qNo").val());
@@ -76,7 +75,7 @@ $(function(){
 		//before.attr("href","");
 		before.css("visibility","hidden");
 	}
-	if(<%=currentPage %>== <%=maxPage%>){
+	if((<%=currentPage %>== <%=maxPage%> || <%=listCount%>==0)){
 		var before = $('#nextBtn');
 		//before.attr("href","");
 		before.css("visibility","hidden");

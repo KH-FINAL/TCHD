@@ -97,6 +97,9 @@ public class MemberDAO {
 					   null,
 					   null
 						);
+				if(rset.getString("MEM_TYPE").equals("GM")) {
+					loginUser.setGm_ok_ny(rset.getString("GM_OK_YN"));
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

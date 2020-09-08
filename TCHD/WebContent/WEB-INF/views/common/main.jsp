@@ -44,7 +44,7 @@
 									"<div class='petName'>"+data[i].petName+"</div>"+
 									petKinds+" ("+data[i].petCategory+")<br>"+
 									gender+" (중성화 "+data[i].petUnigender+")<br>"+
-									age[1]+" / "+data[i].petWeight+"kg / "+data[i].petColor+"</div></div>";
+									age[0]+" / "+data[i].petWeight+"kg / "+data[i].petColor+"</div></div>";
 							article1.append(input);
 							$('#pet'+i).attr("onclick","location.href='adoptDetail.bo?boNo="+data[i].boNo+"'");
 						}
@@ -85,6 +85,11 @@
 				$(this).find('img').css("opacity","1.0");
 			});
 			
+			$('#article3').click(function(){
+				location.href="supportApplyForm.su";
+			}).mouseenter(function(){
+				$(this).css("cursor","pointer");
+			});
 			
 		});
 		

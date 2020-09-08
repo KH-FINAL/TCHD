@@ -28,15 +28,16 @@ public class VolunteerDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int bNo = Integer.parseInt(request.getParameter("volBNo"));
+		int bNo = Integer.parseInt(request.getParameter("bNo"));
 		
 		int result = new BoardService().deleteVolunteer(bNo);
 		
-		if(result > 0) {
-			request.setAttribute("volBNo", bNo);
+		if(result>0) {
 			response.sendRedirect("volunteerList.bo");
-		} else {
-			response.sendRedirect("views/volunteer/volunteerDetail.jsp");
+		}else {
+			request.setAttribute("errorMsg", "봉사게시판 게시글 삭제에 실패했습니다.");
+			request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
+			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
 	}
 

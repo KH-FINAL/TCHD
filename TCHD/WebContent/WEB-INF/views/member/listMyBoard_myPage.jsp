@@ -37,6 +37,9 @@ $(function(){
 	
 	$('.commentTd').click(function(){
 		$('#popUpDiv').css("display","block");
+		console.log($(this).find('.comDate'));
+		$('#popUpDate').append("<br>"+$(this).find('.comDate').val());
+		$('#popUpContent').append("<br><br>"+$(this).find('.comContent').val());
 	});
 	
 	$('#popUpCloseBtn').click(function(){
@@ -48,7 +51,7 @@ $(function(){
 			//before.attr("href","");
 			before.css("visibility","hidden");
 	}
-	if(<%=currentPage %>== <%=maxPage%>){
+	if((<%=currentPage %>== <%=maxPage%> || <%=listCount%>==0)){
 		var before = $('#nextBtn');
 		//before.attr("href","");
 		before.css("visibility","hidden");
@@ -76,11 +79,11 @@ $(function(){
 			<div id="listMyBoardTitle">내가 작성한 글</div>
 			<div id="listMyBoardContent">
 				<div id="selectMyBoard">
-					<a href="#">전체(<%=listCount %>)</a> |
-					<a href="#">입양(<%=adopt %>)</a> |
-					<a href="#">봉사(<%=volunteer %>)</a> |
-					<a href="#">댓글(<%=comment %>)</a> |
-					<a href="#">문의사항(<%=questions %>)</a>
+					<a href="listMyBoard.bo">전체(<%=total%>)</a> |
+					<a href="searchMyBoard.bo?board=입양게시판">입양(<%=adopt %>)</a> |
+					<a href="searchMyBoard.bo?board=봉사게시판">봉사(<%=volunteer %>)</a> |
+					<a href="searchMyBoard.bo?board=댓글">댓글(<%=comment %>)</a> |
+					<a href="searchMyBoard.bo?board=문의사항">문의사항(<%=questions %>)</a>
 				</div>
 				<div id="tableMyBoard">
 					<table>
@@ -92,18 +95,23 @@ $(function(){
 					<% if(!boardList.isEmpty()){ %>
 					<%	for(Board board : boardList){ %>
 						<tr class="boardTr">
-							<%if(board.getBoType()!=null){
-								String link="";
-								if(board.getBoType().equals("입양게시판")){ link="adoptDetail.bo?boNo=";}
-								else if(board.getBoType().equals("봉사게시판")){link="volunteerDetail.bo?bNo=";}
-								else if(board.getBoType().equals("문의사항")){link="detail.qu?bNo=";}
-								%>
+							<%if(board.getBoType()!=null){%>
 								<td><%=board.getBoType() %></td>
-								<td class="board2ndTd"  onclick="location.href='<%=link+board.getBoNo()%>'"><%=board.getBoTitle() %></td>
-							<%}else{ %>
-								<td>댓글<input type="hidden" value="<%=board.getBoNo() %>"></td>
-								<td class="board2ndTd commentTd"><%=board.getBoTitle() %></td>
-							<%} %>
+							<%	String link="";
+								if(board.getBoType().equals("입양게시판")){ link="adoptDetail.bo?boNo=";%>
+									<td class="board2ndTd"  onclick="location.href='<%=link+board.getBoNo()%>'"><%=board.getBoTitle() %></td>
+								<%}else if(board.getBoType().equals("봉사게시판")){link="volunteerDetail.bo?bNo=";%>
+									<td class="board2ndTd"  onclick="location.href='<%=link+board.getBoNo()%>'"><%=board.getBoTitle() %></td>
+								<%}else if(board.getBoType().equals("문의사항")){link="detail.qu?bNo=";%>
+									<td class="board2ndTd"  onclick="location.href='<%=link+board.getBoNo()%>'"><%=board.getBoTitle() %></td>
+								<%}else{%>
+									
+									<td class="board2ndTd commentTd"><%=board.getBoTitle() %>
+									<input type="hidden" class="comDate" value="<%=board.getBoDate() %>">
+									<input type="hidden" class="comContent" value="<%=board.getBoTitle() %>">
+									</td>
+								<%} %>
+							<%}%>
 							<td><%=board.getBoDate()%></td>
 						</tr>
 						<%} %>
@@ -131,7 +139,6 @@ $(function(){
 			</div>
 		</div>
 		<div id="popUpDiv">
-			<div id="popUpTitle">게시글제목</div>
 			<div id="popUpDate">작성일자</div>
 			<div id="popUpContent">댓글내용</div>
 			<button type="button" id="popUpCloseBtn">닫기</button>

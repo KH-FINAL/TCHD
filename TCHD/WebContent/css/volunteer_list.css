@@ -64,6 +64,10 @@
 }
 #deadline_Y{
 	color: #ccc;
+	
+}
+.deadY td{
+	color: #ccc;
 }
 /* 테이블에서 제목 왼쪽 정렬 */
 #tit {

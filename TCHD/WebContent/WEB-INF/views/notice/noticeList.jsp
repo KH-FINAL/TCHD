@@ -60,7 +60,7 @@
        <%} %>
       </div>
   		<div  class="paging">			
-			<a href="list.no?currentPage=<%=currentPage-1 %>" class="bt" id="beforBtn">이전 페이지</a>			
+			<a href="list.no?<%if(search!=null){%>search=<%=search %>&<%} %>currentPage=<%=currentPage-1 %>" class="bt" id="beforBtn">이전 페이지</a>			
 			<%for(int p=startPage; p<=maxPage; p++){ %>
 	   					<% if(p==currentPage){ %>
 	   					 <a href="list.no?<%if(search!=null){%>search=<%=search %>&<%} %>currentPage=<%=p %>" class="num on"><%=p %></a>
@@ -68,7 +68,7 @@
 	   					 <a href="list.no?<%if(search!=null){%>search=<%=search %>&<%} %>currentPage=<%=p %>" class="num"><%=p %></a>
 	   					<%} %>
 	   		<%} %>	
-   		  <a href="list.no?currentPage=<%=currentPage+1 %>" class="bt" id="nextBtn">다음 페이지</a>
+   		  <a href="list.no?<%if(search!=null){%>search=<%=search %>&<%} %>currentPage=<%=currentPage+1 %>" class="bt" id="nextBtn">다음 페이지</a>
           </div>	
    </section>
 <script>
@@ -87,7 +87,7 @@ $(function(){
 		//before.attr("href","");
 		before.css("visibility","hidden");
 	}
-	if(<%=currentPage %>== <%=maxPage%>){
+	if((<%=currentPage %>== <%=maxPage%> || <%=listCount%>==0)){
 		var before = $('#nextBtn');
 		//before.attr("href","");
 		before.css("visibility","hidden");

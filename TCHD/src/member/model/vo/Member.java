@@ -18,7 +18,7 @@ public class Member {
 	
 	private String gm_regno;
 	private String gm_name;
-	private char gm_ok_ny;
+	private String gm_ok_ny;
 	
 	
 	public Member() {
@@ -32,10 +32,6 @@ public class Member {
 		this.mem_id = mem_id;
 		this.mem_pw = mem_pw;
 	}
-
-
-
-
 
 
 	public Member(int mem_no,String mem_pw ,String mem_name, String mem_phone, String mem_addr, String mem_email, Date pm_birth) {
@@ -247,12 +243,12 @@ public class Member {
 	}
 
 
-	public char getGm_ok_ny() {
+	public String getGm_ok_ny() {
 		return gm_ok_ny;
 	}
 
 
-	public void setGm_ok_ny(char gm_ok_ny) {
+	public void setGm_ok_ny(String gm_ok_ny) {
 		this.gm_ok_ny = gm_ok_ny;
 	}
 

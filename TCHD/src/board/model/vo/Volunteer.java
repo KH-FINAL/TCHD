@@ -1,6 +1,7 @@
 package board.model.vo;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Volunteer {
 	private int boNo;				// 게시글 번호
@@ -15,14 +16,13 @@ public class Volunteer {
 	private int voMaxmember;		// 정원
 	private int voApplymember;		// 신청인원
 	private String voDeadline;		// 마감유무
-	private Date voDate;			// 봉사일시
-//	private String voDate;
+	private Timestamp voDate;			// 봉사일시;
 	private String voArea;			// 지역선택
 	private String voPlace;			// 봉사지
 	private String voComment;		// 내용
 	
 	public Volunteer(int boNo, int boType, String cateName, String boTitle, int boCount, Date boDate, int memNo,
-			String memId, String boDeleteYn, int voMaxmember, int voApplymember, String voDeadline, Date voDate,
+			String memId, String boDeleteYn, int voMaxmember, int voApplymember, String voDeadline, Timestamp voDate,
 			String voArea, String voPlace, String voComment) {
 		super();
 		this.boNo = boNo;
@@ -43,7 +43,7 @@ public class Volunteer {
 		this.voComment = voComment;
 	}
 
-	public Volunteer(int boNo, String cateName, String boTitle, Date voDate, String voPlace, Date boDate, int voMaxmember, String voComment) {
+	public Volunteer(int boNo, String cateName, String boTitle, Timestamp voDate, String voPlace, Date boDate, int voMaxmember, String voComment) {
 		super();
 		this.boNo = boNo;
 		this.cateName = cateName;
@@ -55,7 +55,7 @@ public class Volunteer {
 		this.voComment = voComment;
 	}
 	
-	public Volunteer(int boNo, String cateName, String boTitle, Date voDate, Date boDate, int voMaxmember, String voComment) {
+	public Volunteer(int boNo, String cateName, String boTitle, Timestamp voDate, Date boDate, int voMaxmember, String voComment) {
 		super();
 		this.boNo = boNo;
 		this.cateName = cateName;
@@ -67,7 +67,7 @@ public class Volunteer {
 	}
 	
 	public Volunteer(int boNo, int boType, String cateName, String boTitle, String boDeleteYn, int memNo, String memId,
-			Date boDate, int voMaxmember, int voApplymember, Date voDate, String voArea) {
+			Date boDate, int voMaxmember, int voApplymember, Timestamp voDate, String voArea) {
 		super();
 		this.boNo = boNo;
 		this.boType = boType;
@@ -84,7 +84,7 @@ public class Volunteer {
 	}
 	
 	public Volunteer(int boNo, int boType, String cateName, String voArea, String boTitle, int memNo, String memId, Date boDate, 
-			 int voMaxmember, int voApplymember, Date voDate, int boCount, String voComment, String voPlace) {
+			 int voMaxmember, int voApplymember, Timestamp voDate, int boCount, String voComment, String voPlace) {
 		super();
 		this.boNo = boNo;
 		this.boType = boType;
@@ -103,7 +103,7 @@ public class Volunteer {
 	}
 	
 	public Volunteer(int boNo, int boType, String cateName, String voArea, String boTitle, int memNo, String memId, Date boDate, 
-			 int voMaxmember, int voApplymember, Date voDate, int boCount) {
+			 int voMaxmember, int voApplymember, Timestamp voDate, int boCount) {
 		super();
 		this.boNo = boNo;
 		this.boType = boType;
@@ -118,7 +118,7 @@ public class Volunteer {
 		this.voDate = voDate;
 		this.boCount = boCount;
 	}
-	public Volunteer(int boNo, String boTitle, String voArea, Date voDate, String voPlace, int voMaxmember, String voComment, int boType) {
+	public Volunteer(int boNo, String boTitle, String voArea, Timestamp voDate, String voPlace, int voMaxmember, String voComment, int boType) {
 		super();
 		this.boNo = boNo;
 		this.boTitle = boTitle;
@@ -130,7 +130,7 @@ public class Volunteer {
 		this.boType = boType;
 	}
 
-	public Volunteer(int boNo, String boTitle, String voArea, Date voDate, String voPlace, int voMaxmember, String voComment, String cateName, int memNo) {
+	public Volunteer(int boNo, String boTitle, String voArea, Timestamp voDate, String voPlace, int voMaxmember, String voComment, String cateName, int memNo) {
 		super();
 		this.boNo = boNo;
 		this.boTitle = boTitle;
@@ -142,6 +142,7 @@ public class Volunteer {
 		this.cateName = cateName;
 		this.memNo = memNo;
 	}
+	
 
 	public int getBoNo() {
 		return boNo;
@@ -239,11 +240,11 @@ public class Volunteer {
 		this.voDeadline = voDeadline;
 	}
 
-	public Date getVoDate() {
+	public Timestamp getVoDate() {
 		return voDate;
 	}
 
-	public void setVoDate(Date voDate) {
+	public void setVoDate(Timestamp voDate) {
 		this.voDate = voDate;
 	}
 

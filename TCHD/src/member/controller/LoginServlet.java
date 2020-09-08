@@ -28,11 +28,16 @@ public class LoginServlet extends HttpServlet {
 		Member member = new Member(userId,userPwd);
 		
 		Member loginUser = new MemberService().login(member);
-		
 		if(loginUser!=null) {
 			request.getSession().setAttribute("loginUser", loginUser);
 			// Session이 기본적으로 갖는 유효 시간은 30분!
-			response.getWriter().println("1");
+			if(loginUser.getGm_ok_ny()==null) { // 개인회원 로그인
+				response.getWriter().println("1");
+			}else if(loginUser.getGm_ok_ny().equals("Y")){  // 승인받은 단체회원 로그인
+				response.getWriter().println("2");
+			}else {  							// 승인받지 않은 단체회원 로그인
+				response.getWriter().println("3");
+			}
 		} else {
 			response.getWriter().println("0");
 		}
