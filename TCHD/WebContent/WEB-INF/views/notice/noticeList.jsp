@@ -12,7 +12,6 @@
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
-	System.out.println(listCount + " / "+ currentPage+ " / "+ maxPage+" / "+startPage+ " / "+endPage);
 %>
 <!DOCTYPE html>
 <html>
@@ -59,16 +58,32 @@
          <button id="write_button" onclick="location.href='writeForm.no'">글쓰기</button>
        <%} %>
       </div>
-  		<div  class="paging">			
-			<a href="list.no?<%if(search!=null){%>search=<%=search %>&<%} %>currentPage=<%=currentPage-1 %>" class="bt" id="beforBtn">이전 페이지</a>			
+  		<div  class="paging">		
+  			<%if(search!=null){ %>
+				 <a href="search.no?currentPage=<%=currentPage-1 %>&search=<%=search %>" class="bt" id="beforBtn">이전 페이지</a>	
+			<%}else{ %>
+				 <a href="list.no?currentPage=<%=currentPage-1 %>" class="bt" id="beforBtn">이전 페이지</a>		
+			<%} %>		
 			<%for(int p=startPage; p<=maxPage; p++){ %>
 	   					<% if(p==currentPage){ %>
-	   					 <a href="list.no?<%if(search!=null){%>search=<%=search %>&<%} %>currentPage=<%=p %>" class="num on"><%=p %></a>
+	   						<%if(search!=null){ %>
+	   							 <a href="search.no?currentPage=<%=p %>&search=<%=search %>" class="num on"><%=p %></a>
+	   						<%}else{ %>
+	   							 <a href="list.no?currentPage=<%=p %>" class="num on"><%=p %></a>
+	   						<%} %>	
 	   					<%}else{ %>
-	   					 <a href="list.no?<%if(search!=null){%>search=<%=search %>&<%} %>currentPage=<%=p %>" class="num"><%=p %></a>
+	   					 	<%if(search!=null){ %>
+	   							 <a href="search.no?currentPage=<%=p %>&search=<%=search %>" class="num"><%=p %></a>
+	   						<%}else{ %>
+	   							 <a href="list.no?currentPage=<%=p %>" class="num"><%=p %></a>
+	   						<%} %>
 	   					<%} %>
-	   		<%} %>	
-   		  <a href="list.no?<%if(search!=null){%>search=<%=search %>&<%} %>currentPage=<%=currentPage+1 %>" class="bt" id="nextBtn">다음 페이지</a>
+	   		<%} %>
+	   		<%if(search!=null){ %>
+				 <a href="search.no?currentPage=<%=currentPage+1 %>&search=<%=search %>" class="bt" id="nextBtn">다음 페이지</a>	
+			<%}else{ %>
+				 <a href="list.no?currentPage=<%=currentPage+1 %>" class="bt" id="nextBtn">다음 페이지</a>		
+			<%} %>		
           </div>	
    </section>
 <script>

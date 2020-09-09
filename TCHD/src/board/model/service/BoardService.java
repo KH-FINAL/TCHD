@@ -728,6 +728,22 @@ public int insertVolunteer(Volunteer v, Files uploadFile) {
 
 
 
+	public ArrayList<Volunteer> searchVolunteer(String select, String cate,PageInfo pi) {
+		Connection conn = getConnection();
+		 ArrayList<Volunteer> volunteerList = new BoardDAO().searchVolunteer(conn,select,cate,pi);
+		 close(conn);
+		 return volunteerList;
+	}
+
+
+
+	public int getSearchVolunteerCount(String select, String cate) {
+		Connection conn= getConnection();
+		int count = new BoardDAO().getSearchVolunteerCount(conn,select,cate);
+		close(conn);
+		return count;
+	}
+	
 	public int deleteQuestions(int bNo) {
 		Connection conn = getConnection();
 		BoardDAO dao = new BoardDAO();

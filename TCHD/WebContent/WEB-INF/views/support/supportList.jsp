@@ -102,12 +102,12 @@
 							<%-- 현재 페이지 --%>
 							<a class="choosen"><%= p %></a>
 					<%  } else { %>
-							<a href="<%= request.getContextPath() %>/currentPage=<%= p %>" class="num" ><%= p %></a>
+							<a href="<%= request.getContextPath() %>/supportList.su?currentPage=<%= p %>" class="num" ><%= p %></a>
 				<% 		}
 				   }%>
 				
 				<%-- 다음 페이지 --%>
-				<a href="<%= request.getContextPath() %>/currentPage=<%= currentPage + 1 %>" class="after">&gt;</a>
+				<a href="<%= request.getContextPath() %>/supportList.su?currentPage=<%= currentPage + 1 %>" class="after">&gt;</a>
 				<script>
 					if(<%= currentPage %> <= 1 || <%= supportList.isEmpty() %>){
 						var before = $(".before");

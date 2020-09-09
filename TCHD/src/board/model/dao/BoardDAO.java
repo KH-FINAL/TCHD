@@ -1027,7 +1027,7 @@ public class BoardDAO {
 			pstmt= conn.prepareStatement(prop.getProperty("selectNoticeMainPage"));
 			pstmt.setString(1, "공지사항");
 			rset= pstmt.executeQuery();
-			
+			int start=0;
 			while(rset.next()) {
 				Notice notice= new Notice(rset.getInt("BO_NO"), 
 						rset.getString("BO_TITLE"), 
@@ -1039,6 +1039,10 @@ public class BoardDAO {
 						0);
 				
 				noticeList.add(notice);
+				if(rset.getString("NOTICE_SUBJECT").equals("공지사항")) {
+					start++;
+				}
+				if(start>=6) {break;}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1740,8 +1744,73 @@ public class BoardDAO {
 		
 		return count;
 	}
-	
 
+	public ArrayList<Volunteer> searchVolunteer(Connection conn, String select, String cate,PageInfo pi) {
+		PreparedStatement pstmt =null;
+		ResultSet rset = null;
+		ArrayList<Volunteer> volunteerList = new ArrayList<Volunteer>();
+		if(cate.equals("boTitle")) {cate="BO_TITLE";}else {cate="VO_AREA";}
+		String searchQuery ="SELECT * FROM (SELECT ROWNUM RNUM2, V.* FROM VLIST V WHERE "+cate+" LIKE '%"+select+"%') WHERE RNUM2 BETWEEN ? AND ?";
+		int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() +1;
+		int endRow = startRow + pi.getBoardLimit() -1;
+		
+		try {
+			pstmt=conn.prepareStatement(searchQuery);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Volunteer volunteer = new Volunteer(rset.getInt("bo_no"),
+						rset.getInt("bo_type"),
+						rset.getString("cate_name"),
+						rset.getString("vo_area"),
+						rset.getString("bo_title"),
+						rset.getInt("mem_no"),
+						rset.getString("mem_id"),
+						rset.getDate("bo_date"),	
+						rset.getInt("vo_maxmember"),
+						rset.getInt("vo_applymember"),
+						rset.getTimestamp("vo_date"),
+						rset.getInt("bo_count"));
+				volunteerList.add(volunteer);
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		return volunteerList;
+		
+	}
+
+	public int getSearchVolunteerCount(Connection conn, String select, String cate) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		if(cate.equals("boTitle")) {cate="BO_TITLE";}else {cate="VO_AREA";}
+		String query="SELECT COUNT(*) FROM VLIST WHERE "+cate+" LIKE '%"+select+"%'";
+		
+		try {
+			stmt = conn.createStatement();
+			rset= stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				count= rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(stmt);
+		}
+		
+		return count;
+	}
+	
 	public int deleteQuestions(Connection conn, int bNo) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -1762,7 +1831,6 @@ public class BoardDAO {
 		return result;
 		
 	}
-
 
 	public int updateQuestions1(Connection conn, Questions qu) {
 		System.out.println("updateQ1");

@@ -7,6 +7,8 @@
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	String msg = (String)session.getAttribute("msg");
+	String search = (String)request.getAttribute("search");
+	String cate = (String)request.getAttribute("cate");
 	
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
@@ -29,18 +31,17 @@
 		<div class="main_div">
 			<div class="sub_div">
 				<!-- 검색 시작 -->
-				<form action="volunteerList.jsp" method="get">
+				
 				<div class="list_search">
-					<select id="search_select" name="col">
-						<option value="hidden" disabled selected>선택</option>
+					<select id="search_select">
+						<option value="boTitle" selected>제목</option>
 						<option value="voArea">지역</option>
-						<option value="boTitle">제목</option>
 					</select>
-						<input type="text" id="search_input" name="word">
+						<input type="text" id="search_input">
 						<!-- <input type="button" id="search_button" value="검색"> -->
-						<button type="submit" id="search_button">검색</button>
+						<button type="button" id="search_button">검색</button>
 				</div>
-				</form>
+				
 				<!-- 검색 종료 -->
 
 				<div class="table_div">
@@ -100,39 +101,51 @@
 			
 			<!-- 페이징 -->
 			<div class="paging">
-			
 				<!-- 이전 페이지 -->
-	         	<a href="volunteerList.bo?currentPage=<%= currentPage - 1 %>" class="bt" id="beforeBtn">이전 페이지</a>
-		         	<script>
-		        	if(<%= currentPage %> <= 1){
-		        		var before = $('#beforeBtn');
-		        		before.css("visibility","hidden");
-		        	}
-		       		</script>
-
+				<%if(search!=null){ %>
+					 <a href="volunteerSearch.bo?currentPage=<%= currentPage-1 %>&search=<%=search %>&cate=<%=cate %>" class="bt" id="beforeBtn">이전 페이지</a>	
+				<%}else{ %>
+					 <a href="volunteerList.bo?currentPage=<%= currentPage - 1 %>" class="bt" id="beforeBtn">이전 페이지</a>
+				<%} %>	
 		   	    <!-- 페이지 목록 -->
         		<% for(int p = startPage; p <= endPage; p++){ %>
 	        		<% if(p == currentPage){ %>  
-	        			<a href="volunteerList.bo?currentPage=<%= p %>" class="num on"><%= p %></a>
-	        		<% } else { %>
-	        			<a href="volunteerList.bo?currentPage=<%= p %>" class="num"><%= p %></a>
+	        			<%if(search!=null){ %>
+	        				<a href="volunteerSearch.bo?currentPage=<%= p %>&search=<%=search %>&cate=<%=cate %>" class="num on"><%= p %></a>
+	        			<%}else{ %>
+	        				<a href="volunteerList.bo?currentPage=<%= p %>" class="num on"><%= p %></a>
+	        			<%} %>
+	        			
+	        		<% }else{ %>
+	        			<%if(search!=null){ %>
+	        				<a href="volunteerSearch.bo?currentPage=<%= p %>&search=<%=search %>&cate=<%=cate %>" class="num"><%= p %></a>
+	        			<%}else{ %>
+	        				<a href="volunteerList.bo?currentPage=<%= p %>" class="num"><%= p %></a>
+	        			<%} %>
 	        		<% } %>
        			 <% } %>
-		   	    
-		   	    
 		   	    <!-- 다음 페이지 -->
-		   	    <a href="volunteerList.bo?currentPage=<%=currentPage + 1%>" class="bt" id="afterBtn">다음 페이지</a>
-				 <script>
-		        	if(<%= currentPage %> >= <%= maxPage %>){
-		        		var after = $('#afterBtn');
-		        		after.css("visibility", "hidden");
-		        	}
-		        </script>    		  
+		   	    <%if(search!=null){ %>
+					 <a href="volunteerSearch.bo?currentPage=<%=currentPage+1 %>&search=<%=search %>&cate=<%=cate %>" class="bt" id="afterBtn">다음 페이지</a>	
+				<%}else{ %>
+					 <a href="volunteerList.bo?currentPage=<%=currentPage+1 %>" class="bt" id="afterBtn">다음 페이지</a>		
+				<%} %>	
     		</div>
 		</div>
 	</section>
 	<script>
 		$(function(){
+			
+			if(<%= currentPage %> <= 1){
+        		var before = $('#beforeBtn');
+        		before.css("visibility","hidden");
+        	}
+			
+			if(<%= currentPage %> == <%= maxPage %> || <%=listCount%>==0){
+        		var after = $('#afterBtn');
+        		after.css("visibility", "hidden");
+        	}
+			
 			$(".event").mouseenter(function(){
 				$(this).parent().css({'background':'#eee', 'cursor':'pointer'});
 			}).mouseout(function(){
@@ -140,6 +153,16 @@
 			}).click(function(){
 				var num = $(this).parent().children().eq(0).text();
 				location.href="<%= request.getContextPath() %>/volunteerDetail.bo?bNo=" + num;
+			});
+		
+			$('#search_button').click(function(){
+				var select = $('#search_select').val();
+				var search = $('#search_input').val();
+				if(search.trim().length==0){
+					swal("","검색어를 입력해주세요.","info");
+					return;
+				}
+				location.href="volunteerSearch.bo?search="+search+"&cate="+select;
 			});
 		});
 	</script>
