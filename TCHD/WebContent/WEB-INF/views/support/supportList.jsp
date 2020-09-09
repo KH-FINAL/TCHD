@@ -1,10 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="support.model.vo.Support, java.util.ArrayList"%>
+<%@ page import="support.model.vo.Support, java.util.ArrayList, board.model.vo.PageInfo"%>
 <%
-    String supNo = (String)request.getAttribute("supNo");
+	// 비회원
+	String supNo = (String)request.getAttribute("supNo");
 	Support support = (Support)request.getAttribute("support");
+// 	int nSupPrice = support.getSup_price();
+// 	System.out.println("list.jsp_nSupPrice : " + nSupPrice);
+// 	String nSupComma = nSupPrice.slice(0, 3) + "," + nSupPrice.slice(3, 6);
+// 	System.out.println("list.jsp_nSupComma : " + nSupComma);
+
+	// 회원
 	ArrayList<Support> supportList = (ArrayList<Support>)request.getAttribute("supportList");
+	int supPriceTotal = 0;
+	
+	// 페이징
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	
+	int listCount = pi.getListCount();		// 총 게시글 개수
+	int currentPage = pi.getCurrentPage();	// 현재 페이지 번호
+	int maxPage = pi.getMaxPage();			// 전체 페이지 중 가장 마지막 페이지
+	int startPage = pi.getStartPage();		// 페이징 된 페이지 중 시작 페이지
+	int endPage = pi.getEndPage();			// 페이징 된 페이지 중 마지막 페이지
 %>
 <!DOCTYPE html>
 <html>
@@ -52,12 +69,56 @@
 					</table>
 				</div>
 			</div>
+			
 			<div id="total_price">
 				<span>총 후원 금액 </span>
-				<span id="total_price_won">0</span>
+			<% if(supNo == null){
+					for(Support supportMem : supportList){
+						int supPrice = supportMem.getSup_price();
+						supPriceTotal += supPrice;
+					}
+			%>
+				<%-- 회원 (로그인) --%>
+				<span id="total_price_won">
+					<%= supPriceTotal %>
+				</span>
+			<% } else{ %>
+				<%-- 비회원 --%>
+				<span id="total_price_won">
+					<%= support.getSup_price() %>
+				</span>
+			<% } %>
 				<span>원</span>
 			</div>
 		</div>
+		
+		<%-- 페이징 --%>
+			<div class="paging">
+				<%-- 이전 페이지 --%>
+				<a href="<%= request.getContextPath() %>/currentPage=<%= currentPage - 1 %>" class="before">&lt;</a>
+				
+				<% for(int p = startPage; p <= endPage; p++){
+						if(p == currentPage){ %>
+							<%-- 현재 페이지 --%>
+							<a class="choosen"><%= p %></a>
+					<%  } else { %>
+							<a href="<%= request.getContextPath() %>/currentPage=<%= p %>" class="num" ><%= p %></a>
+				<% 		}
+				   }%>
+				
+				<%-- 다음 페이지 --%>
+				<a href="<%= request.getContextPath() %>/currentPage=<%= currentPage + 1 %>" class="after">&gt;</a>
+				<script>
+					if(<%= currentPage %> <= 1 || <%= supportList.isEmpty() %>){
+						var before = $(".before");
+						before.attr("style", "display:none");
+					}
+					if(<%= currentPage %> >= <%= maxPage %> || <%= supportList.isEmpty() %>){
+						var after = $(".after");
+						after.attr("style", "display:none");
+					}
+				</script>
+			</div>
 	</section>
 </body>
 </html>

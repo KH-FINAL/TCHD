@@ -12,6 +12,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import animalHospital.model.vo.AnimalHospital;
+import board.model.vo.PageInfo;
 import support.model.vo.Support;
 
 public class SupportDAO {
@@ -138,12 +140,39 @@ public class SupportDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			close(rset);
 			close(pstmt);
 		}
 		
 		return check;
 	}
 
+	public int getListCount(Connection conn, int mem_no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("getListCount");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mem_no);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
 	public Support selectListNonMem(Connection conn, String supNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -160,40 +189,48 @@ public class SupportDAO {
 			
 			if(rset.next()) {
 				support = new Support(rset.getInt("sup_no"), 
-									  rset.getInt("sup_price"), 
-									  rset.getDate("sup_date"));
+						rset.getInt("sup_price"), 
+						rset.getDate("sup_date"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			close(rset);
 			close(pstmt);
 		}
 		
 		return support;
 	}
-
-	public ArrayList<Support> selectListMem(Connection conn, int mem_no) {
+	
+	public ArrayList<Support> selectListMem(Connection conn, int mem_no, PageInfo pi) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Support> supportList = new ArrayList<Support>();
 		
 		String query = prop.getProperty("selectListMem");
+
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, mem_no);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				Support support = new Support(rset.getInt("sup_no"), 
-									  rset.getInt("sup_price"), 
-									  rset.getDate("sup_date"));
+						rset.getInt("sup_price"), 
+						rset.getDate("sup_date"));
+				
 				supportList.add(support);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			close(rset);
 			close(pstmt);
 		}
 		

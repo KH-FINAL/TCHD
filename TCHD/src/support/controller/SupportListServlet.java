@@ -10,22 +10,34 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import board.model.vo.PageInfo;
 import member.model.vo.Member;
 import support.model.service.SupportService;
 import support.model.vo.Support;
 
-@WebServlet("/supportListForm.su")
-public class SupportListFormServlet extends HttpServlet {
+@WebServlet("/supportList.su")
+public class SupportListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public SupportListFormServlet() {
+    public SupportListServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		int mem_no = ((Member)session.getAttribute("loginUser")).getMem_no();
 		String checkSupNo = (String)request.getSession().getAttribute("checkSupNo");
+		SupportService service = new SupportService();
+
+		// 페이징
+		PageInfo pi = null;
+				
+		int listCount;		// 총 게시글 개수
+		int currentPage;	// 현재 페이지 번호
+		int pageLimit;		// 한 페이지에서 표시될 페이징 수
+		int supportLimit;	// 한 페이지에 보일 병원의 최대 개수
+		int maxPage;		// 전체 페이지 중 가장 마지막 페이지
+		int startPage;		// 페이징 된 페이지 중 시작 페이지
+		int endPage;		// 페이징 된 페이지 중 마지막 페이지
 		
 		if(session.getAttribute("loginUser") == null) {
 			// 비회원
@@ -39,14 +51,37 @@ public class SupportListFormServlet extends HttpServlet {
 				
 				String supNo = (String)request.getParameter("supNo");
 				request.setAttribute("supNo", supNo);
-				Support support = new SupportService().selectListNonMem(supNo);
+				Support support = service.selectListNonMem(supNo);
 				request.setAttribute("support", support);
 				request.setAttribute("section", "WEB-INF/views/support/supportList.jsp");
 			}
 		} else {
 			// 회원 (로그인)
-			ArrayList<Support> supportList = new SupportService().selectListMem(mem_no);
+			int mem_no = ((Member)session.getAttribute("loginUser")).getMem_no();
+			
+			listCount = service.getListCount(mem_no);
+			
+			currentPage = 1;
+			
+			if(request.getParameter("currentPage") != null) {
+				currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			}
+			
+			pageLimit = 10;
+			supportLimit = 10;
+			
+			maxPage = (int)Math.ceil((double)listCount/supportLimit);
+			startPage = pageLimit * ((currentPage - 1) / pageLimit) + 1;
+			endPage = startPage + pageLimit - 1;
+			if(maxPage < endPage) {
+				endPage = maxPage;
+			}
+			
+			pi = new PageInfo(currentPage, listCount, pageLimit, supportLimit, maxPage, startPage, endPage);
+			
+			ArrayList<Support> supportList = service.selectListMem(mem_no, pi);
 			request.setAttribute("supportList", supportList);
+			request.setAttribute("pi", pi);
 			request.setAttribute("section", "WEB-INF/views/support/supportList.jsp");
 		}
 		request.getRequestDispatcher("index.jsp").forward(request, response);

@@ -164,9 +164,6 @@ public class AnimalHospitalDAO {
 															 rset.getString("HOS_PHONE"));
 				hospitalList.add(hospital);
 			}
-			
-			for(int i = 0; i < hospitalList.size(); i ++) {
-			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

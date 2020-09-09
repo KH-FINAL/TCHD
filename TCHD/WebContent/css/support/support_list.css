@@ -43,6 +43,7 @@
 	font-size: 18px;
 	color: white;
 	border-right: 2px solid white;
+	width: 33%;
 }
 
 #support_list_table td {
@@ -62,4 +63,35 @@
 	font-size: 30px;
 	font-weight: 600;
 	color: rgb(41, 128, 185);
+}
+/* 페이징 */
+.paging {
+	margin: 20px 20px 40px 20px;
+	text-align: center;
+}
+
+.paging a {
+	display: inline-block;
+	margin-left: 10px;
+	padding: 5px 10px;
+	border-radius: 100px;
+	font-size: 12px;
+	text-decoration: none;
+}
+
+.before, .after {
+	border: 1px solid #eee;
+	background: #eee;
+}
+
+.num {
+	border: 1px solid rgb(41, 128, 185);
+	font-weight: 600;
+	color: rgb(41, 128, 185);
+}
+
+.choosen {
+	border: 1px solid rgb(41, 128, 185);
+	background: rgb(41, 128, 185);
+	color: #fff;
 }

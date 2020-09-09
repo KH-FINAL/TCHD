@@ -8,6 +8,8 @@ import static common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import animalHospital.model.dao.AnimalHospitalDAO;
+import board.model.vo.PageInfo;
 import support.model.dao.SupportDAO;
 import support.model.vo.Support;
 
@@ -69,6 +71,16 @@ public class SupportService {
 		
 		return check;
 	}
+	
+	public int getListCount(int mem_no) {
+		Connection conn = getConnection();
+		
+		int result = new SupportDAO().getListCount(conn, mem_no);
+		
+		close(conn);
+		
+		return result;
+	}
 
 	public Support selectListNonMem(String supNo) {
 		Connection conn = getConnection();
@@ -80,10 +92,10 @@ public class SupportService {
 		return support;
 	}
 
-	public ArrayList<Support> selectListMem(int mem_no) {
+	public ArrayList<Support> selectListMem(int mem_no, PageInfo pi) {
 		Connection conn = getConnection();
 		
-		ArrayList<Support> supportList = new SupportDAO().selectListMem(conn, mem_no);
+		ArrayList<Support> supportList = new SupportDAO().selectListMem(conn, mem_no, pi);
 		
 		close(conn);
 		
