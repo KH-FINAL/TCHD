@@ -10,6 +10,7 @@ public class Comments {
 	private Date comDate;		// 댓글작성일자
 	private String comDelete;	// 댓글삭제여부
 	private String memId;		// 아이디
+	///
 	
 	public Comments() {}
 	
@@ -34,6 +35,17 @@ public class Comments {
 		this.comDelete = comDelete;
 	}
 
+	public Comments(int comNo, String comContent, int boNo, int memNo, String memId, Date comDate, String comDelete) {
+		super();
+		this.comNo = comNo;
+		this.comContent = comContent;
+		this.boNo = boNo;
+		this.memNo = memNo;
+		this.memId = memId;
+		this.comDate = comDate;
+		this.comDelete = comDelete;
+	}
+	
 	public int getComNo() {
 		return comNo;
 	}

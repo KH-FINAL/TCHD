@@ -41,6 +41,7 @@ public class VolunteerUpdateFormServlet extends HttpServlet {
 		String volMemId = request.getParameter("volMemId");
 		String volMemNo = request.getParameter("volMemNo");
 		
+		
 		int volBNo = Integer.parseInt(request.getParameter("volBNo"));
 		System.out.println(volBNo);
 		
@@ -52,11 +53,32 @@ public class VolunteerUpdateFormServlet extends HttpServlet {
 		
 		String voArea = request.getParameter("voArea");
 		
-		// 봉사 일시. (주석처리해둔 시간까지 받으면 배열 오류 남.)
+		// 봉사 일시.
+//		String voDate2 = request.getParameter("voDate");
+//		Timestamp voDate = Timestamp.valueOf(voDate2);
 		String voDate2 = request.getParameter("voDate");
-		Timestamp voDate = Timestamp.valueOf(voDate2);
+		System.out.println(voDate2);
+		String[] vo_dateArr = voDate2.split("-");
+		int year = Integer.parseInt(vo_dateArr[0]);
+		int month = Integer.parseInt(vo_dateArr[1]);
+		String month2 = null;
+		if(month<10) {month2="0"+month;}else {month2=month+"";}
+		int day = Integer.parseInt(vo_dateArr[2].split(" ")[0]);
+		String day2 = null;
+		if(day<10) {day2="0"+day;}else {day2=day+"";}
+		int hour = Integer.parseInt(vo_dateArr[2].split(" ")[1].split(":")[0]);
+		String hour2= null;
+		if(hour<10) { hour2="0"+hour;}else { hour2=hour+"";}
+		int min = Integer.parseInt(vo_dateArr[2].split(" ")[1].split(":")[1]);
+		String min2 =null;
+		if(min<10) { min2="0"+min;}else {min2=min+"";}
+		System.out.println("convert_voDate : " + year + "-" + (month + 1) + "-" + day + " " + hour + " : " + min);
+		String inputDate = year+"-"+month2+"-"+day2+" "+hour2+":"+min2+":00";
+		System.out.println(inputDate);
+		Timestamp voDate = Timestamp.valueOf(inputDate);
+		System.out.println(voDate);
 		
-		// 봉사지. (안됨)
+		// 봉사지.
 		String zonecode= request.getParameter("zoneCode");
 		String address = request.getParameter("joinAddress");
 		String address2 = request.getParameter("joinAddress2");
@@ -65,7 +87,7 @@ public class VolunteerUpdateFormServlet extends HttpServlet {
 //			voPlace = "("+zonecode+")"+" "+address+", "+address2;
 //		}
 		String voPlace= request.getParameter("voPlace");
-		
+		System.out.println(voPlace);
 		
 		// 봉사 정원.
 		String voMaxmember2 = request.getParameter("voMaxmember");

@@ -94,6 +94,7 @@ public class VolunteerInsertServlet extends HttpServlet {
 			String address2 = multiRequest.getParameter("joinAddress2");
 			String voPlace = null;
 			if(!zonecode.equals("")) {
+//				voPlace = "("+zonecode+") "+address+", "+address2;
 				voPlace = zonecode+","+address+","+address2;
 			}
 			System.out.println(zonecode+ "/"+voPlace);

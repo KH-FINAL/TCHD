@@ -45,7 +45,7 @@
 			<form method="post" action="volunteerInsert.bo" encType="multipart/form-data">
 			<div class="table_div">
 				<table class="board_table">
-					<tr>
+					<!-- <tr>
 						<th>게시판 선택 <span id="star">*</span></th>
                   		<td class="board_table_td">
                      		<select class="allbutton" name="selectBoard" required>
@@ -56,7 +56,7 @@
                         		<option value="봉사하기">봉사하기</option>
                      		</select>
                   		</td>
-					</tr>
+					</tr> -->
 					<tr>
 						<th>제목 <span id="star">*</span></th>
 						<td class="board_table_td">

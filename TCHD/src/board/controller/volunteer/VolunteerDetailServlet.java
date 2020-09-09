@@ -36,12 +36,19 @@ public class VolunteerDetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bNo = Integer.parseInt(request.getParameter("bNo"));
 		Volunteer volunteer = new BoardService().selectVolunteer(bNo);
+		
+		
+		// 댓글도 가져오기.
+		new BoardService().selectCommentsList(bNo);
+		ArrayList<Comments> commentsList = new BoardService().selectCommentsList(bNo);
+		
+		
 		HttpSession session = request.getSession();
 		ArrayList<Files> file = null;
-//		ArrayList<Comments> commentsList = new BoardService().selectCommentsList(bNo);
 		
 		if(volunteer != null) {
 			request.setAttribute("volunteer", volunteer);
+			request.setAttribute("commentsList", commentsList);
 			file = new BoardService().selectNoticeFile(bNo);	
 			if(file!=null) {
 				request.setAttribute("file", file);				

@@ -143,6 +143,12 @@ public class Volunteer {
 		this.memNo = memNo;
 	}
 	
+	// 봉사 신청.
+	public Volunteer(int boNo, int memNo) {
+		super();
+		this.boNo = boNo;
+		this.memNo = memNo;
+	}
 
 	public int getBoNo() {
 		return boNo;

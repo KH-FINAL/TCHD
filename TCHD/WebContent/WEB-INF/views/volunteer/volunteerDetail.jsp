@@ -12,7 +12,7 @@
 	String writer="";
 	if(loginUser!=null){writer=loginUser.getMem_id();} */
 	/* 댓글.. */
-	/* ArrayList<Comments> commentsList = (ArrayList<Comments>)request.getAttribute("commentsList"); */
+	ArrayList<Comments> commentsList = (ArrayList<Comments>)request.getAttribute("commentsList");
 	/* 이미지 파일 관련 */
 	ArrayList<Files> fileList = (ArrayList<Files>)request.getAttribute("file");
 	Files file =null;
@@ -119,9 +119,13 @@
 			</div>
 			<div id="apply_div">
 				<%-- <button type="button" id="apply_button" onclick="location.href='<%= request.getContextPath() %>/volunteerApply.bo'">신청하기</button> --%>
+				<% if(loginUser!=null){ %> 
 				<input type="button" id="apply_button" value="신청하기" onclick="volApply();"/>
-				
+				<% } else {%> 
+				<button id="apply_button" onClick="goLogin()">신청하기</button>
+				<% } %>
 			</div>
+			
 			<div class="list_div">
 				&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button" class="go" value="목록보기" onclick="location.href='<%= request.getContextPath() %>/volunteerList.bo'">
@@ -141,18 +145,16 @@
 					<button type="button" id="edit">수정</button>
 				</div> -->
 			<div class="commentsArea">
-				<div class="comment_div" id="commentsWriteArea">
+		 		<div class="comment_div" id="commentsWriteArea">
 					<input type="text" placeholder="댓글을 작성하려면 로그인 해주세요." id="commentsContent">
-					<!-- <input type="button" id="addComments" value="등록"> -->
-					<input type="submit" value="등록" id="addComments">
+					<input type="button" id="addComments" value="등록">
+					<!-- <input type="submit" value="등록" id="addComments"> -->
 				</div>
 				<hr class="hr">
 				<div class="comment_list" id="commentsSelectArea">
-					<%-- <table id="commentsSelectTable">
+					<table id="commentsSelectTable">
 						<% if(commentsList.isEmpty()){ %>
-						<tr>
-							<td colspan="3">댓글이 없습니다.</td>
-						</tr>
+						<tr><td colspan="3">댓글이 없습니다.</td></tr>
 						<% } else { %>
 						<% for(int i = 0; i < commentsList.size(); i++) { %>
 						<tr>
@@ -162,7 +164,7 @@
 						</tr>
 						<% } %>
 						<% } %>
-					</table> --%>
+					</table>
 				<%-- <div class="comment_list_bottom">
 					<% if(commentsList.isEmpty()) { %>
 					<span>댓글이 없습니다.</span>
@@ -216,12 +218,32 @@
 		</script> --%>
 
 	<script type="text/javascript">
+	/* 비회원 신청 안됨 로그인 하러 ~ */
+	function goLogin(){
+		
+		window.alert("로그인 후 이용해주시기 바랍니다.");
+		location.href="<%= request.getContextPath() %>/loginForm.me";
+	}
+	
 	/* 신청하기. */
 	$('#apply_button').click(function(){
 		swal("","신청이 완료되었습니다.","success");
 		return false;
 	});
 	
+	/* 신청하기. */
+	function volApply(){
+		var result = confirm("해당 봉사를 신청하시겠습니까?");
+		var volBNo = <%= v.getBoNo() %>;
+		
+		if(result){
+			location.href = "<%= request.getContextPath() %>/volunteerApply.bo?volBNo=" + volBNo;
+			return true;
+		} else {
+			window.close();
+			return false;
+		}
+	}
 	
 	/* 글삭제. */
  	function volDelete(){
@@ -266,6 +288,40 @@
 			}
 		}); 
 	} --%>
+	$(function(){
+		$('#addComments').click(function(){
+			<%-- var writer = '<%= loginUser.getMem_id() %>'; --%>
+			var writer = '<%= v.getMemId() %>';
+			var bNo = <%= v.getBoNo() %>;
+			var content = $('#commentsContent').val();
+			
+			$.ajax({
+				url: 'insertComments.bo',
+				data: {writer:writer, content:content, bNo:bNo},
+				type: 'post',
+				success: function(data){
+					$commentsSelectTable = $('#commentsSelectTable');
+					$commentsSelectTable.html("");
+					
+					for(var key in data){
+						var $tr = $('<tr>');
+						var $writerTd = $('<td>').text(data[key].memId).css('width', '100px');
+						var $contentTd = $('<td>').text(data[key].comContent).css('width', '400px');
+						var $dataTd = $('<td>').text(data[key].comDate).css('width', '200px');
+				
+						$tr.append($writerTd);
+						$tr.append($contentTd);
+						$tr.append($dateTd);
+						$replyTable.append($tr);
+					}
+					
+					$('#commentsSelectTable').val("");
+				}
+			})
+		})
+	})
+	
+	
 	</script>
 	</section>
 	

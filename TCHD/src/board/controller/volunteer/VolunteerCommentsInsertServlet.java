@@ -33,23 +33,27 @@ public class VolunteerCommentsInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// post방식으로 하면 제일 먼저 하던것 UTF-8
+//		// post방식으로 하면 제일 먼저 하던것 UTF-8
 		request.setCharacterEncoding("UTF-8");
-		String writer = request.getParameter("mem_id");
-		int bNo = Integer.parseInt(request.getParameter("boNo"));
-		String content = request.getParameter("comContent");
-//		String writer = request.getParameter("writer");
-//		int bNo = Integer.parseInt(request.getParameter("bNo"));
-//		String content = request.getParameter("content");
-		
+		String writer = request.getParameter("writer");
+		int bNo = Integer.parseInt(request.getParameter("bNo"));
+		System.out.println(bNo);
+		String content = request.getParameter("content");
+//		// String writer = request.getParameter("writer");
+//		// int bNo = Integer.parseInt(request.getParameter("bNo"));
+//		// String content = request.getParameter("content");
+//		
 		Comments comments = new Comments();
 		comments.setMemId(writer);
 		comments.setBoNo(bNo);
 		comments.setComContent(content);
-		
+//		
 		ArrayList<Comments> commentsList = new BoardService().insertComments(comments);
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(commentsList, response.getWriter());
+		
+		// 댓글 재도전.
+		
 	}
 
 	/**

@@ -3,6 +3,7 @@ package board.controller.volunteer;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.GregorianCalendar;
 
 import javax.servlet.ServletException;
@@ -57,62 +58,82 @@ public class VolunteerUpdateServlet extends HttpServlet {
 			System.out.println(saveFile);
 			System.out.println(originFile);
 			
-			int volBNo = Integer.parseInt(request.getParameter("volBNo"));
+			
+//			int volBNo = Integer.parseInt(request.getParameter("bNo"));
+			int volBNo = Integer.parseInt(multiRequest.getParameter("volBNo"));
+			
 			System.out.println(volBNo);
 			
-			String volCateName = request.getParameter("volCateName");
+			String volCateName = multiRequest.getParameter("volCateName");
 			System.out.println(volCateName);
 			
-			String boTitle = request.getParameter("input_title");
+			String boTitle = multiRequest.getParameter("input_boTitle");
 			
-			String voArea = request.getParameter("voArea");
+			String voArea = multiRequest.getParameter("voArea");
 			
 			// 봉사 일시. (업데이트폼 서블릿이랑 동일)
-			String voDate2 = request.getParameter("input_voDate");
-			String[] vo_dateArr = voDate2.split("-");
-			int year = Integer.parseInt(vo_dateArr[0]);
-			int month = Integer.parseInt(vo_dateArr[1])-1;
-			int day = Integer.parseInt(vo_dateArr[2].split("T")[0]);
+//			String voDate2 = request.getParameter("voDate");
+//			Timestamp voDate = Timestamp.valueOf(voDate2);
+//			String voDate2 = request.getParameter("input_voDate");
+//			String[] vo_dateArr = voDate2.split("-");
+//			int year = Integer.parseInt(vo_dateArr[0]);
+//			int month = Integer.parseInt(vo_dateArr[1])-1;
+//			int day = Integer.parseInt(vo_dateArr[2].split("T")[0]);
 //			int hour = Integer.parseInt(vo_dateArr[2].split("T")[1].split(":")[0]);
 //			int min = Integer.parseInt(vo_dateArr[2].split("T")[1].split(":")[1]);
 //			System.out.println("convert_voDate : " + year + "-" + (month + 1) + "-" + day + " " + hour + " : " + min);
-			System.out.println("convert_voDate : " + year + "-" + (month + 1) + "-" + day);
+//			System.out.println("convert_voDate : " + year + "-" + (month + 1) + "-" + day);
 //			Date voDate = new Date(new GregorianCalendar(year, month, day, hour, min).getTimeInMillis());
-			Date voDate = new Date(new GregorianCalendar(year, month, day).getTimeInMillis());
+//			Date voDate = new Date(new GregorianCalendar(year, month, day).getTimeInMillis());
+//			//
+			String voDate2 = multiRequest.getParameter("input_voDate");
+			System.out.println(voDate2);
+			String[] vo_dateArr = voDate2.split("-");
+			int year = Integer.parseInt(vo_dateArr[0]);
+			int month = Integer.parseInt(vo_dateArr[1]);
+			String month2 = null;
+			if(month<10) {month2="0"+month;}else {month2=month+"";}
+			int day = Integer.parseInt(vo_dateArr[2].split("T")[0]);
+			String day2 = null;
+			if(day<10) {day2="0"+day;}else {day2=day+"";}
+			int hour = Integer.parseInt(vo_dateArr[2].split("T")[1].split(":")[0]);
+			String hour2= null;
+			if(hour<10) { hour2="0"+hour;}else { hour2=hour+"";}
+			int min = Integer.parseInt(vo_dateArr[2].split("T")[1].split(":")[1]);
+			String min2 =null;
+			if(min<10) { min2="0"+min;}else {min2=min+"";}
+			System.out.println("convert_voDate : " + year + "-" + (month + 1) + "-" + day + " " + hour + " : " + min);
+			String inputDate = year+"-"+month2+"-"+day2+" "+hour2+":"+min2+":00";
+			System.out.println(inputDate);
+			Timestamp voDate = Timestamp.valueOf(inputDate);
+			System.out.println(voDate);
 			
 			// 봉사지.
-			String zonecode= request.getParameter("input_zoneCode");
-			String address = request.getParameter("input_joinAddress");
-			String address2 = request.getParameter("input_joinAddress2");
+			String zonecode= multiRequest.getParameter("input_zoneCode");
+			String address = multiRequest.getParameter("input_joinAddress");
+			String address2 = multiRequest.getParameter("input_joinAddress2");
 			String voPlace = null;
 			if(!zonecode.equals("")) {
-				voPlace = "("+zonecode+")"+" "+address+", "+address2;
+//				voPlace = "("+zonecode+")"+" "+address+", "+address2;
+				voPlace = zonecode+","+address+","+address2;
 			}
 			
 			// 봉사 정원.
-			String voMaxmember2 = request.getParameter("input_voMaxmember");
+			String voMaxmember2 = multiRequest.getParameter("input_voMaxmember");
 			int voMaxmember = Integer.parseInt(voMaxmember2);
 			
 			// 내용.
-			String voComment = request.getParameter("input_voComment");
+			String voComment = multiRequest.getParameter("input_voComment");
 			
-			// 글쓴 날짜.
-			String boDate2 = request.getParameter("boDate");
-			String[] bo_dateArr = boDate2.split("-");
-			int boYear = Integer.parseInt(vo_dateArr[0]);
-			int boMonth = Integer.parseInt(vo_dateArr[1])-1;
-			int boDay = Integer.parseInt(vo_dateArr[2].split("T")[0]);
-			Date boDate = new Date(new GregorianCalendar(year, month, day).getTimeInMillis());
-			
-			Volunteer volunteer = new Volunteer(volBNo, volCateName, boTitle, voDate, voPlace, boDate, voMaxmember, voComment);
-
+//			Volunteer volunteer = new Volunteer(volBNo, volCateName, boTitle, voDate, voPlace, voMaxmember, voComment);
+			Volunteer volunteer = new Volunteer(volBNo, 0, volCateName, boTitle, 0, null, 0, null, null, voMaxmember, 0, null, voDate, voArea, voPlace, voComment);
 			int fileNo =0;
 	
 			if(multiRequest.getParameter("volunteerFileNo")!=null) {
 				fileNo = Integer.parseInt(multiRequest.getParameter("volunteerFileNo"));
 		
 			}
-			Files file = new Files(fileNo, volBNo, originFile, saveFile, savePath, null, 0, 0, null);
+			Files file = new Files(volBNo, originFile, saveFile, savePath, 0);
 			
 			int result = new BoardService().updateVolunteer(volunteer, file);
 			

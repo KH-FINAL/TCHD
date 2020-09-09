@@ -24,7 +24,7 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 //---------------------------------------------------------------------------------------
-    $(function(){ 
+     $(function(){ 
     	$('.board_table_td').val('<%=v.getVoArea()%>'); 
     	$('#voDate').val('<%=voDate%>');
     	$('#zoneCode').val('<%=voPlaceArr[0]%>');
@@ -55,7 +55,7 @@
     
     	
     });
-
+ 
 //---------------------------------------------------------------------------------------
 </script>
 
@@ -65,7 +65,7 @@
 		<div class="title">봉사게시판</div>
 
 		<div class="main_div">
-			<form method="post" action="volunteerUpdate.bo" encType="multipart/form-data" onsubmit="return validate();">
+			<form method="post" action="volunteerUpdate.bo" encType="multipart/form-data">
 			<div class="table_div">
 				<input type="hidden" name="volBNo" value="<%= v.getBoNo() %>">
 				<input type="hidden" name="volCateName" value="<%= v.getCateName() %>">
@@ -74,15 +74,15 @@
 					<input type="hidden" name="volunteerFileNo" value="<%=fileNo %>"> 
 				<% } %>
 				<table class="board_table">
-					<tr>
+					<%-- <tr>
 						<th>게시판 선택 <span id="star">*</span></th>
                   		<td class="board_table_td">
                      		<select class="allbutton" id="select1" name="selectBoard">
-                     			<%-- <option value="hidden" disabled selected>선택</option>
+                     			<option value="hidden" disabled selected>선택</option>
                        			<option value="공지사항" <%= v.getCateName() %> = "공지사항" selected>공지사항</option>
                         		<option value="문의사항" <%= v.getCateName() %> = "문의사항" selected>문의사항</option>
                         		<option value="봉사게시판" <%= v.getCateName() %> = "봉사게시판" selected>봉사게시판</option>
-                        		<option value="입양게시판" <%= v.getCateName() %> = "입양게시판" selected>입양게시판</option> --%>
+                        		<option value="입양게시판" <%= v.getCateName() %> = "입양게시판" selected>입양게시판</option>
                         		<option value="" disabled selected>선택</option>
                        			<option value="회원정보">회원정보</option>
                         		<option value="입양하기">입양하기</option>
@@ -90,7 +90,7 @@
                         		<option value="봉사하기">봉사하기</option>
                      		</select>
                   		</td>
-					</tr>
+					</tr> --%>
 					<tr>
 						<th>제목 <span id="star">*</span></th>
 						<td class="board_table_td">
@@ -175,10 +175,6 @@
 			</div>
 			</form>
 		</div>	
-	<script>
-	$('#select1').val("<%= v.getCateName() %>");
-	$('#select2').val("<%= v.getVoArea() %>");
-	</script>
 	</section>
 </body>
 </html>
