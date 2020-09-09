@@ -206,12 +206,14 @@ public class SupportDAO {
 	public ArrayList<Support> selectListMem(Connection conn, int mem_no, PageInfo pi) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<Support> supportList = new ArrayList<Support>();
+//		ArrayList<Support> supportList = new ArrayList<Support>();
+		ArrayList<Support> supportList = null;
 		
 		String query = prop.getProperty("selectListMem");
 
 		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 		int endRow = startRow + pi.getBoardLimit() - 1;
+		System.out.println("dao_startRow : " + startRow + " / endRow : " + endRow);
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -220,6 +222,8 @@ public class SupportDAO {
 			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();
+			
+			supportList = new ArrayList<Support>();
 			
 			while(rset.next()) {
 				Support support = new Support(rset.getInt("sup_no"), 

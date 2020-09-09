@@ -12,7 +12,6 @@
 
 	// 회원
 	ArrayList<Support> supportList = (ArrayList<Support>)request.getAttribute("supportList");
-// 	String str = (String)request.getAttribute("totalPrice");
 	int totalPrice = 0;
 	int listCount = 0;
 	int currentPage = 0;
@@ -22,8 +21,8 @@
 	
 	if(supportList != null){
 		listCount = 0;
-		System.out.println("list.jsp_totalPrice : " + (String)request.getAttribute("totalPrice"));
-		totalPrice = Integer.parseInt((String)request.getAttribute("totalPrice"));
+		totalPrice = (int)request.getAttribute("totalPrice");
+		System.out.println("list.jsp_totalPrice : " + totalPrice);
 		
 		// 페이징
 		PageInfo pi = (PageInfo)request.getAttribute("pi");
@@ -35,6 +34,7 @@
 		endPage = pi.getEndPage();			// 페이징 된 페이지 중 마지막 페이지
 	}
 	
+	// 천 단위 콤마(,) 찍기
 	DecimalFormat format = new DecimalFormat("###,###");
 %>
 <!DOCTYPE html>
