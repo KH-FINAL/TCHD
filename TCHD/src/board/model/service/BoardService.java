@@ -654,15 +654,21 @@ public int insertVolunteer(Volunteer v, Files uploadFile) {
 	
 	public int deleteVolunteer(int bNo) {
 		Connection conn = getConnection();
-		
-		int result = new BoardDAO().deleteVolunteer(conn,bNo);
-		
-		if(result>0) {
+		BoardDAO dao = new BoardDAO();
+		int result = dao.deleteBoard(conn, bNo);
+		int result1 = 0;
+		int result2 = 0;
+		if(result > 0) {
+			result1 = dao.deleteVolunteer(conn, bNo);
+			result2 = dao.deleteFiles(conn, bNo);
+			
 			commit(conn);
-		}else {
+		} else {
 			rollback(conn);
 		}
-		return result;
+		close(conn);
+		
+		return result1;
 	}
 
 

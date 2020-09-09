@@ -32,12 +32,11 @@ public class VolunteerDeleteServlet extends HttpServlet {
 		
 		int result = new BoardService().deleteVolunteer(bNo);
 		
-		if(result>0) {
+		if(result > 0) {
+			request.setAttribute("volBNo", bNo);
 			response.sendRedirect("volunteerList.bo");
-		}else {
-			request.setAttribute("errorMsg", "봉사게시판 게시글 삭제에 실패했습니다.");
-			request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+		} else {
+			response.sendRedirect("views/volunteer/volunteerDetail.jsp");
 		}
 	}
 

@@ -1436,6 +1436,7 @@ public class BoardDAO {
 			close(pstmt);
 		}
 		return result;
+		
 	}
 	
 	public int updateVolunteer1(Connection conn, Volunteer volunteer) {
