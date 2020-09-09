@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="support.model.vo.Support, java.util.ArrayList, board.model.vo.PageInfo"%>
+<%@ page import="support.model.vo.Support, java.util.ArrayList, board.model.vo.PageInfo, java.text.DecimalFormat"%>
 <%
 	// 비회원
 	String supNo = (String)request.getAttribute("supNo");
@@ -12,16 +12,30 @@
 
 	// 회원
 	ArrayList<Support> supportList = (ArrayList<Support>)request.getAttribute("supportList");
-	int supPriceTotal = 0;
+// 	String str = (String)request.getAttribute("totalPrice");
+	int totalPrice = 0;
+	int listCount = 0;
+	int currentPage = 0;
+	int maxPage = 0;
+	int startPage = 0;
+	int endPage = 0;
 	
-	// 페이징
-	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	if(supportList != null){
+		listCount = 0;
+		System.out.println("list.jsp_totalPrice : " + (String)request.getAttribute("totalPrice"));
+		totalPrice = Integer.parseInt((String)request.getAttribute("totalPrice"));
+		
+		// 페이징
+		PageInfo pi = (PageInfo)request.getAttribute("pi");
+		
+		listCount = pi.getListCount();		// 총 게시글 개수
+		currentPage = pi.getCurrentPage();	// 현재 페이지 번호
+		maxPage = pi.getMaxPage();			// 전체 페이지 중 가장 마지막 페이지
+		startPage = pi.getStartPage();		// 페이징 된 페이지 중 시작 페이지
+		endPage = pi.getEndPage();			// 페이징 된 페이지 중 마지막 페이지
+	}
 	
-	int listCount = pi.getListCount();		// 총 게시글 개수
-	int currentPage = pi.getCurrentPage();	// 현재 페이지 번호
-	int maxPage = pi.getMaxPage();			// 전체 페이지 중 가장 마지막 페이지
-	int startPage = pi.getStartPage();		// 페이징 된 페이지 중 시작 페이지
-	int endPage = pi.getEndPage();			// 페이징 된 페이지 중 마지막 페이지
+	DecimalFormat format = new DecimalFormat("###,###");
 %>
 <!DOCTYPE html>
 <html>
@@ -55,7 +69,7 @@
 						<tr>
 							<td><%= supportMem.getSup_no() %></td>
 							<td><%= supportMem.getSup_date() %></td>
-							<td><%= supportMem.getSup_price() %></td>
+							<td><%= format.format(supportMem.getSup_price()) %></td>
 						</tr>
 						<% } %>
 					<% }else{ %>
@@ -63,7 +77,7 @@
 						<tr>
 							<td><%= support.getSup_no() %></td>
 							<td><%= support.getSup_date() %></td>
-							<td><%= support.getSup_price() %></td>
+							<td><%= format.format(support.getSup_price()) %></td>
 						</tr>
 					<% } %>
 					</table>
@@ -72,30 +86,31 @@
 			
 			<div id="total_price">
 				<span>총 후원 금액 </span>
-			<% if(supNo == null){
-					for(Support supportMem : supportList){
-						int supPrice = supportMem.getSup_price();
-						supPriceTotal += supPrice;
-					}
-			%>
+			<% if(supNo == null){ %>
 				<%-- 회원 (로그인) --%>
 				<span id="total_price_won">
-					<%= supPriceTotal %>
+					<%= format.format(totalPrice) %>
 				</span>
 			<% } else{ %>
 				<%-- 비회원 --%>
 				<span id="total_price_won">
-					<%= support.getSup_price() %>
+					<%= format.format(support.getSup_price()) %>
 				</span>
 			<% } %>
 				<span>원</span>
 			</div>
+			<div id="list_div" onclick="goList();">
+				<a id="list_a">&lt;</a>
+				<button id="list_button">뒤로가기</button>
+			</div>
 		</div>
 		
+		
+		<% if(supNo == null){ %>
 		<%-- 페이징 --%>
 			<div class="paging">
 				<%-- 이전 페이지 --%>
-				<a href="<%= request.getContextPath() %>/currentPage=<%= currentPage - 1 %>" class="before">&lt;</a>
+				<a href="<%= request.getContextPath() %>/supportList.su?currentPage=<%= currentPage - 1 %>" class="before">&lt;</a>
 				
 				<% for(int p = startPage; p <= endPage; p++){
 						if(p == currentPage){ %>
@@ -119,6 +134,20 @@
 					}
 				</script>
 			</div>
+		<% } %>
+		
+		<script>
+			function goList(){
+				history.back();
+			}
+			
+			$("#list_div").hover(function(){
+				$(this).css("font-weight","900");
+				$("#list_button").css("font-weight","900");
+			}, function(){
+				$(this).css("font-weight","400");
+				$("#list_button").css("font-weight","400");
+			});
+		</script>
 	</section>
 </body>
-</html>

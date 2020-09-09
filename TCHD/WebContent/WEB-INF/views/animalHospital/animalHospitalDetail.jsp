@@ -79,6 +79,14 @@ $(function(){
 			function goList(){
 				history.back();
 			}
+			
+			$("#list_div").hover(function(){
+				$(this).css("font-weight","900");
+				$("#list_button").css("font-weight","900");
+			}, function(){
+				$(this).css("font-weight","400");
+				$("#list_button").css("font-weight","400");
+			});
 		</script>
 	</section>
 </body>

@@ -42,9 +42,15 @@
 						console.log("result : " + result);
 						if(result == 1){
 							location.href="supportList.su?supNo=" + supNo.val();
-						}else{
-							swal("","입력하신 후원 번호가 존재하지 않습니다.","error");
 							supNo.val("");
+						}else{
+							swal("","입력하신 후원 번호가 존재하지 않습니다.","error")
+							.then((ok) => {
+								if(ok){
+									supNo.val("");
+									supNo.focus();
+								}
+							});
 						}
 					},
 					error: function(data){

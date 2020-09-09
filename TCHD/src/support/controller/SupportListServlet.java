@@ -59,7 +59,11 @@ public class SupportListServlet extends HttpServlet {
 			// 회원 (로그인)
 			int mem_no = ((Member)session.getAttribute("loginUser")).getMem_no();
 			
-			listCount = service.getListCount(mem_no);
+			int[] listTotal = service.getListCount(mem_no);
+			listCount = listTotal[0];
+			System.out.println("list서블릿_listCount : " + listCount);
+			int totalPrice = listTotal[1];
+			System.out.println("list서블릿_totalPrice : " + totalPrice);
 			
 			currentPage = 1;
 			
@@ -81,6 +85,7 @@ public class SupportListServlet extends HttpServlet {
 			
 			ArrayList<Support> supportList = service.selectListMem(mem_no, pi);
 			request.setAttribute("supportList", supportList);
+			request.setAttribute("totalPrice", totalPrice);
 			request.setAttribute("pi", pi);
 			request.setAttribute("section", "WEB-INF/views/support/supportList.jsp");
 		}
