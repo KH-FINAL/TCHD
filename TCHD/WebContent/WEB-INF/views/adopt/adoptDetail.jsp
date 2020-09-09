@@ -30,7 +30,8 @@
 				</div>
 	   		</div>
 	   		<div id="petName">
-	   		<p><%= adopt.getPetName() %></p><input type="hidden" name="petName" value="<%= adopt.getPetName() %>">
+	   		<p><%= adopt.getPetName() %></p><input type="button" id="listBtn" value="목록 >" onclick="location.href='<%= request.getContextPath() %>/adopt.bo';"/>
+	   		<input type="hidden" name="petName" value="<%= adopt.getPetName() %>">
 	   		<input type="hidden" id="boardNo" name="boNo" value="<%= adopt.getBoNo() %>">
 	   		<hr>
 				<div class="petDetail">

@@ -12,6 +12,7 @@ import board.model.service.BoardService;
 import board.model.vo.Adopt;
 import board.model.vo.AdoptApply;
 import board.model.vo.Board;
+import board.model.vo.Files;
 import member.model.vo.Member;
 
 /**
@@ -40,9 +41,10 @@ public class AdoptApplyServlet extends HttpServlet {
 		
 		Board b = new Board(0, null, "입양신청서", answer, null, 0, null, loginUserNo);
 		Adopt a = new Adopt(bNo, "Y");
+		Files f = new Files(0, bNo, 1, null, null, null, null, 0, "Y");
 		AdoptApply apply = new AdoptApply(answer, loginUserNo);
 		
-		int result = new BoardService().insertApply(b, a, apply);
+		int result = new BoardService().insertApply(b, a, f, apply);
 		
 		if(result > 0) {
 //			request.setAttribute("adoptYn", a.getAdoptYn());

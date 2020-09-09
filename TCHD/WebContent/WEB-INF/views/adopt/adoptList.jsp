@@ -86,7 +86,10 @@
 		</form>
 			<div id="petPicture">		<!-- 동물 사진 영역 -->
 			<% if(aList.isEmpty() || fList.isEmpty()){ %>
-				등록된 사진이 없습니다.
+<%-- 				<% for(int i = 0; i < aList.size(); i++){ %> --%>
+<%-- 					<% if(aList.get(i).getAdoptYn().equals("Y")) %> --%>
+						등록된 사진이 없습니다.
+<%-- 				<% } %> --%>
 			<% } else { %>
 				<% for(int i = 0; i < aList.size(); i++){ %>
 					<% Adopt a = aList.get(i); %>
@@ -95,8 +98,7 @@
 							<input type="hidden" id="boardNo" name="boNo" value="<%= a.getBoNo() %>"/>
 								<% for(int j = 0; j < fList.size(); j++){ %>
 									<% Files f = fList.get(j); %>
-									<% if(a.getBoNo() == f.getBoNo()){ %>	<!-- 조회 : 연령 빼기, 등록시 연령스크롤바(db저장) 고르고 입력은 추가적으로.(뷰에 뿌릴거->db에도 저장) ==> db check 제약조건 없애자  -->
-																			<!-- 연령 스크롤바, 입력나이  ==> db에 연령 저장값 -->
+									<% if(a.getBoNo() == f.getBoNo()){ %>	 
 									<img class="pictureForm" src="<%= request.getContextPath() %>/upload_imageFiles/<%= f.getChangeName() %>"/>
 									<div class="petInfos"> 
 										<div id="petName" class="petInfo"><%= a.getPetName() %></div><br>
@@ -104,7 +106,8 @@
 										<div id="petGender" class="petInfo"><%= a.getPetGender() %> (중성화 <%= a.getPetUnigender() %>)</div><br>
 										<span id="petAge" class="petInfo"><%= a.getPetAge() %> /</span>
 										<span id="petWeight" class="petInfo"><%= a.getPetWeight() %>kg /</span>
-										<span id="petColor" class="petInfo"><%= a.getPetColor() %></span> 									</div>
+										<span id="petColor" class="petInfo"><%= a.getPetColor() %></span> 									
+									</div>
 									<% } %>
 								<% } %>
 							</div>

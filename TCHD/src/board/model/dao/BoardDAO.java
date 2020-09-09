@@ -865,7 +865,7 @@ public class BoardDAO {
 		return result;
 	}
 	
-	public int UpdateAdoptYn(Connection conn, Adopt a) {
+	public int updateAdoptYn(Connection conn, Adopt a) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -874,6 +874,27 @@ public class BoardDAO {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, a.getBoNo());
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	
+	public int updateFilesYn(Connection conn, Files f) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateFilesYn");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, f.getBoNo());
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -1929,5 +1950,6 @@ public class BoardDAO {
 		
 		return result;
 	}
+
 
 }
