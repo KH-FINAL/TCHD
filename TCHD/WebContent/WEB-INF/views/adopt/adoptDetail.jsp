@@ -98,7 +98,7 @@
 	   		<div id="smallPictures">
 	   			<div id="smallPets">		
 	   			<% for(int i = 1; i < fileList.size();  i++){ %>
-		   				<img id="detailImg<%= i %>" class="smallPicture" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(i).getChangeName() %>"/>
+		   				<img id="detailImg" class="smallPicture" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(i).getChangeName() %>"/>
 				<% } %>
 		   			<% for(int i = 0; i < fileList.size();  i++){ %>
 		   				<input type="hidden" name="fileList" value="<%= fileList.get(i) %>"/>
@@ -119,30 +119,32 @@
 			</div>
 	</form>		
 	<script>
-		$(function(){
-			var thumbnail = $('#thumbnailImg');
-			var img1 = $('#detailImg1');
-			var img2 = $('#detailImg2');
-			var img3 = $('#detailImg3');
+// 		$(function(){			// 작은 사진 누르면 큰 사진에 나오게 하려고 도전중
+// 			var thumbnail = $('#thumbnailImg');
+// 			var img = $('.smallPicture');
+// 			var img2 = $('#detailImg2');
+// 			var img3 = $('#detailImg3');
 			
+// 				$('.smallPicture').on("click", function(){
+// 					for(var i = 1; i < fileList.size(); i++){
+// 						if(i == 1){
+<%-- 							$('#thumbnailImg').attr('src', '<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(1).getChangeName() %>'); --%>
+<%-- 							$(this).attr('src', '<%= request.getContextPath()%>/upload_imageFiles/<%= fileList.get(0).getChangeName() %>'); --%>
+// 						}
+// 					}
+// 			}
 			
-			// 계속 도는거ㅏ for문이긴 한데... 어떻게 짜야하지..?
-			$('#detailImg1').on("click", function(){
-				$('#thumbnailImg').attr('src', '<%= request.getContextPath() %>/upload_imageFiles/<%=fileList.get(1).getChangeName()%>');
-				$(this).attr('src', '<%= request.getContextPath()%>/upload_imageFiles/<%= fileList.get(0).getChangeName() %>');
-			});
-			
-			$('#detailImg2').on("click", function(){
-				$('#thumbnailImg').attr('src', '<%= request.getContextPath() %>/upload_imageFiles/<%=fileList.get(2).getChangeName()%>');
-				$(this).attr('src', '<%= request.getContextPath()%>/upload_imageFiles/<%= fileList.get(1).getChangeName() %>');
+// 			$('#detailImg2').on("click", function(){
+<%-- 				$('#thumbnailImg').attr('src', '<%= request.getContextPath() %>/upload_imageFiles/<%=fileList.get(2).getChangeName()%>'); --%>
+<%-- 				$(this).attr('src', '<%= request.getContextPath()%>/upload_imageFiles/<%= fileList.get(1).getChangeName() %>'); --%>
 				
-			});
+// 			});
 			
-			$('#detailImg3').on("click", function(){
-				$('#thumbnailImg').attr('src', '<%= request.getContextPath() %>/upload_imageFiles/<%=fileList.get(3).getChangeName()%>');
-				$(this).attr('src', '<%= request.getContextPath()%>/upload_imageFiles/<%= fileList.get(2).getChangeName() %>');
-			});
-		});
+// 			$('#detailImg3').on("click", function(){
+<%-- 				$('#thumbnailImg').attr('src', '<%= request.getContextPath() %>/upload_imageFiles/<%=fileList.get(3).getChangeName()%>'); --%>
+<%-- 				$(this).attr('src', '<%= request.getContextPath()%>/upload_imageFiles/<%= fileList.get(2).getChangeName() %>'); --%>
+// 			});
+// 		});
 		
 		
 		function loginForm(){
