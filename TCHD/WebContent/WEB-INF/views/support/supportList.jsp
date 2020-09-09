@@ -11,7 +11,7 @@
 // 	System.out.println("list.jsp_nSupComma : " + nSupComma);
 
 	// 회원
-	ArrayList<Support> supportList = (ArrayList<Support>)request.getAttribute("supportList");
+	ArrayList<Support> supportList = null;
 	int totalPrice = 0;
 	int listCount = 0;
 	int currentPage = 0;
@@ -20,6 +20,7 @@
 	int endPage = 0;
 	
 	if(supportList != null){
+		supportList = (ArrayList<Support>)request.getAttribute("supportList");
 		listCount = 0;
 		totalPrice = (int)request.getAttribute("totalPrice");
 		System.out.println("list.jsp_totalPrice : " + totalPrice);
