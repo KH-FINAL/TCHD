@@ -346,8 +346,7 @@
 				title : "게시글 등록 성공", 
 				text : "목록화면으로 돌아갑니다", 
 				icon : "success",
-				buttons : true
-				}).then((ok) => {
+			}).then((ok) => {
 					if(ok){
 						$('#form').submit();
 					}

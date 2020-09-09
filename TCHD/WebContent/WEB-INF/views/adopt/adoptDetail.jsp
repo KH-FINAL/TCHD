@@ -4,10 +4,11 @@
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	Adopt adopt = (Adopt)request.getAttribute("adopt");
+	if(adopt.getPetComment() == null){
+		adopt.setPetComment("");
+	}
 	String rescue = (String)request.getAttribute("rescue");
-// 	String adoptYn = (String)request.getAttribute("adoptYn");
 	ArrayList<Files> fileList = (ArrayList<Files>)request.getAttribute("fileList");
-// 	Files thumbnailImg = fileList.get(0);
 %>
 <!DOCTYPE html>
 <html>
@@ -23,7 +24,6 @@
    		<div id="ment">보호동물 정보</div>
    			<div id="picture">
 				<img id="thumbnailImg" src="<%= request.getContextPath()%>/upload_imageFiles/<%= fileList.get(0).getChangeName() %>"/>
-<%-- 				<input type="hidden" name="fileNo0" value="<%= thumbnailImg.getFileNo() %>"> --%>
 				<div id="btn">
 					<img id="left" class="switch" src="<%= request.getContextPath()%>/images/btnL.PNG">
 					<img id="right" class="switch" src="<%= request.getContextPath()%>/images/btnR.PNG">
@@ -134,13 +134,28 @@
 		}
 		
 		$('#delete').on('click', function(){
+			var bNo = <%= adopt.getBoNo() %>;
 			swal({
 				title : '게시글 삭제',
 				text : '해당 게시글을 삭제하시겠습니까?',
-				icon : 'info'
+				icon : 'warning',
+				buttons : ["아니오", "예"],
+				dangerMode : true,
 			}).then((ok) => {		// 왜 안 지워지지??? swal은 뜨는데
-				location.href = "<%= request.getContextPath() %>/adoptDelete.bo?boNo=" + bNo;	
-				swal("삭제 완료", "해당 게시글이 삭제되었습니다.", "success")
+				if(ok){
+					swal({
+						title : '삭제 완료', 
+						text : '해당 게시글이 삭제되었습니다', 
+						icon : 'success'
+					}).then((ok) => {
+						if(ok){
+							location.href = "<%= request.getContextPath() %>/adoptDelete.bo?boNo=" + bNo;	
+						}
+					});
+					
+				} else {
+					swal.close();
+				}
 			});
 			
 			return true;

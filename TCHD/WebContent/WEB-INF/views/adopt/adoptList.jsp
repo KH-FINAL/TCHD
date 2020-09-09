@@ -86,10 +86,7 @@
 		</form>
 			<div id="petPicture">		<!-- 동물 사진 영역 -->
 			<% if(aList.isEmpty() || fList.isEmpty()){ %>
-<%-- 				<% for(int i = 0; i < aList.size(); i++){ %> --%>
-<%-- 					<% if(aList.get(i).getAdoptYn().equals("Y")) %> --%>
-						등록된 사진이 없습니다.
-<%-- 				<% } %> --%>
+					등록된 사진이 없습니다.
 			<% } else { %>
 				<% for(int i = 0; i < aList.size(); i++){ %>
 					<% Adopt a = aList.get(i); %>

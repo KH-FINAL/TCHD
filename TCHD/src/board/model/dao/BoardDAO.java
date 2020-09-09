@@ -46,7 +46,7 @@ public class BoardDAO {
 		ResultSet rset = null;
 		ArrayList<Adopt> list = null;
 		
-		String query = prop.getProperty("selectAtList");
+		String query = prop.getProperty("selectAList");
 		
 		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 		int endRow = startRow + pi.getBoardLimit() - 1;

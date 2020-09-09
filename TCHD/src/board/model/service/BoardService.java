@@ -95,11 +95,15 @@ public class BoardService {
 		int result = new BoardDAO().insertBoard(conn, b);
 		int result1 = 0;
 		int result2 = 0;
-		
+		int finalResult = 0;
 		
 		if(result > 0) {
 			result1 = new BoardDAO().insertAdoptBoard(conn, a);	// 내용 저장 객체
-			result2 = new BoardDAO().insertAdoptFiles(conn, fileList);	// 파일 객체
+			finalResult = result1;
+			if(result1 > 0) {
+				result2 = new BoardDAO().insertAdoptFiles(conn, fileList);	// 파일 객체
+				finalResult = result2;
+			}
 			commit(conn);
 		} else {
 			rollback(conn);
@@ -107,7 +111,7 @@ public class BoardService {
 		
 		close(conn);
 		
-		return result1;
+		return finalResult;
 	}
 
 	public ArrayList<Questions> selectAnswerQuestions(PageInfo pi) {
