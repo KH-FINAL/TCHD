@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
+import board.model.vo.Adopt;
 import board.model.vo.AdoptApply;
 import board.model.vo.Board;
 import member.model.vo.Member;
@@ -38,12 +39,17 @@ public class AdoptApplyServlet extends HttpServlet {
 						request.getParameter("answer4") + request.getParameter("answer5") + request.getParameter("answer7");
 		
 		Board b = new Board(0, null, "입양신청서", answer, null, 0, null, loginUserNo);
+		Adopt a = new Adopt(bNo, "Y");
 		AdoptApply apply = new AdoptApply(answer, loginUserNo);
 		
-		int result = new BoardService().insertApply(b, apply);
+		int result = new BoardService().insertApply(b, a, apply);
 		
 		if(result > 0) {
-			response.sendRedirect("adoptDetail.bo?boNo=" + bNo);
+//			request.setAttribute("adoptYn", a.getAdoptYn());
+//			request.setAttribute("section", "WEB-INF/views/adopt/adoptDetail.jsp");
+//			request.getRequestDispatcher("index.jsp").forward(request, response);
+			
+			response.sendRedirect("adopt.bo");
 		} else { 
 			request.setAttribute("msg", "입양 신청서 작성에 실패하였습니다.");
 			request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");

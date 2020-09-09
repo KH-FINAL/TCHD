@@ -5,6 +5,7 @@
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	Adopt adopt = (Adopt)request.getAttribute("adopt");
 	String rescue = (String)request.getAttribute("rescue");
+// 	String adoptYn = (String)request.getAttribute("adoptYn");
 	ArrayList<Files> fileList = (ArrayList<Files>)request.getAttribute("fileList");
 // 	Files thumbnailImg = fileList.get(0);
 %>
@@ -132,26 +133,18 @@
 		}
 		
 		$('#delete').on('click', function(){
-// 			var result = confirm("해당 게시글을 삭제하시겠습니까?");
-<%-- 			var bNo = <%= adopt.getBoNo() %>; --%>
-			
-// 			if(result){
-<%-- 				location.href = "<%= request.getContextPath() %>/adoptDelete.bo?boNo=" + bNo; --%>
-// 				return true;
-// 			} else {
-// 				window.close();
-// 				return false;
 			swal({
 				title : '게시글 삭제',
 				text : '해당 게시글을 삭제하시겠습니까?',
-				value : true
+				icon : 'info'
 			}).then((ok) => {		// 왜 안 지워지지??? swal은 뜨는데
 				location.href = "<%= request.getContextPath() %>/adoptDelete.bo?boNo=" + bNo;	
 				swal("삭제 완료", "해당 게시글이 삭제되었습니다.", "success")
 			});
-			return true;
 			
+			return true;
 		});
+		
 		
 	</script>
 </section>

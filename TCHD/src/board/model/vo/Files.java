@@ -48,12 +48,11 @@ public class Files {
 	}
 	
 	
-	public Files(int fileNo, int boNo, int boType, String orignName, String changeName, String filePath,
+	public Files(int fileNo, int boNo, String orignName, String changeName, String filePath,
 			Date uploadDate, int fileLevel, int downloadCount, String status) {
 		super();
 		this.fileNo = fileNo;
 		this.boNo = boNo;
-		this.boType = boType;
 		this.orignName = orignName;
 		this.changeName = changeName;
 		this.filePath = filePath;

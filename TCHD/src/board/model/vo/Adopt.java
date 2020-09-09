@@ -23,6 +23,49 @@ public class Adopt {	// 입양게시판
 	
 	public Adopt() {}
 	
+	// 입양신청 --> adoptYn = Y로 바꿈
+	public Adopt(int boNo, String adoptYn) {
+		super();
+		this.boNo = boNo;
+		this.adoptYn = adoptYn;
+	}
+	
+	
+	// 입양게시판 수정하기1
+	public Adopt(String petKinds, String petCategory, String petGender, String petUnigender, String petName,
+			String petAge, String rescueDate, float petWeight, String petColor, String petSize, String petComment) {
+		super();
+		this.petKinds = petKinds;
+		this.petCategory = petCategory;
+		this.petGender = petGender;
+		this.petUnigender = petUnigender;
+		this.petName = petName;
+		this.petAge = petAge;
+		this.rescueDate = rescueDate;
+		this.petWeight = petWeight;
+		this.petColor = petColor;
+		this.petSize = petSize;
+		this.petComment = petComment;
+	}
+	
+
+	// 입양게시판 수정하기2
+	public Adopt(String petKinds, String petCategory, String petGender, String petUnigender, String petName,
+			String petAge, Date petRescueDate, float petWeight, String petColor, String petSize, String petComment) {
+		super();
+		this.petKinds = petKinds;
+		this.petCategory = petCategory;
+		this.petGender = petGender;
+		this.petUnigender = petUnigender;
+		this.petName = petName;
+		this.petAge = petAge;
+		this.petRescueDate = petRescueDate;
+		this.petWeight = petWeight;
+		this.petColor = petColor;
+		this.petSize = petSize;
+		this.petComment = petComment;
+	}
+	
 	// 입양게시판 목록
 	public Adopt(int boNo, int boType, String cateName, String id, String petKinds, String petCategory, String petGender,
 			String petUnigender, String petName, String petAge, Date petRescueDate, float petWeight, String petColor,
@@ -68,39 +111,6 @@ public class Adopt {	// 입양게시판
 		this.petComment = petComment;
 	}
 	
-	// 입양게시판 수정하기1
-	public Adopt(String petKinds, String petCategory, String petGender, String petUnigender, String petName,
-			String petAge, String rescueDate, float petWeight, String petColor, String petSize, String petComment) {
-		super();
-		this.petKinds = petKinds;
-		this.petCategory = petCategory;
-		this.petGender = petGender;
-		this.petUnigender = petUnigender;
-		this.petName = petName;
-		this.petAge = petAge;
-		this.rescueDate = rescueDate;
-		this.petWeight = petWeight;
-		this.petColor = petColor;
-		this.petSize = petSize;
-		this.petComment = petComment;
-	}
-	
-	// 입양게시판 수정하기2
-	public Adopt(String petKinds, String petCategory, String petGender, String petUnigender, String petName,
-			String petAge, Date petRescueDate, float petWeight, String petColor, String petSize, String petComment) {
-		super();
-		this.petKinds = petKinds;
-		this.petCategory = petCategory;
-		this.petGender = petGender;
-		this.petUnigender = petUnigender;
-		this.petName = petName;
-		this.petAge = petAge;
-		this.petRescueDate = petRescueDate;
-		this.petWeight = petWeight;
-		this.petColor = petColor;
-		this.petSize = petSize;
-		this.petComment = petComment;
-	}
 	
 	
 	public int getBoNo() {

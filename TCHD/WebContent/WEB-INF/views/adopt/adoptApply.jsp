@@ -14,8 +14,8 @@
 <link rel="stylesheet" href="css/common/common.css" type="text/css">
 </head>
 <body>
-<section>	<!-- action="<%=request.getContextPath() %>/adoptDetail.bo" -->
-   	<form action="<%=request.getContextPath() %>/adoptApply.bo" method="post" onsubmit="return checkSubmit();">
+<section>	
+   	<form id="form" action="<%=request.getContextPath() %>/adoptApply.bo?bNo=<%= bNo %>" method="post">
 	<div id="ment">입양신청 <input type="hidden" id="bNo" name="bNo" value="<%= bNo %>"></div>
 		<div id="info">
 			<img src="./images/applyImg.PNG" id="petImg"><p>평생 책임지고 함께하실 준비가 되셨나요?</p>
@@ -69,18 +69,18 @@
 			<ol id="asking" class="write">
 				<li>
 					입양을 결심하게 된 계기를 말해 주세요.<br>				<!-- required : 텍스트 입력이 필수임을 나타냄 -->
-					<textarea id="answer1" class="answer" name="answer1" required></textarea>
+					<textarea id="answer1" class="answer" name="answer1"></textarea>
 					<span id="counter1">0</span>/300
 				</li>
 				<li>
 					개를 혼자서 입양하십니까? 함께 입양하는 가족/동거인이 있다면 정보를 알려주세요.<br>
-					<textarea id="answer2" class="answer" name="answer2" required></textarea>
+					<textarea id="answer2" class="answer" name="answer2"></textarea>
 					<span id="counter2">0</span>/300
 				</li>
 				<li>
 					반려동물을 키우신 적 있습니까? 성인이 된 후 개를 기른 적이 있나요?<br>
 					만약 있다면 그 동물에 대해 알려 주세요.<br>
-					<textarea id="answer3" class="answer" name="answer3" placeholder="없으시면 없다고 적어주세요" required></textarea>
+					<textarea id="answer3" class="answer" name="answer3" placeholder="없으시면 없다고 적어주세요"></textarea>
 					<span id="counter3">0</span>/300
 				</li>
 			</ol>
@@ -90,22 +90,22 @@
 			<ol id="promise" class="write">
 				<li>
 					반려동물과 앞으로 15년간 평생을 함께 할 준비가 되셨습니까?<br>
-					<textarea id="answer4" class="answer" name="answer4" required></textarea>
+					<textarea id="answer4" class="answer" name="answer4"></textarea>
 					<span id="counter4">0</span>/300
 				</li>
 				<li>
 					반려동물과 함께 이사를 갈 수 있기 위해 어떤 계획을 가지고 계십니까?<br>
-					<textarea id="answer5" class="answer" name="answer5" required></textarea>
+					<textarea id="answer5" class="answer" name="answer5" placeholder="이사계획이 없다면 없다고 적어주세요"></textarea>
 					<span id="counter5">0</span>/300
 				</li>
 				<li>
 					휴가를 간다면 그 사이 반려동물을 위해 어떤 준비를 해 줄 생각이십니까?<br>
-					<textarea id="answer6" class="answer" name="answer6" required></textarea>
+					<textarea id="answer6" class="answer" name="answer6"></textarea>
 					<span id="counter6">0</span>/300
 				</li>
 				<li>
 					어떤 상황이 발생한다면 다른 곳으로 재입양을 보낼 생각을 하십니까?<br>
-					<textarea id="answer7" name="answer7" required></textarea>
+					<textarea id="answer7" class="answer" name="answer7"></textarea>
 					<span id="counter7">0</span>/300
 				</li>
 			</ol>
@@ -130,15 +130,16 @@
 입양신청서에 명시되어 있듯이 고양이나 개에게 미용을 목적으로 하는 발톱 제거 수술, 꼬리 절제 수술, 귀의 일부를 잘라내는 수술, 성대 제거 수술, 힘줄 절제술 등을 불필요한 수술을 해서는 안 됩니다.
 만약 입양자가 본 단체에서 입양한 동물을 파양 하기 바란다면 본 단체의 동의 없이 다른 사람에게 입양 보내시는 안 됩니다. 파양 하는 동물은 다시 본 단체의 쉼터로 데려오셔야 하고 그 비용은 본인이 부담해야 합니다. 
 입양비 환불은 불가능합니다.</textarea>
-			<br><input type="checkbox" class="checkAgree"/> 개인정보 제공에 동의합니다.
+			<br><input type="checkbox" id="agree" class="checkAgree"/> 개인정보 제공에 동의합니다.
 			<p>긴 시간 동안 입양신청서에 답해 주셔서 감사합니다.<p>
 		</div>
 		<div id="buttons">
-		<button id="cancel" class="applyButton" onClick="location.href='<%= request.getContextPath() %>/adoptDetail.bo?boNo='<%= bNo %>;">취소</button>
-			<button id="okay" class="applyButton" onClick="applyConfirm();">확인</button>
+		<button id="cancel" class="applyButton">취소</button>
+			<button id="okay" class="applyButton">확인</button>
 		</div>
 	</form>
 	<script>
+// 글자 수 카운트 ---------------------------------------------------------------------------
 		$(document).ready(function(){
 			$('#answer1').keyup(function(e){
 				$('#counter1').text($(this).val().length);
@@ -148,7 +149,7 @@
 				} else {
 					$('#counter1').css('color', 'black');
 				}
-			})
+			});
 				
 				$('#answer2').keyup(function(e){
 				$('#counter2').text($(this).val().length);
@@ -158,7 +159,7 @@
 				} else {
 					$('#counter2').css('color', 'black');
 				}	
-			})
+			});
 				
 				$('#answer3').keyup(function(e){
 				$('#counter3').text($(this).val().length);
@@ -168,7 +169,7 @@
 				} else {
 					$('#counter3').css('color', 'black');
 				}
-			})
+			});
 				
 				
 				$('#answer4').keyup(function(e){
@@ -179,7 +180,7 @@
 				} else {
 					$('#counter4').css('color', 'black');
 				}
-			})
+			});
 				
 				$('#answer5').keyup(function(e){
 				$('#counter5').text($(this).val().length);
@@ -189,7 +190,7 @@
 				} else {
 					$('#counter5').css('color', 'black');
 				}
-			})
+			});
 				
 				$('#answer6').keyup(function(e){
 				$('#counter6').text($(this).val().length);
@@ -199,7 +200,7 @@
 				} else {
 					$('#counter6').css('color', 'black');
 				}
-			})
+			});
 				
 				$('#answer7').keyup(function(e){
 				$('#counter7').text($(this).val().length);
@@ -209,31 +210,132 @@
 				} else {
 					$('#counter7').css('color', 'black');
 				}
-			})
+			});
+			
 		});
+// 정규표현식 --------------------------------------------------------------------------		
+		$(function(){	
+			$('#answer1').on("keyup", function(){
+				var a1 = $('#answer1').val();
+				a1 = a1.replace(/[^가-힣!.,\s\d]/g, "");
+				$('#answer1').val(a1);
+			});
 			
+			$('#answer2').on("keyup", function(){
+				var a2 = $('#answer2').val();
+				a2 = a2.replace(/[^가-힣!.,\s\d]/g, "");
+				$('#answer2').val(a2);
+			});
 			
-// 			// textarea에 글이 없거나, 공백만 있을 경우--> 입력칸 확인팝업창 뜸
-// 			// 동의신청에 체크를 하지 않은 경우 --> 동의해주세요 팝업창
-// 			// 그 외 --> 신청완료 팝업창 뜸
-// 			function applyCancle(){
-// 				var bNo = $('#bNo').val();
-<%-- 				location.href='<%= request.getContextPath() %>/adoptDetail.bo?boNo='+ bNo; --%>
-// 			}
+			$('#answer3').on("keyup", function(){
+				var a3 = $('#answer3').val();
+				a3 = a3.replace(/[^가-힣!.,\s\d]/g, "");
+				$('#answer3').val(a3);
+			});
+			
+			$('#answer4').on("keyup", function(){
+				var a4 = $('#answer4').val();
+				a4 = a4.replace(/[^가-힣!.,\s\d]/g, "");
+				$('#answer4').val(a4);
+			});
+			
+			$('#answer5').on("keyup", function(){
+				var a5 = $('#answer5').val();
+				a5 = a5.replace(/[^가-힣!.,\s\d]/g, "");
+				$('#answer5').val(a5);
+			});
+			
+			$('#answer6').on("keyup", function(){
+				var a6 = $('#answer1').val();
+				a6 = a6.replace(/[^가-힣!.,\s\d]/g, "");
+				$('#answer6').val(a6);
+			});
+			
+			$('#answer7').on("keyup", function(){
+				var a7 = $('#answer7').val();
+				a7 = a7.replace(/[^가-힣!.,\s\d]/g, "");
+				$('#answer7').val(a7);
+			});
+		});
 
-			function applyConfirm(){
-				swal("", "입양신청이 완료되었습니다.", "info")
-				.then(ok) => {
-					if(ok){
-						location.href = "<%= request.getContextPath() %>/adoptApply.bo?bNo="+ bNo;
-					}
-				});
-				return;
+		$('#okay').on("click", function(){
+			var chk = $('#agree');
+			var a1 = $('#answer1');
+			var a2 = $('#answer2');
+			var a3 = $('#answer3');
+			var a4 = $('#answer4');
+			var a5 = $('#answer5');
+			var a6 = $('#answer6');
+			var a7 = $('#answer7');
+			
+			if(chk.is(":checked") == false){
+				swal("", "개인정보 제공에 동의해주세요", "info");
+				chk.focus();
+				return false;
 			}
 			
-			function checkSubmit(){
-				return true;
+			if(a1.val().trim().length < 1){
+				swal("", "입양 계기를 적어주세요", "info");
+				a1.focus();
+				return false;
 			}
+			
+			if(a2.val().trim().length < 1){
+				swal("", "입양 가족을 적어주세요", "info");
+				a2.focus();
+				return false;
+			}
+			
+			if(a3.val().trim().length < 1){
+				swal("", "반려동물 경험을 적어주세요", "info");
+				a3.focus();
+				return false;
+			}
+			
+			if(a4.val().trim().length < 1){
+				swal("", "앞으로의 다짐을 적어주세요", "info");
+				a4.focus();
+				return false;
+			}
+			
+			if(a5.val().trim().length < 1){
+				swal("", "이사계획이 있다면 적어주세요", "info");
+				a5.focus();
+				return false;
+			}
+			
+			if(a6.val().trim().length < 1){
+				swal("", "휴가대비 계획을 적어주세요", "info");
+				a6.focus();
+				return false;
+			}
+			
+			if(a7.val().trim().length < 1){
+				swal("", "재입양에 대한 의견을 적어주세요", "info");
+				a7.focus();
+				return false;
+			}
+			
+			// 아니 왜 또 바로 닫혀
+			swal({
+				title : "입양신청 완료",
+				text : "상세화면으로 돌아갑니다",
+				icon : "success",
+				buttons : true
+			}).then((ok) => {
+				if(ok){
+					$('#form').submit();
+				}
+			});
+			return true;
+		});
+		
+		
+		
+		$('#cancel').on("click", function(){
+			location.href='<%= request.getContextPath() %>/adoptDetail.bo?boNo=<%= bNo %>';
+			return false;
+		});
 			
 	</script>
 </section>

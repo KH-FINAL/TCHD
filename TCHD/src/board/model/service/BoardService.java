@@ -321,20 +321,25 @@ public class BoardService {
 
 
 	
-	public int insertApply(Board b, AdoptApply apply) {
+	public int insertApply(Board b, Adopt a, AdoptApply apply) {
 		Connection conn = getConnection();
+		BoardDAO dao = new BoardDAO();
 		
-		int result1 = new BoardDAO().insertBoard(conn, b);
-		int result2 = new BoardDAO().insertApply(conn, apply);
+		int result1 = dao.insertBoard(conn, b);
+		int result2 = dao.insertApply(conn, apply);
+		int result3 = 0;
+		int finalResult = result2;
 		
 		if(result1 > 0 && result2 > 0) {
+			result3 = dao.UpdateAdoptYn(conn, a);
+			finalResult = result3;
 			commit(conn);
 		} else { 
 			rollback(conn);
 		}
 		
 		close(conn);
-		return result2;
+		return finalResult;
 	}
 	
 	

@@ -865,6 +865,26 @@ public class BoardDAO {
 		return result;
 	}
 	
+	public int UpdateAdoptYn(Connection conn, Adopt a) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateAdoptYn");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, a.getBoNo());
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
 	
 	public Volunteer selectVolunteer(Connection conn, int bNo) {
 		PreparedStatement pstmt = null;
@@ -1295,9 +1315,6 @@ public class BoardDAO {
 		try {
 			pstmt = conn.prepareStatement(query);
 			
-			// PET_KINDS=?, PET_CATEGORY=?, PET_GENDER=?, PET_UNIGENDER=?, PET_NAME=?, 
-			// PET_AGE=?, PET_RESCUE_DATE=?, PET_WEIGHT=?, PET_COLOR=?, PET_SIZE=?, 
-			// PET_COMMENT=? WHERE BO_NO=?
 			pstmt.setString(1, a.getPetKinds());
 			pstmt.setString(2, a.getPetCategory());
 			pstmt.setString(3, a.getPetGender());
@@ -1325,11 +1342,9 @@ public class BoardDAO {
 		int result = 0;
 		
 		String query = prop.getProperty("updateAdoptFile1");
-		System.out.println("updateAdoptFile1 실행?");
 		try {
 			for(int i = 0; i < fList.size(); i++) {
 				Files f = fList.get(i);
-			// ORIGIN_NAME=?, CHANGE_NAME=?, FILE_PATH=? WHERE BO_NO=? AND FILE_LEVEL = ? AND FILE_NO = ?
 				
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, f.getOrignName());
@@ -1337,11 +1352,9 @@ public class BoardDAO {
 			pstmt.setString(3, f.getFilePath());
 			pstmt.setInt(4, f.getBoNo());
 			pstmt.setInt(5, f.getFileLevel());
-//			pstmt.setInt(6, f.getFileNo());
 			
 			result += pstmt.executeUpdate();
 			}
-			System.out.println("updateAdoptFile1 실행2?");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -1719,7 +1732,11 @@ public class BoardDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
+		
 		return count;
 	}
 	
@@ -1843,4 +1860,5 @@ public class BoardDAO {
 		
 		return result;
 	}
+
 }
