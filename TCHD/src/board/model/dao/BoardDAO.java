@@ -1462,6 +1462,7 @@ public class BoardDAO {
 		System.out.println("updateVolunteer2");
 		PreparedStatement pstmt=null;
 		int result =0;
+		System.out.println(volunteer);
 		try {
 			pstmt =conn.prepareStatement(prop.getProperty("updateVolunteer2"));
 			pstmt.setInt(1, volunteer.getVoMaxmember());
@@ -1540,23 +1541,22 @@ public class BoardDAO {
 		
 		return result;
 	}
-
-	public int updateApplyVolunteer(Connection conn, int volBNo) {
-		PreparedStatement pstmt = null;
+		
+	// 봉사 신청 네번째 도전.
+	public int applyVolunteer(Connection conn, int volBNo) {
+		PreparedStatement pstmt  =null;
 		int result = 0;
 		
-		String query = prop.getProperty("updateApplyVolunteer");
-		
 		try {
-			pstmt = conn.prepareStatement("query");
+			pstmt=conn.prepareStatement(prop.getProperty("applyVolunteer"));
 			pstmt.setInt(1, volBNo);
-			result = pstmt.executeUpdate();
+			result= pstmt.executeUpdate();
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
+		}finally {
 			close(pstmt);
 		}
-		
 		return result;
 	}
 

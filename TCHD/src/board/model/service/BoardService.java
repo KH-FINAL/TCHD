@@ -571,7 +571,7 @@ public class BoardService {
 	}
 
 	
-	public int insertVolunteer(Volunteer v, Files uploadFile) {
+public int insertVolunteer(Volunteer v, Files uploadFile) {
 		
 		Connection conn = getConnection();
 		
@@ -638,19 +638,20 @@ public class BoardService {
 		return finalResult;
 	}
 
+	// 봉사 신청 네번째 도전.
 	public int applyVolunteer(int volBNo) {
 		Connection conn = getConnection();
 		
-		BoardDAO dao = new BoardDAO();
+		int result = new BoardDAO().applyVolunteer(conn, volBNo);
 		
-		int result = dao.updateApplyVolunteer(conn, volBNo);
-		
-		close(conn);
-		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
 		return result;
-	
 	}
-
+	
 	public int deleteVolunteer(int bNo) {
 		Connection conn = getConnection();
 		
@@ -663,7 +664,6 @@ public class BoardService {
 		}
 		return result;
 	}
-
 
 
 	public ArrayList<Support> selectManageSupport(Date searchDate,PageInfo pi) {

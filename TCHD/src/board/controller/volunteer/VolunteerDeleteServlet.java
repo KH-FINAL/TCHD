@@ -28,7 +28,7 @@ public class VolunteerDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int bNo = Integer.parseInt(request.getParameter("bNo"));
+		int bNo = Integer.parseInt(request.getParameter("volBNo"));
 		
 		int result = new BoardService().deleteVolunteer(bNo);
 		
