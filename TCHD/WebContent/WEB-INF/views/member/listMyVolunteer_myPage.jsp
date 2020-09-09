@@ -55,7 +55,7 @@
 							<input type="hidden" class="bNo" value="<%=v.getBoNo() %>">
 							<td><%=format.format(v.getVoDate()) %></td>
 							<td><%=v.getBoTitle() %></td>
-							<td><%=v.getVoPlace() %></td>
+							<td><%=v.getVoPlace().substring(6,8) %></td>
 						</tr>
 						<%} %>
 					<%}else{ %>

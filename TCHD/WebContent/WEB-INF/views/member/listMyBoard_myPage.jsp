@@ -10,7 +10,7 @@
 	int volunteer=0;
 	int comment=0;
 	int questions=0;
-	
+	System.out.println(boardList);
 	if(eachBoardCount.get("입양게시판")!=null){adopt=eachBoardCount.get("입양게시판");};
 	if(eachBoardCount.get("봉사게시판")!=null){volunteer=eachBoardCount.get("봉사게시판");};
 	if(eachBoardCount.get("문의사항")!=null){questions=eachBoardCount.get("문의사항");};
@@ -24,6 +24,8 @@
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
+	
+	String search= (String)request.getAttribute("board");
 %>
 <!DOCTYPE html>
 <html>
@@ -124,15 +126,31 @@ $(function(){
 					
 					
 			<div  class="paging">			
+			<%if(search!=null){ %>
+			<a href="searchMyBoard.bo?currentPage=<%=currentPage-1 %>&board=<%=search %>" class="bt" id="beforBtn">이전 페이지</a>			
+			<%}else{ %>
 			<a href="listMyBoard.bo?currentPage=<%=currentPage-1 %>" class="bt" id="beforBtn">이전 페이지</a>			
+			<%} %>
 			<%for(int p=startPage; p<=maxPage; p++){ %>
 	   					<% if(p==currentPage){ %>
-	   					 <a href="listMyBoard.bo?currentPage=<%=p %>" class="num on"><%=p %></a>
+	   						<%if(search!=null){ %>
+	   						<a href="searchMyBoard.bo?currentPage=<%=p %>&board=<%=search %>" class="num on"><%=p %></a>
+	   						<%}else{ %>
+	   					 	<a href="listMyBoard.bo?currentPage=<%=p %>" class="num on"><%=p %></a>
+	   					 	<%} %>
 	   					<%}else{ %>
-	   					 <a href="listMyBoard.bo?currentPage=<%=p %>" class="num"><%=p %></a>
+	   						<%if(search!=null){ %>
+	   						<a href="searchMyBoard.bo?currentPage=<%=p %>&board=<%=search %>" class="num"><%=p %></a>
+	   						<%}else{ %>
+	   					 	<a href="listMyBoard.bo?currentPage=<%=p %>" class="num"><%=p %></a>
+	   					 	<%} %>
 	   					<%} %>
 	   		<%} %>	
-   		  <a href="listMyBoard.bo?currentPage=<%=currentPage+1 %>" class="bt" id="nextBtn">다음 페이지</a>
+	   		<%if(search!=null){ %>
+	   		<a href="searchMyBoard.bo?currentPage=<%=currentPage+1 %>&board=<%=search %>" class="bt" id="nextBtn">다음 페이지</a>
+	   		<%}else{ %>
+   	    	<a href="listMyBoard.bo?currentPage=<%=currentPage+1 %>" class="bt" id="nextBtn">다음 페이지</a>
+   	    	<%} %>
             </div>					
 			
 				</div>

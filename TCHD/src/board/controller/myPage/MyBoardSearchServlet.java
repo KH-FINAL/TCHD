@@ -66,7 +66,9 @@ public class MyBoardSearchServlet extends HttpServlet {
 		
 		request.setAttribute("pi", pi);
 		request.setAttribute("eachBoardCount", eachBoardCount);
+		request.setAttribute("board", searchBoard);
 		request.setAttribute("boardList", resultList);
+		
 		request.setAttribute("section", "WEB-INF/views/member/listMyBoard_myPage.jsp");
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}

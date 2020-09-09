@@ -53,6 +53,7 @@ public class SupportListServlet extends HttpServlet {
 				request.setAttribute("supNo", supNo);
 				Support support = service.selectListNonMem(supNo);
 				request.setAttribute("support", support);
+				request.setAttribute("section", "WEB-INF/views/support/supportList.jsp");
 			}
 		} else {
 			// 회원 (로그인)
@@ -88,9 +89,10 @@ public class SupportListServlet extends HttpServlet {
 			request.setAttribute("supportList", supportList);
 			request.setAttribute("totalPrice", totalPrice);
 			request.setAttribute("pi", pi);
+			request.setAttribute("section", "WEB-INF/views/support/supportList.jsp");
 		}
 		
-		request.setAttribute("section", "WEB-INF/views/support/supportList.jsp");
+		//request.setAttribute("section", "WEB-INF/views/support/supportList.jsp");
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 

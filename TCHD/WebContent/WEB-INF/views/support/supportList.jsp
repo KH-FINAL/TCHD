@@ -11,7 +11,7 @@
 // 	System.out.println("list.jsp_nSupComma : " + nSupComma);
 
 	// 회원
-	ArrayList<Support> supportList = null;
+	ArrayList<Support> supportList =  (ArrayList<Support>)request.getAttribute("supportList");
 	int totalPrice = 0;
 	int listCount = 0;
 	int currentPage = 0;
@@ -20,7 +20,7 @@
 	int endPage = 0;
 	
 	if(supportList != null){
-		supportList = (ArrayList<Support>)request.getAttribute("supportList");
+		//supportList = (ArrayList<Support>)request.getAttribute("supportList");
 		listCount = 0;
 		totalPrice = (int)request.getAttribute("totalPrice");
 		System.out.println("list.jsp_totalPrice : " + totalPrice);
@@ -50,11 +50,14 @@
 		<div id="main_div">
 			<div>
 				<div id="search_date_div">
-					<input type="month" id="input_search_date">
+					<input type="month" id="input_search_date" name="searchDate">
 					<script>
 						var date = new Date().toISOString().slice(0, 7);
 // 						$("#input_search_date").html(date);
 // 						console.log($("#input_search_date").html());
+						$('#input_search_date').click(function(){
+							console.log($(this).val());
+						});
 					</script>
 				</div>
 				<div id="support_list_div">

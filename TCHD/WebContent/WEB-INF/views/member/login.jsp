@@ -4,7 +4,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="css/member/login.css" type="text/css">
-<script src="../../lib/jquery.capslockstate.js"></script>
+<script src="images/jquery.capslockstate.js"></script>
 </head>
 <body>
 	<section>
@@ -39,7 +39,7 @@
 			<br>
 
 			<div id="login_button_div">
-				<input type="submit" id="login_button" value="로그인" onclick="validate();"">
+				<input type="submit" id="login_button" value="로그인" onclick="validate();">
 			</div>
 
 			<br>
@@ -84,21 +84,21 @@
 				
 				$(window).bind("capsOn", function(event){
 					if($("#input_pw:focus").length > 0){
-						$("#capslock").show();
+						$("#capslock").css("visibility","visible");
 					}
 				});
 				
-				$(window).bind("cpasOff capsUnknown", function(event){
-					$("#capslock").hide();
+				$(window).bind("capsOff capsUnknown", function(event){
+					$("#capslock").css("visibility","hidden");
 				});
 				
 				$("#input_pw").bind("focusout", function(event){
-					$("#capslock").hide();
+					$("#capslock").css("visibility","hidden");
 				});
 				
 				$("#input_pw").bind("focusin", function(event){
 					if($(window).capslockstate("state") === true){
-						$("#capslock").show();
+						$("#capslock").css("visibility","visible");
 					}
 				});
 			});
