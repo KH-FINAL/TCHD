@@ -41,17 +41,6 @@ public class QuestionsListServlet extends HttpServlet {
 		BoardService qService = new BoardService(); //레퍼런스 변수에 담음
 		HttpSession session = request.getSession();
 		
-		
-		/*
-		 * if((Member)session.getAttribute("loginUser")==null) { //비회원일때
-		 * System.out.println("null입니다요"); } // 잘찍힘
-		 * 
-		 * String userId = ((Member)session.getAttribute("loginUser")).getMem_id();
-		 * System.out.println("문의게시판 userId : " + userId);
-		 * 
-		 * 
-		 */
-	
 	
 		
 		int listCount;		//총 게시글 개수

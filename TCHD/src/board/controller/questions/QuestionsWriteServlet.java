@@ -36,7 +36,6 @@ public class QuestionsWriteServlet extends HttpServlet {
      */
     public QuestionsWriteServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

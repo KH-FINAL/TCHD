@@ -1214,11 +1214,6 @@ public class BoardDAO {
 			pstmt.setInt(1, comments.getMemNo());
 			pstmt.setInt(2, comments.getBoNo());
 			pstmt.setString(3, comments.getComContent());
-//			pstmt.setDate(4, comments.getComDate());
-//			pstmt.setInt(1, comments.getMemNo());
-//			pstmt.setInt(2, comments.getBoNo());
-//			pstmt.setString(3, comments.getComContent());;
-//			pstmt.setString(4, comments.getMemId());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -1244,7 +1239,6 @@ public class BoardDAO {
 				eachBoardCount.put(rset.getString("CATE_NAME"), rset.getInt(1));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
 			close(rset);
@@ -1455,7 +1449,6 @@ public class BoardDAO {
 			pstmt.setInt(1, bNo);
 			result= pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
@@ -1578,7 +1571,6 @@ public class BoardDAO {
 			pstmt.setInt(1, volBNo);
 			result= pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
@@ -1800,7 +1792,6 @@ public class BoardDAO {
 				
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
 			close(rset);
@@ -1963,7 +1954,6 @@ public class BoardDAO {
 			pstmt.setInt(2, memNo);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
@@ -1986,7 +1976,6 @@ public class BoardDAO {
 				}
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(rset);
@@ -2004,7 +1993,6 @@ public class BoardDAO {
 			pstmt.setInt(1, volBNo);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
 			close(pstmt);

@@ -510,45 +510,17 @@ public class BoardService {
 		
 		int result = dao.updateBoard(conn, b);
 		int result1 = 0;
-//		int result2 = 0; 
-//		int finalResult = 0;
+
 		
 		if(result > 0) {
 			result1 = dao.updateAdopt(conn, a);
-//			finalResult = result;
-			
-//			if(result1 >0) {
-//				result2 = dao.selectFile(conn, bNo);
-//				finalResult = result2;
-//			}
+
 			commit(conn);
 		} else {
 			rollback(conn);
 		}
 		close(conn);
-//		int finalResult = result1;
-//		if(result1 > 0) {						// Board 테이블 update 성공
-//			int result2 = dao.updateAdopt(conn, a);
-//			finalResult = result2;
-//			if(result2 > 0) {			// Adopt 테이블 update 성공
-//				for(int i = 0; i < fList.size(); i++) {
-//					if(fList.get(i).getFileNo() != 0 ) {		// 원본 사진이 있을 때
-//						if(fList.get(i).getOrignName() != null) { // 수정 페이지에서 사진 추가할 경우 or 사진 변경할 경우
-//							int result3 = dao.updateAdoptFile1(conn, fList);
-//							finalResult = result3;
-//						} else {	 					 // 수정페이지에서 사진 뺼 경우
-//							int result3 = dao.updateAdoptFile2(conn, fList);
-//							finalResult = result3;
-//						}
-//					}
-//				}
-//			}
-//			commit(conn);
-//		} else {
-//			rollback(conn);
-//		}
-//		close(conn);
-//		return finalResult;
+
 		return result1;
 	}
 	
