@@ -37,8 +37,8 @@ public class MemberService {
 		Member loginUser = new MemberDAO().login(conn,member);
 		
 		close(conn);
-		return loginUser;
 		
+		return loginUser;
 	}
 
 	public int checkId(String inputId) {
@@ -79,12 +79,10 @@ public class MemberService {
 		Connection conn = getConnection();
 		
 		MemberDAO mDAO = new MemberDAO();
-		
 	
 		int result = mDAO.updateMember(conn, member);		
 		
 		if(result>0) {
-			
 			int result2 = mDAO.updateMemberPm(conn, member);
 			if(result2>0) {				
 				commit(conn);
@@ -115,7 +113,6 @@ public class MemberService {
 				rollback(conn);
 			}
 		}else {
-			
 			rollback(conn);
 		}
 		

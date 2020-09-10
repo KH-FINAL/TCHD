@@ -81,16 +81,13 @@ public class SupportListServlet extends HttpServlet {
 			// 페이징
 			int[] listTotal = service.getListCount(mem_no, searchDate);
 			listCount = listTotal[0];
-			System.out.println("list서블릿_listCount : " + listCount);
 			int totalPrice = listTotal[1];
-			System.out.println("list서블릿_totalPrice : " + totalPrice);
 			
 			currentPage = 1;
 			
 			if(request.getParameter("currentPage") != null) {
 				currentPage = Integer.parseInt(request.getParameter("currentPage"));
 			}
-			System.out.println("list서블릿_currentPage : " + currentPage);
 			
 			pageLimit = 10;
 			supportLimit = 10;
@@ -103,7 +100,6 @@ public class SupportListServlet extends HttpServlet {
 			}
 			
 			pi = new PageInfo(currentPage, listCount, pageLimit, supportLimit, maxPage, startPage, endPage);
-			System.out.println("list서블릿_pi : " + pi.toString());
 			
 			// 넘겨넘겨~~
 			ArrayList<Support> supportList = service.selectListMem(mem_no, searchDate, pi);

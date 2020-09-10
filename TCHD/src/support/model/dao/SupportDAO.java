@@ -162,8 +162,6 @@ public class SupportDAO {
 			pstmt.setDate(3, searchDate);
 			rset = pstmt.executeQuery();
 			
-			System.out.println("dao_memNo : " + mem_no);
-			System.out.println("dao_searchDate : " + searchDate);
 			if(rset.next()) {
 				listTotal[0] = rset.getInt(1); // COUNT(*)
 				listTotal[1] = rset.getInt(2); // SUM(SUP_PRICE)
@@ -217,7 +215,6 @@ public class SupportDAO {
 
 		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 		int endRow = startRow + pi.getBoardLimit() - 1;
-		System.out.println("dao_startRow : " + startRow + " / endRow : " + endRow);
 		
 		try {
 			pstmt = conn.prepareStatement(query);

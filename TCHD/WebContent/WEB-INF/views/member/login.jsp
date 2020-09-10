@@ -57,28 +57,6 @@
 				}
 			});
 			
-// 			$("#input_pw").keypress(function(e){
-// 				var keyCode = 0;
-// 				var shiftKey = false;
-// 				keyCode = e.keyCode;
-// 				shiftKey = e.shiftKey;
-				
-// 				if(((keyCode >= 65 && keyCode <= 90) && !shiftKey) || ((keyCode >= 97 && keyCode <= 122) && shiftKey)){
-// 					show_caps_lock();
-// 					setTimeout("hide_caps_lock()", 3500);
-// 				} else{
-// 					hide_caps_lock();
-// 				}
-// 			});
-			
-// 			function show_caps_lock(){
-// 				$("#capslock").show();
-// 			}
-			
-// 			function hide_caps_lock(){
-// 				$("#capslock").hide();
-// 			}
-			
 			$(document).ready(function(){
 				$(window).capslockstate();
 				
@@ -144,7 +122,6 @@
 					type: "post", 
 					data: {userId:id.val(), userPwd:pwd.val()}, 
 					success: function(result){
-						console.log("result : " + result);
 						if(result == 1 || result==2){
 							location.href="<%=request.getContextPath()%>";
 						}else if(result==3){

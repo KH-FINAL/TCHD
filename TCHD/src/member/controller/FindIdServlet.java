@@ -24,7 +24,6 @@ public class FindIdServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("input_name");
 		String email = request.getParameter("input_email");
-		System.out.println(name+"/"+email);
 		Member member = new Member(0, "",name, email); // 생성자가 겹쳐서 mem_no, mem_id, mem_name, mem_email로 사용
 		
 		Member findUser = new MemberService().findId(member);
@@ -40,7 +39,6 @@ public class FindIdServlet extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			System.out.println("메일 전송 완료_id");
 			
 			response.getWriter().println("1");
 			

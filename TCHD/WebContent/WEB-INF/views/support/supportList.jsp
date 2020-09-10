@@ -41,7 +41,6 @@
 	if(supportList != null){
 		listCount = 0;
 		totalPrice = (int)request.getAttribute("totalPrice");
-		System.out.println("list.jsp_totalPrice : " + totalPrice);
 		
 		PageInfo pi = (PageInfo)request.getAttribute("pi");
 		

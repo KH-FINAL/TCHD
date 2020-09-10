@@ -54,8 +54,6 @@ public class FindPwdServlet extends HttpServlet {
 				if(result != 0) {
 					new sendMail().sendEmail("pwd", email, temporaryPwd);
 					
-					System.out.println("메일 전송 완료_pwd");
-					
 					response.getWriter().println("1");
 				} else {
 					response.getWriter().println("0");
