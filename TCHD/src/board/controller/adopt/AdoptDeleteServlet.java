@@ -1,6 +1,7 @@
 package board.controller.adopt;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
+import board.model.vo.Adopt;
+import board.model.vo.Files;
 
 /**
  * Servlet implementation class AdoptDeleteServlet
@@ -30,11 +33,11 @@ public class AdoptDeleteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bNo = Integer.parseInt(request.getParameter("boNo"));
-		
+
 		int result = new BoardService().deleteAdopt(bNo);
 		
+		request.setAttribute("boNo", bNo);
 		if(result > 0) {
-			request.setAttribute("boNo", bNo);
 			response.sendRedirect("adopt.bo");
 		} else {
 			response.sendRedirect("views/adopt/adoptDetail.jsp");

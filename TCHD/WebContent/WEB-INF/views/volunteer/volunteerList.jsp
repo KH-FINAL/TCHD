@@ -6,6 +6,10 @@
 	ArrayList<Volunteer> volunteerList = (ArrayList<Volunteer>)request.getAttribute("volunteerList");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	Member loginUser = (Member)session.getAttribute("loginUser");
+	String GmOkNy = "";
+	if(loginUser!=null){
+		GmOkNy=loginUser.getGm_ok_ny();
+	}
 	String msg = (String)session.getAttribute("msg");
 	String search = (String)request.getAttribute("search");
 	String cate = (String)request.getAttribute("cate");
@@ -94,7 +98,7 @@
 				<input type="button" onclick="location.href='volunteerWriteForm.bo'" id="write_button" value="글쓰기">
 				<% } %>
 				<% if(loginUser != null && loginUser.getMem_type().equals("GM")){ %>
-				<input type="button" onclick="location.href='volunteerWriteForm.bo'" id="write_button" value="글쓰기">
+				<input type="button" onclick="goWriteFormGm();" id="write_button" value="글쓰기">
 				<% } %>
 			</div>
 			
@@ -165,6 +169,20 @@
 				location.href="volunteerSearch.bo?search="+search+"&cate="+select;
 			});
 		});
+		
+		function goWriteFormGm(){
+			var loginUser='<%=loginUser%>';
+			if(loginUser!='null'){
+				var GmOkNy = '<%=GmOkNy%>';
+				console.log(GmOkNy);
+				if(GmOkNy=='Y'){
+					location.href="volunteerWriteForm.bo";
+				}else{
+					swal("","아직 승인을 받지 못한 회원입니다.\n승인 후 이용가능합니다.","info");
+					return;
+				}
+			}
+		}
 	</script>
 	
 </body>

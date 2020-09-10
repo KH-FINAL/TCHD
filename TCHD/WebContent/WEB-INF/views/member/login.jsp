@@ -4,6 +4,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="css/member/login.css" type="text/css">
+<script src="images/jquery.capslockstate.js"></script>
 </head>
 <body>
 	<section>
@@ -25,7 +26,8 @@
 				<label class="login_label">비밀번호&nbsp;&nbsp;</label>
 				<input type="password" id="input_pw" class="login_input" name="userPwd">
 			</div>
-
+			
+			<p id="capslock"><b>CapsLock</b> 키가 눌려있습니다.</p>
 			<br>
 
 			<div id="login_find_div">
@@ -37,7 +39,7 @@
 			<br>
 
 			<div id="login_button_div">
-				<input type="submit" id="login_button" value="로그인" onclick="validate();"">
+				<input type="submit" id="login_button" value="로그인" onclick="validate();">
 			</div>
 
 			<br>
@@ -50,11 +52,57 @@
 
 		<script>
 			$('#input_pw').keyup(function(event){
-					if(event.keyCode==13){
-						validate();
-					}
+				if(event.keyCode==13){
+					validate();
+				}
 			});
-		
+			
+// 			$("#input_pw").keypress(function(e){
+// 				var keyCode = 0;
+// 				var shiftKey = false;
+// 				keyCode = e.keyCode;
+// 				shiftKey = e.shiftKey;
+				
+// 				if(((keyCode >= 65 && keyCode <= 90) && !shiftKey) || ((keyCode >= 97 && keyCode <= 122) && shiftKey)){
+// 					show_caps_lock();
+// 					setTimeout("hide_caps_lock()", 3500);
+// 				} else{
+// 					hide_caps_lock();
+// 				}
+// 			});
+			
+// 			function show_caps_lock(){
+// 				$("#capslock").show();
+// 			}
+			
+// 			function hide_caps_lock(){
+// 				$("#capslock").hide();
+// 			}
+			
+			$(document).ready(function(){
+				$(window).capslockstate();
+				
+				$(window).bind("capsOn", function(event){
+					if($("#input_pw:focus").length > 0){
+						$("#capslock").css("visibility","visible");
+					}
+				});
+				
+				$(window).bind("capsOff capsUnknown", function(event){
+					$("#capslock").css("visibility","hidden");
+				});
+				
+				$("#input_pw").bind("focusout", function(event){
+					$("#capslock").css("visibility","hidden");
+				});
+				
+				$("#input_pw").bind("focusin", function(event){
+					if($(window).capslockstate("state") === true){
+						$("#capslock").css("visibility","visible");
+					}
+				});
+			});
+			
 			function validate(){
 				var id = $("#input_id");
 				var pwd = $("#input_pw");

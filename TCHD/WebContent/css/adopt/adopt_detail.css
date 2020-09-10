@@ -68,6 +68,10 @@
 		opacity: 0.7;
 	}
 	
+	.smallPicture:hover{
+		cursor: pointer;
+	}
+	
 	.threeButton{		/* 삭제, 수정, 입양 버튼 */
 		float: right;
 		margin: 20px 70px 0px 0px;
@@ -75,7 +79,6 @@
 		height: 80px;
 		border-radius: 10px;
 		border: 0px;
-/* 		background-color: skyblue; */
 		background-color: rgb(41, 128, 185);
 		font-size: 28px;
 		font-weight: bold;
@@ -98,6 +101,24 @@
 		font-size: 35px;
 		font-weight: bold;
 		padding: 25px 0px 40px 0px;
+		width: 400px;
+		float: left;
+	}
+	
+	#listBtn{
+		margin: 30px 0px 30px 60px;
+		width: 100px;
+		height: 50px;
+		border-radius: 10px;
+		border: 0px;
+		background-color: white;
+		font-size: 20px;
+		font-weight: bold;
+		color: black;
+	}
+	
+	#listBtn:hover{
+		cursor: pointer;
 	}
 	
 	.petDetail{			/* 세부설명 영역 */

@@ -5,6 +5,9 @@
 // 	int bNo = (int)request.getAttribute("bNo");
 	Member loginUser = (Member)request.getAttribute("loginUser");
 	Adopt a = (Adopt)request.getAttribute("adopt");
+	if(a.getPetComment() == null){
+		a.setPetComment("");
+	}
 	ArrayList<Files> fileList = (ArrayList<Files>)request.getAttribute("fileList");
 	
 // 	int fileNo0 = (int)request.getAttribute("fileNo0");
@@ -27,7 +30,7 @@
 </head>
 <body>
 <section>		<!-- encType="multipart/form-data" -->
-   	<form action="<%= request.getContextPath() %>/adoptUpdate.bo" method="post" onsubmit="return checkSubmit();">
+   	<form id="form" action="<%= request.getContextPath() %>/adoptUpdate.bo" method="post">
    		<div id="ment">보호동물 게시글 수정</div>
    		<div id="area">
    			<div id="picture">
@@ -62,16 +65,12 @@
 				<tr>
 					<td class="firstTd"> 구분 </td>
 					<td id="kindTd" class="secondTd">
-<!-- 						<input type="checkbox" name="petKind" value="DOG" onclick="return false;"/> 개  -->
-<!-- 						<input type="checkbox" name="petKind" value="CAT" onclick="return false;"/> 고양이 -->
 						<div id="petKind">
 							<img name="petKind" src="./images/chkbox.png" width="12px" height="12px"/><input type="hidden" name="petKind" value="<%= a.getPetKinds() %>"/> <%= a.getPetKinds() %>
 						</div> 
 					</td>
 					<td class="firstTd"> 성별 </td>
 					<td id="genderTd" class="secondTd">
-<!-- 						<input type="checkbox" name="petGender" value="F" onclick="return false;"/> 암컷  -->
-<!-- 						<input type="checkbox" name="petGender" value="M" onclick="return false;"/> 수컷 -->
 						<div id="petGender">
 							<img name="petGender" src="./images/chkbox.png" width="12px" height="12px"/><input type="hidden" name="petGender" value="<%= a.getPetGender() %>"/> <%= a.getPetGender() %>
 							<input type="checkbox" name="unigender" value="<%= a.getPetUnigender()%>"/> 중성화
@@ -111,7 +110,7 @@
 						<span>*</span> 동물이름 :
 					</td>
 					<td class="secondTd">
-						<input class="answer" name="petName" value="<%= a.getPetName() %>" required/> 
+						<input id="petName" class="answer" name="petName" value="<%= a.getPetName() %>" required/> 
 					</td>
 				</tr>
 				<tr>
@@ -119,7 +118,7 @@
 						<span>*</span> 종류(품종) :
 					</td>
 					<td class="secondTd">
-						<input class="answer" name="petCategory" value="<%= a.getPetCategory() %>" required/>
+						<input id="category" class="answer" name="petCategory" value="<%= a.getPetCategory() %>" required/>
 					</td>
 				</tr>
 				<tr>
@@ -127,7 +126,7 @@
 						<span>*</span> 몸무게(kg) :
 					</td>
 					<td class="secondTd">		<!-- 사용자가 숫자만 입력 ==> 기본 0.0kg -->
-						<input class="answer" name="petWeight" placeholder=" ex. 0.0kg" value="<%= a.getPetWeight() %>" required>
+						<input type="text" id="weight" class="answer" name="petWeight" maxlength=3 placeholder=" ex. 0.0kg" value="<%= a.getPetWeight() %>" required>
 					</td>
 				</tr>
 				<tr>
@@ -135,7 +134,7 @@
 						<span>*</span> 색깔 :
 					</td>
 					<td class="secondTd">
-						<input class="answer" name="petColor" value="<%= a.getPetColor() %>" required>
+						<input type="text" id="petColor" class="answer" name="petColor" value="<%= a.getPetColor() %>" required>
 					</td>
 				</tr>
 			</table>  	
@@ -153,7 +152,7 @@
 						  구조일시 :
 					</td>
 					<td class="secondTd">		<!-- 사용자가 숫자만 입력 ==> 기본 0.0kg -->
-						<input class="answer" type="date" name="rescue" value="<%= a.getPetRescueDate() %>" readonly/>
+						<input id="rescue" class="answer" type="date" name="rescue" value="<%= a.getPetRescueDate() %>" readonly/>
 					</td>
 				</tr>
 				
@@ -177,6 +176,12 @@
 <!-- 	   			<input type="file" id="thumbnailImg3" multiple="multiple" name="thumbnailImg2" onchange="LoadImg(this,3)"/> -->
 <!-- 	   			<input type="file" id="thumbnailImg4" multiple="multiple" name="thumbnailImg3" onchange="LoadImg(this,4)"/> -->
 <!-- 	   		</div> -->
+
+		<div id="buttonArea">	<!-- 취소하기 : action의 영향 안 받음 -->
+   			<button id="cancelButton" class="buttons">취소</button>
+	   		<button id="okButton" type="button" class="buttons">수정</button>
+	   	</div>
+
 	   	<script>
 		// insert 당시 입력했던 값 가져옴
 		// $("input[name=search_value]")
@@ -263,28 +268,135 @@
 // 	   			}
 // 	   		}
 	   		
-   		</script>
-   		
-   		<div id="buttonArea">	<!-- 취소하기 : action의 영향 안 받음 -->
-   			<button id="cancelButton" class="buttons" type="reset" onclick="location.href='<%= request.getContextPath() %>/adoptDetail.bo?boNo=<%= a.getBoNo() %>'">취소</button>
-	   		<button id="okButton" type="submit" class="buttons">수정</button>
-	   	</div>
- 			<script>
-				function okayButton(){
-					swal("게시글 수정", "상세페이지로 이동합니다", "info")
-					.then((ok) => {
+// 정규표현식 -----------------------------------------------------------------------------------------------------   		
+ 	   		$(function(){
+ 	   			$('#ageDetail').on("keyup", function(){
+ 		   			var ageNum = $('#ageDetail').val();
+ 		   			ageNum = ageNum.replace(/[^0-9]/g, "");		// 숫자만 쓰는 나이칸
+ 		   			$('#ageDetail').val(ageNum);
+ 	   			});
+ 	   			
+ 	   			$('#weight').on("keyup", function(){
+ 	   				var weight = $('#weight').val();
+ 	   				weight = weight.replace(/[^\d*(\.\d{0,2})]/g, "");	// 몸무게는 소수점 1자리까지만 가능
+ 	   				$('#weight').val(weight);
+ 	   			});
+ 	   			
+ 	   			$('#petName').on("keyup", function(){
+ 	   				var name = $('#petName').val();
+ 	   				name = name.replace(/[^가-힣]/g, "");			// 이름은 한글만 가능
+ 	   				$('#petName').val(name);
+ 	   			});
+ 	   			
+ 	   			$('#category').on("keyup", function(){
+ 	   				var category = $('#category').val();
+ 	   				category = category.replace(/[^가-힣]/g, "");	// 품종은 한글만 가능
+ 	   				$('#category').val(category);
+ 	   			});
+ 	   			
+ 	   			$('#petColor').on("keyup", function(){
+ 	   				var color = $('#petColor').val();
+ 	   				color = color.replace(/[^가-힣]/g, "");		// 털색은 한글만 가능
+ 	   				$('#petColor').val(color);
+ 	   			});
+ 	   			
+ 	   			$('#rescue').on("keyup", function(){
+ 	   				var rescue = $('#rescue').val();
+ 	   				rescue = rescue.replace(/[^0-9]/g, "");		// 날짜는 숫자만 가능
+ 	   				$('#rescue').val(rescue);
+ 	   			});
+ 	   			
+ 	   			$('#lastAnswer').on("keyup", function(){
+ 	   				var answer = $('#lastAnswer').val();
+ 	   				answer = answer.replace(/[^가-힣!\s\d]/g, "");	// 하고싶은 말은 한글, 숫자, 공백, ! 가능
+ 	   			});
+ 	   			
+ 	   		});
+ 			
+// 칸 미입력 시 뜨는 창 ------------------------------------------------------------------			
+ 			$('#okButton').on("click", function(){		// 정보 넘기는 함수
+ 	   			var size = $('#petSizes');			 // select : 소형(S), 중형(M), 대형(L)
+ 	   			var age = $('#petAge');				 // select : Puppy, Junior, Adult, Senior
+ 		   		var ageNum = $('#ageDetail');		 // 숫자만 받는 나이칸
+ 		   		var ageStr = $('#detailAge');		 // select : 개월, 살 
+ 		   		var name = $('#petName');			 // 이름
+ 		   		var category = $('#category');		 // 품종
+ 		   		var weight = $('#weight');			 // 무게
+ 		   		var color = $('#petColor');			 // 털 색
+ 		   		var rescue = $('#rescue');			 // 구조일자
+
+ 		   		
+ 		   		if(size.val() == 0){
+ 		   			swal("", "크기를 선택해주세요", "info");
+ 		   			size.focus();
+ 		   			return false;
+ 		   		}
+ 		   		
+ 		   		if(age.val() == 0){
+ 		   			swal("", "나이구분을 선택해주세요", "info");
+ 		   			age.focus();
+ 		   			return false;
+ 		   		}
+ 		   		
+ 		   		if(ageNum.val().trim().length < 1){
+ 		   			swal("", "나이를 입력해주세요", "info");
+ 		   			ageNum.focus();
+ 		   			return false;
+ 		   		}
+ 		   		
+ 		   		if(ageStr.val() == 0){
+ 		   			swal("", "개월, 살을 선택해주세요", "info");
+ 		   			ageStr.focus();
+ 		   			return false;
+ 		   		}
+ 		   		
+ 		   	if(name.val().trim() == ""){
+	   			swal("", "이름을 입력해주세요", "info");
+	   			name.focus();
+	   			return false;
+	   		}
+	   		
+	   		if(category.val().trim() == ""){
+	   			swal("", "품종을 입력해주세요", "info");
+	   			category.focus();
+	   			return false;
+	   		}
+	   		
+	   		if(weight.val().trim() == ""){		
+	   			swal("", "몸무게를 입력해주세요", "info");
+	   			weight.focus();
+	   			return false;
+	   		}
+	   		
+	   		if(color.val().trim() == ""){
+	   			swal("", "털색을 입력해주세요", "info");
+	   			color.focus();
+	   			return false;
+	   		}
+	   	
+	   		if(rescue.val().trim() == ""){
+	   			swal("", "구조날짜를 입력해주세요", "info");
+	   			rescue.focus();
+	   			return false;
+	   		}
+ 		   		
+					swal({
+						title : '게시글 수정', 
+						text : '상세페이지로 이동합니다', 
+						icon : 'success',
+					}).then((ok) => {
 						if(ok){
-							location.href='<%= request.getContextPath() %>/adoptUpdate.bo';
+							$('#form').submit();
 						}
 					});
-					return;				
-				}
-				
-				
-				
-				function checkSubmit(){
-					return true;
-				}
+					
+					return true;				
+ 			});
+ 			
+ 			$('#cancelButton').on('click', function(){
+ 				location.href='<%= request.getContextPath() %>/adoptDetail.bo?boNo=<%= a.getBoNo() %>'
+ 	   			return false;
+ 	   		});
 	   		</script>
 	</form>   	
 </section>

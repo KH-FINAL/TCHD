@@ -46,7 +46,7 @@ public class BoardDAO {
 		ResultSet rset = null;
 		ArrayList<Adopt> list = null;
 		
-		String query = prop.getProperty("selectAtList");
+		String query = prop.getProperty("selectAList");
 		
 		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 		int endRow = startRow + pi.getBoardLimit() - 1;
@@ -865,7 +865,7 @@ public class BoardDAO {
 		return result;
 	}
 	
-	public int UpdateAdoptYn(Connection conn, Adopt a) {
+	public int updateAdoptYn(Connection conn, Adopt a) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -874,6 +874,27 @@ public class BoardDAO {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, a.getBoNo());
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	
+	public int updateFilesYn(Connection conn, Files f) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateFilesYn");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, f.getBoNo());
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -899,7 +920,6 @@ public class BoardDAO {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				System.out.println(rset.getDate("VO_DATE"));
 				volunteer = new Volunteer(rset.getInt("bo_no"),
 											rset.getInt("bo_type"),
 											rset.getString("cate_name"),
@@ -913,7 +933,8 @@ public class BoardDAO {
 											rset.getTimestamp("vo_date"),
 											rset.getInt("bo_count"),
 											rset.getString("vo_comment"),
-											rset.getString("vo_place"));
+											rset.getString("vo_place"),
+											rset.getString("vo_deadline_yn"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1091,7 +1112,7 @@ public class BoardDAO {
 			pstmt.setInt(3, endRow);			
 			rset=pstmt.executeQuery();
 			
-			if(rset.next()) {
+			while(rset.next()) {
 				Volunteer volunteer = new Volunteer(rset.getInt("BO_NO"), 0, 
 						null, rset.getString("BO_TITLE"), 0, 
 						null, 0, null, null,
@@ -1190,10 +1211,10 @@ public class BoardDAO {
 		
 		try {
 			pstmt= conn.prepareStatement(query);
-			pstmt.setString(1, comments.getComContent());
+			pstmt.setInt(1, comments.getMemNo());
 			pstmt.setInt(2, comments.getBoNo());
-			pstmt.setString(3, comments.getMemId());
-			pstmt.setDate(4, comments.getComDate());
+			pstmt.setString(3, comments.getComContent());
+//			pstmt.setDate(4, comments.getComDate());
 //			pstmt.setInt(1, comments.getMemNo());
 //			pstmt.setInt(2, comments.getBoNo());
 //			pstmt.setString(3, comments.getComContent());;
@@ -1572,12 +1593,13 @@ public class BoardDAO {
 		
 		int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() +1;
 		int endRow = startRow + pi.getBoardLimit() -1;
+		System.out.println(startRow+"/"+endRow+"/"+searchDate+"/"+pi);
 		try {
 			pstmt = conn.prepareStatement(prop.getProperty("selectManageSupport"));
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
-			pstmt.setDate(3, searchDate);
-			pstmt.setDate(4, searchDate);
+			pstmt.setDate(1, searchDate);
+			pstmt.setDate(2, searchDate);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -1692,6 +1714,7 @@ public class BoardDAO {
 		
 		int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() +1;
 		int endRow = startRow + pi.getBoardLimit() -1;
+		System.out.println(startRow +"/"+ endRow+"/"+mem_no+"/"+searchBoard);
 		try {
 			pstmt= conn.prepareStatement(prop.getProperty("searchMyBoard"));
 			pstmt.setInt(1, mem_no);
@@ -1929,5 +1952,88 @@ public class BoardDAO {
 		
 		return result;
 	}
+
+	public int applyJoinVolunteer(Connection conn, int volBNo, int memNo) {
+		PreparedStatement pstmt = null;
+		int result=0;
+		
+		try {
+			pstmt= conn.prepareStatement(prop.getProperty("applyJoinVolunteer"));
+			pstmt.setInt(1, volBNo);
+			pstmt.setInt(2, memNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int checkVolunteer(Connection conn, int volBNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset= null;
+		int result=0;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("checkVolunteer"));
+			pstmt.setInt(1, volBNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				if(rset.getInt("VO_MAXMEMBER")==rset.getInt("VO_APPLYMEMBER")) {
+					result = 1;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int deadVolunteer(Connection conn, int volBNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt= conn.prepareStatement(prop.getProperty("deadVolunteer"));
+			pstmt.setInt(1, volBNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
+
+	public ArrayList selectApplyMember(Connection conn, int bNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList applyMemberList = new ArrayList();
+		
+		try {
+			pstmt=conn.prepareStatement(prop.getProperty("selectApplyMember"));
+			pstmt.setInt(1, bNo);
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				applyMemberList.add(rset.getInt("MEM_NO"));
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		
+		return applyMemberList;
+	}
+
 
 }

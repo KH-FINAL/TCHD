@@ -95,11 +95,15 @@ public class BoardService {
 		int result = new BoardDAO().insertBoard(conn, b);
 		int result1 = 0;
 		int result2 = 0;
-		
+		int finalResult = 0;
 		
 		if(result > 0) {
 			result1 = new BoardDAO().insertAdoptBoard(conn, a);	// 내용 저장 객체
-			result2 = new BoardDAO().insertAdoptFiles(conn, fileList);	// 파일 객체
+			finalResult = result1;
+			if(result1 > 0) {
+				result2 = new BoardDAO().insertAdoptFiles(conn, fileList);	// 파일 객체
+				finalResult = result2;
+			}
 			commit(conn);
 		} else {
 			rollback(conn);
@@ -107,7 +111,7 @@ public class BoardService {
 		
 		close(conn);
 		
-		return result1;
+		return finalResult;
 	}
 
 	public ArrayList<Questions> selectAnswerQuestions(PageInfo pi) {
@@ -321,17 +325,22 @@ public class BoardService {
 
 
 	
-	public int insertApply(Board b, Adopt a, AdoptApply apply) {
+	public int insertApply(Board b, Adopt a, Files f , AdoptApply apply) {
 		Connection conn = getConnection();
 		BoardDAO dao = new BoardDAO();
 		
 		int result1 = dao.insertBoard(conn, b);
 		int result2 = dao.insertApply(conn, apply);
 		int result3 = 0;
+		int result4 = 0;
 		int finalResult = result2;
 		
 		if(result1 > 0 && result2 > 0) {
-			result3 = dao.UpdateAdoptYn(conn, a);
+			result3 = dao.updateAdoptYn(conn, a);
+			if(result3 > 0) {
+				result4 = dao.updateFilesYn(conn, f);
+				finalResult = result4;
+			}
 			finalResult = result3;
 			commit(conn);
 		} else { 
@@ -639,17 +648,39 @@ public int insertVolunteer(Volunteer v, Files uploadFile) {
 	}
 
 	// 봉사 신청 네번째 도전.
-	public int applyVolunteer(int volBNo) {
+	public int applyVolunteer(int volBNo,int memNo) {
 		Connection conn = getConnection();
-		
-		int result = new BoardDAO().applyVolunteer(conn, volBNo);
-		
-		if(result>0) {
-			commit(conn);
+		BoardDAO dao = new BoardDAO();
+		int result = dao.applyVolunteer(conn, volBNo); // VOLUNTEER테이블의 APPLYMEMBER를 + 1
+		int result2 = 0;
+		int result3 = 0;
+		int result4 = 0;
+		int finalResult=0;
+		if(result>0) { // Volunteer테이블에서 applyMember를 +1 
+			result2= dao.applyJoinVolunteer(conn,volBNo,memNo); // JOIN_VOLUNTEER테이블에 INSERT
+			if(result2>0) { 
+				result3 = dao.checkVolunteer(conn,volBNo); // VOLUNTEER테이블에서 MAXMEMBER컬럼의 값과 APLLYMEMBER컬럼의 값이 일치한지 비교
+				if(result3>0) { 
+					result4 = dao.deadVolunteer(conn,volBNo); //VOLUNTEER테이블의 DEADLINE_YN컬럼을 Y로
+					if(result4>0) {
+						finalResult=result4;
+						commit(conn);
+					}else {
+						rollback(conn);
+					}
+				}else {
+					finalResult=1;
+					commit(conn);
+				}
+			}else {
+				rollback(conn);
+			}
+			
 		}else {
 			rollback(conn);
 		}
-		return result;
+		close(conn);
+		return finalResult;
 	}
 	
 	public int deleteVolunteer(int bNo) {
@@ -799,6 +830,16 @@ public int insertVolunteer(Volunteer v, Files uploadFile) {
 		}
 		close(conn);
 		return finalResult;
+	}
+
+
+
+	public ArrayList selectApplyMember(int bNo) {
+		Connection conn = getConnection();
+		
+		ArrayList applyMemberList = new BoardDAO().selectApplyMember(conn,bNo);
+		close(conn);
+		return applyMemberList;
 	}
 	
 	

@@ -72,14 +72,14 @@ public class SupportService {
 		return check;
 	}
 	
-	public int getListCount(int mem_no) {
+	public int[] getListCount(int mem_no) {
 		Connection conn = getConnection();
 		
-		int result = new SupportDAO().getListCount(conn, mem_no);
+		int[] listTotal = new SupportDAO().getListCount(conn, mem_no);
 		
 		close(conn);
 		
-		return result;
+		return listTotal;
 	}
 
 	public Support selectListNonMem(String supNo) {

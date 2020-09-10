@@ -147,21 +147,22 @@ public class SupportDAO {
 		return check;
 	}
 
-	public int getListCount(Connection conn, int mem_no) {
+	public int[] getListCount(Connection conn, int mem_no) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		int result = 0;
+		int[] listTotal = new int[2];
 		
 		String query = prop.getProperty("getListCount");
-		
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, mem_no);
 			rset = pstmt.executeQuery();
 			
+			System.out.println("dao_memNo : " + mem_no);
 			if(rset.next()) {
-				result = rset.getInt(1);
+				listTotal[0] = rset.getInt(1); // COUNT(*)
+				listTotal[1] = rset.getInt(2); // SUM(SUP_PRICE)
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -170,7 +171,7 @@ public class SupportDAO {
 			close(pstmt);
 		}
 		
-		return result;
+		return listTotal;
 	}
 	
 	public Support selectListNonMem(Connection conn, String supNo) {
@@ -205,12 +206,14 @@ public class SupportDAO {
 	public ArrayList<Support> selectListMem(Connection conn, int mem_no, PageInfo pi) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<Support> supportList = new ArrayList<Support>();
+//		ArrayList<Support> supportList = new ArrayList<Support>();
+		ArrayList<Support> supportList = null;
 		
 		String query = prop.getProperty("selectListMem");
 
 		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 		int endRow = startRow + pi.getBoardLimit() - 1;
+		System.out.println("dao_startRow : " + startRow + " / endRow : " + endRow);
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -220,10 +223,12 @@ public class SupportDAO {
 			
 			rset = pstmt.executeQuery();
 			
+			supportList = new ArrayList<Support>();
+			
 			while(rset.next()) {
 				Support support = new Support(rset.getInt("sup_no"), 
-						rset.getInt("sup_price"), 
-						rset.getDate("sup_date"));
+											  rset.getInt("sup_price"), 
+											  rset.getDate("sup_date"));
 				
 				supportList.add(support);
 			}

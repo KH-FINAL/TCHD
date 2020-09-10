@@ -12,6 +12,7 @@ import board.model.service.BoardService;
 import board.model.vo.Adopt;
 import board.model.vo.AdoptApply;
 import board.model.vo.Board;
+import board.model.vo.Files;
 import member.model.vo.Member;
 
 /**
@@ -35,20 +36,18 @@ public class AdoptApplyServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	int bNo = Integer.parseInt(request.getParameter("bNo"));
 		int loginUserNo = ((Member)request.getSession().getAttribute("loginUser")).getMem_no();		
-		String answer = request.getParameter("answer1") + request.getParameter("answer2") + request.getParameter("answer3") +
-						request.getParameter("answer4") + request.getParameter("answer5") + request.getParameter("answer7");
+		String answer = bNo + "번 게시글, " + request.getParameter("answer1") + " , " +request.getParameter("answer2") + " , " + 
+						request.getParameter("answer3") + " , " + request.getParameter("answer4") + " , " + 
+						request.getParameter("answer5") + " , " + request.getParameter("answer7");
 		
 		Board b = new Board(0, null, "입양신청서", answer, null, 0, null, loginUserNo);
 		Adopt a = new Adopt(bNo, "Y");
+		Files f = new Files(0, bNo, 1, null, null, null, null, 0, "Y");
 		AdoptApply apply = new AdoptApply(answer, loginUserNo);
 		
-		int result = new BoardService().insertApply(b, a, apply);
+		int result = new BoardService().insertApply(b, a, f, apply);
 		
 		if(result > 0) {
-//			request.setAttribute("adoptYn", a.getAdoptYn());
-//			request.setAttribute("section", "WEB-INF/views/adopt/adoptDetail.jsp");
-//			request.getRequestDispatcher("index.jsp").forward(request, response);
-			
 			response.sendRedirect("adopt.bo");
 		} else { 
 			request.setAttribute("msg", "입양 신청서 작성에 실패하였습니다.");

@@ -37,6 +37,10 @@ public class AdoptListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BoardService service = new BoardService();
 		HttpSession session = request.getSession();
+//		request.getParameter("")
+		
+		// 페이징
+		PageInfo pi = null;
 		
 		int listCount;		//총 게시글 개수
 		int currentPage;	//현재 페이지
@@ -47,7 +51,6 @@ public class AdoptListServlet extends HttpServlet {
 		int endPage;		//페이징 된 페이지 중 마지막페이지
 		
 		listCount = service.getListCount(1);
-		
 		
 		currentPage = 1;
 		if(request.getParameter("currentPage") != null) { //페이지를 누른 상태면  (2페이지,3페이지 등 클릭하지않으면 currentPage가 null임)
@@ -69,8 +72,7 @@ public class AdoptListServlet extends HttpServlet {
 
 		
 		if((Member)session.getAttribute("loginUser") == null) {
-			
-			PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
+			pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
 			ArrayList<Adopt> aList = service.selectTList(1, pi);
 			ArrayList<Files> fList = service.selectTList(2, pi);
 				
@@ -88,7 +90,7 @@ public class AdoptListServlet extends HttpServlet {
 		} else {
 			String userId = ((Member)session.getAttribute("loginUser")).getMem_id();
 			
-			PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
+			pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
 			ArrayList<Adopt> aList = service.selectTList(1, pi);
 			ArrayList<Files> fList = service.selectTList(2, pi);
 			

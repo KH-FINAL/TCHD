@@ -84,7 +84,7 @@ public class Volunteer {
 	}
 	
 	public Volunteer(int boNo, int boType, String cateName, String voArea, String boTitle, int memNo, String memId, Date boDate, 
-			 int voMaxmember, int voApplymember, Timestamp voDate, int boCount, String voComment, String voPlace) {
+			 int voMaxmember, int voApplymember, Timestamp voDate, int boCount, String voComment, String voPlace, String voDeadLine) {
 		super();
 		this.boNo = boNo;
 		this.boType = boType;
@@ -100,6 +100,7 @@ public class Volunteer {
 		this.boCount = boCount;
 		this.voComment = voComment;
 		this.voPlace = voPlace;
+		this.voDeadline=voDeadLine;
 	}
 	
 	public Volunteer(int boNo, int boType, String cateName, String voArea, String boTitle, int memNo, String memId, Date boDate, 

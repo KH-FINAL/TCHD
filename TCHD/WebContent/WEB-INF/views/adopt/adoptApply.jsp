@@ -135,7 +135,7 @@
 		</div>
 		<div id="buttons">
 		<button id="cancel" class="applyButton">취소</button>
-			<button id="okay" class="applyButton">확인</button>
+			<button id="okay" type="button" class="applyButton">확인</button>
 		</div>
 	</form>
 	<script>
@@ -316,12 +316,10 @@
 				return false;
 			}
 			
-			// 아니 왜 또 바로 닫혀
 			swal({
 				title : "입양신청 완료",
 				text : "상세화면으로 돌아갑니다",
 				icon : "success",
-				buttons : true
 			}).then((ok) => {
 				if(ok){
 					$('#form').submit();

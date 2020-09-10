@@ -118,7 +118,13 @@ public class AdoptInsertServlet extends HttpServlet {
 			float petWeight = Float.valueOf(multiRequest.getParameter("petWeight"));	// 무게
 			String petColor = multiRequest.getParameter("petColor");		// 색깔
 			String rescue = multiRequest.getParameter("rescue");			// 구조일자
-			String lastMent = multiRequest.getParameter("lastMent");		// 하고 싶은 말
+			
+			String lastMent = "";
+			if(multiRequest.getParameter("lastMent") != null) {
+				lastMent = multiRequest.getParameter("lastMent");		// 하고 싶은 말
+			} else {
+				lastMent = "";
+			}
 //			
 			Date rescueDate = null;
 			if(rescue != "") {

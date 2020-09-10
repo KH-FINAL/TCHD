@@ -34,7 +34,7 @@ public class SupportListServlet extends HttpServlet {
 		int listCount;		// 총 게시글 개수
 		int currentPage;	// 현재 페이지 번호
 		int pageLimit;		// 한 페이지에서 표시될 페이징 수
-		int supportLimit;	// 한 페이지에 보일 병원의 최대 개수
+		int supportLimit;	// 한 페이지에 보일 후원 내역의 최대 개수
 		int maxPage;		// 전체 페이지 중 가장 마지막 페이지
 		int startPage;		// 페이징 된 페이지 중 시작 페이지
 		int endPage;		// 페이징 된 페이지 중 마지막 페이지
@@ -59,13 +59,18 @@ public class SupportListServlet extends HttpServlet {
 			// 회원 (로그인)
 			int mem_no = ((Member)session.getAttribute("loginUser")).getMem_no();
 			
-			listCount = service.getListCount(mem_no);
+			int[] listTotal = service.getListCount(mem_no);
+			listCount = listTotal[0];
+			System.out.println("list서블릿_listCount : " + listCount);
+			int totalPrice = listTotal[1];
+			System.out.println("list서블릿_totalPrice : " + totalPrice);
 			
 			currentPage = 1;
 			
 			if(request.getParameter("currentPage") != null) {
 				currentPage = Integer.parseInt(request.getParameter("currentPage"));
 			}
+			System.out.println("list서블릿_currentPage : " + currentPage);
 			
 			pageLimit = 10;
 			supportLimit = 10;
@@ -78,12 +83,16 @@ public class SupportListServlet extends HttpServlet {
 			}
 			
 			pi = new PageInfo(currentPage, listCount, pageLimit, supportLimit, maxPage, startPage, endPage);
+			System.out.println("list서블릿_pi : " + pi.toString());
 			
 			ArrayList<Support> supportList = service.selectListMem(mem_no, pi);
 			request.setAttribute("supportList", supportList);
+			request.setAttribute("totalPrice", totalPrice);
 			request.setAttribute("pi", pi);
 			request.setAttribute("section", "WEB-INF/views/support/supportList.jsp");
 		}
+		
+		//request.setAttribute("section", "WEB-INF/views/support/supportList.jsp");
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
