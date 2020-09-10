@@ -6,6 +6,7 @@ import static common.JDBCTemplate.commit;
 import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import animalHospital.model.dao.AnimalHospitalDAO;
@@ -72,10 +73,10 @@ public class SupportService {
 		return check;
 	}
 	
-	public int[] getListCount(int mem_no) {
+	public int[] getListCount(int mem_no, Date searchDate) {
 		Connection conn = getConnection();
 		
-		int[] listTotal = new SupportDAO().getListCount(conn, mem_no);
+		int[] listTotal = new SupportDAO().getListCount(conn, mem_no, searchDate);
 		
 		close(conn);
 		
@@ -92,10 +93,10 @@ public class SupportService {
 		return support;
 	}
 
-	public ArrayList<Support> selectListMem(int mem_no, PageInfo pi) {
+	public ArrayList<Support> selectListMem(int mem_no, Date searchDate, PageInfo pi) {
 		Connection conn = getConnection();
 		
-		ArrayList<Support> supportList = new SupportDAO().selectListMem(conn, mem_no, pi);
+		ArrayList<Support> supportList = new SupportDAO().selectListMem(conn, mem_no, searchDate, pi);
 		
 		close(conn);
 		

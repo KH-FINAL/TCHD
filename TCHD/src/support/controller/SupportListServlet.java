@@ -1,7 +1,10 @@
 package support.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,7 +43,7 @@ public class SupportListServlet extends HttpServlet {
 		int endPage;		// 페이징 된 페이지 중 마지막 페이지
 		
 		if(session.getAttribute("loginUser") == null) {
-			// 비회원
+		// 비회원
 			if(checkSupNo == null) {
 				// 후원 번호 체크 안됐으면 체크하러
 				request.setAttribute("section", "WEB-INF/views/support/supportCheckSupNo.jsp");
@@ -56,10 +59,27 @@ public class SupportListServlet extends HttpServlet {
 				request.setAttribute("section", "WEB-INF/views/support/supportList.jsp");
 			}
 		} else {
-			// 회원 (로그인)
+		// 회원 (로그인)
 			int mem_no = ((Member)session.getAttribute("loginUser")).getMem_no();
 			
-			int[] listTotal = service.getListCount(mem_no);
+			String date = request.getParameter("search"); 
+			Date searchDate = null;
+			if(date == null) {
+				Calendar today = Calendar.getInstance();
+				int year = today.get(Calendar.YEAR);
+				int month = today.get(Calendar.MONTH);
+				int day = 1;			
+				searchDate = new Date(new GregorianCalendar(year, month, day).getTimeInMillis());
+			}else {
+				String[] dateArr = date.split("-");
+				int year = Integer.parseInt(dateArr[0]);
+				int month = Integer.parseInt(dateArr[1]) - 1;
+				int day = 1;
+				searchDate = new Date(new GregorianCalendar(year, month, day).getTimeInMillis());
+			}
+			
+			// 페이징
+			int[] listTotal = service.getListCount(mem_no, searchDate);
 			listCount = listTotal[0];
 			System.out.println("list서블릿_listCount : " + listCount);
 			int totalPrice = listTotal[1];
@@ -85,14 +105,14 @@ public class SupportListServlet extends HttpServlet {
 			pi = new PageInfo(currentPage, listCount, pageLimit, supportLimit, maxPage, startPage, endPage);
 			System.out.println("list서블릿_pi : " + pi.toString());
 			
-			ArrayList<Support> supportList = service.selectListMem(mem_no, pi);
+			// 넘겨넘겨~~
+			ArrayList<Support> supportList = service.selectListMem(mem_no, searchDate, pi);
+			request.setAttribute("search", date);
 			request.setAttribute("supportList", supportList);
 			request.setAttribute("totalPrice", totalPrice);
 			request.setAttribute("pi", pi);
 			request.setAttribute("section", "WEB-INF/views/support/supportList.jsp");
 		}
-		
-		//request.setAttribute("section", "WEB-INF/views/support/supportList.jsp");
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
