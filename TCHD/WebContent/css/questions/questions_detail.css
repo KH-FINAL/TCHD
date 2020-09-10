@@ -160,9 +160,10 @@ width: 1000px;
 	margin-top: 16px;
 }
 .list_div {
-	margin-top: 10px;
-	margin-bottom: 30px;
-	text-align: center;
+	/* margin-top: 10px; */
+	/* margin-bottom: 30px; */
+	margin: 10px 0;
+	/* text-align: center; */
 }
 .text_align_right{
 /* 	text-align: right; */
@@ -200,14 +201,7 @@ width: 1000px;
   transition: background-color 0.2s;
 }
 
-.content{
-	border : none;
-	resize: none;
-	width: 920px;
-	height: 100px;
-	padding: 15px;
-	font-size : 15px;
-}
+
 
 .button_center{
 	text-align : center;
@@ -219,27 +213,41 @@ width: 1000px;
 }
 
 .btn_list{
-	width: 60px;
+	width: 30px;
     height: 35px;
-    background: rgb(41, 128, 185);
+    background: #ccc;
     color: white;
     cursor: pointer;
     border: none;
     border-radius: 5px;
-}
-
-.btn_list_go{
-	width: 60px;
-    height: 35px;
-    background: rgb(41, 128, 185);
-    color: white;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    margin-left:150px;
 }
 #notice{
 	font-size: 12px;
 	padding-left: 15px;
 	padding-top: 35px;
+}
+.content{
+	border : none;
+	resize: none;
+	width: 920px;
+	height: 100px;
+	padding: 15px;
+	font-size : 15px;
+}
+.btn_list_go{
+	width: 60px;
+	height: 35px;
+	background: rgb(41, 128, 185);
+	color: white;
+	cursor: pointer;
+	border: none;
+	border-radius: 5px;
+	left:45%;
+	position: relative;
+}
+
+
+
+.text_align_right{
+	left:45%;
 }

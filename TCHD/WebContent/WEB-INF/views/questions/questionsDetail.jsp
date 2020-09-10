@@ -5,6 +5,7 @@
 <% Questions q = (Questions)request.getAttribute("qBoard");
 	Member loginUser = (Member)request.getSession().getAttribute("loginUser");
 	ArrayList<Files> fileList = (ArrayList<Files>)request.getAttribute("file");
+
 	ArrayList<Questions> questionsList=(ArrayList<Questions>)request.getAttribute("questionsList");
 	Files file =null;
 	if(fileList!=null){
@@ -32,7 +33,24 @@
             	<% if(file!=null){%>
             		<input type="hidden" name="qFileNo" value="<%=file.getFileNo() %>">
             	<%} %>
-     			<h1 div class = "title_area"><%= q.getBoTitle() %></h1>
+     			<h1 div class = "title_area"><%= q.getBoTitle() %>
+     				<%	/*암호 아이콘표시*/
+			         	  	if(q.getBoPwd() != null){ /* !=이 안먹혀....... ==이 먹는단것은 null값이 들어가고있단걸까요  */
+			         	  	
+			         	  	%>	
+			         	  	<img src="images/secret.gif">
+			         	  	<%
+		         	   		}
+			         	    %>
+			         	     <%	
+			         	  	if(q.getComContent() != null){ 
+			         	  	
+			         	  	%>	
+			         	  	<img src="images/questions.gif">
+			         	  	<%
+		         	   		}
+			         	    %>
+     			</h1>
      			<h4 div class = "info_area"><%= q.getMemId() %> | <%=q.getBoDate() %> | <%=q.getBoCount() %></h4>
      				
      			</div>
@@ -78,9 +96,10 @@
 					<input type="button" class="btn_list_go" value="목록보기" onClick="location.href='list.qu'">
 				
 				<div class="text_align_right">	 <!-- 작성한 회원이 아니면 삭제 수정버튼 안보이게하기. -->
+				
 				<% if(loginUser != null && q.getMemId().equals(loginUser.getMem_id())){ %>  
-					<input type="button" id="delete" class="btn_list" value="삭제하기">
-					<input type="submit" id="alter" class="btn_list" value="수정하기" onclick="location.href='<%= request.getContextPath()%>/updateForm.qu?bNo=<%= q.getBoNo()%>'"/> 
+					<input type="button" id="delete" class="btn_list" value="삭제">
+					<input type="submit" id="alter" class="btn_list" value="수정" onclick="location.href='<%= request.getContextPath()%>/updateForm.qu?bNo=<%= q.getBoNo()%>'"/> 
 				
 				<% } %>
 					

@@ -72,14 +72,6 @@ a {
 	width: 400px;
 }
 
-.tit {
-    text-align: left;
-}
-
-.tit:hover {
-    text-decoration: underline;
-}
-
  .board_list_wrap{
     margin-top: 20px;
     text-align: center;
@@ -123,6 +115,14 @@ a {
       background: rgb(41, 128, 185);
       color: #fff;
    }
+
+.tit {
+    text-align: left;
+}
+
+.tit:hover {
+    text-decoration: underline;
+}
 
 	.swal-btn{
 		text-align : center;
