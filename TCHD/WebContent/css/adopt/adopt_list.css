@@ -58,59 +58,56 @@
    /* 동물 조건 선택 버튼 부분 */
     
 	#petSelect{		/* 동물 조회 조건 선택 영역 */
-    	background-color: rgb(211, 211, 211, 0.4);
     	width: 96%;
-    	height: 180px;
+    	height: 40px;
     	border-radius: 10px;
     	padding-left: 50px;
     }
-    #petSelect ul{	/* 검색, 초기화, 등록 버튼 틀 */
+    #btn{	/* 등록 버튼 틀 */
     	width:100px;
-    	float: right;
    	    margin: 10px 200px;
     	
     }
-     #petSelect li{	/* 검색, 초기화, 등록 버튼 */
-		margin: 10px 0;   
+     #btn{	/* 등록 버튼 */
+		margin: 10px;   
 		  
      }
     
     
-    /* 동물 검색, 초기화, 등록 버튼 부분 */
+    /* 등록 버튼 부분 */
+   
+/*     #petImg{ */
+/*     	width: 500px; */
+/*     	height: 100px; */
+/*     } */
     
-	#petButtonArea{	
-    	width: 100px;
-    	height: 100px;
+/*     #pImg{ */
+/*     	width: 400px; */
+/*     	height: 200px; */
+/*     } */
+    
+    #imgSpace{
+    	width: 1050px;
+    	hight: 40px;
+    }
+    
+    .petButton{		/* 등록 버튼 */ 
     	margin-top: 0px;
-    	padding-top: 0px;
-    	float: right;
-    }
-    
-    div>ul{
-    	list-style: none;
-    }
-    
-    .petButton{		/* 동물 검색, 초기화, 등록 버튼 */ 
-    	width: 200px;
-    	height: 43px;
+    	width: 100px;
+    	height: 30px;
     	border-radius: 10px;
     	border: 1px solid rgb(173, 216, 230);
 		background-color: rgba(41, 128, 185, 0.7);
 		color: white;
     	font-weight: bold;
-    	font- : 15px;
+    	font-size : 15px;
     	
     }
     
     .petButton:hover{
     	cursor: pointer;
     }
-    
-    div>li{		
-    	border-radius: 3px;
-    	border: medium;
-    	text-size: 30px;
-    }
+   
     
     
     /* 동물 선택 옵션 부분(테이블) */
