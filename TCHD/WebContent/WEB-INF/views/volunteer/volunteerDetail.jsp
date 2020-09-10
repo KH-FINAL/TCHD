@@ -35,7 +35,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="css/volunteer_detail.css" rel="stylesheet" type="text/css">
+<link href="css/volunteer/volunteer_detail.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="css/common/common.css" type="text/css">
 </head>
 <body>
@@ -135,7 +135,7 @@
 						</table>
 					</div>
 				
-					<div id="content"><div id="table_title">설명</div><br><%=v.getVoComment()%></div>
+					<div id="content"><div id="table_title">설명</div><br><div id="table_content"><%=v.getVoComment()%></div></div>
 
 				</div>
 				<div id="apply_div">
@@ -161,8 +161,8 @@
 						<%
 							if (loginUser != null && v.getMemId().equals(loginUser.getMem_id())) {
 						%>
-						<input type="submit" class="go" value="수정하기"> <input
-							type="button" class="go" value="삭제하기" onclick="volDelete();" />
+						<input type="submit" id="css" value="수정"> <input
+							type="button" id="css" value="삭제" onclick="volDelete();" />
 						<%
 							}
 						%>

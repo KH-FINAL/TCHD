@@ -30,7 +30,8 @@
 #search_select{
 	height: 28px;
 }
-#search_text {
+#search_input {
+	padding-left: 10px;
 	border: 1px solid black;
 	border-radius: 3px;
 	width: 200px; height: 27px;
