@@ -2029,10 +2029,30 @@ public class BoardDAO {
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
 		}
 		
 		
 		return applyMemberList;
+	}
+
+	public int deleteNotice(Connection conn, int bNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt=conn.prepareStatement(prop.getProperty("deleteBoard"));
+			pstmt.setInt(1, bNo);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 

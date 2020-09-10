@@ -841,6 +841,21 @@ public int insertVolunteer(Volunteer v, Files uploadFile) {
 		close(conn);
 		return applyMemberList;
 	}
+
+
+
+	public int deleteNotice(int bNo) {
+		Connection conn= getConnection();
+		int result = new BoardDAO().deleteNotice(conn,bNo);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
 	
 	
 	

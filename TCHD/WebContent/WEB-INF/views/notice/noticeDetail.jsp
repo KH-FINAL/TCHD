@@ -54,11 +54,24 @@
          <div id="button_div">
             <button id="list_view_button" type="button" onclick="location.href='list.no'">목록보기</button>
             <%if(loginUser !=null && loginUser.getMem_id().equals("admin")){ %>
+               <button type="button" id="edit_button" onclick="goDelete();">삭제하기</button>
      	       <button type="submit" id="edit_button" onclick="location.href='updateForm.no'">수정하기</button>
             <%} %>
          </div>
           </form>
    </section>
-
+<script type="text/javascript">
+	function goDelete(){
+		swal({
+			text: "이 공지사항을 삭제하시겠습니까?",
+			icon : "warning",
+			buttons: true 	})
+		.then((ok)=>{
+			if(ok){
+				location.href="delete.no?bNo="+<%=notice.getBoNo()%>;
+			}
+		});
+	}
+</script>
 </body>
 </html>
