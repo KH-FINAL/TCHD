@@ -3,7 +3,6 @@
 <%@ page import="member.model.vo.Member" %>
 <%
 	String userPhone = (String)request.getAttribute("userPhone");
-// 	int bNo = (int)request.getAttribute("bNo");
 %>
 <!DOCTYPE html>
 <html>
@@ -63,7 +62,7 @@
 						</td>
 						<td class="firstTd"><span>*</span> 크기 </td>
 						<td id="sizeTd" class="secondTd">
-							<select id="petSizes" name="petSize">	<!-- ---------- 이 상태면 등록 안되게 기능 걸기 -->
+							<select id="petSizes" name="petSize">	
 								<option value="0"> ------------</option>
 								<option value="S">소형</option>
 								<option value="M">중형</option>
@@ -129,7 +128,7 @@
 						<td class="firstTd">
 							   연락처 :
 						</td>
-						<td class="secondTd">		<!-- 마이페이지에서 받아오기 -->	
+						<td class="secondTd">		
 							<input type="tel" id="phone" class="answer" name="phone" value="<%= userPhone %>" readonly/>
 						</td>
 					</tr>
@@ -270,7 +269,7 @@
    		});
    		
 	   	
-   		$('#okButton').on("click", function(){		// 정보 넘기는 함수
+   		$('#okButton').on("click", function(){	 // 정보 넘기는 함수
    			var size = $('#petSizes');			 // select : 소형(S), 중형(M), 대형(L)
    			var age = $('#petAge');				 // select : Puppy, Junior, Adult, Senior
 	   		var ageNum = $('#ageDetail');		 // 숫자만 받는 나이칸

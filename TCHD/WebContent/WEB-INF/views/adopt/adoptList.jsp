@@ -6,10 +6,6 @@
 	ArrayList<Files> fList = (ArrayList<Files>)request.getAttribute("fList");
 	String userId = (String)request.getAttribute("userId");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
-// 	String kind = (String)request.getAttribute("kind");
-// 	String gender = (String)request.getAttribute("gender");
-// 	String size = (String)request.getAttribute("size");
-	
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
 	int maxPage = pi.getMaxPage();
@@ -39,11 +35,6 @@
 			<div id="petSelect">
 				<table>
 				<tr>
-<!-- 					<td> -->
-<!-- 						<div id="petImg"> -->
-<%-- 							<img id="pImg" src="<%= request.getContextPath() %>/images/catDog.PNG"/> --%>
-<!-- 						</div> -->
-<!-- 					</td> -->
 					<td id="imgSpace"></td>
 					<td>
 						<div id="btn">

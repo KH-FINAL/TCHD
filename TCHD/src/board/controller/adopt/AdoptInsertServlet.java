@@ -125,7 +125,7 @@ public class AdoptInsertServlet extends HttpServlet {
 			} else {
 				lastMent = "";
 			}
-//			
+			
 			Date rescueDate = null;
 			if(rescue != "") {
 				String[] dateArr = rescue.split("-");

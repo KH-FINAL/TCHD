@@ -9,15 +9,6 @@
 		a.setPetComment("");
 	}
 	ArrayList<Files> fileList = (ArrayList<Files>)request.getAttribute("fileList");
-	
-// 	int fileNo0 = (int)request.getAttribute("fileNo0");
-// 	int fileNo = (int)request.getAttribute("fileNo");
-// 	Files thumbnailImg = fileList.get(0);
-// 	Files contentImg1 = fileList.get(1);
-// 	Files contentImg2 = fileList.get(2);
-// 	Files contentImg3 = fileList.get(3);
-	
-// 	String contentImg = (String)request.getAttribute("contentImg");
 	String prr[] = a.getPetAge().split("/");
 %>
 <!DOCTYPE html>
@@ -41,10 +32,8 @@
 						<td colspan="3">
 							<div id="titleImgArea" class="pictureArea">
 								<% for(int i = 0; i < fileList.size(); i++){ %>
-								<input type="hidden" name="fileList" value="<%= fileList.get(i) %>"/>
-<%-- 								<input type="hidden" name="fileNo" value="<%= fileNo %>"> --%>
+									<input type="hidden" name="fileList" value="<%= fileList.get(i) %>"/>
 								<% } %>
-<%-- 								<input type="hidden" name="fileNo" value="<%= fileNo0 %>"> --%>
 								<img id="titleImg" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(0).getChangeName() %>"/>
 							</div>
 						</td>
@@ -78,7 +67,7 @@
 					</td>
 					<td class="firstTd"> 크기 </td>
 					<td id="sizeTd" class="secondTd">
-						<select id="petSizes" name="petSize">	<!-- ---------- 이 상태면 등록 안되게 기능 걸기 -->
+						<select id="petSizes" name="petSize">
 							<option value="0"> ------------</option>	
 							<option value="S">소형(S)</option>
 							<option value="M">중형(M)</option>
@@ -170,14 +159,7 @@
 				<span id="counter">0</span>/100
 			</div> 
    		</div>
-<!--    		<div id="fileArea">	파일 업로드 부분 -->
-<!-- 	   			<input type="file" id="thumbnailImg1" multiple="multiple" name="thumbnailImg" onchange="LoadImg(this,1)"/> -->
-<!-- 	   			<input type="file" id="thumbnailImg2" multiple="multiple" name="thumbnailImg1" onchange="LoadImg(this,2)"/> -->
-<!-- 	   			<input type="file" id="thumbnailImg3" multiple="multiple" name="thumbnailImg2" onchange="LoadImg(this,3)"/> -->
-<!-- 	   			<input type="file" id="thumbnailImg4" multiple="multiple" name="thumbnailImg3" onchange="LoadImg(this,4)"/> -->
-<!-- 	   		</div> -->
-
-		<div id="buttonArea">	<!-- 취소하기 : action의 영향 안 받음 -->
+		<div id="buttonArea">	
    			<button id="cancelButton" class="buttons">취소</button>
 	   		<button id="okButton" type="button" class="buttons">수정</button>
 	   	</div>
@@ -202,9 +184,6 @@
 		// 크기 선택 안되게 함   --> 입력 당시 값으로 고정
 		$('#petSizes option').not(":selected").attr("disabled", "disabled");
 // ----------------------------------------------------------------------------------------------------------------------------	   	
-
-	   	
-// -------------------------------------------------------------------------	   	
 	   	
 		 // 입력 당시 썼던 글자수 가져옴
 	   		$(document).ready(function(){
@@ -212,6 +191,7 @@
 	   				$('#counter').text($(this).val().length);
 	   				$('#counter').css('color', 'black');
 	   		});
+	   		
 	   	// 하고 싶은 말 글자 수 카운트 및 글자 수 제한
 			$('#lastAnswer').keyup(function(e){
 				$('#counter').text($(this).val().length);
@@ -223,51 +203,6 @@
 				}
 	   		});
 	   	
-// -----------------------------------------------------------------------------------	   	
-	   	// 사진 업로드 시 자리 지정
-// 	   		$(function(){
-// 	   			$("#fileArea").hide();
-	   			
-// 	   			$("#titleImgArea").click(function(){
-// 	   				$("#thumbnailImg1").click();
-// 	   			});
-// 	   			$("#contentImgArea1").click(function(){
-// 	   				$("#thumbnailImg2").click();
-// 	   			});
-// 	   			$("#contentImgArea2").click(function(){
-// 	   				$("#thumbnailImg3").click();
-// 	   			});
-// 	   			$("#contentImgArea3").click(function(){
-// 	   				$("#thumbnailImg4").click();
-// 	   			});
-// 	   		});
-	   		
-// 	   		// 이미지 업로드 함수
-// 	   		function LoadImg(value, num){
-// 	   			if(value.files && value.files[0]){
-// 	   				var reader = new FileReader();
-	   				
-// 	   				reader.onload = function(e){
-// 	   					switch(num){
-// 	   					case 1:
-// 	   						$('#titleImg').attr("src", e.target.result);
-// 	   						break;
-// 	   					case 2:
-// 	   						$('#contentImg1').attr("src", e.target.result);
-// 	   						break;
-// 	   					case 3:
-// 	   						$('#contentImg2').attr("src", e.target.result);
-// 	   						break;
-// 	   					case 4:
-// 	   						$('#contentImg3').attr("src", e.target.result);
-// 	   						break;
-// 	   					}
-// 	   				}
-	   				
-// 	   				reader.readAsDataURL(value.files[0]);
-// 	   			}
-// 	   		}
-	   		
 // 정규표현식 -----------------------------------------------------------------------------------------------------   		
  	   		$(function(){
  	   			$('#ageDetail').on("keyup", function(){
