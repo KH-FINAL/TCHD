@@ -77,18 +77,11 @@ public class VolunteerInsertServlet extends HttpServlet {
 			int min = Integer.parseInt(vo_dateArr[2].split("T")[1].split(":")[1]);
 			String min2 =null;
 			if(min<10) { min2="0"+min;}else {min2=min+"";}
-			//////////////////////////////////////
-			System.out.println("convert_voDate : " + year + "-" + (month + 1) + "-" + day + " " + hour + " : " + min);
+
 			String inputDate = year+"-"+month2+"-"+day2+" "+hour2+":"+min2+":00";
-			System.out.println(inputDate);
+
 			Timestamp voDate = Timestamp.valueOf(inputDate);
-			System.out.println(voDate);
-//			Date voDate = new Date(new GregorianCalendar(year, month, day, hour, min).getTimeInMillis());
-//			String voDate2 = multiRequest.getParameter("voDate");
-//			String voDate2 = multiRequest.getParameter("voDate");
-//			Date voDate = Date.valueOf(voDate2);
-//			Date voDate = new Date(new GregorianCalendar(voDate2).getTimeInMillis());
-//			String voPlace = multiRequest.getParameter("voPlace");
+
 			String zonecode= multiRequest.getParameter("zoneCode");
 			String address = multiRequest.getParameter("joinAddress");
 			String address2 = multiRequest.getParameter("joinAddress2");
@@ -97,19 +90,13 @@ public class VolunteerInsertServlet extends HttpServlet {
 //				voPlace = "("+zonecode+") "+address+", "+address2;
 				voPlace = zonecode+","+address+","+address2;
 			}
-			System.out.println(zonecode+ "/"+voPlace);
-			System.out.println(zonecode);
-			System.out.println(address); 
-			System.out.println(address2);
-			System.out.println(boTitle);
 
 			String voMaxmember2 = multiRequest.getParameter("voMaxmember");
 			int voMaxmember = Integer.parseInt(voMaxmember2);
 			String voComment = multiRequest.getParameter("voComment");
 			
-//			Volunteer v = new Volunteer(3, boTitle, voArea, voDate, voPlace, voMaxmember, voComment, boType);
-//			Volunteer v = new Volunteer(3, boTitle, voArea, voDate, voPlace, voMaxmember, voComment);
 			Volunteer v = new Volunteer(3, boTitle, voArea, voDate, voPlace, voMaxmember, voComment, selectBoard, mem_no);
+			
 			Files uploadFile =  new Files();
 			uploadFile.setFilePath(savePath);
 			uploadFile.setOrignName(originFile);
@@ -128,24 +115,6 @@ public class VolunteerInsertServlet extends HttpServlet {
 				view.forward(request, response);
 			}
 		}
-//		String boTitle = request.getParameter("boTitle");
-//		String voArea = request.getParameter("voArea");
-//		String voDate = request.getParameter("voDate");
-//		String voPlace = request.getParameter("voPlace");
-//		String voMaxmember = request.getParameter("voMaxmember");
-//		String voComment = request.getParameter("voComment");
-		
-//		Volunteer volunteer = new Volunteer(boTitle, voArea, voDate, voPlace, voMaxmember, voComment);
-//		int result = new BoardService().selectVolunteer(volunteer);
-//		
-//		if(result > 0) {
-//			response.sendRedirect("volunteerList.bo");
-//		} else {
-//			request.setAttribute("msg", "게시글 등록에 실패하였습니다.");
-//			RequestDispatcher view = request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp");
-//			view.forward(request, response);
-//		}
-		
 	}
 
 	/**

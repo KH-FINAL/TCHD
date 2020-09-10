@@ -55,7 +55,6 @@
     
     	
     });
- 
 //---------------------------------------------------------------------------------------
 </script>
 
@@ -74,23 +73,6 @@
 					<input type="hidden" name="volunteerFileNo" value="<%=fileNo %>"> 
 				<% } %>
 				<table class="board_table">
-					<%-- <tr>
-						<th>게시판 선택 <span id="star">*</span></th>
-                  		<td class="board_table_td">
-                     		<select class="allbutton" id="select1" name="selectBoard">
-                     			<option value="hidden" disabled selected>선택</option>
-                       			<option value="공지사항" <%= v.getCateName() %> = "공지사항" selected>공지사항</option>
-                        		<option value="문의사항" <%= v.getCateName() %> = "문의사항" selected>문의사항</option>
-                        		<option value="봉사게시판" <%= v.getCateName() %> = "봉사게시판" selected>봉사게시판</option>
-                        		<option value="입양게시판" <%= v.getCateName() %> = "입양게시판" selected>입양게시판</option>
-                        		<option value="" disabled selected>선택</option>
-                       			<option value="회원정보">회원정보</option>
-                        		<option value="입양하기">입양하기</option>
-                        		<option value="후원관련">후원관련</option>
-                        		<option value="봉사하기">봉사하기</option>
-                     		</select>
-                  		</td>
-					</tr> --%>
 					<tr>
 						<th>제목 <span id="star">*</span></th>
 						<td class="board_table_td">
@@ -130,7 +112,6 @@
 					</tr>
 					<tr>
 						<th>봉사지 <span id="star">*</span></th>
-						<%-- <td name="input_voPlace"><%= v.getVoPlace() %></td> --%>
 						<td class="board_table_td">
 							<input type="text" placeholder="우편번호" class="adress" id="zoneCode" name="input_zoneCode" readonly>
 							<button type="button"class="searchAddress" id="adress_search">주소 검색</button>
@@ -156,7 +137,6 @@
 								<label id="file_label" for="ex_file"></label>
 								<input type="file" id="ex_file" name="input_file" accept=".png, .jpg" value="">
 								<span>&nbsp;&nbsp;&nbsp;&nbsp;이미지파일(PNG, JPG)만 첨부 가능합니다.</span>
-								<!-- <input type="file" name="uploadFile"> * 이미지 파일은 jpg,png만 가능합니다. -->
 							</div>
 						</td>
 					</tr>
@@ -170,7 +150,6 @@
 			</div>
 			<div class="no_ok_button">
 				<input type="button" class="button_no" value="취소" onclick="location.href='javascript:history.go(-1);'">
-				<!-- <input type="button" class="button_ok" value="등록" onclick=""> -->
 				<button type="submit" class="button_ok" value="등록">등록</button>
 			</div>
 			</form>

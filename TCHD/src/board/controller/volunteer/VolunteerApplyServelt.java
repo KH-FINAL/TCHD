@@ -33,24 +33,6 @@ public class VolunteerApplyServelt extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		// 글 번호
-//		int boNo = Integer.parseInt(request.getParameter("volBNo"));
-//		
-//		
-//		
-//		Volunteer volunteer = new Volunteer(boNo, memNo);
-//		
-//		//int result = new BoardService().applyVolunteer(volBNo);
-//		int result = new BoardService().applyVolunteer(volunteer);
-//		
-//		if(result>0) {
-//			response.sendRedirect("volunteerList.bo");
-//		}else {
-//			request.setAttribute("errorMsg", "봉사 신청에 실패했습니다.");
-//			request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
-//			request.getRequestDispatcher("index.jsp").forward(request, response);
-//		}
-		// 다시 도전.
 		// 신청하는 사람
 		HttpSession session = request.getSession();
 		int memNo = ((Member)session.getAttribute("loginUser")).getMem_no();
@@ -60,13 +42,9 @@ public class VolunteerApplyServelt extends HttpServlet {
 		int result = new BoardService().applyVolunteer(volBNo,memNo);
 		
 		if(result>0) {
-			//response.sendRedirect("volunteerDetail.bo?bNo="+volBNo");
 			response.getWriter().println("1");
 		}else {
 			response.getWriter().println("0");
-			//request.setAttribute("errorMsg", "봉사 신청에 실패했습니다.");
-			//request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
-			//request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
 	}
 

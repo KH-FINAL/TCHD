@@ -63,21 +63,7 @@ public class VolunteerDetailServlet extends HttpServlet {
 		}
 		
 		request.getRequestDispatcher("index.jsp").forward(request, response);
-		
-		
-		
-//		if(volunteer != null || commentsList != null)  {
-//			request.setAttribute("section", "WEB-INF/views/volunteer/volunteerDetail.jsp");
-//			request.setAttribute("volunteer", volunteer);
-//			request.setAttribute("commentsList", commentsList);
-//		} else {
-//			request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
-//			request.setAttribute("msg", "봉사게시글 상세조회에 실패하였습니다.");
-//		}
-//		
-//		request.getRequestDispatcher("index.jsp").forward(request, response);
-//		
-//		
+
 	}
 
 	/**

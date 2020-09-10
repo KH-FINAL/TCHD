@@ -35,7 +35,6 @@
     });
 //---------------------------------------------------------------------------------------
 </script>
-
 </head>
 <body>
 	<section>
@@ -45,18 +44,6 @@
 			<form method="post" action="volunteerInsert.bo" encType="multipart/form-data">
 			<div class="table_div">
 				<table class="board_table">
-					<!-- <tr>
-						<th>게시판 선택 <span id="star">*</span></th>
-                  		<td class="board_table_td">
-                     		<select class="allbutton" name="selectBoard" required>
-                     			<option value="" disabled selected>선택</option>
-                       			<option value="회원정보">회원정보</option>
-                        		<option value="입양하기">입양하기</option>
-                        		<option value="후원관련">후원관련</option>
-                        		<option value="봉사하기">봉사하기</option>
-                     		</select>
-                  		</td>
-					</tr> -->
 					<tr>
 						<th>제목 <span id="star">*</span></th>
 						<td class="board_table_td">

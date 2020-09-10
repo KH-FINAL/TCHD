@@ -590,21 +590,21 @@ public int insertVolunteer(Volunteer v, Files uploadFile) {
 		
 		int result1 = dao.updateVolunteer1(conn,volunteer);
 		int finalResult=result1;
-		if(result1>0) {  // BOARD테이블 UPDATE성공
+		if(result1>0) {
 			int result2 = dao.updateVolunteer2(conn, volunteer);
 			finalResult=result2;
-			if(result2>0) {  // NOTICE테이블 UPDATE성공
-				if(file.getFileNo()!=0) { //원본이 사진이 있을때
-					if(file.getOrignName()!=null) { // 수정페이지에서 사진을 추가할경우 = 사진을 변경할 경우
+			if(result2>0) {
+				if(file.getFileNo()!=0) {
+					if(file.getOrignName()!=null) { 
 						int result3 = dao.updateVolunteerFile1(conn,file);						
 						finalResult=result3;													
-					}else { // 사진을 뺄 경우
+					}else {
 						int result3 = dao.updateVolunteerFile3(conn,file);						
 						finalResult=result3;	
 					}
 					
-				}else {  //원본이 사진이 없을 때 
-					if(file.getOrignName()!=null) { // 수정페이지에서 사진을 추가할경우 = 사진을 변경할 경우
+				}else {
+					if(file.getOrignName()!=null) {
 						int result3= dao.updateVolunteerFile2(conn, file);						
 						finalResult=result3;												
 					}
@@ -618,8 +618,7 @@ public int insertVolunteer(Volunteer v, Files uploadFile) {
 		close(conn);
 		return finalResult;
 	}
-
-	// 봉사 신청 네번째 도전.
+	
 	public int applyVolunteer(int volBNo,int memNo) {
 		Connection conn = getConnection();
 		BoardDAO dao = new BoardDAO();

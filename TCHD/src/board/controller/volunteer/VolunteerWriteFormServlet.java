@@ -28,21 +28,11 @@ public class VolunteerWriteFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		if((Member)request.getSession().getAttribute("loginUser")==null) {
-//			request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
-//			request.setAttribute("errorMsg", "세션이 만료되었습니다. 다시 로그인해주세요.");
-//			request.getRequestDispatcher("index.jsp").forward(request, response);
-//		}
-//		
+
 		request.setAttribute("section", "WEB-INF/views/volunteer/volunteerWrite.jsp");
 		request.getRequestDispatcher("index.jsp").forward(request, response);
-		}
 		
-		
-//		request.setAttribute("section", "WEB-INF/views/volunteer/volunteerWrite.jsp");
-//		request.getRequestDispatcher("index.jsp").forward(request, response);
-//	}
-
+	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

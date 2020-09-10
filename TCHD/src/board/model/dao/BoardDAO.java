@@ -1561,7 +1561,6 @@ public class BoardDAO {
 		return result;
 	}
 		
-	// 봉사 신청 네번째 도전.
 	public int applyVolunteer(Connection conn, int volBNo) {
 		PreparedStatement pstmt  =null;
 		int result = 0;

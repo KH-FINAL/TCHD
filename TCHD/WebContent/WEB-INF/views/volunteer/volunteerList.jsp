@@ -35,17 +35,14 @@
 		<div class="main_div">
 			<div class="sub_div">
 				<!-- 검색 시작 -->
-				
 				<div class="list_search">
 					<select id="search_select">
 						<option value="boTitle" selected>제목</option>
 						<option value="voArea">지역</option>
 					</select>
 						<input type="text" id="search_input">
-						<!-- <input type="button" id="search_button" value="검색"> -->
 						<button type="button" id="search_button">검색</button>
 				</div>
-				
 				<!-- 검색 종료 -->
 
 				<div class="table_div">
@@ -71,13 +68,13 @@
 						<%			 }else{ %>
 						<tr class="is deadN">		
 						<%} %>
-							<td class="event"><%= v.getBoNo() %></td>					<!-- 게시글번호 -->
+							<td class="event"><%= v.getBoNo() %></td>				<!-- 게시글번호 -->
 							<td class="event"><%= v.getVoArea() %></td>				<!-- 봉사지역 -->
 							<td class="event" id="tit"><%= v.getBoTitle() %></td>	<!-- 게시글제목 -->
 							<td class="event"><%= v.getMemId() %></td>				<!-- 작성자 -->
-							<td class="event"><%= v.getBoDate() %></td> 				<!-- 작성일자 -->
-							<td class="event"><%= v.getVoMaxmember() %></td>			<!-- 모집인원 -->
-							<td class="event" id="deadline">							<!-- 마감유무 -->								
+							<td class="event"><%= v.getBoDate() %></td> 			<!-- 작성일자 -->
+							<td class="event"><%= v.getVoMaxmember() %></td>		<!-- 모집인원 -->
+							<td class="event" id="deadline">						<!-- 마감유무 -->								
 								<% if((v.getVoMaxmember()-v.getVoApplymember()) <= 0){ %>
 								<%= "Y" %>
 								<% } else { %>
@@ -205,6 +202,5 @@
 	       });
 	    });       
 	</script>
-	
 </body>
 </html>

@@ -54,38 +54,15 @@ public class VolunteerUpdateServlet extends HttpServlet {
 			
 			String saveFile = multiRequest.getFilesystemName("input_file");	// form에서 전송되는 파일이름
 			String originFile = multiRequest.getOriginalFileName("input_file");	// form에서 전송되는 파일이름
-			
-			System.out.println(saveFile);
-			System.out.println(originFile);
-			
-			
-//			int volBNo = Integer.parseInt(request.getParameter("bNo"));
+
 			int volBNo = Integer.parseInt(multiRequest.getParameter("volBNo"));
-			
-			System.out.println(volBNo);
-			
+					
 			String volCateName = multiRequest.getParameter("volCateName");
-			System.out.println(volCateName);
 			
 			String boTitle = multiRequest.getParameter("input_boTitle");
 			
 			String voArea = multiRequest.getParameter("voArea");
 			
-			// 봉사 일시. (업데이트폼 서블릿이랑 동일)
-//			String voDate2 = request.getParameter("voDate");
-//			Timestamp voDate = Timestamp.valueOf(voDate2);
-//			String voDate2 = request.getParameter("input_voDate");
-//			String[] vo_dateArr = voDate2.split("-");
-//			int year = Integer.parseInt(vo_dateArr[0]);
-//			int month = Integer.parseInt(vo_dateArr[1])-1;
-//			int day = Integer.parseInt(vo_dateArr[2].split("T")[0]);
-//			int hour = Integer.parseInt(vo_dateArr[2].split("T")[1].split(":")[0]);
-//			int min = Integer.parseInt(vo_dateArr[2].split("T")[1].split(":")[1]);
-//			System.out.println("convert_voDate : " + year + "-" + (month + 1) + "-" + day + " " + hour + " : " + min);
-//			System.out.println("convert_voDate : " + year + "-" + (month + 1) + "-" + day);
-//			Date voDate = new Date(new GregorianCalendar(year, month, day, hour, min).getTimeInMillis());
-//			Date voDate = new Date(new GregorianCalendar(year, month, day).getTimeInMillis());
-//			//
 			String voDate2 = multiRequest.getParameter("input_voDate");
 			System.out.println(voDate2);
 			String[] vo_dateArr = voDate2.split("-");
@@ -102,11 +79,8 @@ public class VolunteerUpdateServlet extends HttpServlet {
 			int min = Integer.parseInt(vo_dateArr[2].split("T")[1].split(":")[1]);
 			String min2 =null;
 			if(min<10) { min2="0"+min;}else {min2=min+"";}
-			System.out.println("convert_voDate : " + year + "-" + (month + 1) + "-" + day + " " + hour + " : " + min);
 			String inputDate = year+"-"+month2+"-"+day2+" "+hour2+":"+min2+":00";
-			System.out.println(inputDate);
 			Timestamp voDate = Timestamp.valueOf(inputDate);
-			System.out.println(voDate);
 			
 			// 봉사지.
 			String zonecode= multiRequest.getParameter("input_zoneCode");
@@ -125,7 +99,6 @@ public class VolunteerUpdateServlet extends HttpServlet {
 			// 내용.
 			String voComment = multiRequest.getParameter("input_voComment");
 			
-//			Volunteer volunteer = new Volunteer(volBNo, volCateName, boTitle, voDate, voPlace, voMaxmember, voComment);
 			Volunteer volunteer = new Volunteer(volBNo, 0, volCateName, boTitle, 0, null, 0, null, null, voMaxmember, 0, null, voDate, voArea, voPlace, voComment);
 			int fileNo =0;
 	
@@ -148,7 +121,6 @@ public class VolunteerUpdateServlet extends HttpServlet {
 				request.setAttribute("section", "WEB-INF/views/common/errorPage.jsp");
 				request.getRequestDispatcher("index.jsp").forward(request, response);
 			}
-		
 		}
 		
 	}

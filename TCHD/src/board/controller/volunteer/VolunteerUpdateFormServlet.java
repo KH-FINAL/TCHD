@@ -43,21 +43,16 @@ public class VolunteerUpdateFormServlet extends HttpServlet {
 		
 		
 		int volBNo = Integer.parseInt(request.getParameter("volBNo"));
-		System.out.println(volBNo);
 		
 		String volCateName = request.getParameter("volCateName");
-		System.out.println(volCateName);
 		
 		String volBoTitle = request.getParameter("volBoTitle");
-		System.out.println(volBoTitle);
 		
 		String voArea = request.getParameter("voArea");
 		
 		// 봉사 일시.
-//		String voDate2 = request.getParameter("voDate");
-//		Timestamp voDate = Timestamp.valueOf(voDate2);
 		String voDate2 = request.getParameter("voDate");
-		System.out.println(voDate2);
+
 		String[] vo_dateArr = voDate2.split("-");
 		int year = Integer.parseInt(vo_dateArr[0]);
 		int month = Integer.parseInt(vo_dateArr[1]);
@@ -72,22 +67,14 @@ public class VolunteerUpdateFormServlet extends HttpServlet {
 		int min = Integer.parseInt(vo_dateArr[2].split(" ")[1].split(":")[1]);
 		String min2 =null;
 		if(min<10) { min2="0"+min;}else {min2=min+"";}
-		System.out.println("convert_voDate : " + year + "-" + (month + 1) + "-" + day + " " + hour + " : " + min);
 		String inputDate = year+"-"+month2+"-"+day2+" "+hour2+":"+min2+":00";
-		System.out.println(inputDate);
 		Timestamp voDate = Timestamp.valueOf(inputDate);
-		System.out.println(voDate);
 		
 		// 봉사지.
 		String zonecode= request.getParameter("zoneCode");
 		String address = request.getParameter("joinAddress");
 		String address2 = request.getParameter("joinAddress2");
-//		String voPlace = null;
-//		if(!zonecode.equals("")) {
-//			voPlace = "("+zonecode+")"+" "+address+", "+address2;
-//		}
 		String voPlace= request.getParameter("voPlace");
-		System.out.println(voPlace);
 		
 		// 봉사 정원.
 		String voMaxmember2 = request.getParameter("voMaxmember");
@@ -96,17 +83,13 @@ public class VolunteerUpdateFormServlet extends HttpServlet {
 		// 내용.
 		String voComment = request.getParameter("voComment");
 		
-		
 		int fileNo=0;
 		if(request.getParameter("volunteerFileNo")!=null) {
 			fileNo = Integer.parseInt(request.getParameter("volunteerFileNo"));
 		}
 		
-//		Volunteer volunteer = new Volunteer(volBNo, volCateName, boTitle, voDate, voPlace, boDate, voMaxmember, voComment);
-//		Volunteer volunteer = new Volunteer(volBNo, volCateName, volBoTitle, voDate, null, voMaxmember, voComment);
 		Volunteer volunteer = new Volunteer(volBNo, 0, volCateName, volBoTitle, 0, null, 0, null, null, voMaxmember, 0, null, voDate, voArea, voPlace, voComment);
 		
-		System.out.println(volunteer);
 		request.setAttribute("fileNo", fileNo);
 		request.setAttribute("volunteer", volunteer);
 		request.setAttribute("section", "WEB-INF/views/volunteer/volunteerUpdate.jsp");

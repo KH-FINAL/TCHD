@@ -12,14 +12,7 @@
 	}
 	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
-	/* Member loginUser = (Member)session.getAttribute("loginUser"); */
-	/* 비회원도 상세보기 가능하게. */
-	/* Member loginUser = (Member)request.getSession().getAttribute("loginUser");
-	String writer="";
-	if(loginUser!=null){writer=loginUser.getMem_id();} */
-	/* 댓글.. */
 	ArrayList<Comments> commentsList = (ArrayList<Comments>) request.getAttribute("commentsList");
-	/* 이미지 파일 관련 */
 	ArrayList<Files> fileList = (ArrayList<Files>) request.getAttribute("file");
 	Files file = null;
 	if (fileList != null) {
@@ -27,7 +20,6 @@
 			file = fileList.get(i);
 		}
 	}
-
 	ArrayList applyMemberList = (ArrayList)request.getAttribute("applyMemberList");
 %>
 <!DOCTYPE html>
@@ -81,11 +73,6 @@
 						<%
 							}
 						%>
-						<%-- <div id="img_div">
-					<% if(file!=null){%>
-            		<input type="hidden" name="volunteerFileNo" value="<%=file.getFileNo() %>">
-            		<%} %>
-            		</div> --%>
 					</div>
 					<div class="content_table">
 						<table>
@@ -139,7 +126,6 @@
 
 				</div>
 				<div id="apply_div">
-					<%-- <button type="button" id="apply_button" onclick="location.href='<%= request.getContextPath() %>/volunteerApply.bo'">신청하기</button> --%>
 					<%if (loginUser != null) {%>
 						<%if (v.getVoDeadline().equals("N") && loginUser.getMem_no()!=v.getMemNo()) {%>
 							<input type="button" id="apply_button" value="신청하기" onclick="volApply();" />
@@ -169,17 +155,10 @@
 					</div>
 				</div>
 				<hr class="hr">
-				<!-- <div id="list_div">
-					<button type="button" id="list_button" onclick="">이전</button>
-					<button type="button" id="list_button" onclick="">목록</button>
-					<button type="button" id="list_button" onclick="">다음</button>
-					<button type="button" id="edit">수정</button>
-				</div> -->
 				<div class="commentsArea">
 					<div class="comment_div" id="commentsWriteArea">
 						<input type="text" placeholder="댓글을 작성하려면 로그인 해주세요." id="commentsContent"> 
 						<input type="button" id="addComments" value="등록">
-						<!-- <input type="submit" value="등록" id="addComments"> -->
 					</div>
 					<hr class="hr">
 					<div class="comment_list" id="commentsSelectArea">
@@ -208,57 +187,11 @@
 								}
 							%>
 						</table>
-						<%-- <div class="comment_list_bottom">
-					<% if(commentsList.isEmpty()) { %>
-					<span>댓글이 없습니다.</span>
-					<% } else { %>
-					<% for(int i = 0; i < commentsList.size(); i++) { %>
-					<span id="id"><%= commentsList.get(i).getMemId() %></span><br>
-					<span id="date"><%= commentsList.get(i).getComDate() %></span><br>
-					<span id="content"><%= commentsList.get(i).getComContent() %></span>
-					<% } %>
-					<% } %>
-				</div> --%>
 					</div>
 				</div>
 				<hr class="hr">
 			</div>
 		</form>
-
-		<%-- 		<script>
-		$(function(){
-			// 댓글 등록 버튼을 눌렀을 때
-			$('#addComments').click(function(){
-				var writer = '<%= loginUser.getMem_id() %>';
-				var bNo = <%= v.getBoNo() %>;
-				var content = $('#commentsContent').val();
-				
-				$.ajax({
-					url: 'insertComments.bo',
-					data: {writer:memId, content:comContent, bNo:boNo},
-					type: 'post',
-					success: function(data){
-						$commentsTable = $('#commentsSelectTable');
-						$commentTable.html("");
-						
-						for(var key in data){
-							var $tr = $('<tr>');
-							var $writerTd = $('<td>').text(data[key].memId).css('width', '100px');
-							var $dateTd = $('<td>').text(data[key].comDate).css('width', '200px');
-							var $contentTd = $('<td>').text(data[key].comContent).css('width', '400px');
-							
-							$tr.append($writerTd);
-							$tr.append($dateTd);
-							$tr.append($contentTd);
-							$commentsTable.append($tr);
-						}						
-						$('$commentsContent').val("");
-					}
-				});
-			});
-		});
-		</script> --%>
-
 	<script type="text/javascript">
 	/* 비회원 신청 안됨 로그인 하러 ~ */
 	function goLogin(){
@@ -324,35 +257,6 @@
 		}
 	} 
 
-	
-<%-- 	function volDelete(){
-		var volBNo = <%= v.getBoNo() %>;
-		
-		swal({
-			title: "게시글 삭제",
-			text: "게시글을 삭제하시겠습니까?",
-			icon: "warning",
-			showCancelButton: true
-			cancelButtonTex: '아니오'
-			confirmButtonText: '예'
-			
-		}).then(function(){
-			swal(
-				'해당 게시글이 삭제되었습니다.',
-				'success'
-			);
-		}); --%>
-		<%-- .then(((willDelete) => {
-			if(willDelete) {
-				location.href = "<%= request.getContextPath() %>/volunteerDelete.bo?volBNo=" + volBNo;
-				swal("해당 게시글이 삭제되었습니다.", {
-					icon: "success",
-				});
-			} else {
-				swal.close();
-			}
-		}); 
-	} --%>
 	$(function(){
 		$('#addComments').click(function(){
 			var loginUser='<%=loginUser%>'
@@ -398,10 +302,7 @@
 			
 		})
 	})
-	
-	
 	</script>
 	</section>
-
 </body>
 </html>

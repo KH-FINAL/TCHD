@@ -27,7 +27,6 @@ public class VolunteerSearchServlet extends HttpServlet {
 		String search = request.getParameter("search");
 		String cate = request.getParameter("cate");
 		
-		
 		int listCount;		// 총 게시글 개수
 		int currentPage;	// 현재 페이지
 		int pageLimit; 		// 한 페이지에서 표시될 페이징 수
@@ -57,17 +56,13 @@ public class VolunteerSearchServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		
-		
 		ArrayList<Volunteer> volunteerList = new BoardService().searchVolunteer(search,cate,pi);
-		
 		
 		request.setAttribute("section", "WEB-INF/views/volunteer/volunteerList.jsp");
 		request.setAttribute("volunteerList", volunteerList);
 		request.setAttribute("pi", pi);
 		request.setAttribute("search", search);
 		request.setAttribute("cate", cate);
-		
 		
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
