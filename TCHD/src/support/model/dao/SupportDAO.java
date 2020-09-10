@@ -5,6 +5,7 @@ import static common.JDBCTemplate.close;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -147,7 +148,7 @@ public class SupportDAO {
 		return check;
 	}
 
-	public int[] getListCount(Connection conn, int mem_no) {
+	public int[] getListCount(Connection conn, int mem_no, Date searchDate) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int[] listTotal = new int[2];
@@ -157,9 +158,10 @@ public class SupportDAO {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, mem_no);
+			pstmt.setDate(2, searchDate);
+			pstmt.setDate(3, searchDate);
 			rset = pstmt.executeQuery();
 			
-			System.out.println("dao_memNo : " + mem_no);
 			if(rset.next()) {
 				listTotal[0] = rset.getInt(1); // COUNT(*)
 				listTotal[1] = rset.getInt(2); // SUM(SUP_PRICE)
@@ -203,7 +205,7 @@ public class SupportDAO {
 		return support;
 	}
 	
-	public ArrayList<Support> selectListMem(Connection conn, int mem_no, PageInfo pi) {
+	public ArrayList<Support> selectListMem(Connection conn, int mem_no, Date searchDate, PageInfo pi) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 //		ArrayList<Support> supportList = new ArrayList<Support>();
@@ -213,13 +215,14 @@ public class SupportDAO {
 
 		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 		int endRow = startRow + pi.getBoardLimit() - 1;
-		System.out.println("dao_startRow : " + startRow + " / endRow : " + endRow);
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, mem_no);
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
+			pstmt.setDate(2, searchDate);
+			pstmt.setDate(3, searchDate);
+			pstmt.setInt(4, startRow);
+			pstmt.setInt(5, endRow);
 			
 			rset = pstmt.executeQuery();
 			

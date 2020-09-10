@@ -6,7 +6,6 @@
 	ArrayList<Files> fList = (ArrayList<Files>)request.getAttribute("fList");
 	String userId = (String)request.getAttribute("userId");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	
 	int listCount = pi.getListCount();
 	int currentPage = pi.getCurrentPage();
 	int maxPage = pi.getMaxPage();
@@ -33,57 +32,22 @@
 		</table>
 	</div>
 		<div id="pet">
-		<form>
 			<div id="petSelect">
-				<ul>
-					<li>
-						<button class="petButton" name="petSearch" onclick="petSearch();">검색</button>	<!-- 아직 함수 설정 안함 -->
-					</li>
-					<li>
-						<button type="reset" class="petButton" name="petReset">초기화</button>
-					</li>
-					<li>	
-						<% if(userId != null){ %>
-							<button type="button" class="petButton" name="petUpDate" onclick="writeForm();">등록</button>				
-						<% } else {%> 
-							<button type="button" class="petButton" name="petUpDate" onclick="loginForm();">등록</button>	
-						<% } %>
-					</li>
-				</ul>
-				<table class="petlSelectInfo">
-					<tr class="petCategory">
-						<td id="kind" class="petChoice">동물구분</td>
-						<td id="gender" class="petChoice">성별</td>
-						<td id="size" class="petChoice">크기</td>
-<!-- 						<td id="age" class="petChoice">연령</td> -->
-					</tr>
-					<tr class="petCategory">
-						<td id="catDog" class="petKind">개/고양이</td>
-						<td id="fm" class="petKind">암컷/수컷</td>
-						<td id="sml" class="petKind">대형/중형/소형</td>
-<!-- 						<td class="petKind">Puppy/Junior/Adult/Senior</td> -->
-					</tr>
-				</table>	<!-- 조건 고르는 옵션 -->
-				<div id="conditionSelect">
-					<select id="condition" class="conditionKind">
-						<option id="allSelect" checked>All</option>
-						<option id="dogSelect" value="dog">개</option>
-						<option id="catSelect" value="cat">고양이</option>
-					</select>
-					<select id="sCondition" class="conditionKind">
-						<option id="allSelect" checked>All</option>
-						<option id="catDogGender" value="F">암컷</option>
-						<option id="catDogGender" value="M">수컷</option>
-					</select>
-					<select id="tCondition" class="conditionKind">
-						<option id="allSelect" checked>All</option>
-						<option id="catDogSize" value=1>대형</option>
-						<option id="catDogSize" value=2>중형</option>
-						<option id="catDogSize" value=3>소형</option>
-					</select>
-				</div>
-			</div>
-		</form>
+				<table>
+				<tr>
+					<td id="imgSpace"></td>
+					<td>
+						<div id="btn">
+							<% if(userId != null){ %>
+								<button type="button" class="petButton" name="petUpDate" onclick="writeForm();">+ 등 록</button>				
+							<% } else {%> 
+								<button type="button" class="petButton" name="petUpDate" onclick="loginForm();">+ 등 록</button>	
+							<% } %>
+						</div>
+					</td>
+				</tr>
+				</table>
+		</div>
 			<div id="petPicture">		<!-- 동물 사진 영역 -->
 			<% if(aList.isEmpty() || fList.isEmpty()){ %>
 					등록된 사진이 없습니다.
@@ -99,8 +63,8 @@
 									<img class="pictureForm" src="<%= request.getContextPath() %>/upload_imageFiles/<%= f.getChangeName() %>"/>
 									<div class="petInfos"> 
 										<div id="petName" class="petInfo"><%= a.getPetName() %></div><br>
-										<div id="petKind" class="petInfo"><%= a.getPetKinds() %>(<%= a.getPetCategory() %>)</div><br>
-										<div id="petGender" class="petInfo"><%= a.getPetGender() %> (중성화 <%= a.getPetUnigender() %>)</div><br>
+										<div id="petKind" class="petInfo"><%= a.getPetKinds() %>(<%= a.getPetCategory() %>)</div><div id="petSize" class="petInfo">&nbsp; 크기 : <%= a.getPetSize() %></div><br>
+										<div id="petGender" class="petInfo">성별 : <%= a.getPetGender() %> (중성화 <%= a.getPetUnigender() %>)</div><br>
 										<span id="petAge" class="petInfo"><%= a.getPetAge() %> /</span>
 										<span id="petWeight" class="petInfo"><%= a.getPetWeight() %>kg /</span>
 										<span id="petColor" class="petInfo"><%= a.getPetColor() %></span> 									

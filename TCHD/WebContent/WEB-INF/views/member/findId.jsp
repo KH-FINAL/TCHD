@@ -86,7 +86,6 @@
 				type: "post",
 				data: {input_name:name.val(), input_email:email.val()},
 				success: function(result){
-					console.log("result : " + result);
 					if(result == 1){
 						swal("메일 전송 완료","입력하신 이메일로 아이디를 전송하였습니다.","success")
 						.then((ok) => {

@@ -35,6 +35,19 @@
 th {
 	width: 100px;
 }
+#input_title {
+	padding-left: 10px;
+}
+.adress{
+	padding-left: 10px;
+}
+#vomaxmember{
+	padding-left: 10px;
+}
+#textarea{
+	padding-top: 10px;
+	padding-left: 10px;
+}
 .allbutton{
 	border: 1px solid #ccc;
 	border-radius: 3px;

@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="css/common/common.css" type="text/css">
 </head>
 <body>
-<section>	<!-- action="<%= request.getContextPath() %>/adoptApplyForm.bo" method="post" -->	<!-- action : 값을 전달(submit)할 곳으로 경로지정 -->
+<section>	
 	<form action="<%= request.getContextPath() %>/adoptUpdateForm.bo" method="post" onsubmit="return checkSubmit();">
    		<div id="ment">보호동물 정보</div>
    			<div id="picture">
@@ -119,34 +119,6 @@
 			</div>
 	</form>		
 	<script>
-// 		$(function(){			// 작은 사진 누르면 큰 사진에 나오게 하려고 도전중
-// 			var thumbnail = $('#thumbnailImg');
-// 			var img = $('.smallPicture');
-// 			var img2 = $('#detailImg2');
-// 			var img3 = $('#detailImg3');
-			
-// 				$('.smallPicture').on("click", function(){
-// 					for(var i = 1; i < fileList.size(); i++){
-// 						if(i == 1){
-<%-- 							$('#thumbnailImg').attr('src', '<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(1).getChangeName() %>'); --%>
-<%-- 							$(this).attr('src', '<%= request.getContextPath()%>/upload_imageFiles/<%= fileList.get(0).getChangeName() %>'); --%>
-// 						}
-// 					}
-// 			}
-			
-// 			$('#detailImg2').on("click", function(){
-<%-- 				$('#thumbnailImg').attr('src', '<%= request.getContextPath() %>/upload_imageFiles/<%=fileList.get(2).getChangeName()%>'); --%>
-<%-- 				$(this).attr('src', '<%= request.getContextPath()%>/upload_imageFiles/<%= fileList.get(1).getChangeName() %>'); --%>
-				
-// 			});
-			
-// 			$('#detailImg3').on("click", function(){
-<%-- 				$('#thumbnailImg').attr('src', '<%= request.getContextPath() %>/upload_imageFiles/<%=fileList.get(3).getChangeName()%>'); --%>
-<%-- 				$(this).attr('src', '<%= request.getContextPath()%>/upload_imageFiles/<%= fileList.get(2).getChangeName() %>'); --%>
-// 			});
-// 		});
-		
-		
 		function loginForm(){
 			swal("회원 전용 서비스", "로그인 후 이용해주시기 바랍니다.", "info")
 			.then((ok) => {
@@ -165,7 +137,7 @@
 				icon : 'warning',
 				buttons : ["아니오", "예"],
 				dangerMode : true,
-			}).then((ok) => {		// 왜 안 지워지지??? swal은 뜨는데
+			}).then((ok) => {		
 				if(ok){
 					swal({
 						title : '삭제 완료', 

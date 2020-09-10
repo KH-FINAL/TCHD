@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="css/volunteer_write.css" rel="stylesheet" type="text/css">
+<link href="css/volunteer/volunteer_write.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="css/common/common.css" type="text/css">
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -113,7 +113,7 @@
 					<tr>
 						<th>모집인원 <span id="star">*</span></th>
 						<td class="board_table_td">
-							<input type="text" class="allbutton" name="voMaxmember" required>
+							<input type="text" class="allbutton" id=vomaxmember name="voMaxmember" required>
 						</td>
 					</tr>
 					<tr>
@@ -139,7 +139,41 @@
 				<button type="submit" class="button_ok" value="등록">등록</button>
 			</div>
 			</form>
-		</div>	
+		</div>
+		<script>
+		//---------------------------------------------------------------------------------------
+		// 모집인원에 숫자만 가능.
+		$("#vomaxmember").on("keyup",function(){ 
+			var maxmembernum = /^[0-9]*$/;
+			var vomaxmember = $("#vomaxmember").val();
+			if(!maxmembernum.test(vomaxmember)) {
+				console.log('숫자만 입력하세요');
+				$("#vomaxmember").val(vomaxmember.replace(/[^0-9]/g,''));
+			}
+		});
+		//---------------------------------------------------------------------------------------
+		// 제목에 특수문자 안됨.
+		// 특수문자
+	    var replaceChar = /[~!@\#$%^&*\()\-=+_'\;<>\/.\`:\"\\,\[\]?|{}]/gi;
+	 
+	    // 완성형 아닌 한글
+	    var replaceNotFullKorean = /[ㄱ-ㅎㅏ-ㅣ]/gi;
+	    
+	    $(document).ready(function(){
+	        
+	        $("#input_title").on("focusout", function() {
+	            var x = $("#input_title").val();
+	            if (x.length > 0) {
+	                if (x.match(replaceChar) || x.match(replaceNotFullKorean)) {
+	                    x = x.replace(replaceChar, "").replace(replaceNotFullKorean, "");
+	                }
+	                $("#input_title").val(x);
+	            }
+	            }).on("keyup", function() {
+	                $("#input_title").val($("#input_title").val().replace(replaceChar, ""));
+	       });
+	    });       
+		</script>
 	</section>
 </body>
 </html>

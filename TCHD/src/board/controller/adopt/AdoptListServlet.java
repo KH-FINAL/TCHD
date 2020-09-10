@@ -37,7 +37,6 @@ public class AdoptListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BoardService service = new BoardService();
 		HttpSession session = request.getSession();
-//		request.getParameter("")
 		
 		// 페이징
 		PageInfo pi = null;

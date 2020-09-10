@@ -25,7 +25,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="css/volunteer_list.css" rel="stylesheet" type="text/css">
+<link href="css/volunteer/volunteer_list.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="css/common/common.css" type="text/css">
 </head>
 <body>
@@ -183,6 +183,27 @@
 				}
 			}
 		}
+		
+		// 검색어에 특수문자 안됨.
+		$(document).ready(function(){
+	        
+			// 특수문자
+		    var replaceChar = /[~!@\#$%^&*\()\-=+_'\;<>\/.\`:\"\\,\[\]?|{}]/gi;
+		    // 완성형 아닌 한글
+		    var replaceNotFullKorean = /[ㄱ-ㅎㅏ-ㅣ]/gi;
+		    
+	        $("#search_input").on("focusout", function() {
+	            var x = $("#search_input").val();
+	            if (x.length > 0) {
+	                if (x.match(replaceChar) || x.match(replaceNotFullKorean)) {
+	                    x = x.replace(replaceChar, "").replace(replaceNotFullKorean, "");
+	                }
+	                $("#search_input").val(x);
+	            }
+	            }).on("keyup", function() {
+	                $("#search_input").val($("#search_input").val().replace(replaceChar, ""));
+	       });
+	    });       
 	</script>
 	
 </body>

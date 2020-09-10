@@ -86,17 +86,16 @@ public class MemberDAO {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				loginUser = new Member(
-						rset.getInt("MEM_NO"),
-						rset.getString("MEM_TYPE"), 
-					   rset.getString("MEM_ID"),
-					   null, 	
-					   rset.getString("MEM_NAME"),
-					   rset.getString("MEM_PHONE"),
-					   null,
-					   null,
-					   null
-						);
+				loginUser = new Member(rset.getInt("MEM_NO"),
+									   rset.getString("MEM_TYPE"), 
+									   rset.getString("MEM_ID"),
+									   null, 	
+									   rset.getString("MEM_NAME"),
+									   rset.getString("MEM_PHONE"),
+									   null,
+									   null,
+									   null
+									   );
 				if(rset.getString("MEM_TYPE").equals("GM")) {
 					loginUser.setGm_ok_ny(rset.getString("GM_OK_YN"));
 				}
@@ -221,7 +220,6 @@ public class MemberDAO {
 	public int updateMember(Connection conn, Member member) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		System.out.println(member.getMem_pw());
 		try {
 			pstmt=conn.prepareStatement(prop.getProperty("updateMember"));
 			pstmt.setString(1, member.getMem_pw());
@@ -248,7 +246,6 @@ public class MemberDAO {
 		try {
 			pstmt=conn.prepareStatement(prop.getProperty("updateMemberPm"));
 			pstmt.setDate(1, member.getPm_birth());
-			System.out.println(member.getMem_no());
 			pstmt.setInt(2, member.getMem_no());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -339,7 +336,6 @@ public class MemberDAO {
 	public int changePwd(Connection conn, String id, String temporaryPwd) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		Member member = new Member();
 		
 		String query = prop.getProperty("changPwd");
 		

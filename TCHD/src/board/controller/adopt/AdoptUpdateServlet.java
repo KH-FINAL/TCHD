@@ -46,30 +46,10 @@ public class AdoptUpdateServlet extends HttpServlet {
 		Member loginUser = (Member)session.getAttribute("loginUser");
 		int bNo = Integer.parseInt(request.getParameter("boNo"));
 		
-//		if(ServletFileUpload.isMultipartContent(request)) {
-//			int maxSize = 1024 * 1024* 10;
-//			String root = request.getSession().getServletContext().getRealPath("/"); // C:\5_JSPServlet_workspace\TCHD\WebContent\
-//			String savePath = root + "upload_imageFiles/";	// 파일 저장경로
-//			
-//			
-//			File f = new File(savePath);
-//			if(!f.exists()) {		// 폴더 없으면 만들고 시작
-//				f.mkdirs();
-//			}
-		
-//			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize,"UTF-8", new MyFileRenamePolicy());
-//			
-//			ArrayList<String> saveFiles = new ArrayList<String>();	 // 바뀐 파일 이름 저장
-//			ArrayList<String> originFiles = new ArrayList<String>(); // 원본파일 이름 저장
-//			ArrayList<Files> fList = new ArrayList<Files>();
-		
 		Board b = new Board();
 		Adopt a = new Adopt();
 		
-		
-		
 		// insert 했던 입양 동물 정보
-		// PET_CATEGORY=?, PET_UNIGENDER=?, PET_NAME=?, PET_AGE=?, PET_WEIGHT=?, PET_COLOR=?, PET_COMMENT=? WHERE BO_NO=?
 		String petKind = request.getParameter("petKind");		// 동물 구분 체크박스
 		String petGender = request.getParameter("petGender");	// 동물성별 체크박스;
 		String unigender = "";
@@ -98,57 +78,12 @@ public class AdoptUpdateServlet extends HttpServlet {
 				petName + ", " + petCategory + ", " + petWeight + ", " + petColor + ", " + 
 				rescue + ", " + lastMent;
 			
-//			System.out.println("수정하기 content : " + content);
-			
-//			Enumeration<String> files = multiRequest.getFileNames();	// form에서 전송되는 파일이름 : 글 수정 시 업로드 된 파일 가져오기
-//			while(files.hasMoreElements()) {
-//				String name = files.nextElement();	// thumbnailImg(썸네일), thumbnailImg1  ==> 내가 새로 선택한 파일 name태그명
-//				String updateFile = multiRequest.getFilesystemName(name); // thumbnailImg의 changeName  --> thumbnailImg1의 changeName은 null
-//				System.out.println("수정하기 파일이름 :"+name);	
-//				System.out.println("수정하기 파일업데이트 :"+updateFile);
-//				if(updateFile != null) {	// 사진이 추가됐을 떄??
-//					saveFiles.add(multiRequest.getFilesystemName(name));	 // 바뀐 파일명
-//					originFiles.add(multiRequest.getOriginalFileName(name)); // 실제 업로드했던 파일명
-//				} 
-//			}
-			
-//			System.out.println("수정하기 썸네일:" + multiRequest.getParameter("thumbnailImg"));	// null
-//			System.out.println("수정하기 내용사진:" + multiRequest.getParameter("thumbnailImg1"));// null
-
-//			int fileNo0 = Integer.parseInt(multiRequest.getParameter("fileNo0"));
-//			int fileNo = Integer.parseInt(multiRequest.getParameter("fileNo"));
-			
-//			for(int i = 0; i < originFiles.size(); i++) {
-//				Files ft = new Files();
-//				ft.setBoNo(bNo);
-//				ft.setFilePath(savePath);
-//				ft.setOrignName(originFiles.get(i));
-//				ft.setChangeName(saveFiles.get(i));
-//				if(i == originFiles.size() -1) {
-//					ft.setFileLevel(0);
-////					ft.setFileNdo(fileNo0);
-//				} else { 
-//					ft.setFileLevel(1);
-////					ft.setFileNo(fileNo);
-//				}
-				
-//				fList.add(ft);
-//				System.out.println("수정하기 파일 게시글 번호 :"+fList.get(i).getBoNo());
-//				System.out.println("수정하기 파일 저장경로 :"+fList.get(i).getFilePath());
-//				System.out.println("수정하기 파일 원본이름 :"+fList.get(i).getOrignName());
-//				System.out.println("수정하기 파일 바뀐이름 :"+fList.get(i).getChangeName());
-//				System.out.println("수정하기 파일레벨 :"+fList.get(i).getFileLevel());
-//				System.out.println("수정하기 파일번호 :"+fList.get(i).getFileNo());	// 새로운 이미지 파일이라 파일번호가 없나봐..
-//			}
-			
-
 			
 			b.setBoNo(bNo);
 			b.setBoTitle(petName);
 			b.setBoContent(content);
 			b.setMemNo(loginUser.getMem_no());
 			
-			// PET_CATEGORY=?, PET_UNIGENDER=?, PET_NAME=?, PET_AGE=?, PET_WEIGHT=?, PET_COLOR=?, PET_COMMENT=? WHERE BO_NO=?
 			a.setBoNo(bNo);
 			a.setId(loginUser.getMem_id());
 			a.setPetName(petName);

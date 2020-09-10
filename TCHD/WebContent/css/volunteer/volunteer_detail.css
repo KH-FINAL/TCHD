@@ -61,6 +61,8 @@
 }
 #table_content {
 	height: 50px;
+	padding-left: 10px;
+	font-size: 18px;
 }
 #content {
 	padding-left: 30px;
@@ -104,6 +106,14 @@
     border: none;
     border-radius: 5px;
 }
+#css {
+	width: 35px; height: 35px;
+	background: #ccc;
+    color: white;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}
 /* .list_div a {
 	display: inline-block;
 	margin-left: 10px;
@@ -125,10 +135,13 @@
 	margin-bottom: 10px;
 }
 /* 댓글 입력란 */
-input[type=text] {
-	width: 920px; height: 30px;
+#commentsContent{
+	padding-left: 10px;
 }
-input[type=submit] {
+input[type=text] {
+	width: 910px; height: 30px;
+}
+#addComments {
 	width: 70px; height: 30px;
 	border: none;
 	border-radius: 5px;

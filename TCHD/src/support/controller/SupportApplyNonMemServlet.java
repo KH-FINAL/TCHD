@@ -52,7 +52,6 @@ public class SupportApplyNonMemServlet extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			System.out.println("메일 전송 완료_support");
 			
 			response.getWriter().println("1");
 		} else {

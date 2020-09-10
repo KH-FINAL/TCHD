@@ -12,19 +12,31 @@
 	margin: 0px auto;
 	width: 1000px;
 }
-/* 월별 검색 버튼 div */
-#search_date_div {
-	text-align: right;
-	padding-right: 20px;
+/* 월별 검색 */
+#select_option_div{
+	text-align:left;
 }
-/* 월별 검색 버튼 */
-#input_search_date {
-	width: 150px;
-	height: 10px;
-	padding: 10px;
+.select_YM{
+	width: 80px;
+	height: 30px;
+	padding: 5px;
 	border-radius: 5px;
-	border: 2px solid #aaa;
+	text-align: center;
 	outline: none;
+}
+#month{
+	margin-left: 20px;
+}
+#search_button{
+	width: 68px;
+    height: 30px;
+    background: rgb(41, 128, 185);
+    color: rgb(255,255,255);
+    font-size: 16px;
+    border: none;
+    outline: none;
+    margin-left: 10px;
+    border-radius: 10px;
 }
 /* 조회 table */
 #support_list_div{
@@ -55,7 +67,7 @@
 	font-size: 25px;
 	font-weight: 400;
 	text-align: right;
-/* 	margin-bottom: 50px; */
+	margin-bottom: 60px;
 	padding-right: 20px;
 }
 
@@ -64,32 +76,9 @@
 	font-weight: 600;
 	color: rgb(41, 128, 185);
 }
-/* 뒤로가기 버튼 */
-#list_div{
-	margin-left: 5px;
-	width: 111px;
-    cursor: pointer;
-    margin-bottom: 50px;
-}
-
-#list_a{
-	color: rgb(0, 0, 64);
-	text-decoration: none;
-	font-size: 35px;
-}
-
-#list_button{
-    background: none;
-    color: rgb(0, 0, 64);
-	font-size: 20px;
-    border: none;
-    outline: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
 /* 페이징 */
 .paging {
-	margin: 20px 20px 40px 20px;
+	margin: 20px;
 	text-align: center;
 }
 
