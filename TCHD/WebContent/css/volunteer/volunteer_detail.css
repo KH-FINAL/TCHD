@@ -37,7 +37,7 @@
 .vol_img_div {
 	padding-top: 50px;
 	padding-bottom: 50px;
-	text-align: center;
+	/* text-align: center; */
 }
 /* 사진크기 */
 #vol_img {
