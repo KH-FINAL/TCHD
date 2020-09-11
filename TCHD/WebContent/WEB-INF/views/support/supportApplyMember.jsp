@@ -27,7 +27,7 @@
 								<option value="100000">10만원</option>
 								<option value="직접입력">직접입력</option>
 							</select>
-							<input type="text" id="input_direct" maxlength="15" onkeyup="addCommas(this.value);" style="display: none;">
+							<input type="text" id="input_direct" maxlength="15" onkeyup="addCommas(this.value);" style="display: none;" autocomplete="off">
 						</td>
 						
 						<!-- step2 -->

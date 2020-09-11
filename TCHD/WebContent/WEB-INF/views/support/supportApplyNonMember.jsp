@@ -40,7 +40,7 @@
 								<option value="100000">10만원</option>
 								<option value="직접입력">직접입력</option>
 							</select>
-							<input type="text" id="input_direct" maxlength="15" onkeyup="addCommas(this.value);" style="display: none;">
+							<input type="text" id="input_direct" maxlength="15" onkeyup="addCommas(this.value);" style="display: none;" autocomplete="off">
 						</td>
 						
 						<!-- step2 -->
@@ -53,11 +53,11 @@
 								<table id="input_info_table">
 									<tr>
 										<th><span>이름</span></th>
-										<td><input type="text" id="input_name" class="input_box"></td>
+										<td><input type="text" id="input_name" class="input_box" autocomplete="off"></td>
 									</tr>
 									<tr>
 										<th><span>이메일</span></th>
-										<td><input type="email" id="input_email" class="input_box"></td>
+										<td><input type="email" id="input_email" class="input_box" autocomplete="off"></td>
 									</tr>
 								</table>
 							</div>

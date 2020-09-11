@@ -16,7 +16,7 @@
 
 			<div>
 				<label class="login_label">&nbsp;&nbsp;&nbsp;아이디&nbsp;&nbsp;</label>
-				<input type="text" id="input_id" class="login_input" name="userId"> <!-- autocomplete="off" : 기록 안보이게(자동완성X) -->
+				<input type="text" id="input_id" class="login_input" name="userId" autocomplete="off"> <!-- autocomplete="off" : 기록 안보이게(자동완성X) -->
 			</div>
 
 			<br>

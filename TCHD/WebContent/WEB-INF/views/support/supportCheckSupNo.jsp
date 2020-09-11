@@ -14,7 +14,7 @@
 			후원 신청할 때 입력하신 이메일을 확인해주세요.
 			<div>
 				<label>후원 번호</label>
-				<input type="text" id="input_supNo" name="input_supNo"><br>
+				<input type="text" id="input_supNo" name="input_supNo" autocomplete="off"><br>
 				<button id="input_button" onclick="validate();">확인</button>
 			</div>
 		</div>

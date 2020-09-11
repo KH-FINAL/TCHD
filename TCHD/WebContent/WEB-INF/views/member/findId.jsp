@@ -39,9 +39,9 @@
 			<br><br>
 
 			<div id="input_div">
-				<input type="text" id="input_name" class="input" name="input_name" placeholder="이름">
+				<input type="text" id="input_name" class="input" name="input_name" placeholder="이름" autocomplete="off">
 				<br><br>
-				<input type="email" id="input_email" class="input" name="input_email" placeholder="이메일">
+				<input type="email" id="input_email" class="input" name="input_email" placeholder="이메일" autocomplete="off">
 			</div>
 			<br>
 			<div id="input_button_div">
