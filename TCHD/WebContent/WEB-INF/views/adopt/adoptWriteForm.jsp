@@ -111,7 +111,7 @@
 							<span>*</span> 몸무게(kg) :
 						</td>
 						<td class="secondTd">		
-							<input type="text" id="weight" class="answer" name="petWeight" maxlength=3 placeholder="ex. 0.0"/>
+							<input type="text" id="weight" class="answer" name="petWeight" maxlength=4 placeholder="ex. 0.0"/>
 						</td>
 					</tr>
 					<tr>
