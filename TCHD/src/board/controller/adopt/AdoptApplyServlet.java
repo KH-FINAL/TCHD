@@ -40,7 +40,7 @@ public class AdoptApplyServlet extends HttpServlet {
 						request.getParameter("answer3") + " , " + request.getParameter("answer4") + " , " + 
 						request.getParameter("answer5") + " , " + request.getParameter("answer7");
 		
-		Board b = new Board(0, null, "입양신청서", answer, null, 0, null, loginUserNo);
+		Board b = new Board(0, null, "입양신청서", answer, null, 0, null, loginUserNo, 5);
 		Adopt a = new Adopt(bNo, "Y");
 		Files f = new Files(0, bNo, 1, null, null, null, null, 0, "Y");
 		AdoptApply apply = new AdoptApply(answer, loginUserNo);

@@ -292,6 +292,7 @@ public class BoardDAO {
 			pstmt.setInt(1, b.getMemNo());
 			pstmt.setString(2, b.getBoTitle());
 			pstmt.setString(3, b.getBoContent());
+			pstmt.setInt(4, b.getCateNo());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

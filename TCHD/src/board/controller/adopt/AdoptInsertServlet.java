@@ -146,6 +146,7 @@ public class AdoptInsertServlet extends HttpServlet {
 						petName + ", " + petCategory + ", " + petWeight + ", " + petColor + ", " + 
 						rescueDate + ", " + lastMent);
 			b.setMemNo(member.getMem_no());		
+			b.setCateNo(1);
 			
 		
 			// DB에 저장할 객체 - Adopt 테이블

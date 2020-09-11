@@ -11,6 +11,7 @@ public class Board {
 	private int boCount;
 	private String boDeleteYn;
 	private int memNo;
+	private int cateNo;
 	
 	public Board() {}
 	
@@ -33,6 +34,20 @@ public class Board {
 		this.boCount = boCount;
 		this.boDeleteYn = boDeleteYn;
 		this.memNo = memNo;
+	}
+	
+	public Board(int boNo, String boType, String boTitle, String boContent, Date boDate, int boCount, String boDeleteYn,
+			int memNo, int cateNo) {
+		super();
+		this.boNo = boNo;
+		this.boType = boType;
+		this.boTitle = boTitle;
+		this.boContent = boContent;
+		this.boDate = boDate;
+		this.boCount = boCount;
+		this.boDeleteYn = boDeleteYn;
+		this.memNo = memNo;
+		this.cateNo = cateNo;
 	}
 
 	
@@ -110,11 +125,14 @@ public class Board {
 		this.memNo = memNo;
 	}
 
-	@Override
-	public String toString() {
-		return "Board [boNo=" + boNo + ", boType=" + boType + ", boTitle=" + boTitle + ", boContent=" + boContent
-				+ ", boDate=" + boDate + ", boCount=" + boCount + ", boDeleteYn=" + boDeleteYn + ", memNo=" + memNo
-				+ "]";
+	public int getCateNo() {
+		return cateNo;
 	}
+
+	public void setCateNo(int cateNo) {
+		this.cateNo = cateNo;
+	}
+
+	
 	
 } // class end
