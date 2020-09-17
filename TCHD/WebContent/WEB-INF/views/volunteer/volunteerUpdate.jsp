@@ -174,7 +174,8 @@
 	    var replaceNotFullKorean = /[ㄱ-ㅎㅏ-ㅣ]/gi;
 	    
 	    $(document).ready(function(){
-	        
+	        $('#select2').val('<%=v.getVoArea()%>');	
+	    	
 	        $("#input_title").on("focusout", function() {
 	            var x = $("#input_title").val();
 	            if (x.length > 0) {
