@@ -1,15 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList, board.model.vo.*, member.model.vo.*"%>
-<%
-	Member loginUser = (Member)session.getAttribute("loginUser");
-	Adopt adopt = (Adopt)request.getAttribute("adopt");
-	if(adopt.getPetComment() == null){
-		adopt.setPetComment("");
-	}
-	String rescue = (String)request.getAttribute("rescue");
-	ArrayList<Files> fileList = (ArrayList<Files>)request.getAttribute("fileList");
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,12 +16,14 @@
 	<form action="<%= request.getContextPath() %>/adoptUpdateForm.bo" method="post" onsubmit="return checkSubmit();">
    		<div id="ment">보호동물 정보</div>
    			<div id="picture">
-				<img id="thumbnailImg" src="<%= request.getContextPath()%>/upload_imageFiles/<%= fileList.get(0).getChangeName() %>"/>
+				<img id="thumbnailImg" src="<%= request.getContextPath()%>/upload_imageFiles/${ fileList.get(0).changeName }"/>
 	   		</div>
 	   		<div id="petName">
-	   		<p><%= adopt.getPetName() %></p><input type="button" id="listBtn" value="목록 >" onclick="location.href='<%= request.getContextPath() %>/adopt.bo';"/>
-	   		<input type="hidden" name="petName" value="<%= adopt.getPetName() %>">
-	   		<input type="hidden" id="boardNo" name="boNo" value="<%= adopt.getBoNo() %>">
+	   		<p>${ adopt.petName }</p>
+<%-- 	   		<input type="button" id="listBtn" value="목록 >" onclick="location.href='<%= request.getContextPath() %>/adopt.bo';"/> --%>
+			<input type="button" id="listBtn" value="목록 >" onclick="location.href='<%= request.getContextPath() %>/adopt.bo';"/>
+	   		<input type="hidden" name="petName" value="${ adopt.petName }">
+	   		<input type="hidden" id="boardNo" name="boNo" value="${ adopt.boNo }">
 	   		<hr>
 				<div class="petDetail">
 		  			<table>
@@ -59,37 +54,44 @@
 					<table>
 			        	<tr>
 			        		<td>
-			        			<input type="hidden" name="petKind" value="<%= adopt.getPetKinds() %>"/><%= adopt.getPetKinds() %>/
-			        			<input type="hidden" name="petCategory" value="<%= adopt.getPetCategory() %>"/><%= adopt.getPetCategory() %>
+			        			<input type="hidden" name="petKind" value="${ adopt.petKinds }"/>${ adopt.petKinds } /
+			        			<input type="hidden" name="petCategory" value="${ adopt.petCategory }"/>${ adopt.petCategory }
 			        		</td>
 			        	</tr>
 			        	<tr>
 			        		<td>
-			        			<input type="hidden" name="petGender" value="<%= adopt.getPetGender() %>"/><%= adopt.getPetGender() %>
-			        			<input type="hidden" name="unigender" value="<%= adopt.getPetUnigender() %>"/>(<%= adopt.getPetUnigender() %>)
+			        			<input type="hidden" name="petGender" value="${ adopt.petGender }"/>${ adopt.petGender }
+			        			<input type="hidden" name="unigender" value="${ adopt.petUnigender }"/>(${ adopt.petUnigender })
 			        		</td>
 		        		</tr>
 		        		<tr>
 			        		<td>
-				        		<input type="hidden" name="petAge" value="<%= adopt.getPetAge() %>"/><%= adopt.getPetAge() %>
+				        		<input type="hidden" name="petAge" value="${ adopt.petAge }"/>${ adopt.petAge }
 				        		<input type="hidden" name="petAgeDetail"/>
 				        		<input type="hidden" name="detailAge"/>
 			        		</td>
 		        		</tr>
 		        		<tr>
 			        		<td>
-				        		<input type="hidden" name="petWeight" value="<%= adopt.getPetWeight() %>"/><%= adopt.getPetWeight() %>kg/
-				        		<input type="hidden" name="petSize" value="<%= adopt.getPetSize() %>"/><%= adopt.getPetSize() %>
+				        		<input type="hidden" name="petWeight" value="${ adopt.petWeight }"/>${ adopt.petWeight }kg/
+				        		<input type="hidden" name="petSize" value="${ adopt.petSize }"/>${ adopt.petSize }
 			        		</td>
 		        		</tr>
 		        		<tr>
-			        		<td><input type="hidden" name="petColor" value="<%= adopt.getPetColor() %>"/><%= adopt.getPetColor() %></td>
+			        		<td><input type="hidden" name="petColor" value="${ adopt.petColor }"/>${ adopt.petColor }</td>
 			        	</tr>
 			        	<tr>
-			        		<td><input type="hidden" name="rescue" value="<%= rescue %>" /><%= rescue %></td>
+			        		<td><input type="hidden" name="rescue" value="${ rescue }" />${ rescue }</td>
 			        	</tr>
 			        	<tr>
-		        			<td><input type="hidden" name="lastMent" value="<%= adopt.getPetComment() %>"><%= adopt.getPetComment() %></td>
+		        			<td><input type="hidden" name="lastMent" value="${ adopt.petComment }">
+		        			<c:if test="${ adopt.petComment eq null}">
+		        				<c:out value=""/>
+		        			</c:if>
+		        			<c:if test="${ adopt.petComment ne null}">
+		        				<c:out value="${ adopt.petComment }
+		        				"/>
+		        			</c:if>
 		        		</tr>
 	        		</table>
 				</div>
@@ -97,28 +99,52 @@
   			</div>				
 	   		<div id="smallPictures">
 	   			<div id="smallPets">		
-	   			<% for(int i = 1; i < fileList.size();  i++){ %>
-		   				<img id="detailImg" class="smallPicture" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(i).getChangeName() %>"/>
-				<% } %>
-		   			<% for(int i = 0; i < fileList.size();  i++){ %>
-		   				<input type="hidden" name="fileList" value="<%= fileList.get(i) %>"/>
-	   				<% } %>
+<%-- 	   			<% for(int i = 1; i < fileList.size();  i++){ %> --%>
+<%-- 		   				<img id="detailImg" class="smallPicture" src="<%= request.getContextPath() %>/upload_imageFiles/<%= fileList.get(i).getChangeName() %>"/> --%>
+<%-- 				<% } %> --%>
+<%-- 	   			<% for(int i = 0; i < fileList.size();  i++){ %> --%>
+<%-- 	   				<input type="hidden" name="fileList" value="<%= fileList.get(i) %>"/> --%>
+<%--    				<% } %> --%>
+	   			
+	   			<c:set var="fileList" value="${ fileList }"/>
+	   			<c:set var="fList" value="${ fn:length(fileList) }"/>	<!-- length는 길이니까 최대 4(사진 고를 수 있는게 대표사진까지 4장) -->
+	   				<c:forEach var="f" begin="1" end="${ fList - 1}">	
+	   					<img id="detailImg" class="smallPicture" src="<%= request.getContextPath() %>/upload_imageFiles/${ fileList[f].changeName }"/>
+		   				<input type="hidden" name="fileList" value="${ fileList }"/>
+		   			</c:forEach>
    				</div>
-   				<% if(loginUser != null && adopt.getId().equals(loginUser.getMem_id())){ %> 
+<%--    				<% if(loginUser != null && adopt.getId().equals(loginUser.getMem_id())){ %>  --%>
+<!-- 					<input type="button" id="delete" class="threeButton" value="삭제하기"/> -->
+<%-- 					<input type="submit" id="alter" class="threeButton" value="수정하기" onclick="location.href='<%= request.getContextPath()%>/adoptUpdateForm.bo?boNo=<%= adopt.getBoNo()%>'"/>  --%>
+<%-- 				<% } else { %> --%>
+<!-- 					<input type="button" id="delete" class="threeButton" value="삭제하기" disabled="disabled"/> -->
+<!-- 					<input type="button" id="alter" class="threeButton" value="수정하기" disabled="disabled"/> -->
+<%-- 				<% } %> --%>
+<%-- 				<% if(loginUser != null){ %> --%>
+<%-- 					<input type="button" id="apply" class="threeButton" value="입양하기" onclick="location.href='<%= request.getContextPath()%>/adoptApplyForm.bo?boNo=<%= adopt.getBoNo() %>'"/> --%>
+<%-- 				<% } else{ %> --%>
+<!-- 					<input type="button" id="apply" class="threeButton" value="입양하기" onclick="loginForm();"/> -->
+<%-- 				<% } %> --%>
+				
+				<c:if test="${ (loginUser ne null) && (adopt.id eq loginUser.mem_id) }">
 					<input type="button" id="delete" class="threeButton" value="삭제하기"/>
-					<input type="submit" id="alter" class="threeButton" value="수정하기" onclick="location.href='<%= request.getContextPath()%>/adoptUpdateForm.bo?boNo=<%= adopt.getBoNo()%>'"/> 
-				<% } else { %>
-					<input type="button" id="delete" class="threeButton" value="삭제하기" disabled="disabled"/>
-					<input type="button" id="alter" class="threeButton" value="수정하기" disabled="disabled"/>
-				<% } %>
-				<% if(loginUser != null){ %>
-					<input type="button" id="apply" class="threeButton" value="입양하기" onclick="location.href='<%= request.getContextPath()%>/adoptApplyForm.bo?boNo=<%= adopt.getBoNo() %>'"/>
-				<% } else{ %>
+					<input type="submit" id="alter" class="threeButton" value="수정하기" onclick="location.href='<%= request.getContextPath()%>/adoptUpdateForm.bo?boNo=${ adopt.boNo }'"/> 
+				</c:if>
+				<c:if test="${ (loginUser eq null) || (adopt.id ne loginUser.mem_id) }">
+					<input type="button" id="delete" class="threeButton" value="삭제하기" disabled="disabled"/> 
+ 					<input type="button" id="alter" class="threeButton" value="수정하기" disabled="disabled"/>
+				</c:if>
+				<c:if test="${ loginUser ne null }">
+					<input type="button" id="apply" class="threeButton" value="입양하기" onclick="location.href='<%= request.getContextPath()%>/adoptApplyForm.bo?boNo=${ adopt.boNo }'"/>
+				</c:if>	
+				<c:if test="${ loginUser eq null }">
 					<input type="button" id="apply" class="threeButton" value="입양하기" onclick="loginForm();"/>
-				<% } %>
+				</c:if>	
+			
 			</div>
 	</form>		
 	<script>
+		var adopt = "<c:out value='${ adopt }'/>";
 		function loginForm(){
 			swal("회원 전용 서비스", "로그인 후 이용해주시기 바랍니다.", "info")
 			.then((ok) => {
@@ -130,7 +156,7 @@
 		}
 		
 		$('#delete').on('click', function(){
-			var bNo = <%= adopt.getBoNo() %>;
+			var bNo = adopt.boNo;
 			swal({
 				title : '게시글 삭제',
 				text : '해당 게시글을 삭제하시겠습니까?',

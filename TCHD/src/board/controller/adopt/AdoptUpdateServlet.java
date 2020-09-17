@@ -61,7 +61,7 @@ public class AdoptUpdateServlet extends HttpServlet {
 		String petSize = request.getParameter("petSize");			// 크기
 		String petAge = request.getParameter("petAge") + "/" 		// 나이
 						+ request.getParameter("petAgeDetail")
-					    + request.getParameter("detailAge"); 			// 나이
+					    + request.getParameter("detailAge"); 		// 나이
 		String petName = request.getParameter("petName");			// 이름
 		String petCategory = request.getParameter("petCategory");	// 품종
 		float petWeight = Float.valueOf(request.getParameter("petWeight"));	// 무게

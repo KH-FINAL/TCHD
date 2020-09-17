@@ -236,11 +236,11 @@
 	}
 	
 	.paging a{
-    display: inline-block;
-    margin-left: 10px;
-    padding: 5px 10px;
-    border-radius: 100px;
-    font-size: 12px;
+	    display: inline-block;
+	    margin-left: 10px;
+	    padding: 5px 10px;
+	    border-radius: 100px;
+	    font-size: 12px;
 	}
 	
 	a{
@@ -248,21 +248,21 @@
 	}
 	
 	.paging a:first-child{
-    margin-left: 0;
+    	margin-left: 0;
 	}
 
 	.paging a.bt{
-    border: 1px solid #eee;
-    background: #eee;.
+	    border: 1px solid #eee;
+	    background: #eee;.
 	}
 
 	.paging a.num{
-    border: 1px solid rgb(41, 128, 185);
-    font-weight: 600; 
-    color: rgb(41, 128, 185);
+	    border: 1px solid rgb(41, 128, 185);
+	    font-weight: 600; 
+	    color: rgb(41, 128, 185);
 	}
 
 	.paging a.num.on{
-	background: rgb(41, 128, 185);
-	color: #fff;
+		background: rgb(41, 128, 185);
+		color: #fff;
 	}

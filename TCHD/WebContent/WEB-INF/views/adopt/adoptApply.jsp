@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="board.model.vo.*, member.model.vo.*"%>
-<%
-	int bNo = (int)request.getAttribute("bNo");
-	Member member = (Member)request.getAttribute("member");
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,8 +12,8 @@
 </head>
 <body>
 <section>	
-   	<form id="form" action="<%=request.getContextPath() %>/adoptApply.bo?bNo=<%= bNo %>" method="post">
-	<div id="ment">입양신청 <input type="hidden" id="bNo" name="bNo" value="<%= bNo %>"></div>
+   	<form id="form" action="<%=request.getContextPath() %>/adoptApply.bo?bNo=${ bNo }" method="post">
+	<div id="ment">입양신청 <input type="hidden" id="bNo" name="bNo" value="${ bNo }"></div>
 		<div id="info">
 			<img src="./images/applyImg.PNG" id="petImg"><p>평생 책임지고 함께하실 준비가 되셨나요?</p>
 			<p>상처받은 아이들에게 새로운 가족이 되어주세요</p>
@@ -48,19 +45,19 @@
 			<table id="infoTable" class="readInfo">
 				<tr>
 					<td class="privteInfo">이름 : </td>
-					<td class="private"><input type="text" value="<%= member.getMem_name() %>" readonly/></td>
+					<td class="private"><input type="text" value="${ member.mem_name }" readonly/></td>
 				</tr>
 				<tr>
 					<td class="privteInfo">전화번호 : </td>
-					<td class="private"><input type="tel" value="<%= member.getMem_phone() %>" readonly/></td>
+					<td class="private"><input type="tel" value="${ member.mem_phone }" readonly/></td>
 				</tr>
 				<tr>
 					<td class="privteInfo">주소 : </td>
-					<td class="private"><input type="text" value="<%= member.getMem_addr() %>" readonly/></td>
+					<td class="private"><input type="text" value="${ member.mem_addr }" readonly/></td>
 				</tr>
 				<tr>
 					<td class="privteInfo">이메일 : </td>
-					<td class="private"><input type="email" value="<%= member.getMem_email() %>" readonly/></td>
+					<td class="private"><input type="email" value="${ member.mem_email }" readonly/></td>
 				</tr>
 			</table>
 			<ol type="I" start=2 class="applyList">
@@ -247,7 +244,7 @@
 			});
 			
 			$('#answer6').on("keyup", function(){
-				var a6 = $('#answer1').val();
+				var a6 = $('#answer6').val();
 				a6 = a6.replace(/[^가-힣!.,\s\d]/g, "");
 				$('#answer6').val(a6);
 			});
@@ -332,7 +329,8 @@
 		
 		
 		$('#cancel').on("click", function(){
-			location.href='<%= request.getContextPath() %>/adoptDetail.bo?boNo=<%= bNo %>';
+			var bNo = "<c:out value='${ bNo }'/>";
+			location.href='<%= request.getContextPath() %>/adoptDetail.bo?boNo=bNo';
 			return false;
 		});
 			
